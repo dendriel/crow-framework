@@ -30,7 +30,6 @@ public class Main {
         SplashScreen splashScreen = new SplashScreen(screenSize);
         screen.add(ScreenType.SPLASH, splashScreen);
         screen.setOnlyVisible(ScreenType.SPLASH, true);
-        splashScreen.draw();
     }
 }
 
