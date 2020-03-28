@@ -1,4 +1,4 @@
-package com.rozsa;
+package com.rozsa.samples.splash;
 
 import com.rozsa.crow.screen.BaseScreen;
 import com.rozsa.crow.screen.BaseView;

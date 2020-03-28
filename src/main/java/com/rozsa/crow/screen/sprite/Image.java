@@ -10,24 +10,10 @@ import java.net.URL;
 import java.util.HashMap;
 
 public class Image {
-    private static String imagesPath;
-
-    public static void setImagesPath(String path) {
-        imagesPath = path;
-    }
-
     private HashMap<Size, BufferedImage> content;
-
     private BufferedImage defaultContent;
 
-    private final String name;
-
     public Image(BufferedImage content) {
-        this(content, "");
-    }
-
-    public Image(BufferedImage content, String name) {
-        this.name = name;
         defaultContent = content;
 
         initialize(content);
@@ -56,21 +42,11 @@ public class Image {
         return bufferedImage;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    private static String formatPath(String imageFile) {
-        return String.format("%s/%s", imagesPath, imageFile);
-    }
-
-    public static Image load(String imageFile) {
+    public static Image load(String filePath) {
         try {
-            if (imageFile == null || imageFile.isEmpty()) {
+            if (filePath == null || filePath.isEmpty()) {
                 return null;
             }
-
-            String filePath = formatPath(imageFile);
 
             Image image = ImageCache.get(filePath);
             if (image != null) {
@@ -79,12 +55,12 @@ public class Image {
 
             URL url = Image.class.getResource(filePath);
             BufferedImage bufferedImage = ImageIO.read(url);
-            image = new Image(bufferedImage, filePath);
+            image = new Image(bufferedImage);
             ImageCache.add(filePath, image);
 
             return image;
         } catch (IOException ex) {
-            System.out.printf("Failed to load image [%s]. Ex.: %s\n", imageFile, ex);
+            System.out.printf("Failed to load image [%s]. Ex.: %s\n", filePath, ex);
         }
 
         // Pre image caching should not let this happen.
