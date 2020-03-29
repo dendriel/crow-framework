@@ -4,6 +4,8 @@ import com.rozsa.crow.screen.attributes.Rect;
 import com.rozsa.crow.screen.sprite.Image;
 import com.rozsa.crow.screen.ui.UIBaseComponent;
 import com.rozsa.crow.screen.ui.UILabelTemplate;
+import com.rozsa.crow.screen.ui.listener.UIEventListener;
+import com.rozsa.crow.screen.ui.listener.UIEventListenerTuple;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,15 +15,14 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
 public class UIButton extends UIBaseComponent<UIButtonTemplate> {
     private UIButtonTemplate data;
     private CustomJButton button;
-    private Set<ButtonEventListenerTuple<UIButtonPressedListener>> buttonPressedListeners;
-    private Set<ButtonEventListenerTuple<UIButtonMouseEnteredListener>> buttonMouseEnteredListeners;
-    private Set<ButtonEventListenerTuple<UIButtonMouseExitedListener>> buttonMouseExitedListeners;
+    private Set<UIEventListenerTuple<UIEventListener>> buttonPressedListeners;
+    private Set<UIEventListenerTuple<UIEventListener>> buttonMouseEnteredListeners;
+    private Set<UIEventListenerTuple<UIEventListener>> buttonMouseExitedListeners;
 
     public UIButton(UIButtonTemplate data) {
         this.data = data;
@@ -60,8 +61,7 @@ public class UIButton extends UIBaseComponent<UIButtonTemplate> {
 
     private void setupLabel() {
         UILabelTemplate label = data.getLabel();
-        Font font = new Font(label.getFont(), label.getStyle(), label.getSize());
-        button.setFont(font);
+        button.setFont(label.getFont().getJFont());
         Color color = label.getColor();
         button.setForeground(color);
         // CENTER = 0; TOP = 1; BOTTOM = 3.
@@ -155,74 +155,42 @@ public class UIButton extends UIBaseComponent<UIButtonTemplate> {
         container.remove(button);
     }
 
-
     private void onButtonPressed(ActionEvent e) {
         System.out.println("ButtonPressed");
-        buttonPressedListeners.forEach(l -> l.getListener().onButtonPressed(l.getState()));
+        buttonPressedListeners.forEach(l -> l.getListener().onEvent(l.getState()));
     }
 
-    public void addButtonPressedListener(UIButtonPressedListener listener, Object state) {
-        buttonPressedListeners.add(new ButtonEventListenerTuple<>(listener, state));
+    public void addButtonPressedListener(UIEventListener listener, Object state) {
+        buttonPressedListeners.add(new UIEventListenerTuple<>(listener, state));
     }
 
-    public void removeButtonPressedListener(UIButtonPressedListener listener) {
-        buttonPressedListeners.remove(new ButtonEventListenerTuple<>(listener, null));
+    public void removeButtonPressedListener(UIEventListener listener) {
+        buttonPressedListeners.remove(new UIEventListenerTuple<>(listener, null));
     }
 
     private void onMouseEntered(MouseEvent evt) {
         System.out.println("onMouseEntered");
-        buttonMouseEnteredListeners.forEach(l -> l.getListener().onMouseEntered(l.getState()));
+        buttonMouseEnteredListeners.forEach(l -> l.getListener().onEvent(l.getState()));
     }
 
-    public void addMouseEnteredListener(UIButtonMouseEnteredListener listener, Object state) {
-        buttonMouseEnteredListeners.add(new ButtonEventListenerTuple<>(listener, state));
+    public void addMouseEnteredListener(UIEventListener listener, Object state) {
+        buttonMouseEnteredListeners.add(new UIEventListenerTuple<>(listener, state));
     }
 
-    public void removeMouseEnteredListener(UIButtonMouseEnteredListener listener) {
-        buttonMouseEnteredListeners.remove(new ButtonEventListenerTuple<>(listener, null));
+    public void removeMouseEnteredListener(UIEventListener listener) {
+        buttonMouseEnteredListeners.remove(new UIEventListenerTuple<>(listener, null));
     }
 
     private void onMouseExited(MouseEvent evt) {
         System.out.println("onMouseExited");
-        buttonMouseExitedListeners.forEach(l -> l.getListener().onMouseExited(l.getState()));
+        buttonMouseExitedListeners.forEach(l -> l.getListener().onEvent(l.getState()));
     }
 
-    public void addMouseExitedListener(UIButtonMouseExitedListener listener, Object state) {
-        buttonMouseExitedListeners.add(new ButtonEventListenerTuple<>(listener, state));
+    public void addMouseExitedListener(UIEventListener listener, Object state) {
+        buttonMouseExitedListeners.add(new UIEventListenerTuple<>(listener, state));
     }
 
-    public void removeMouseExitedListener(UIButtonMouseExitedListener listener) {
-        buttonMouseExitedListeners.remove(new ButtonEventListenerTuple<>(listener, null));
-    }
-
-    private class ButtonEventListenerTuple<T> {
-        private final T listener;
-        private final Object state;
-
-        ButtonEventListenerTuple(T listener, Object state) {
-            this.listener = listener;
-            this.state = state;
-        }
-
-        public T getListener() {
-            return listener;
-        }
-
-        public Object getState() {
-            return state;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-            ButtonEventListenerTuple that = (ButtonEventListenerTuple) o;
-            return Objects.equals(listener, that.listener);
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(listener);
-        }
+    public void removeMouseExitedListener(UIEventListener listener) {
+        buttonMouseExitedListeners.remove(new UIEventListenerTuple<>(listener, null));
     }
 }

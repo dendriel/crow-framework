@@ -5,6 +5,7 @@ import com.rozsa.crow.screen.attributes.Color;
 import com.rozsa.crow.screen.attributes.Rect;
 import com.rozsa.crow.screen.ui.*;
 import com.rozsa.crow.screen.ui.button.*;
+import com.rozsa.crow.screen.ui.listener.UIEventListener;
 
 public class ButtonsView extends BaseView {
     ButtonsView(Rect rect) {
@@ -25,9 +26,7 @@ public class ButtonsView extends BaseView {
         UILabelTemplate labelData = new UILabelTemplate();
         labelData.setText("Test text");
         labelData.setColor(new Color(255, 255, 255));
-        labelData.setFont("Serif");
-        labelData.setStyle(0);
-        labelData.setSize(36);
+        labelData.setFont(new UIFontTemplate("Serif", 0, 36));
         labelData.setVerticalAlignment(0);
         labelData.setHorizontalAlignment(0);
         labelData.setRect(rect);
@@ -37,7 +36,7 @@ public class ButtonsView extends BaseView {
         // Button
         for (int i = 0; i < 8; i++) {
             UILabelTemplate labelTemplate = labelData.clone();
-            labelTemplate.setSize(24);
+            labelTemplate.getFont().setSize(24);
             labelTemplate.setText("Click " + i);
 
             UIButtonTemplate buttonData = new UIButtonTemplate();
@@ -70,13 +69,13 @@ public class ButtonsView extends BaseView {
             buttonData.setToolTip(toolTip);
 
             UIButton button = new UIButton(buttonData);
-            UIButtonPressedListener listener = (s) -> label.setText("Button " + s + " pressed!");
+            UIEventListener listener = (s) -> label.setText("Button " + s + " pressed!");
             button.addButtonPressedListener(listener, i);
 
             if (i % 2 == 0) {
-                UIButtonMouseEnteredListener onMouseEntered = (s) -> label.setText("Mouse entered " + s);
+                UIEventListener onMouseEntered = (s) -> label.setText("Mouse entered " + s);
                 button.addMouseEnteredListener(onMouseEntered, i);
-                UIButtonMouseExitedListener onMouseExited = (s) -> label.setText("Mouse exited " + s);
+                UIEventListener onMouseExited = (s) -> label.setText("Mouse exited " + s);
                 button.addMouseExitedListener(onMouseExited, i);
             }
 

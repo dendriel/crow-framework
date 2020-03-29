@@ -60,10 +60,12 @@ public class UIIcon extends UIBaseComponent<UIIconTemplate> {
         rect.setHeight(size.getHeight());
     }
 
+    @Override
     public void show() {
         isEnabled = true;
     }
 
+    @Override
     public void hide() {
         isEnabled = false;
     }

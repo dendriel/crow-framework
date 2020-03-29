@@ -2,6 +2,9 @@ package com.rozsa.crow.screen.ui.button;
 
 import com.rozsa.crow.screen.attributes.Color;
 
+import javax.swing.border.Border;
+import javax.swing.plaf.BorderUIResource;
+
 public class UIBorderTemplate {
     private BorderStyle style;
     private Color colorA;
@@ -13,6 +16,7 @@ public class UIBorderTemplate {
 
     public UIBorderTemplate() {
         style = BorderStyle.LINE;
+        colorA = new Color(0, 0, 0);
         thickness = 1;
     }
 
@@ -93,5 +97,45 @@ public class UIBorderTemplate {
         LINE,
         ETCHED,
         BEVEL,
+    }
+
+    public Border getJBorder() {
+        switch (style) {
+            case ETCHED:
+                return createEtchedBorder();
+            case BEVEL:
+                return createBevelBorder();
+            case LINE:
+                return new BorderUIResource.LineBorderUIResource(colorA.getJColor(), thickness);
+            case NONE:
+            default:
+                return null;
+        }
+    }
+
+    private Border createEtchedBorder() {
+        if (colorA != null && colorB != null) {
+            return new BorderUIResource.EtchedBorderUIResource(colorA.getJColor(), colorB.getJColor());
+        }
+        else if (type == 0 || type == 1) {
+            return new BorderUIResource.EtchedBorderUIResource(type);
+        }
+
+        return new BorderUIResource.EtchedBorderUIResource();
+    }
+
+    private Border createBevelBorder() {
+        if (colorA != null && colorB != null && colorC != null && colorD != null) {
+            return new BorderUIResource.BevelBorderUIResource (type,
+                    colorA.getJColor(), colorB.getJColor(), colorC.getJColor(), colorD.getJColor());
+        }
+        else if (colorA != null && colorB != null) {
+            return new BorderUIResource.BevelBorderUIResource(type, colorA.getJColor(), colorB.getJColor());
+        }
+        else if (type == 0 || type == 1) {
+            return new BorderUIResource.BevelBorderUIResource(type);
+        }
+
+        return new BorderUIResource.BevelBorderUIResource(0);
     }
 }

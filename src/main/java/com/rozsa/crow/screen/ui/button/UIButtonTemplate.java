@@ -2,6 +2,7 @@ package com.rozsa.crow.screen.ui.button;
 
 import com.rozsa.crow.screen.attributes.Rect;
 import com.rozsa.crow.screen.ui.UILabelTemplate;
+import com.rozsa.crow.screen.ui.UIToolTipTemplate;
 
 public class UIButtonTemplate {
     private Rect rect;
@@ -12,6 +13,10 @@ public class UIButtonTemplate {
     private boolean isDisabled;
     private UILabelTemplate label;
     private UIToolTipTemplate toolTip;
+
+    public UIButtonTemplate() {
+        toolTip = new UIToolTipTemplate();
+    }
 
     public UILabelTemplate getLabel() {
         return label;

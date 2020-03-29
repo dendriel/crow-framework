@@ -1,6 +1,7 @@
-package com.rozsa.crow.screen.ui.button;
+package com.rozsa.crow.screen.ui;
 
 import com.rozsa.crow.screen.attributes.Color;
+import com.rozsa.crow.screen.ui.button.UIBorderTemplate;
 
 public class UIToolTipTemplate {
     private String text;

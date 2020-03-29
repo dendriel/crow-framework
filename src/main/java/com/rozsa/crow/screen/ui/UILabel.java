@@ -55,7 +55,7 @@ public class UILabel extends UIBaseComponent<UILabelTemplate> {
     }
 
     private void setupLabel() {
-        Font font = new Font(data.getFont(), data.getStyle(), data.getSize());
+        Font font = data.getFont().getJFont();
         label.setFont(font);
 
         Color color = data.getColor();

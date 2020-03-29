@@ -2,6 +2,8 @@ package com.rozsa.samples;
 
 import com.rozsa.crow.screen.BaseScreen;
 import com.rozsa.crow.screen.BaseView;
+import com.rozsa.crow.screen.ScreenHandler;
+import com.rozsa.crow.screen.ScreenHandlerConfig;
 import com.rozsa.crow.screen.attributes.Size;
 
 public class SimpleScreen extends BaseScreen<SimpleViewType, SimpleViewType> {

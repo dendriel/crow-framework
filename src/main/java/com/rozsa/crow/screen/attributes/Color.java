@@ -8,6 +8,9 @@ public class Color {
     private int b;
 
     public Color() {
+        r = 255;
+        g = 255;
+        b = 255;
     }
 
     public Color(int r, int g, int b) {
@@ -40,7 +43,7 @@ public class Color {
         this.b = b;
     }
 
-    public java.awt.Color getColor() {
+    public java.awt.Color getJColor() {
         return new java.awt.Color(r, g, b);
     }
 

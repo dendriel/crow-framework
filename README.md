@@ -1,5 +1,6 @@
 # Crow Framework
-Crow framework is a Java-based Game development Framework. It provides the basic features to easy game development in Java.
+Crow framework is a Java-based Game development Framework. It provides the basic features (mostly based on Java native frameworks)
+to easy game development in Java.
 
 # Features
 
@@ -44,3 +45,4 @@ screenHandler.setOnlyVisible(ScreenType.SPLASH, true);
 - UILabel - static text;
 - UIIcon - static image;
 - UIButton - interactive button;
+- UIInputField - interactive text input.

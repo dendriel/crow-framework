@@ -8,20 +8,20 @@ import java.util.Objects;
 
 public class UILabelTemplate implements UIText { // TODO: this must not implement UIText
     private String text;
-    private String font;
-    private int style;
-    private int size;
+    private UIFontTemplate font;
     private Color color;
     private Rect rect;
     private int verticalAlignment;
     private int horizontalAlignment;
 
+    public UILabelTemplate() {
+        color = new Color();
+        font = new UIFontTemplate();
+    }
+
     public UILabelTemplate clone() {
         UILabelTemplate clone = new UILabelTemplate();
-        clone.text = text;
-        clone.font = font;
-        clone.style = style;
-        clone.size = size;
+        clone.font = font.clone();
         clone.color = color.clone();
         clone.rect = rect.clone();
         clone.verticalAlignment = verticalAlignment;
@@ -57,32 +57,16 @@ public class UILabelTemplate implements UIText { // TODO: this must not implemen
         this.text = text;
     }
 
-    public String getFont() {
+    public UIFontTemplate getFont() {
         return font;
     }
 
-    public void setFont(String font) {
+    public void setFont(UIFontTemplate font) {
         this.font = font;
     }
 
-    public int getStyle() {
-        return style;
-    }
-
-    public void setStyle(int style) {
-        this.style = style;
-    }
-
-    public int getSize() {
-        return size;
-    }
-
-    public void setSize(int size) {
-        this.size = size;
-    }
-
     public java.awt.Color getColor() {
-        return color.getColor();
+        return color.getJColor();
     }
 
     public void setColor(Color color) {
@@ -101,19 +85,17 @@ public class UILabelTemplate implements UIText { // TODO: this must not implemen
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        UILabelTemplate labelData = (UILabelTemplate) o;
-        return style == labelData.style &&
-                size == labelData.size &&
-                verticalAlignment == labelData.verticalAlignment &&
-                horizontalAlignment == labelData.horizontalAlignment &&
-                text.equals(labelData.text) &&
-                font.equals(labelData.font) &&
-                color.equals(labelData.color) &&
-                rect.equals(labelData.rect);
+        UILabelTemplate that = (UILabelTemplate) o;
+        return verticalAlignment == that.verticalAlignment &&
+                horizontalAlignment == that.horizontalAlignment &&
+                Objects.equals(text, that.text) &&
+                Objects.equals(font, that.font) &&
+                Objects.equals(color, that.color) &&
+                Objects.equals(rect, that.rect);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(text, font, style, size, color, rect, verticalAlignment, horizontalAlignment);
+        return Objects.hash(text, font, color, rect, verticalAlignment, horizontalAlignment);
     }
 }

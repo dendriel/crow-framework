@@ -1,5 +1,8 @@
 package com.rozsa.crow.screen.ui.button;
 
+import com.rozsa.crow.screen.ui.UIToolTip;
+import com.rozsa.crow.screen.ui.UIToolTipTemplate;
+
 import javax.swing.*;
 
 class CustomJButton extends JButton {
