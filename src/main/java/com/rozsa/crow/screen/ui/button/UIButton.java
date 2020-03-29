@@ -18,7 +18,7 @@ import java.util.Set;
 
 public class UIButton extends UIBaseComponent<UIButtonTemplate> {
     private UIButtonTemplate data;
-    private JButton button;
+    private CustomJButton button;
     private Set<ButtonEventListenerTuple<UIButtonPressedListener>> buttonPressedListeners;
     private Set<ButtonEventListenerTuple<UIButtonMouseEnteredListener>> buttonMouseEnteredListeners;
     private Set<ButtonEventListenerTuple<UIButtonMouseExitedListener>> buttonMouseExitedListeners;
@@ -32,30 +32,30 @@ public class UIButton extends UIBaseComponent<UIButtonTemplate> {
     }
 
     private void setup() {
-        button = new JButton();
+        button = new CustomJButton(data.getToolTip());
         setupButton();
     }
 
     private void setupButton() {
+        setupLayout();
+        setupLabel();
+        setupImages();
+        setupEvents();
+        setupToolTip();
+
+        Rect rect = data.getRect();
+        button.setBounds(rect.getX(), rect.getY(), rect.getWidth(), rect.getHeight());
+        button.setEnabled(!data.isDisabled());
+    }
+
+    private void setupLayout() {
         button.setBorder(null);
-        button.setBorderPainted(false);
+//        button.setBorderPainted(false);
         button.setMargin(new Insets(0, 0, 0, 0));
         // Don't keep selected after a click.
         button.setFocusPainted(false);
         // Don't fill with default button color.
         button.setContentAreaFilled(false);
-
-        setupLabel();
-        setupImages();
-
-        Rect rect = data.getRect();
-        button.setBounds(rect.getX(), rect.getY(), rect.getWidth(), rect.getHeight());
-        button.setEnabled(!data.isDisabled());
-        button.addActionListener(this::onButtonPressed);
-        button.addMouseListener(new MouseAdapter() {
-            public void mouseEntered(MouseEvent evt) { onMouseEntered(evt); }
-            public void mouseExited(MouseEvent evt) { onMouseExited(evt); }
-        });
     }
 
     private void setupLabel() {
@@ -96,6 +96,20 @@ public class UIButton extends UIBaseComponent<UIButtonTemplate> {
             Image image = Image.load(data.getDisabledImage());
             BufferedImage bufferedImage = image.getContent(rect.getWidth(), rect.getHeight());
             button.setDisabledIcon(new ImageIcon(bufferedImage));
+        }
+    }
+
+    private void setupEvents() {
+        button.addActionListener(this::onButtonPressed);
+        button.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent evt) { onMouseEntered(evt); }
+            public void mouseExited(MouseEvent evt) { onMouseExited(evt); }
+        });
+    }
+
+    private void setupToolTip() {
+        if (data.getToolTip() != null) {
+            button.setToolTipText(String.format("<html><body>%s</body></html>", data.getToolTip().getText()));
         }
     }
 

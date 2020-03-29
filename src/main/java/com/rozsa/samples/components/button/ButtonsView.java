@@ -50,6 +50,25 @@ public class ButtonsView extends BaseView {
                 buttonData.setDisabled(true);
             }
 
+            UIToolTipTemplate toolTip = new UIToolTipTemplate();
+            toolTip.setText("Test text tooltip <br /> LOOOL");
+            toolTip.setBackgroundColor(new Color(0, 100, 0));
+            toolTip.setBackgroundEnabled(true);
+            toolTip.setColor(new Color(255, 255, 255));
+            toolTip.setFont("Serif");
+            toolTip.setStyle(0);
+            toolTip.setSize(24);
+
+            UIBorderTemplate border = new UIBorderTemplate();
+            border.setStyle(UIBorderTemplate.BorderStyle.ETCHED);
+            border.setColorA(new Color(0, 0, 255));
+            border.setColorB(new Color(255, 0, 0));
+            border.setColorC(new Color(0, 0, 255));
+            border.setColorD(new Color(255, 0, 0));
+            toolTip.setBorder(border);
+
+            buttonData.setToolTip(toolTip);
+
             UIButton button = new UIButton(buttonData);
             UIButtonPressedListener listener = (s) -> label.setText("Button " + s + " pressed!");
             button.addButtonPressedListener(listener, i);

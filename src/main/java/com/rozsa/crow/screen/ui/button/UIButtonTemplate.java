@@ -11,6 +11,7 @@ public class UIButtonTemplate {
     private String disabledImage;
     private boolean isDisabled;
     private UILabelTemplate label;
+    private UIToolTipTemplate toolTip;
 
     public UILabelTemplate getLabel() {
         return label;
@@ -66,5 +67,13 @@ public class UIButtonTemplate {
 
     public void setDisabled(boolean disabled) {
         isDisabled = disabled;
+    }
+
+    public UIToolTipTemplate getToolTip() {
+        return toolTip;
+    }
+
+    public void setToolTip(UIToolTipTemplate toolTip) {
+        this.toolTip = toolTip;
     }
 }
