@@ -1,4 +1,4 @@
-package com.rozsa.samples.components;
+package com.rozsa.samples.components.button;
 
 import com.rozsa.crow.screen.ScreenHandler;
 import com.rozsa.crow.screen.ScreenHandlerConfig;
@@ -7,13 +7,13 @@ import com.rozsa.crow.screen.attributes.Size;
 import com.rozsa.samples.ScreenType;
 import com.rozsa.samples.SimpleScreen;
 
-public class ComponentsTest {
-    public ComponentsTest() {
+public class ButtonTest {
+    public ButtonTest() {
     }
 
     public void run() {
         ScreenHandlerConfig config = new ScreenHandlerConfig();
-        config.setTitle("Main Test Window");
+        config.setTitle("Button Test Window");
         Size screenSize = new Size(800, 600);
         config.setSize(screenSize);
         config.setVisible(false);
@@ -27,7 +27,7 @@ public class ComponentsTest {
         SimpleScreen simpleScreen = new SimpleScreen(simpleScreenSize);
 
         Rect rect = new Rect(0, 0, screenSize.getWidth(), screenSize.getHeight());
-        ComponentsView view = new ComponentsView(rect);
+        ButtonsView view = new ButtonsView(rect);
         simpleScreen.addView(view);
         simpleScreen.displayView();
 

@@ -1,4 +1,4 @@
-package com.rozsa.samples.components;
+package com.rozsa.samples.components.button;
 
 import com.rozsa.crow.screen.BaseView;
 import com.rozsa.crow.screen.attributes.Color;
@@ -6,8 +6,8 @@ import com.rozsa.crow.screen.attributes.Rect;
 import com.rozsa.crow.screen.ui.*;
 import com.rozsa.crow.screen.ui.button.*;
 
-public class ComponentsView extends BaseView {
-    ComponentsView(Rect rect) {
+public class ButtonsView extends BaseView {
+    ButtonsView(Rect rect) {
         super(rect);
 
         setupComponents(rect);

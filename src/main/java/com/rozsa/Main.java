@@ -1,15 +1,14 @@
 package com.rozsa;
 
 
-import com.rozsa.samples.components.ComponentsTest;
-import com.rozsa.samples.splash.SplashSetupTest;
+import com.rozsa.samples.components.button.ButtonTest;
 
 public class Main {
     // testing purposes
     public static void main(String[] args) {
 //        SplashSetupTest splashSetupTest = new SplashSetupTest(false);
 //        splashSetupTest.run();
-        ComponentsTest componentsSetupTest = new ComponentsTest();
+        ButtonTest componentsSetupTest = new ButtonTest();
         componentsSetupTest.run();
 
     }
