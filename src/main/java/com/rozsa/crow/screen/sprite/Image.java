@@ -35,7 +35,7 @@ public class Image {
         BufferedImage bufferedImage = content.get(key);
 
         if (bufferedImage == null) {
-            bufferedImage = Scalr.resize(defaultContent, Scalr.Method.ULTRA_QUALITY, width, height);
+            bufferedImage = Scalr.resize(defaultContent, Scalr.Method.ULTRA_QUALITY, Scalr.Mode.FIT_EXACT, width, height);
             content.put(key, bufferedImage);
         }
 
