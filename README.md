@@ -10,7 +10,7 @@ Crow framework is a Java-based Game development Framework. It provides the basic
 - Sound handling;
 - Component-based gameplay entities. 
 
-## Screen
+# Screen
 
 Screen related features follows the hierarchy bellow:
 
@@ -37,3 +37,10 @@ screenHandler.add(ScreenType.SPLASH, splashScreen);
 // Display the scren.
 screenHandler.setOnlyVisible(ScreenType.SPLASH, true);
 ```
+
+
+## Components
+
+- UILabel - static text;
+- UIIcon - static image;
+- UIButton - interactive button;
