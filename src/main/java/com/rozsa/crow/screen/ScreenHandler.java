@@ -80,11 +80,13 @@ public class ScreenHandler<TScreenKey extends Enum<TScreenKey>> {
         size.addWidth(insetWidth);
         size.addHeight(insetHeight);
         frame.setSize(size.getWidth(), size.getHeight());
+        screens.values().forEach(s -> s.updateScreenSize(getSize()));
     }
 
     public void add(TScreenKey key, BaseScreen screen) {
         screens.put(key, screen);
         frame.add(screen);
+        screen.updateScreenSize(getSize());
     }
 
     public boolean remove(TScreenKey key, BaseScreen screen) {

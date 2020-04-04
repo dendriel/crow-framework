@@ -2,6 +2,7 @@ package com.rozsa.crow.screen.ui;
 
 import com.rozsa.crow.screen.attributes.Offset;
 import com.rozsa.crow.screen.attributes.Rect;
+import com.rozsa.crow.screen.attributes.Size;
 import com.rozsa.crow.screen.ui.api.UIHandler;
 import com.rozsa.crow.screen.ui.api.UISlotContent;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
@@ -84,6 +85,11 @@ public class UISlotGroup extends UIBaseComponent<UISlotGroupTemplate> implements
         slots.forEach(UISlot::clear);
         onComponentChanged();
     }
+
+    public void updateScreenSize(Size parentSize) {
+        // TODO: updateScreenSize
+    }
+
 
     private UISlot createSlot(int index) {
         UISlotTemplate newData = data.copySlotData();

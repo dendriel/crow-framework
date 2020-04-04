@@ -10,12 +10,14 @@ import java.util.List;
 public abstract class UIBaseComponent<T> implements UIComponent<T> {
     protected final List<UIComponentObserver> observers;
     protected final UIComponentType type;
+    protected final UIExpandMode expandMode;
     protected final String tag;
     protected boolean isEnabled = true;
 
     public UIBaseComponent(UIBaseComponentTemplate data) {
-        this.type = data.getType();
-        this.tag = data.getTag();
+        type = data.getType();
+        tag = data.getTag();
+        expandMode = data.getExpandMode();
         observers = new ArrayList<>();
     }
 

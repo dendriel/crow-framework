@@ -1,5 +1,6 @@
 package com.rozsa.crow.screen;
 
+import com.rozsa.crow.screen.attributes.Size;
 import com.rozsa.crow.screen.ui.*;
 import com.rozsa.crow.screen.ui.api.UIComponent;
 import com.rozsa.crow.screen.ui.button.UIButton;
@@ -24,7 +25,8 @@ class UIComponentFactory {
         typeToCreatorMapper.put(BUTTON, template -> new UIButton((UIButtonTemplate) template));
     }
 
-    public static UIComponent create(UIBaseComponentTemplate template) {
+    public static UIComponent create(UIBaseComponentTemplate template, Size viewSize) {
+        template.setReferenceSize(viewSize);
         return typeToCreatorMapper.get(template.getType()).apply(template);
     }
 }

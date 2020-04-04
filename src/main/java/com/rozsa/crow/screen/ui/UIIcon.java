@@ -1,5 +1,6 @@
 package com.rozsa.crow.screen.ui;
 
+import com.rozsa.crow.screen.attributes.Offset;
 import com.rozsa.crow.screen.attributes.Rect;
 import com.rozsa.crow.screen.attributes.Size;
 import com.rozsa.crow.screen.sprite.Image;
@@ -12,6 +13,7 @@ public class UIIcon extends UIBaseComponent<UIIconTemplate> {
     private Rect rect;
     private Image image;
     private Size expandFactor;
+    private Offset parentOffset;
 
     public UIIcon(UIIconTemplate data) {
         this(data, new Size());
@@ -21,6 +23,7 @@ public class UIIcon extends UIBaseComponent<UIIconTemplate> {
         super(data);
         this.data = data;
         this.expandFactor = expandFactor;
+        parentOffset = Offset.origin();
         setup();
     }
 
@@ -61,6 +64,24 @@ public class UIIcon extends UIBaseComponent<UIIconTemplate> {
         rect.setHeight(size.getHeight());
     }
 
+    public void updateScreenSize(Size parentSize) {
+        Size refSize = data.getReferenceSize();
+        Rect rect = data.getRect();
+        int offsetX = (int)(((float)rect.getX() / refSize.getWidth()) * parentSize.getWidth());
+        offsetX -= rect.getX();
+        int offsetY = (int)(((float)rect.getY() / refSize.getHeight()) * parentSize.getHeight());
+        offsetY  -= rect.getY();
+
+        parentOffset.setX(offsetX);
+        parentOffset.setY(offsetY);
+
+        if (expandMode.equals(UIExpandMode.FILL)) {
+            Size newSize = Size.updateSize(rect.getSize(), refSize, parentSize);
+            this.rect.setWidth(newSize.getWidth());
+            this.rect.setHeight(newSize.getHeight());
+        }
+    }
+
     @Override
     public void show() {
         isEnabled = true;
@@ -75,6 +96,8 @@ public class UIIcon extends UIBaseComponent<UIIconTemplate> {
     public void paint(Graphics g, ImageObserver observer) {
         if (!isEnabled) return;
 
-        g.drawImage(image.getContent(rect.getWidth(), rect.getHeight()), rect.getX(), rect.getY(), rect.getWidth(), rect.getHeight(), observer);
+        int x = rect.getX() + parentOffset.getX();
+        int y = rect.getY() + parentOffset.getY();
+        g.drawImage(image.getContent(rect.getWidth(), rect.getHeight()), x, y, rect.getWidth(), rect.getHeight(), observer);
     }
 }

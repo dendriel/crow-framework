@@ -1,5 +1,6 @@
 package com.rozsa.crow.screen.ui.api;
 
+import com.rozsa.crow.screen.attributes.Size;
 import com.rozsa.crow.screen.ui.UIComponentType;
 
 import java.awt.*;
@@ -27,4 +28,6 @@ public interface UIComponent<T> {
     UIComponentType getType();
 
     String getTag();
+
+    void updateScreenSize(Size parentSize);
 }

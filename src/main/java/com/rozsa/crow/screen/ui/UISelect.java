@@ -1,6 +1,7 @@
 package com.rozsa.crow.screen.ui;
 
 import com.rozsa.crow.screen.attributes.Offset;
+import com.rozsa.crow.screen.attributes.Size;
 import com.rozsa.crow.screen.ui.api.UIComponentObserver;
 import com.rozsa.crow.screen.ui.api.UIHandler;
 import com.rozsa.crow.screen.ui.api.UISelectOption;
@@ -40,6 +41,10 @@ public class UISelect extends UIBaseComponent<UISlotGroupTemplate> implements UI
         labels = new UILabelGroup(data.getLabelGroup(), data.getPos().add(parentOffset));
 
         handlerController = new SelectHandlerController(this);
+    }
+
+    public void updateScreenSize(Size parentSize) {
+        // TODO: updateScreenSize
     }
 
     public void registerListener(SelectOptionListener listener) {

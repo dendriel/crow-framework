@@ -8,12 +8,16 @@ public class TestUtils {
 
 
     public static ScreenHandler<ScreenType> createDefaultScreenHandler(String title) {
+        return createDefaultScreenHandler(title, false);
+    }
+
+    public static ScreenHandler<ScreenType> createDefaultScreenHandler(String title, boolean isFullscreen) {
         ScreenHandlerConfig config = new ScreenHandlerConfig();
         config.setTitle(title);
         Size screenSize = new Size(800, 600);
         config.setSize(screenSize);
         config.setVisible(false);
-        config.setFullscreen(false);
+        config.setFullscreen(isFullscreen);
 
         ScreenHandler<ScreenType> screen = new ScreenHandler<>(ScreenType.class, config);
         screen.setVisible(true);

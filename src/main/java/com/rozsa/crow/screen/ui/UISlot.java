@@ -2,6 +2,7 @@ package com.rozsa.crow.screen.ui;
 
 import com.rozsa.crow.screen.attributes.Offset;
 import com.rozsa.crow.screen.attributes.Rect;
+import com.rozsa.crow.screen.attributes.Size;
 import com.rozsa.crow.screen.sprite.Image;
 import com.rozsa.crow.screen.ui.api.UIHandler;
 import com.rozsa.crow.screen.ui.api.UISlotContent;
@@ -115,6 +116,11 @@ public class UISlot extends UIBaseComponent<UISlotTemplate> implements UIHandler
 
         countLabel.setText(text);
     }
+
+    public void updateScreenSize(Size parentSize) {
+        // TODO: updateScreenSize
+    }
+
 
     @Override
     public void wrapUp(Container container) {

@@ -1,8 +1,12 @@
 package com.rozsa.crow.screen.ui.button;
 
+import com.rozsa.crow.screen.attributes.Offset;
 import com.rozsa.crow.screen.attributes.Rect;
+import com.rozsa.crow.screen.attributes.Size;
 import com.rozsa.crow.screen.sprite.Image;
 import com.rozsa.crow.screen.ui.UIBaseComponent;
+import com.rozsa.crow.screen.ui.UIExpandMode;
+import com.rozsa.crow.screen.ui.UIFontTemplate;
 import com.rozsa.crow.screen.ui.UILabelTemplate;
 import com.rozsa.crow.screen.ui.listener.UIEventListener;
 import com.rozsa.crow.screen.ui.listener.UIEventListenerTuple;
@@ -20,6 +24,8 @@ import java.util.Set;
 public class UIButton extends UIBaseComponent<UIButtonTemplate> {
     private UIButtonTemplate data;
     private CustomJButton button;
+    private Offset parentOffset;
+    private Rect rect;
     private Set<UIEventListenerTuple<UIEventListener>> buttonPressedListeners;
     private Set<UIEventListenerTuple<UIEventListener>> buttonMouseEnteredListeners;
     private Set<UIEventListenerTuple<UIEventListener>> buttonMouseExitedListeners;
@@ -27,6 +33,7 @@ public class UIButton extends UIBaseComponent<UIButtonTemplate> {
     public UIButton(UIButtonTemplate data) {
         super(data);
         this.data = data;
+        parentOffset = Offset.origin();
         buttonPressedListeners = new HashSet<>();
         buttonMouseEnteredListeners = new HashSet<>();
         buttonMouseExitedListeners = new HashSet<>();
@@ -35,6 +42,7 @@ public class UIButton extends UIBaseComponent<UIButtonTemplate> {
 
     private void setup() {
         button = new CustomJButton(data.getToolTip());
+        rect = data.getRect();
         setupButton();
     }
 
@@ -44,10 +52,15 @@ public class UIButton extends UIBaseComponent<UIButtonTemplate> {
         setupImages();
         setupEvents();
         setupToolTip();
+        setupBounds();
 
-        Rect rect = data.getRect();
-        button.setBounds(rect.getX(), rect.getY(), rect.getWidth(), rect.getHeight());
         button.setEnabled(!data.isDisabled());
+    }
+
+    private void setupBounds() {
+        int x = rect.getX() + parentOffset.getX();
+        int y = rect.getY() + parentOffset.getY();
+        button.setBounds(x, y, rect.getWidth(), rect.getHeight());
     }
 
     private void setupLayout() {
@@ -196,5 +209,25 @@ public class UIButton extends UIBaseComponent<UIButtonTemplate> {
 
     public void removeMouseExitedListener(UIEventListener listener) {
         buttonMouseExitedListeners.remove(new UIEventListenerTuple<>(listener, null));
+    }
+
+    public void updateScreenSize(Size parentSize) {
+        Size refSize = data.getReferenceSize();
+        Rect rect = data.getRect();
+        parentOffset = Offset.updateOffset(rect.getOffset(), data.getReferenceSize(), parentSize);
+        setupBounds();
+
+        if (expandMode.equals(UIExpandMode.FILL)) {
+            Size newSize = Size.updateSize(rect.getSize(), refSize, parentSize);
+            this.rect.setWidth(newSize.getWidth());
+            this.rect.setHeight(newSize.getHeight());
+
+            UILabelTemplate label = data.getLabel();
+            UIFontTemplate font = UIFontTemplate.updateFontTemplate(label.getFont(), refSize.getHeight(), parentSize.getHeight());
+            button.setFont(font.getJFont());
+        }
+
+        setupBounds();
+        setupImages();
     }
 }

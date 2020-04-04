@@ -1,10 +1,8 @@
 package com.rozsa.samples.forms.login_from_template;
 
-import com.rozsa.crow.screen.BaseView;
 import com.rozsa.crow.screen.ScreenHandler;
 import com.rozsa.crow.screen.ViewTemplate;
 import com.rozsa.crow.screen.attributes.Color;
-import com.rozsa.crow.screen.attributes.Rect;
 import com.rozsa.crow.screen.attributes.Size;
 import com.rozsa.crow.screen.ui.UILabel;
 import com.rozsa.crow.screen.ui.button.UIButton;
@@ -19,13 +17,14 @@ import java.io.IOException;
 public class LoginFromTemplateTest {
 
     public void run() throws IOException {
-        ScreenHandler<ScreenType> screen = TestUtils.createDefaultScreenHandler("Login test");
+        ScreenHandler<ScreenType> screen = TestUtils.createDefaultScreenHandler("Login test", true);
         Size simpleScreenSize = screen.getSize();
         SimpleScreen simpleScreen = new SimpleScreen(simpleScreenSize, Color.from(116, 140, 171));
 
         LoginViewFromTemplate view = new LoginViewFromTemplate(getLoginTemplate());
         simpleScreen.addView(view);
         simpleScreen.displayView();
+        view.draw();
 
         setupViewListeners(view);
 

@@ -14,6 +14,7 @@ public class UILabel extends UIBaseComponent<UILabelTemplate> {
     private Offset parentOffset;
     private Size expandFactor;
     private Offset customOffset;
+    private Rect rect;
 
     public UILabel(UILabelTemplate data) {
         this(data, new Offset(), new Size());
@@ -38,6 +39,7 @@ public class UILabel extends UIBaseComponent<UILabelTemplate> {
 
     private void setup() {
         label = new JLabel();
+        rect = data.getRect();
         setupLabel();
     }
 
@@ -65,11 +67,27 @@ public class UILabel extends UIBaseComponent<UILabelTemplate> {
         resetAlignment();
         label.setText(data.getValue());
 
-        updateBounds();
+        setupBounds();
     }
 
-    private void updateBounds() {
+    public void updateScreenSize(Size parentSize) {
+        Size refSize = data.getReferenceSize();
         Rect rect = data.getRect();
+        parentOffset = Offset.updateOffset(rect.getOffset(), refSize, parentSize);
+
+        if (expandMode.equals(UIExpandMode.FILL)) {
+            Size newSize = Size.updateSize(rect.getSize(), refSize, parentSize);
+            this.rect.setWidth(newSize.getWidth());
+            this.rect.setHeight(newSize.getHeight());
+
+            UIFontTemplate font = UIFontTemplate.updateFontTemplate(data.getFont(), refSize.getHeight(), parentSize.getHeight());
+            label.setFont(font.getJFont());
+        }
+
+        setupBounds();
+    }
+
+    private void setupBounds() {
         Rect bounds = rect.clone();
         bounds.setX(bounds.getX() + customOffset.getX() + parentOffset.getX() + expandFactor.getWidth() / 2);
         bounds.setY(bounds.getY() + customOffset.getY() + parentOffset.getY() + expandFactor.getHeight() / 2);
@@ -97,7 +115,7 @@ public class UILabel extends UIBaseComponent<UILabelTemplate> {
 
     public void setCustomOffset(Offset offset) {
         customOffset = offset;
-        updateBounds();
+        setupBounds();
     }
 
     public Rect getRect() {

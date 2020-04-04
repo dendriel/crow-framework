@@ -59,7 +59,7 @@ public class UILabelTemplate extends UIBaseComponentTemplate implements UIText {
     }
 
     public UIFontTemplate getFont() {
-        return font;
+        return font.clone();
     }
 
     public void setFont(UIFontTemplate font) {

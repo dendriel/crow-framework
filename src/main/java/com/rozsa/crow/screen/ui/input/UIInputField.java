@@ -1,7 +1,11 @@
 package com.rozsa.crow.screen.ui.input;
 
+import com.rozsa.crow.screen.attributes.Offset;
 import com.rozsa.crow.screen.attributes.Rect;
+import com.rozsa.crow.screen.attributes.Size;
 import com.rozsa.crow.screen.ui.UIBaseComponent;
+import com.rozsa.crow.screen.ui.UIExpandMode;
+import com.rozsa.crow.screen.ui.UIFontTemplate;
 import com.rozsa.crow.screen.ui.listener.UIEventListener;
 import com.rozsa.crow.screen.ui.listener.UIEventListenerTuple;
 
@@ -16,11 +20,14 @@ public class UIInputField extends UIBaseComponent<UIInputFieldTemplate> {
     private UIInputFieldTemplate data;
     private JTextField textField;
     private Set<UIEventListenerTuple<UIEventListener>> inputFieldSubmittedListeners;
+    private Offset parentOffset;
+    private Rect rect;
 
     public UIInputField(UIInputFieldTemplate data) {
         super(data);
         this.data = data;
         inputFieldSubmittedListeners = new HashSet<>();
+        parentOffset = Offset.origin();
         setup();
     }
 
@@ -34,18 +41,23 @@ public class UIInputField extends UIBaseComponent<UIInputFieldTemplate> {
         } else {
             textField = new CustomJTextField(data.getColumns(), data.getToolTip());
         }
+        rect = data.getRect();
         setupInput();
     }
 
     private void setupInput() {
         setupStyle();
         setupToolTip();
+        setupBounds();
 
-        Rect rect = data.getRect();
-        textField.setBounds(rect.getX(), rect.getY(), rect.getWidth(), rect.getHeight());
         textField.setEnabled(!data.isDisabled());
-
         textField.addActionListener(this::onSubmitted);
+    }
+
+    private void setupBounds() {
+        int x = rect.getX() + parentOffset.getX();
+        int y = rect.getY() + parentOffset.getY();
+        textField.setBounds(x, y, rect.getWidth(), rect.getHeight());
     }
 
     private void setupStyle() {
@@ -75,6 +87,23 @@ public class UIInputField extends UIBaseComponent<UIInputFieldTemplate> {
         // isDisable refer to the button state; isEnabled refer to the component as a whole.
         // When disabled, the button will be displayed using the disabled icon (if set).
         textField.setEnabled(!isDisabled);
+    }
+
+    public void updateScreenSize(Size parentSize) {
+        Size refSize = data.getReferenceSize();
+        Rect rect = data.getRect();
+        parentOffset = Offset.updateOffset(rect.getOffset(), refSize, parentSize);
+
+        if (expandMode.equals(UIExpandMode.FILL)) {
+            Size newSize = Size.updateSize(rect.getSize(), refSize, parentSize);
+            this.rect.setWidth(newSize.getWidth());
+            this.rect.setHeight(newSize.getHeight());
+
+            UIFontTemplate font = UIFontTemplate.updateFontTemplate(data.getFont(), refSize.getHeight(), parentSize.getHeight());
+            textField.setFont(font.getJFont());
+        }
+
+        setupBounds();
     }
 
     private void onSubmitted(ActionEvent e) {

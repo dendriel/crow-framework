@@ -2,6 +2,7 @@ package com.rozsa.crow.screen.ui;
 
 import com.rozsa.crow.screen.attributes.Offset;
 import com.rozsa.crow.screen.attributes.Rect;
+import com.rozsa.crow.screen.attributes.Size;
 import com.rozsa.crow.screen.ui.api.UIText;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
@@ -88,6 +89,11 @@ public class UILabelGroup extends UIBaseComponent<UILabelGroupTemplate> {
 
         return new UILabel(newData, parentOffset);
     }
+
+    public void updateScreenSize(Size parentSize) {
+        // TODO: updateScreenSize
+    }
+
 
     @Override
     public void show() {

@@ -1,6 +1,7 @@
 package com.rozsa.crow.screen.ui;
 
 import com.rozsa.crow.screen.attributes.Rect;
+import com.rozsa.crow.screen.attributes.Size;
 import com.rozsa.crow.screen.sprite.Image;
 import com.rozsa.crow.screen.ui.api.UIFillBar;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
@@ -63,4 +64,9 @@ public class UIVerticalSlideBar extends UIBaseComponent<UISlideBarTemplate> impl
         int y = rect.getY() + (rect.getHeight() - height);
         return new Rect(rect.getX(), y, rect.getWidth(), height);
     }
+
+    public void updateScreenSize(Size parentSize) {
+        // TODO: updateScreenSize
+    }
+
 }

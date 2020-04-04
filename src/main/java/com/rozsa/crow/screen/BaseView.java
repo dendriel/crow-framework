@@ -1,7 +1,8 @@
 package com.rozsa.crow.screen;
 
+import com.rozsa.crow.screen.attributes.Offset;
 import com.rozsa.crow.screen.attributes.Rect;
-import com.rozsa.crow.screen.ui.UIBaseComponent;
+import com.rozsa.crow.screen.attributes.Size;
 import com.rozsa.crow.screen.ui.UIBaseComponentTemplate;
 import com.rozsa.crow.screen.ui.UIIcon;
 import com.rozsa.crow.screen.ui.UILabel;
@@ -35,7 +36,7 @@ public class BaseView extends JPanel implements UIComponentObserver {
     }
 
     private void setup() {
-        setBounds(rect.getX(), rect.getY(), rect.getWidth(), rect.getHeight());
+        setupBounds();
         setBackground(Color.red);
         setOpaque(false);
         setLayout(null);
@@ -43,9 +44,13 @@ public class BaseView extends JPanel implements UIComponentObserver {
         setupComponents();
     }
 
+    private void setupBounds() {
+        setBounds(rect.getX(), rect.getY(), rect.getWidth(), rect.getHeight());
+    }
+
     private void setupComponents() {
         for (UIBaseComponentTemplate template : data.getComponents()) {
-            UIComponent component = UIComponentFactory.create(template);
+            UIComponent component = UIComponentFactory.create(template, rect.getSize());
             addComponent(component);
         }
     }
@@ -73,6 +78,22 @@ public class BaseView extends JPanel implements UIComponentObserver {
 
     public void hideAllComponents() {
         components.forEach(UIComponent::hide);
+    }
+
+    public void updateScreenSize(Size parentSize) {
+        Size refSize = data.getRect().getSize();
+
+        Offset newOffset = Offset.updateOffset(rect.getOffset(), refSize, parentSize);
+        rect.setX(newOffset.getX());
+        rect.setY(newOffset.getY());
+
+        Size newSize = Size.updateSize(rect.getSize(), refSize, parentSize);
+        rect.setWidth(newSize.getWidth());
+        rect.setHeight(newSize.getHeight());
+
+        setupBounds();
+
+        components.forEach(c -> c.updateScreenSize(parentSize));
     }
 
     public void draw() {

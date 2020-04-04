@@ -30,6 +30,7 @@ public abstract class BaseScreen<TKey, TKeyGroup> extends JPanel {
         setSize(size.getWidth(), size.getHeight());
         setBackground(color.getJColor());
         setLayout(null);
+        updateScreenSize(size);
         setIgnoreRepaint(true);
     }
 
@@ -78,6 +79,11 @@ public abstract class BaseScreen<TKey, TKeyGroup> extends JPanel {
         lastViewGroupSet = key;
 
         draw();
+    }
+
+    public void updateScreenSize(Size parentSize) {
+        System.out.println(parentSize);
+        views.values().forEach(v -> v.updateScreenSize(parentSize));
     }
 
     protected TKeyGroup getLastViewGroupSet() {

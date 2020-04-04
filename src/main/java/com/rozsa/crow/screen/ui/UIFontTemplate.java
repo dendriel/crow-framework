@@ -53,6 +53,12 @@ public class UIFontTemplate {
         this.size = size;
     }
 
+    public static UIFontTemplate updateFontTemplate(UIFontTemplate font, int originWidth, int targetWidth) {
+        int newFontSize = (int)(((float)font.getSize() / originWidth) * targetWidth);
+        font.setSize(newFontSize);
+        return font;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

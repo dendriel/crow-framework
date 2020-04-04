@@ -1,6 +1,5 @@
 package com.rozsa;
 
-import com.rozsa.samples.forms.login.LoginTest;
 import com.rozsa.samples.forms.login_from_template.LoginFromTemplateTest;
 
 import java.io.IOException;

@@ -50,6 +50,13 @@ public class Size {
         return new Size(newW, newH);
     }
 
+    public static Size updateSize(Size size, Size originSize, Size newSize) {
+        int width = (int)(((float)size.getWidth() / originSize.getWidth()) * newSize.getWidth());
+        int height = (int)(((float)size.getHeight() / originSize.getHeight()) * newSize.getHeight());
+
+        return new Size(width, height);
+    }
+
     public Size clone() {
         return new Size(width, height);
     }
