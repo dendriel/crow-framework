@@ -32,7 +32,7 @@ public class ViewTemplate {
     }
 
     public Rect getRect() {
-        return rect;
+        return rect.clone();
     }
 
     public void setRect(Rect rect) {

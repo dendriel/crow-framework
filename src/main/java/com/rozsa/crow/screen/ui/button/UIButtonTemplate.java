@@ -7,7 +7,6 @@ import com.rozsa.crow.screen.ui.UILabelTemplate;
 import com.rozsa.crow.screen.ui.UIToolTipTemplate;
 
 public class UIButtonTemplate extends UIBaseComponentTemplate {
-    private Rect rect;
     private String defaultImage;
     private String pressedImage;
     private String rolloverImage;
@@ -27,14 +26,6 @@ public class UIButtonTemplate extends UIBaseComponentTemplate {
 
     public void setLabel(UILabelTemplate label) {
         this.label = label;
-    }
-
-    public Rect getRect() {
-        return rect;
-    }
-
-    public void setRect(Rect rect) {
-        this.rect = rect;
     }
 
     public String getDefaultImage() {

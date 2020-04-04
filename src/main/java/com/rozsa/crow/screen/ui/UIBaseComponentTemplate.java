@@ -39,7 +39,7 @@ public class UIBaseComponentTemplate {
     }
 
     public Size getReferenceSize() {
-        return referenceSize;
+        return referenceSize.clone();
     }
 
     public void setReferenceSize(Size referenceSize) {
@@ -47,7 +47,7 @@ public class UIBaseComponentTemplate {
     }
 
     public Rect getRect() {
-        return rect;
+        return rect.clone();
     }
 
     public void setRect(Rect rect) {

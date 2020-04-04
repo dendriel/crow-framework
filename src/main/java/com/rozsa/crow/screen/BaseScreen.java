@@ -82,7 +82,7 @@ public abstract class BaseScreen<TKey, TKeyGroup> extends JPanel {
     }
 
     public void updateScreenSize(Size parentSize) {
-        System.out.println(parentSize);
+        setSize(parentSize.getWidth(), parentSize.getHeight());
         views.values().forEach(v -> v.updateScreenSize(parentSize));
     }
 

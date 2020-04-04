@@ -81,15 +81,16 @@ public class BaseView extends JPanel implements UIComponentObserver {
     }
 
     public void updateScreenSize(Size parentSize) {
-        Size refSize = data.getRect().getSize();
+        Rect rect = data.getRect();
+        Size refSize = rect.getSize();
 
         Offset newOffset = Offset.updateOffset(rect.getOffset(), refSize, parentSize);
-        rect.setX(newOffset.getX());
-        rect.setY(newOffset.getY());
+        this.rect.setX(newOffset.getX());
+        this.rect.setY(newOffset.getY());
 
         Size newSize = Size.updateSize(rect.getSize(), refSize, parentSize);
-        rect.setWidth(newSize.getWidth());
-        rect.setHeight(newSize.getHeight());
+        this.rect.setWidth(newSize.getWidth());
+        this.rect.setHeight(newSize.getHeight());
 
         setupBounds();
 

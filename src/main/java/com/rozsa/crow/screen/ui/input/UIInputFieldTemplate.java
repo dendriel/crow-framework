@@ -9,7 +9,6 @@ import com.rozsa.crow.screen.ui.UIToolTipTemplate;
 import com.rozsa.crow.screen.ui.button.UIBorderTemplate;
 
 public class UIInputFieldTemplate extends UIBaseComponentTemplate {
-    private Rect rect;
     private UIFontTemplate font;
     private Color fontColor;
     private Color backgroundColor;
@@ -24,14 +23,6 @@ public class UIInputFieldTemplate extends UIBaseComponentTemplate {
         super(UIComponentType.INPUT_FIELD);
         font = new UIFontTemplate();
         backgroundVisible = true;
-    }
-
-    public Rect getRect() {
-        return rect;
-    }
-
-    public void setRect(Rect rect) {
-        this.rect = rect;
     }
 
     public UIFontTemplate getFont() {

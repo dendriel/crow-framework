@@ -70,7 +70,6 @@ public class ScreenHandler<TScreenKey extends Enum<TScreenKey>> {
         int newHeight = removeHeightInsets((int)dim.getHeight());
 
         Size newSize = new Size(newWidth, newHeight);
-        System.out.println("New size: " + newSize);
         screens.values().forEach(s -> s.updateScreenSize(newSize));
     }
 

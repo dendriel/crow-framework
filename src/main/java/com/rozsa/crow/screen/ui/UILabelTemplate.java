@@ -10,7 +10,6 @@ public class UILabelTemplate extends UIBaseComponentTemplate implements UIText {
     private String text;
     private UIFontTemplate font;
     private Color color;
-    private Rect rect;
     private int verticalAlignment;
     private int horizontalAlignment;
 
@@ -72,14 +71,6 @@ public class UILabelTemplate extends UIBaseComponentTemplate implements UIText {
 
     public void setColor(Color color) {
         this.color = color;
-    }
-
-    public Rect getRect() {
-        return rect;
-    }
-
-    public void setRect(Rect rect) {
-        this.rect = rect;
     }
 
     @Override

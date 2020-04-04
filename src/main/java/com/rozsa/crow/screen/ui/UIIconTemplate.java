@@ -1,10 +1,7 @@
 package com.rozsa.crow.screen.ui;
 
-import com.rozsa.crow.screen.attributes.Rect;
-
 public class UIIconTemplate extends UIBaseComponentTemplate {
     private String imageFile;
-    private Rect rect;
 
     public UIIconTemplate() {
         super(UIComponentType.ICON);
@@ -16,14 +13,6 @@ public class UIIconTemplate extends UIBaseComponentTemplate {
 
     public void setImageFile(String imageFile) {
         this.imageFile = imageFile;
-    }
-
-    public Rect getRect() {
-        return rect;
-    }
-
-    public void setRect(Rect rect) {
-        this.rect = rect;
     }
 
     @Override
