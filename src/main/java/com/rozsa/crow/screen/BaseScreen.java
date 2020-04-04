@@ -1,9 +1,9 @@
 package com.rozsa.crow.screen;
 
+import com.rozsa.crow.screen.attributes.Color;
 import com.rozsa.crow.screen.attributes.Size;
 
 import javax.swing.*;
-import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,15 +16,19 @@ public abstract class BaseScreen<TKey, TKeyGroup> extends JPanel {
     private TKeyGroup lastViewGroupSet;
 
     public BaseScreen(Size size) {
+        this(size, Color.blue());
+    }
+
+    public BaseScreen(Size size, Color bgColor) {
         views = new HashMap<>();
         viewGroup = new HashMap<>();
 
-        setup(size);
+        setup(size, bgColor);
     }
 
-    private void setup(Size size) {
+    private void setup(Size size, Color color) {
         setSize(size.getWidth(), size.getHeight());
-        setBackground(Color.blue);
+        setBackground(color.getJColor());
         setLayout(null);
         setIgnoreRepaint(true);
     }

@@ -28,7 +28,11 @@ public class UIInputField extends UIBaseComponent<UIInputFieldTemplate> {
     }
 
     private void setup() {
-        textField = new CustomJTextField(data.getColumns(), data.getToolTip());
+        if (data.isPasswordInput()) {
+            textField = new CustomJPasswordField(data.getColumns(), data.getToolTip());
+        } else {
+            textField = new CustomJTextField(data.getColumns(), data.getToolTip());
+        }
         setupInput();
     }
 

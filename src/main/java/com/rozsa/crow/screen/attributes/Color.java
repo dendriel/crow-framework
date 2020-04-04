@@ -19,6 +19,12 @@ public class Color {
         this.b = b;
     }
 
+    public Color(java.awt.Color color) {
+        r = color.getRed();
+        g = color.getGreen();
+        b = color.getBlue();
+    }
+
     public int getR() {
         return r;
     }
@@ -64,5 +70,25 @@ public class Color {
     @Override
     public int hashCode() {
         return Objects.hash(r, g, b);
+    }
+
+    public static Color red() {
+        return new Color(java.awt.Color.red);
+    }
+
+    public static Color green() {
+        return new Color(java.awt.Color.green);
+    }
+
+    public static Color blue() {
+        return new Color(java.awt.Color.blue);
+    }
+
+    public static Color from(java.awt.Color color) {
+        return new Color(color);
+    }
+
+    public static Color from(int r, int g, int b) {
+        return new Color(r, g, b);
     }
 }

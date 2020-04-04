@@ -33,6 +33,8 @@ class InputView extends BaseView {
         border.setColorA(new Color(255,0,100));
         border.setThickness(2);
         inputTemplate.setBorder(border);
+        // If password, it hides the text.
+//        inputTemplate.setPasswordInput(true);
 
         UIToolTipTemplate toolTip = new UIToolTipTemplate();
         toolTip.setText("Hit enter to submit");

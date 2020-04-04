@@ -15,11 +15,11 @@ public class UIInputFieldTemplate {
     private int columns;
     private UIBorderTemplate border;
     private UIToolTipTemplate toolTip;
+    private boolean isPasswordInput;
 
     public UIInputFieldTemplate() {
         font = new UIFontTemplate();
         backgroundVisible = true;
-        toolTip = new UIToolTipTemplate();
     }
 
     public Rect getRect() {
@@ -84,5 +84,13 @@ public class UIInputFieldTemplate {
 
     public void setToolTip(UIToolTipTemplate toolTip) {
         this.toolTip = toolTip;
+    }
+
+    public boolean isPasswordInput() {
+        return isPasswordInput;
+    }
+
+    public void setPasswordInput(boolean passwordInput) {
+        isPasswordInput = passwordInput;
     }
 }

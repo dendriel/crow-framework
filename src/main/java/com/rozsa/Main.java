@@ -1,6 +1,7 @@
 package com.rozsa;
 
 import com.rozsa.samples.components.input.InputTest;
+import com.rozsa.samples.form.LoginTest;
 
 public class Main {
     // testing purposes
@@ -13,6 +14,9 @@ public class Main {
 
         InputTest inputTest = new InputTest();
         inputTest.run();
+
+//        LoginTest loginTest = new LoginTest();
+//        loginTest.run();
     }
 }
 
