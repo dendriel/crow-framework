@@ -2,11 +2,13 @@ package com.rozsa.crow.screen.ui.input;
 
 import com.rozsa.crow.screen.attributes.Color;
 import com.rozsa.crow.screen.attributes.Rect;
+import com.rozsa.crow.screen.ui.UIBaseComponentTemplate;
+import com.rozsa.crow.screen.ui.UIComponentType;
 import com.rozsa.crow.screen.ui.UIFontTemplate;
 import com.rozsa.crow.screen.ui.UIToolTipTemplate;
 import com.rozsa.crow.screen.ui.button.UIBorderTemplate;
 
-public class UIInputFieldTemplate {
+public class UIInputFieldTemplate extends UIBaseComponentTemplate {
     private Rect rect;
     private UIFontTemplate font;
     private Color fontColor;
@@ -19,6 +21,7 @@ public class UIInputFieldTemplate {
     private boolean isDisabled;
 
     public UIInputFieldTemplate() {
+        super(UIComponentType.INPUT_FIELD);
         font = new UIFontTemplate();
         backgroundVisible = true;
     }

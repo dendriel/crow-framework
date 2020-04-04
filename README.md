@@ -9,7 +9,8 @@ to easy game development in Java.
   - Gameplay renderer.
 - Input handling;
 - Sound handling;
-- Component-based gameplay entities. 
+- Component-based gameplay entities;
+- Describe all screen components in a JSON-based template.
 
 # Screen
 

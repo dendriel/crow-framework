@@ -18,6 +18,7 @@ public class UIIcon extends UIBaseComponent<UIIconTemplate> {
     }
 
     public UIIcon(UIIconTemplate data, Size expandFactor) {
+        super(data);
         this.data = data;
         this.expandFactor = expandFactor;
         setup();

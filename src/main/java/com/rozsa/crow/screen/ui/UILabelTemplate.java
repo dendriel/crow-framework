@@ -6,7 +6,7 @@ import com.rozsa.crow.screen.ui.api.UIText;
 
 import java.util.Objects;
 
-public class UILabelTemplate implements UIText { // TODO: this must not implement UIText
+public class UILabelTemplate extends UIBaseComponentTemplate implements UIText { // TODO: this must not implement UIText
     private String text;
     private UIFontTemplate font;
     private Color color;
@@ -15,6 +15,7 @@ public class UILabelTemplate implements UIText { // TODO: this must not implemen
     private int horizontalAlignment;
 
     public UILabelTemplate() {
+        super(UIComponentType.LABEL);
         color = new Color();
         font = new UIFontTemplate();
     }

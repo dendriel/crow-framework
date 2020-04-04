@@ -18,6 +18,7 @@ public class UIVerticalSlideBar extends UIBaseComponent<UISlideBarTemplate> impl
     private float fill;
 
     public UIVerticalSlideBar(UISlideBarTemplate data) {
+        super(data);
         this.data = data;
         fill = 1f;
 

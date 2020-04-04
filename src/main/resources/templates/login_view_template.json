@@ -1,0 +1,57 @@
+{
+  "rect": { "offset": { "x": 0, "y": 0}, "size": { "width": 800, "height": 600}},
+  "labels": [
+    {
+      "tag": "title",
+      "rect": { "offset": { "x": 300, "y": 30}, "size": { "width": 200, "height": 60}},
+      "font": { "font": "Serif", "style": 0, "size": 40},
+      "text": "Login Form"
+    },
+    {
+      "tag": "usernameLabel",
+      "rect": { "offset": { "x": 138, "y": 200}, "size": { "width": 110, "height": 30}},
+      "text": "Username:"
+    },
+    {
+      "tag": "passwordLabel",
+      "rect": { "offset": { "x": 146, "y": 240}, "size": { "width": 100, "height": 30}},
+      "text": "Password:"
+    },
+    {
+      "tag": "feedbackLabel",
+      "rect": { "offset": { "x": 250, "y": 340}, "size": { "width": 300, "height": 30}},
+      "font": { "font": "Serif", "style": 2, "size": 20},
+      "text": ""
+    }
+  ],
+  "inputFields": [
+    {
+      "tag": "usernameInput",
+      "rect": { "offset": { "x": 250, "y": 200}, "size": { "width": 200, "height": 30}},
+      "fontColor": { "r": 53, "g": 67, "b": 87 },
+      "columns": 32,
+      "font": { "font": "Serif", "style": 0, "size": 24 },
+      "border": {"style": "LINE", "colorA": { "r": 53, "g": 67, "b": 87 }, "thickness": 2 }
+    },
+    {
+      "tag": "passwordInput",
+      "rect": { "offset": { "x": 250, "y": 240}, "size": { "width": 200, "height": 30}},
+      "fontColor": { "r": 53, "g": 67, "b": 87 },
+      "columns": 32,
+      "font": { "font": "Serif", "style": 0, "size": 24 },
+      "border": {"style": "LINE", "colorA": { "r": 53, "g": 67, "b": 87 }, "thickness": 2 },
+      "passwordInput": true
+    }
+  ],
+  "buttons": [
+    {
+      "tag": "loginButton",
+      "rect": { "offset": { "x": 350, "y": 280}, "size": { "width": 100, "height": 38}},
+      "label": { "text": "Login" },
+      "defaultImage": "/images/button.png",
+      "pressedImage": "/images/button_pressed.png",
+      "rolloverImage": "/images/button_highlight.png",
+      "disabledImage": "/images/button_disabled.png"
+    }
+  ]
+}

@@ -28,6 +28,7 @@ public class UILabel extends UIBaseComponent<UILabelTemplate> {
     }
 
     public UILabel(UILabelTemplate data, Offset parentOffset, Size expandFactor) {
+        super(data);
         this.data = data;
         this.parentOffset = parentOffset;
         this.expandFactor = expandFactor;

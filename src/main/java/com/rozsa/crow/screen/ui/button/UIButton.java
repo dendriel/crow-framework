@@ -25,6 +25,7 @@ public class UIButton extends UIBaseComponent<UIButtonTemplate> {
     private Set<UIEventListenerTuple<UIEventListener>> buttonMouseExitedListeners;
 
     public UIButton(UIButtonTemplate data) {
+        super(data);
         this.data = data;
         buttonPressedListeners = new HashSet<>();
         buttonMouseEnteredListeners = new HashSet<>();
@@ -61,6 +62,9 @@ public class UIButton extends UIBaseComponent<UIButtonTemplate> {
 
     private void setupLabel() {
         UILabelTemplate label = data.getLabel();
+        if (label == null) {
+            return;
+        }
         button.setFont(label.getFont().getJFont());
         Color color = label.getColor();
         button.setForeground(color);

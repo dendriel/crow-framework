@@ -22,6 +22,7 @@ public class UILabelGroup extends UIBaseComponent<UILabelGroupTemplate> {
     }
 
     public UILabelGroup(UILabelGroupTemplate data, Offset parentOffset) {
+        super(data);
         this.data = data;
         this.parentOffset = parentOffset;
 

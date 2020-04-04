@@ -26,6 +26,7 @@ public class UISelect extends UIBaseComponent<UISlotGroupTemplate> implements UI
     }
 
     public UISelect(UISelectTemplate data, Offset parentOffset) {
+        super(data);
         this.parentOffset = parentOffset;
         this.data = data;
 

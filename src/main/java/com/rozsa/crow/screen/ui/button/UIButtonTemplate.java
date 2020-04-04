@@ -1,10 +1,12 @@
 package com.rozsa.crow.screen.ui.button;
 
 import com.rozsa.crow.screen.attributes.Rect;
+import com.rozsa.crow.screen.ui.UIBaseComponentTemplate;
+import com.rozsa.crow.screen.ui.UIComponentType;
 import com.rozsa.crow.screen.ui.UILabelTemplate;
 import com.rozsa.crow.screen.ui.UIToolTipTemplate;
 
-public class UIButtonTemplate {
+public class UIButtonTemplate extends UIBaseComponentTemplate {
     private Rect rect;
     private String defaultImage;
     private String pressedImage;
@@ -15,6 +17,7 @@ public class UIButtonTemplate {
     private UIToolTipTemplate toolTip;
 
     public UIButtonTemplate() {
+        super(UIComponentType.BUTTON);
 //        toolTip = new UIToolTipTemplate();
     }
 

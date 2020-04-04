@@ -2,12 +2,16 @@ package com.rozsa.crow.screen.ui;
 
 import com.rozsa.crow.screen.attributes.Rect;
 
-public class UISlotTemplate {
+public class UISlotTemplate extends UIBaseComponentTemplate {
     private Rect rect;
     private UIIconTemplate backgroundImage;
     private UIIconTemplate handlerImage;
     private UILabelTemplate countLabel;
     private Rect contentRect;
+
+    public UISlotTemplate() {
+        super(UIComponentType.SLOT);
+    }
 
     public Rect getRect() {
         return rect;

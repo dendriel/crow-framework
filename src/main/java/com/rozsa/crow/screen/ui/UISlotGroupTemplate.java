@@ -3,12 +3,13 @@ package com.rozsa.crow.screen.ui;
 import com.rozsa.crow.screen.attributes.Offset;
 import com.rozsa.crow.screen.attributes.Size;
 
-public class UISlotGroupTemplate {
+public class UISlotGroupTemplate extends UIBaseComponentTemplate{
     private UISlotTemplate slotData;
     private Size size;
     private Offset spacing;
 
     public UISlotGroupTemplate() {
+        super(UIComponentType.SLOT_GROUP);
         spacing = new Offset();
     }
 

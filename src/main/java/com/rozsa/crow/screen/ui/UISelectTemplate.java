@@ -2,10 +2,14 @@ package com.rozsa.crow.screen.ui;
 
 import com.rozsa.crow.screen.attributes.Offset;
 
-public class UISelectTemplate {
+public class UISelectTemplate extends UIBaseComponentTemplate {
     private Offset pos;
     private UISlotGroupTemplate optionsSlotGroup;
     private UILabelGroupTemplate labelGroup;
+
+    public UISelectTemplate() {
+        super(UIComponentType.SELECT);
+    }
 
     public UISlotGroupTemplate getOptionsSlotGroup() {
         return optionsSlotGroup;

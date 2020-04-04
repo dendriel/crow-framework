@@ -1,4 +1,4 @@
-package com.rozsa.samples.form;
+package com.rozsa.samples.forms.login;
 
 import com.rozsa.crow.screen.BaseView;
 import com.rozsa.crow.screen.attributes.Color;

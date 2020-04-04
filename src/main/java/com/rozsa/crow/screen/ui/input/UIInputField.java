@@ -18,6 +18,7 @@ public class UIInputField extends UIBaseComponent<UIInputFieldTemplate> {
     private Set<UIEventListenerTuple<UIEventListener>> inputFieldSubmittedListeners;
 
     public UIInputField(UIInputFieldTemplate data) {
+        super(data);
         this.data = data;
         inputFieldSubmittedListeners = new HashSet<>();
         setup();

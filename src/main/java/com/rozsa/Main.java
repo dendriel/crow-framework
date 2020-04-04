@@ -1,11 +1,13 @@
 package com.rozsa;
 
-import com.rozsa.samples.components.input.InputTest;
-import com.rozsa.samples.form.LoginTest;
+import com.rozsa.samples.forms.login.LoginTest;
+import com.rozsa.samples.forms.login_from_template.LoginFromTemplateTest;
+
+import java.io.IOException;
 
 public class Main {
     // testing purposes
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 //        SplashSetupTest splashSetupTest = new SplashSetupTest(false);
 //        splashSetupTest.run();
 
@@ -15,8 +17,11 @@ public class Main {
 //        InputTest inputTest = new InputTest();
 //        inputTest.run();
 
-        LoginTest loginTest = new LoginTest();
-        loginTest.run();
+//        LoginTest loginTest = new LoginTest();
+//        loginTest.run();
+
+        LoginFromTemplateTest loginFromTemplate = new LoginFromTemplateTest();
+        loginFromTemplate.run();
     }
 }
 

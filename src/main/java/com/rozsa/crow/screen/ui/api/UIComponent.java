@@ -1,8 +1,11 @@
 package com.rozsa.crow.screen.ui.api;
 
+import com.rozsa.crow.screen.ui.UIComponentType;
+
 import java.awt.*;
 import java.awt.image.ImageObserver;
 import java.io.IOException;
+
 
 public interface UIComponent<T> {
     void wrapUp(Container container);
@@ -20,4 +23,8 @@ public interface UIComponent<T> {
     void show();
 
     void hide();
+
+    UIComponentType getType();
+
+    String getTag();
 }

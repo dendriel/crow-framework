@@ -2,14 +2,15 @@ package com.rozsa.crow.screen.ui;
 
 import com.rozsa.crow.screen.attributes.Rect;
 
-public class UISlideBarTemplate {
+public class UISlideBarTemplate extends UIBaseComponentTemplate {
     private Rect backgroundRect;
-
     private String backgroundImage;
-
     private Rect foregroundRect;
-
     private String foregroundImage;
+
+    public UISlideBarTemplate() {
+        super(UIComponentType.SLIDER);
+    }
 
     public Rect getBackgroundRect() {
         return backgroundRect;

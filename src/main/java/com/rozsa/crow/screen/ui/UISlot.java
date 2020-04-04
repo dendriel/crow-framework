@@ -26,6 +26,7 @@ public class UISlot extends UIBaseComponent<UISlotTemplate> implements UIHandler
     }
 
     public UISlot (UISlotTemplate data, Offset parentOffset) {
+        super(data);
         this.data = data;
         this.parentOffset = parentOffset;
         this.customOffset = Offset.origin();

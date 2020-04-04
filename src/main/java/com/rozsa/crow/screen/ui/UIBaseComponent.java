@@ -9,10 +9,13 @@ import java.util.List;
 
 public abstract class UIBaseComponent<T> implements UIComponent<T> {
     protected final List<UIComponentObserver> observers;
-
+    protected final UIComponentType type;
+    protected final String tag;
     protected boolean isEnabled = true;
 
-    public UIBaseComponent() {
+    public UIBaseComponent(UIBaseComponentTemplate data) {
+        this.type = data.getType();
+        this.tag = data.getTag();
         observers = new ArrayList<>();
     }
 
@@ -32,5 +35,15 @@ public abstract class UIBaseComponent<T> implements UIComponent<T> {
     }
 
     public void destroy(Container container) {
+    }
+
+    @Override
+    public UIComponentType getType() {
+        return type;
+    }
+
+    @Override
+    public String getTag() {
+        return tag;
     }
 }

@@ -24,6 +24,7 @@ public class UISlotGroup extends UIBaseComponent<UISlotGroupTemplate> implements
     }
 
     public UISlotGroup(UISlotGroupTemplate data, Offset parentOffset) {
+        super(data);
         this.data = data;
         this.parentOffset = parentOffset;
 

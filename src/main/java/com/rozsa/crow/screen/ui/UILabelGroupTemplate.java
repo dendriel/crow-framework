@@ -3,13 +3,14 @@ package com.rozsa.crow.screen.ui;
 import com.rozsa.crow.screen.attributes.Offset;
 import com.rozsa.crow.screen.attributes.Size;
 
-public class UILabelGroupTemplate {
+public class UILabelGroupTemplate extends UIBaseComponentTemplate {
     private UILabelTemplate labelData;
     private Offset pos;
     private Size size;
     private Offset spacing;
 
     public UILabelGroupTemplate() {
+        super(UIComponentType.LABEL_GROUP);
         pos = new Offset();
         spacing = new Offset();
     }
