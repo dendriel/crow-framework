@@ -1,51 +1,48 @@
 {
-  "rect": { "offset": { "x": 0, "y": 0}, "size": { "width": 800, "height": 600}},
-  "expandMode": "FILL",
+  "rect": { "offset": { "x": 0, "y": 0}, "size": { "width": 1600, "height": 900}},
   "labels": [
     {
       "tag": "title",
-      "expandMode": "FILL",
-      "rect": { "offset": { "x": 350, "y": 30}, "size": { "width": 100, "height": 60}},
-      "font": { "font": "Serif", "style": 0, "size": 40},
+      "rect": { "offset": { "x": 720, "y": 30}, "size": { "width": 150, "height": 70}},
+      "font": { "font": "Serif", "style": 0, "size": 60},
       "text": "Login"
     },
     {
       "tag": "usernameLabel",
-      "expandMode": "FILL",
-      "rect": { "offset": { "x": 142, "y": 197}, "size": { "width": 110, "height": 30}},
+      "rect": { "offset": { "x": 560, "y": 300}, "size": { "width": 150, "height": 30}},
+      "font": { "font": "Serif", "style": 0, "size": 30},
+      "horizontalAlignment": 4,
       "text": "Username:"
     },
     {
       "tag": "passwordLabel",
-      "expandMode": "FILL",
-      "rect": { "offset": { "x": 150, "y": 237}, "size": { "width": 100, "height": 30}},
+      "rect": { "offset": { "x": 560, "y": 350}, "size": { "width": 150, "height": 30}},
+      "font": { "font": "Serif", "style": 0, "size": 30},
+      "horizontalAlignment": 4,
       "text": "Password:"
     },
     {
       "tag": "feedbackLabel",
-      "expandMode": "FILL",
-      "rect": { "offset": { "x": 250, "y": 340}, "size": { "width": 300, "height": 30}},
-      "font": { "font": "Serif", "style": 2, "size": 20},
+      "rect": { "offset": { "x": 720, "y": 450}, "size": { "width": 350, "height": 70}},
+      "font": { "font": "Serif", "style": 2, "size": 30},
       "text": ""
     }
   ],
   "inputFields": [
     {
       "tag": "usernameInput",
-      "expandMode": "FILL",
-      "rect": { "offset": { "x": 250, "y": 200}, "size": { "width": 200, "height": 30}},
+      "rect": { "offset": { "x": 720, "y": 300}, "size": { "width": 300, "height": 40}},
       "fontColor": { "r": 53, "g": 67, "b": 87 },
-      "columns": 32,
-      "font": { "font": "Serif", "style": 0, "size": 24 },
+      "columns": 20,
+      "font": { "font": "Serif", "style": 0, "size": 30 },
       "border": {"style": "LINE", "colorA": { "r": 53, "g": 67, "b": 87 }, "thickness": 2 }
     },
     {
       "tag": "passwordInput",
-      "expandMode": "FILL",
-      "rect": { "offset": { "x": 250, "y": 240}, "size": { "width": 200, "height": 30}},
+      "rect": { "offset": { "x": 720, "y": 350}, "size": { "width": 300, "height": 40}},
       "fontColor": { "r": 53, "g": 67, "b": 87 },
-      "columns": 32,
-      "font": { "font": "Serif", "style": 0, "size": 24 },
+      "columns": 20,
+      "font": { "font": "Serif", "style": 0, "size": 30 },
       "border": {"style": "LINE", "colorA": { "r": 53, "g": 67, "b": 87 }, "thickness": 2 },
       "passwordInput": true
     }
@@ -53,8 +50,8 @@
   "buttons": [
     {
       "tag": "loginButton",
-      "expandMode": "FILL",
-      "rect": { "offset": { "x": 350, "y": 280}, "size": { "width": 100, "height": 38}},
+      "rect": { "offset": { "x": 920, "y": 400}, "size": { "width": 100, "height": 50}},
+      "font": { "font": "Serif", "style": 0, "size": 30 },
       "label": { "text": "Login" },
       "defaultImage": "/images/button.png",
       "pressedImage": "/images/button_pressed.png",
@@ -65,26 +62,22 @@
   "icons": [
     {
       "tag": "bgIcon",
-      "expandMode": "FILL",
-      "rect": { "offset": { "x": 0, "y": 0}, "size": { "width": 400, "height": 300} },
+      "rect": { "offset": { "x": 0, "y": 0}, "size": { "width": 800, "height": 450} },
       "imageFile": "/images/test_bg_800x600.png"
     },
     {
       "tag": "bgIcon2",
-      "expandMode": "FILL",
-      "rect": { "offset": { "x": 400, "y": 0}, "size": { "width": 400, "height": 300} },
+      "rect": { "offset": { "x": 800, "y": 0}, "size": { "width": 800, "height": 450 } },
       "imageFile": "/images/test_bg_800x600.png"
     },
     {
       "tag": "bgIcon3",
-      "expandMode": "FILL",
-      "rect": { "offset": { "x": 0, "y": 300}, "size": { "width": 400, "height": 300} },
+      "rect": { "offset": { "x": 0, "y": 450}, "size": { "width": 800, "height": 450} },
       "imageFile": "/images/test_bg_800x600.png"
     },
     {
       "tag": "bgIcon4",
-      "expandMode": "FILL",
-      "rect": { "offset": { "x": 400, "y": 300}, "size": { "width": 400, "height": 300} },
+      "rect": { "offset": { "x": 800, "y": 450}, "size": { "width": 800, "height": 450} },
       "imageFile": "/images/test_bg_800x600.png"
     }
   ]

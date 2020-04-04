@@ -17,7 +17,7 @@ import java.io.IOException;
 public class LoginFromTemplateTest {
 
     public void run() throws IOException {
-        ScreenHandler<ScreenType> screen = TestUtils.createDefaultScreenHandler("Login test", true);
+        ScreenHandler<ScreenType> screen = TestUtils.createDefaultScreenHandler("Login test", false);
         Size simpleScreenSize = screen.getSize();
         SimpleScreen simpleScreen = new SimpleScreen(simpleScreenSize, Color.from(116, 140, 171));
 

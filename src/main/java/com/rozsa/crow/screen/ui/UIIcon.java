@@ -1,6 +1,5 @@
 package com.rozsa.crow.screen.ui;
 
-import com.rozsa.crow.screen.attributes.Offset;
 import com.rozsa.crow.screen.attributes.Rect;
 import com.rozsa.crow.screen.attributes.Size;
 import com.rozsa.crow.screen.sprite.Image;
@@ -10,10 +9,8 @@ import java.awt.image.ImageObserver;
 
 public class UIIcon extends UIBaseComponent<UIIconTemplate> {
     private UIIconTemplate data;
-    private Rect rect;
     private Image image;
     private Size expandFactor;
-    private Offset parentOffset;
 
     public UIIcon(UIIconTemplate data) {
         this(data, new Size());
@@ -23,7 +20,6 @@ public class UIIcon extends UIBaseComponent<UIIconTemplate> {
         super(data);
         this.data = data;
         this.expandFactor = expandFactor;
-        parentOffset = Offset.origin();
         setup();
     }
 
@@ -62,24 +58,6 @@ public class UIIcon extends UIBaseComponent<UIIconTemplate> {
     public void setSize(Size size) {
         rect.setWidth(size.getWidth());
         rect.setHeight(size.getHeight());
-    }
-
-    public void updateScreenSize(Size parentSize) {
-        Size refSize = data.getReferenceSize();
-        Rect rect = data.getRect();
-        int offsetX = (int)(((float)rect.getX() / refSize.getWidth()) * parentSize.getWidth());
-        offsetX -= rect.getX();
-        int offsetY = (int)(((float)rect.getY() / refSize.getHeight()) * parentSize.getHeight());
-        offsetY  -= rect.getY();
-
-        parentOffset.setX(offsetX);
-        parentOffset.setY(offsetY);
-
-        if (expandMode.equals(UIExpandMode.FILL)) {
-            Size newSize = Size.updateSize(rect.getSize(), refSize, parentSize);
-            this.rect.setWidth(newSize.getWidth());
-            this.rect.setHeight(newSize.getHeight());
-        }
     }
 
     @Override

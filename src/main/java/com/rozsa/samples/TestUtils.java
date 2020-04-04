@@ -14,9 +14,10 @@ public class TestUtils {
     public static ScreenHandler<ScreenType> createDefaultScreenHandler(String title, boolean isFullscreen) {
         ScreenHandlerConfig config = new ScreenHandlerConfig();
         config.setTitle(title);
-        Size screenSize = new Size(800, 600);
+        Size screenSize = new Size(1600, 900);
         config.setSize(screenSize);
         config.setVisible(false);
+        config.setResizable(true);
         config.setFullscreen(isFullscreen);
 
         ScreenHandler<ScreenType> screen = new ScreenHandler<>(ScreenType.class, config);

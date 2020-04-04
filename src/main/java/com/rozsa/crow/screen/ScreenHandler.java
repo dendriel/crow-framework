@@ -4,6 +4,8 @@ import com.rozsa.crow.screen.attributes.Size;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowEvent;
 import java.util.EnumMap;
@@ -54,6 +56,22 @@ public class ScreenHandler<TScreenKey extends Enum<TScreenKey>> {
     private void setupWindowed(Size size, boolean isResizable) {
         frame.setSize(size.getWidth(), size.getHeight());
         frame.setResizable(isResizable);
+
+        frame.addComponentListener(new ComponentAdapter() {
+            public void componentResized(ComponentEvent componentEvent) {
+                onScreenResized(componentEvent);
+            }
+        });
+    }
+
+    private void onScreenResized(ComponentEvent componentEvent) {
+        Dimension dim = componentEvent.getComponent().getSize();
+        int newWidth = removeWidthInsets((int)dim.getWidth());
+        int newHeight = removeHeightInsets((int)dim.getHeight());
+
+        Size newSize = new Size(newWidth, newHeight);
+        System.out.println("New size: " + newSize);
+        screens.values().forEach(s -> s.updateScreenSize(newSize));
     }
 
     private void setupInputListener(KeyListener inputListener) {
@@ -67,7 +85,7 @@ public class ScreenHandler<TScreenKey extends Enum<TScreenKey>> {
         frame.add(textField);
     }
 
-    private void compensateInsets() {
+    private void compensateInsets(Size size) {
         Insets insets = frame.getInsets();
         int insetWidth = insets.left + insets.right;
         int insetHeight = insets.top + insets.bottom;
@@ -76,7 +94,6 @@ public class ScreenHandler<TScreenKey extends Enum<TScreenKey>> {
             return;
         }
 
-        Size size = config.getSize().clone();
         size.addWidth(insetWidth);
         size.addHeight(insetHeight);
         frame.setSize(size.getWidth(), size.getHeight());
@@ -111,7 +128,7 @@ public class ScreenHandler<TScreenKey extends Enum<TScreenKey>> {
 
     public void setVisible(boolean isVisible) {
         frame.setVisible(isVisible);
-        compensateInsets();
+        compensateInsets(config.getSize().clone());
     }
 
     public void setOnlyVisible(TScreenKey key, boolean isVisible) {
@@ -131,6 +148,16 @@ public class ScreenHandler<TScreenKey extends Enum<TScreenKey>> {
     public int getHeight() {
         Insets insets = frame.getInsets();
         return frame.getHeight() - insets.top - insets.bottom;
+    }
+
+    private int removeWidthInsets(int width) {
+        Insets insets = frame.getInsets();
+        return width - insets.left - insets.right;
+    }
+
+    private int removeHeightInsets(int height) {
+        Insets insets = frame.getInsets();
+        return height - insets.top - insets.bottom;
     }
 
     public Size getSize() {

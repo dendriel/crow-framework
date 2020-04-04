@@ -11,28 +11,16 @@ import java.awt.image.ImageObserver;
 public class UILabel extends UIBaseComponent<UILabelTemplate> {
     private UILabelTemplate data;
     private JLabel label;
-    private Offset parentOffset;
-    private Size expandFactor;
     private Offset customOffset;
-    private Rect rect;
 
     public UILabel(UILabelTemplate data) {
-        this(data, new Offset(), new Size());
+        this(data, new Offset());
     }
 
     public UILabel(UILabelTemplate data, Offset parentOffset) {
-        this(data, parentOffset, new Size());
-    }
-
-    public UILabel(UILabelTemplate data, Size expandFactor) {
-        this(data, new Offset(), expandFactor);
-    }
-
-    public UILabel(UILabelTemplate data, Offset parentOffset, Size expandFactor) {
         super(data);
         this.data = data;
         this.parentOffset = parentOffset;
-        this.expandFactor = expandFactor;
         customOffset = Offset.origin();
         setup();
     }
@@ -52,11 +40,6 @@ public class UILabel extends UIBaseComponent<UILabelTemplate> {
         setupLabel();
     }
 
-    public void setExpandFactor(Size expandFactor) {
-        this.expandFactor = expandFactor;
-        setupLabel();
-    }
-
     private void setupLabel() {
         Font font = data.getFont().getJFont();
         label.setFont(font);
@@ -71,15 +54,10 @@ public class UILabel extends UIBaseComponent<UILabelTemplate> {
     }
 
     public void updateScreenSize(Size parentSize) {
-        Size refSize = data.getReferenceSize();
-        Rect rect = data.getRect();
-        parentOffset = Offset.updateOffset(rect.getOffset(), refSize, parentSize);
+        super.updateScreenSize(parentSize);
 
         if (expandMode.equals(UIExpandMode.FILL)) {
-            Size newSize = Size.updateSize(rect.getSize(), refSize, parentSize);
-            this.rect.setWidth(newSize.getWidth());
-            this.rect.setHeight(newSize.getHeight());
-
+            Size refSize = data.getReferenceSize();
             UIFontTemplate font = UIFontTemplate.updateFontTemplate(data.getFont(), refSize.getHeight(), parentSize.getHeight());
             label.setFont(font.getJFont());
         }
@@ -89,8 +67,8 @@ public class UILabel extends UIBaseComponent<UILabelTemplate> {
 
     private void setupBounds() {
         Rect bounds = rect.clone();
-        bounds.setX(bounds.getX() + customOffset.getX() + parentOffset.getX() + expandFactor.getWidth() / 2);
-        bounds.setY(bounds.getY() + customOffset.getY() + parentOffset.getY() + expandFactor.getHeight() / 2);
+        bounds.setX(bounds.getX() + customOffset.getX() + parentOffset.getX());
+        bounds.setY(bounds.getY() + customOffset.getY() + parentOffset.getY());
         label.setBounds(bounds.getX(), bounds.getY(), bounds.getWidth(), bounds.getHeight());
     }
 

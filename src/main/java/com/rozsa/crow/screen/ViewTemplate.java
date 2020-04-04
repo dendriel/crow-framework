@@ -13,7 +13,6 @@ import java.util.List;
 
 public class ViewTemplate {
     private Rect rect;
-    private UIExpandMode expandMode;
     private List<UIBaseComponentTemplate> components;
     private List<UILabelTemplate> labels;
     private List<UIIconTemplate> icons;
@@ -82,13 +81,5 @@ public class ViewTemplate {
 
     public void setInputFields(List<UIInputFieldTemplate> inputFields) {
         this.inputFields = inputFields;
-    }
-
-    public UIExpandMode getExpandMode() {
-        return expandMode;
-    }
-
-    public void setExpandMode(UIExpandMode expandMode) {
-        this.expandMode = expandMode;
     }
 }

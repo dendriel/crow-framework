@@ -1,11 +1,13 @@
 package com.rozsa.crow.screen.ui;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.rozsa.crow.screen.attributes.Rect;
 import com.rozsa.crow.screen.attributes.Size;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UIBaseComponentTemplate {
     protected final UIComponentType type;
+    protected Rect rect;
     protected String tag;
     protected UIExpandMode expandMode;
     // auto-set property
@@ -13,7 +15,7 @@ public class UIBaseComponentTemplate {
 
     public UIBaseComponentTemplate(UIComponentType type) {
         this.type = type;
-        expandMode = UIExpandMode.NONE;
+        expandMode = UIExpandMode.FILL;
     }
 
     public UIComponentType getType() {
@@ -42,5 +44,13 @@ public class UIBaseComponentTemplate {
 
     public void setReferenceSize(Size referenceSize) {
         this.referenceSize = referenceSize;
+    }
+
+    public Rect getRect() {
+        return rect;
+    }
+
+    public void setRect(Rect rect) {
+        this.rect = rect;
     }
 }

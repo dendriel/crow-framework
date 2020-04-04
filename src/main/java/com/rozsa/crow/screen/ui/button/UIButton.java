@@ -24,8 +24,6 @@ import java.util.Set;
 public class UIButton extends UIBaseComponent<UIButtonTemplate> {
     private UIButtonTemplate data;
     private CustomJButton button;
-    private Offset parentOffset;
-    private Rect rect;
     private Set<UIEventListenerTuple<UIEventListener>> buttonPressedListeners;
     private Set<UIEventListenerTuple<UIEventListener>> buttonMouseEnteredListeners;
     private Set<UIEventListenerTuple<UIEventListener>> buttonMouseExitedListeners;
@@ -212,18 +210,10 @@ public class UIButton extends UIBaseComponent<UIButtonTemplate> {
     }
 
     public void updateScreenSize(Size parentSize) {
-        Size refSize = data.getReferenceSize();
-        Rect rect = data.getRect();
-        parentOffset = Offset.updateOffset(rect.getOffset(), data.getReferenceSize(), parentSize);
-        setupBounds();
-
+        super.updateScreenSize(parentSize);
         if (expandMode.equals(UIExpandMode.FILL)) {
-            Size newSize = Size.updateSize(rect.getSize(), refSize, parentSize);
-            this.rect.setWidth(newSize.getWidth());
-            this.rect.setHeight(newSize.getHeight());
-
-            UILabelTemplate label = data.getLabel();
-            UIFontTemplate font = UIFontTemplate.updateFontTemplate(label.getFont(), refSize.getHeight(), parentSize.getHeight());
+            Size refSize = data.getReferenceSize();
+            UIFontTemplate font = UIFontTemplate.updateFontTemplate(data.getLabel().getFont(), refSize.getHeight(), parentSize.getHeight());
             button.setFont(font.getJFont());
         }
 

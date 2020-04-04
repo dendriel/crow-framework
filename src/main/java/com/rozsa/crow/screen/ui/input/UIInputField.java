@@ -1,7 +1,6 @@
 package com.rozsa.crow.screen.ui.input;
 
 import com.rozsa.crow.screen.attributes.Offset;
-import com.rozsa.crow.screen.attributes.Rect;
 import com.rozsa.crow.screen.attributes.Size;
 import com.rozsa.crow.screen.ui.UIBaseComponent;
 import com.rozsa.crow.screen.ui.UIExpandMode;
@@ -20,8 +19,6 @@ public class UIInputField extends UIBaseComponent<UIInputFieldTemplate> {
     private UIInputFieldTemplate data;
     private JTextField textField;
     private Set<UIEventListenerTuple<UIEventListener>> inputFieldSubmittedListeners;
-    private Offset parentOffset;
-    private Rect rect;
 
     public UIInputField(UIInputFieldTemplate data) {
         super(data);
@@ -90,15 +87,10 @@ public class UIInputField extends UIBaseComponent<UIInputFieldTemplate> {
     }
 
     public void updateScreenSize(Size parentSize) {
-        Size refSize = data.getReferenceSize();
-        Rect rect = data.getRect();
-        parentOffset = Offset.updateOffset(rect.getOffset(), refSize, parentSize);
+        super.updateScreenSize(parentSize);
 
         if (expandMode.equals(UIExpandMode.FILL)) {
-            Size newSize = Size.updateSize(rect.getSize(), refSize, parentSize);
-            this.rect.setWidth(newSize.getWidth());
-            this.rect.setHeight(newSize.getHeight());
-
+            Size refSize = data.getReferenceSize();
             UIFontTemplate font = UIFontTemplate.updateFontTemplate(data.getFont(), refSize.getHeight(), parentSize.getHeight());
             textField.setFont(font.getJFont());
         }
