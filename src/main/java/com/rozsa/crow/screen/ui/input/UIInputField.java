@@ -42,6 +42,7 @@ public class UIInputField extends UIBaseComponent<UIInputFieldTemplate> {
 
         Rect rect = data.getRect();
         textField.setBounds(rect.getX(), rect.getY(), rect.getWidth(), rect.getHeight());
+        textField.setEnabled(!data.isDisabled());
 
         textField.addActionListener(this::onSubmitted);
     }
@@ -67,6 +68,12 @@ public class UIInputField extends UIBaseComponent<UIInputFieldTemplate> {
         if (data.getToolTip() != null) {
             textField.setToolTipText(String.format("<html><body>%s</body></html>", data.getToolTip().getText()));
         }
+    }
+
+    public void setDisabled(boolean isDisabled) {
+        // isDisable refer to the button state; isEnabled refer to the component as a whole.
+        // When disabled, the button will be displayed using the disabled icon (if set).
+        textField.setEnabled(!isDisabled);
     }
 
     private void onSubmitted(ActionEvent e) {

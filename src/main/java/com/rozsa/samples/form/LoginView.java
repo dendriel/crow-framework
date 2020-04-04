@@ -6,12 +6,18 @@ import com.rozsa.crow.screen.attributes.Rect;
 import com.rozsa.crow.screen.ui.UIFontTemplate;
 import com.rozsa.crow.screen.ui.UILabel;
 import com.rozsa.crow.screen.ui.UILabelTemplate;
-import com.rozsa.crow.screen.ui.UIToolTipTemplate;
 import com.rozsa.crow.screen.ui.button.UIBorderTemplate;
+import com.rozsa.crow.screen.ui.button.UIButton;
+import com.rozsa.crow.screen.ui.button.UIButtonTemplate;
 import com.rozsa.crow.screen.ui.input.UIInputField;
 import com.rozsa.crow.screen.ui.input.UIInputFieldTemplate;
 
 class LoginView extends BaseView {
+    private UIButton loginButton;
+    private UIInputField usernameInput;
+    private UIInputField passwordInput;
+    private UILabel feedbackLabel;
+
     LoginView(Rect rect) {
         super(rect);
         setupComponents(rect);
@@ -19,13 +25,15 @@ class LoginView extends BaseView {
 
     private void setupComponents(Rect rect) {
 
-        // Dynamic Label
+        UILabelTemplate titleLabelData = new UILabelTemplate();
+        titleLabelData.setText("Login Form");
+        titleLabelData.setFont(new UIFontTemplate("Serif", 0, 40));
+        titleLabelData.setHorizontalAlignment(0);
+        titleLabelData.setRect(new Rect(rect.getWidth()/2 - 100, 30, 200, 60));
+        addComponent(new UILabel(titleLabelData));
+
         UILabelTemplate labelData = new UILabelTemplate();
         labelData.setText("Username:");
-        labelData.setColor(new Color(255, 255, 255));
-        labelData.setFont(new UIFontTemplate("Serif", 0, 24));
-        labelData.setVerticalAlignment(0);
-        labelData.setHorizontalAlignment(0);
         labelData.setRect(new Rect(138, 200, 110, 30));
         UILabel label = new UILabel(labelData);
         addComponent(label);
@@ -45,17 +53,13 @@ class LoginView extends BaseView {
         border.setThickness(2);
         inputTemplate.setBorder(border);
 
-        UIInputField input = new UIInputField(inputTemplate);
-        addComponent(input);
+        usernameInput = new UIInputField(inputTemplate);
+        addComponent(usernameInput);
 
 
         // Dynamic Label
         UILabelTemplate passwordLabelData = new UILabelTemplate();
         passwordLabelData.setText("Password:");
-        passwordLabelData.setColor(new Color(255, 255, 255));
-        passwordLabelData.setFont(new UIFontTemplate("Serif", 0, 24));
-        passwordLabelData.setVerticalAlignment(0);
-        passwordLabelData.setHorizontalAlignment(0);
         passwordLabelData.setRect(new Rect(146, 240, 100, 30));
         addComponent(new UILabel(passwordLabelData));
 
@@ -67,8 +71,50 @@ class LoginView extends BaseView {
         passwordTemplate.setBackgroundColor(new Color(255, 255, 255));
         passwordTemplate.setColumns(32);
         passwordTemplate.setFont(new UIFontTemplate("Serif", 0, 24));
+        passwordTemplate.setPasswordInput(true);
 
         passwordTemplate.setBorder(border);
-        addComponent(new UIInputField(passwordTemplate));
+        passwordInput = new UIInputField(passwordTemplate);
+        addComponent(passwordInput);
+
+        // Login button.
+        UILabelTemplate labelTemplate = new UILabelTemplate();
+        labelTemplate.setText("Login");
+
+        UIButtonTemplate buttonData = new UIButtonTemplate();
+        buttonData.setRect(new Rect(350, 280, 100, 38));
+        buttonData.setLabel(labelTemplate);
+        buttonData.setDefaultImage("/images/button.png");
+        buttonData.setPressedImage("/images/button_pressed.png");
+        buttonData.setRolloverImage("/images/button_highlight.png");
+        buttonData.setDisabledImage("/images/button_disabled.png");
+
+        loginButton = new UIButton(buttonData);
+        addComponent(loginButton);
+
+
+        UILabelTemplate feedbackLabelData = new UILabelTemplate();
+//        feedbackLabelData.setText("Logging in...");
+        feedbackLabelData.setFont(new UIFontTemplate("Serif", 2, 20));
+        feedbackLabelData.setRect(new Rect(250, 340, 300, 30));
+        feedbackLabelData.setHorizontalAlignment(2);
+        feedbackLabel  = new UILabel(feedbackLabelData);
+        addComponent(feedbackLabel);
+    }
+
+    UIButton getLoginButton() {
+        return loginButton;
+    }
+
+    UIInputField getUsernameInput() {
+        return usernameInput;
+    }
+
+    UIInputField getPasswordInput() {
+        return passwordInput;
+    }
+
+    UILabel getFeedbackLabel() {
+        return feedbackLabel;
     }
 }

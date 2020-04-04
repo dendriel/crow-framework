@@ -15,7 +15,7 @@ public class UIButtonTemplate {
     private UIToolTipTemplate toolTip;
 
     public UIButtonTemplate() {
-        toolTip = new UIToolTipTemplate();
+//        toolTip = new UIToolTipTemplate();
     }
 
     public UILabelTemplate getLabel() {

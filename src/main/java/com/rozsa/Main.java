@@ -12,11 +12,11 @@ public class Main {
 //        ButtonTest buttonTest = new ButtonTest();
 //        buttonTest.run();
 
-        InputTest inputTest = new InputTest();
-        inputTest.run();
+//        InputTest inputTest = new InputTest();
+//        inputTest.run();
 
-//        LoginTest loginTest = new LoginTest();
-//        loginTest.run();
+        LoginTest loginTest = new LoginTest();
+        loginTest.run();
     }
 }
 

@@ -42,7 +42,7 @@ public class ButtonsView extends BaseView {
             UIButtonTemplate buttonData = new UIButtonTemplate();
             buttonData.setRect(new Rect(100*i, 0, 100, 100));
             buttonData.setLabel(labelTemplate);
-            buttonData.setDefaultImage("/images/button_bg.png");
+            buttonData.setDefaultImage("/images/button.png");
             buttonData.setPressedImage("/images/button_pressed.png");
             if (i % 2 == 0) {
                 buttonData.setDisabledImage("/images/button_pressed.png");

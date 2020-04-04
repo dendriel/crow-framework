@@ -16,6 +16,7 @@ public class UIInputFieldTemplate {
     private UIBorderTemplate border;
     private UIToolTipTemplate toolTip;
     private boolean isPasswordInput;
+    private boolean isDisabled;
 
     public UIInputFieldTemplate() {
         font = new UIFontTemplate();
@@ -92,5 +93,13 @@ public class UIInputFieldTemplate {
 
     public void setPasswordInput(boolean passwordInput) {
         isPasswordInput = passwordInput;
+    }
+
+    public boolean isDisabled() {
+        return isDisabled;
+    }
+
+    public void setDisabled(boolean disabled) {
+        isDisabled = disabled;
     }
 }
