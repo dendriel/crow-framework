@@ -4,7 +4,6 @@ import java.util.Objects;
 
 public class Rect {
     private Offset offset;
-
     private Size size;
 
     public Rect() {
@@ -68,6 +67,10 @@ public class Rect {
 
     public void setHeight(int height) {
         size.setHeight(height);
+    }
+
+    public void setSize(Size newSize) {
+        size = newSize;
     }
 
     public Size getSize() {

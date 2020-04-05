@@ -5,6 +5,7 @@ public enum UIComponentType {
     ICON,
     INPUT_FIELD,
     BUTTON,
+    ANIMATION,
     SLOT_GROUP,
     LABEL_GROUP,
     SELECT,

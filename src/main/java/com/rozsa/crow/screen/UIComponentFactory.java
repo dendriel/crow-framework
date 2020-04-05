@@ -23,6 +23,7 @@ class UIComponentFactory {
         typeToCreatorMapper.put(ICON, template -> new UIIcon((UIIconTemplate) template));
         typeToCreatorMapper.put(INPUT_FIELD, template -> new UIInputField((UIInputFieldTemplate) template));
         typeToCreatorMapper.put(BUTTON, template -> new UIButton((UIButtonTemplate) template));
+        typeToCreatorMapper.put(ANIMATION, template -> new UIAnimation((UIAnimationTemplate) template));
     }
 
     public static UIComponent create(UIBaseComponentTemplate template, Size viewSize) {

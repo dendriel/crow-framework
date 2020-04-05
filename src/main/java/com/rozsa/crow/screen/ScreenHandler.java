@@ -8,21 +8,22 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowEvent;
-import java.util.EnumMap;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 public class ScreenHandler<TScreenKey extends Enum<TScreenKey>> {
     private final ScreenHandlerConfig config;
     private JFrame frame;
-    private EnumMap<TScreenKey, BaseScreen> screens;
+    private ConcurrentMap<TScreenKey, BaseScreen> screens;
 
-    public ScreenHandler(Class<TScreenKey> keyClazz, ScreenHandlerConfig config) {
-        this(keyClazz, config, null);
+    public ScreenHandler(ScreenHandlerConfig config) {
+        this(config, null);
     }
 
-    public ScreenHandler(Class<TScreenKey> keyClazz, ScreenHandlerConfig config, KeyListener inputListener) {
+    public ScreenHandler(ScreenHandlerConfig config, KeyListener inputListener) {
         this.config = config;
         frame = new JFrame();
-        screens = new EnumMap<>(keyClazz);
+        screens = new ConcurrentHashMap<>();
         setup(inputListener);
     }
 
@@ -34,6 +35,22 @@ public class ScreenHandler<TScreenKey extends Enum<TScreenKey>> {
         }
 
         setVisible(config.isVisible());
+
+        if (config.isAnimationsEnabled()) {
+            new Thread(this::drawLoop).start();
+        }
+    }
+
+    private void drawLoop() {
+        long timeBetweenFrames = (long)(1000 / (float)config.getAnimationsFPS());
+        while(true) {
+            screens.values().forEach(BaseScreen::draw);
+            try {
+                Thread.sleep(timeBetweenFrames);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private void setupWindow() {

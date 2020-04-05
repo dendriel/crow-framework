@@ -1,6 +1,6 @@
 package com.rozsa;
 
-import com.rozsa.samples.forms.login_from_template.LoginFromTemplateTest;
+import com.rozsa.samples.components.animation.AnimationTest;
 
 import java.io.IOException;
 
@@ -19,8 +19,11 @@ public class Main {
 //        LoginTest loginTest = new LoginTest();
 //        loginTest.run();
 
-        LoginFromTemplateTest loginFromTemplate = new LoginFromTemplateTest();
-        loginFromTemplate.run();
+//        LoginFromTemplateTest loginFromTemplate = new LoginFromTemplateTest();
+//        loginFromTemplate.run();
+
+        AnimationTest animationTest = new AnimationTest();
+        animationTest.run();
     }
 }
 

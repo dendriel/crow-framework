@@ -10,6 +10,8 @@ to easy game development in Java.
 - Input handling;
 - Sound handling;
 - Component-based gameplay entities;
+- Window modes: windowed or fullscreen;
+- Window/components resizing (pixel perfect resize mode); 
 - Describe all screen components in a JSON-based template.
 
 # Screen
@@ -46,4 +48,5 @@ screenHandler.setOnlyVisible(ScreenType.SPLASH, true);
 - UILabel - static text;
 - UIIcon - static image;
 - UIButton - interactive button;
-- UIInputField - interactive text input.
+- UIInputField - interactive text input;
+- UIAnimation - animated icon (uses spritesheet).

@@ -22,7 +22,7 @@ public class SplashSetupTest {
         config.setVisible(false);
         config.setFullscreen(isFullScreen);
 
-        ScreenHandler<ScreenType> screen = new ScreenHandler<>(ScreenType.class, config);
+        ScreenHandler<ScreenType> screen = new ScreenHandler<>(config);
 
         screen.setVisible(true);
 

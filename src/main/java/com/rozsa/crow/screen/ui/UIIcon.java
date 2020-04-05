@@ -5,21 +5,16 @@ import com.rozsa.crow.screen.attributes.Size;
 import com.rozsa.crow.screen.sprite.Image;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 
 public class UIIcon extends UIBaseComponent<UIIconTemplate> {
     private UIIconTemplate data;
-    private Image image;
-    private Size expandFactor;
+    protected Image image;
 
     public UIIcon(UIIconTemplate data) {
-        this(data, new Size());
-    }
-
-    public UIIcon(UIIconTemplate data, Size expandFactor) {
         super(data);
         this.data = data;
-        this.expandFactor = expandFactor;
         setup();
     }
 
@@ -39,8 +34,6 @@ public class UIIcon extends UIBaseComponent<UIIconTemplate> {
     private void setup() {
         image = Image.load(data.getImageFile());
         rect = data.getRect();
-        rect.addWidth(expandFactor.getWidth());
-        rect.addHeight(expandFactor.getHeight());
     }
 
     public Rect getRect() {
@@ -74,8 +67,21 @@ public class UIIcon extends UIBaseComponent<UIIconTemplate> {
     public void paint(Graphics g, ImageObserver observer) {
         if (!isEnabled) return;
 
+        Rect rectToPaint = getRectToPaint();
+        g.drawImage(getImageToPaint(), rectToPaint.getX(), rectToPaint.getY(), rectToPaint.getWidth(), rectToPaint.getHeight(), observer);
+    }
+
+    protected Rect getRectToPaint() {
+        Rect rectToPaint = rect.clone();
         int x = rect.getX() + parentOffset.getX();
         int y = rect.getY() + parentOffset.getY();
-        g.drawImage(image.getContent(rect.getWidth(), rect.getHeight()), x, y, rect.getWidth(), rect.getHeight(), observer);
+
+        rectToPaint.setX(x);
+        rectToPaint.setY(y);
+        return rectToPaint;
+    }
+
+    protected BufferedImage getImageToPaint() {
+        return image.getContent(rect.getWidth(), rect.getHeight());
     }
 }

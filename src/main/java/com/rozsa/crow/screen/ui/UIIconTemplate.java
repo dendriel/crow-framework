@@ -7,6 +7,11 @@ public class UIIconTemplate extends UIBaseComponentTemplate {
         super(UIComponentType.ICON);
     }
 
+    public UIIconTemplate(UIComponentType type) {
+        super(type);
+    }
+
+
     public String getImageFile() {
         return imageFile;
     }

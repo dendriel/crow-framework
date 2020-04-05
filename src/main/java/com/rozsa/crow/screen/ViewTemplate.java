@@ -1,10 +1,7 @@
 package com.rozsa.crow.screen;
 
 import com.rozsa.crow.screen.attributes.Rect;
-import com.rozsa.crow.screen.ui.UIBaseComponentTemplate;
-import com.rozsa.crow.screen.ui.UIExpandMode;
-import com.rozsa.crow.screen.ui.UIIconTemplate;
-import com.rozsa.crow.screen.ui.UILabelTemplate;
+import com.rozsa.crow.screen.ui.*;
 import com.rozsa.crow.screen.ui.button.UIButtonTemplate;
 import com.rozsa.crow.screen.ui.input.UIInputFieldTemplate;
 
@@ -18,12 +15,14 @@ public class ViewTemplate {
     private List<UIIconTemplate> icons;
     private List<UIButtonTemplate> buttons;
     private List<UIInputFieldTemplate> inputFields;
+    private List<UIAnimationTemplate> animations;
 
     public ViewTemplate() {
         labels = new ArrayList<>();
         icons = new ArrayList<>();
         buttons = new ArrayList<>();
         inputFields = new ArrayList<>();
+        animations = new ArrayList<>();
     }
 
     public ViewTemplate(Rect rect) {
@@ -46,6 +45,7 @@ public class ViewTemplate {
             components.addAll(icons);
             components.addAll(buttons);
             components.addAll(inputFields);
+            components.addAll(animations);
         }
 
         return components;
@@ -81,5 +81,13 @@ public class ViewTemplate {
 
     public void setInputFields(List<UIInputFieldTemplate> inputFields) {
         this.inputFields = inputFields;
+    }
+
+    public List<UIAnimationTemplate> getAnimations() {
+        return animations;
+    }
+
+    public void setAnimations(List<UIAnimationTemplate> animations) {
+        this.animations = animations;
     }
 }
