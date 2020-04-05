@@ -1,6 +1,5 @@
 package com.rozsa.crow.screen.ui;
 
-import com.rozsa.crow.screen.attributes.Offset;
 import com.rozsa.crow.screen.attributes.Rect;
 import com.rozsa.crow.screen.attributes.Size;
 
@@ -27,6 +26,8 @@ public class UIAnimation extends UIIcon {
         frameRect = data.getFrameRect();
         totalFrames = rect.getWidth() / frameRect.getWidth();
         add(this);
+
+        isEnabled = data.isVisible();
     }
 
     private void reset() {

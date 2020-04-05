@@ -33,7 +33,7 @@ public class LoginFromTemplateTest {
     }
 
     public ViewTemplate getLoginTemplate() throws IOException {
-        JsonReader<ViewTemplate> reader = new JsonReader<>("/templates/login_view_template.json", ViewTemplate.class);
+        JsonReader<ViewTemplate> reader = new JsonReader<>("/templates/login_view.json", ViewTemplate.class);
         return reader.read();
     }
 

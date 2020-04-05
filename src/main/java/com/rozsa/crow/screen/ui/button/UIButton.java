@@ -211,7 +211,7 @@ public class UIButton extends UIBaseComponent<UIButtonTemplate> {
 
     public void updateScreenSize(Size parentSize) {
         super.updateScreenSize(parentSize);
-        if (expandMode.equals(UIExpandMode.FILL)) {
+        if (expandMode.equals(UIExpandMode.FILL) && data.getLabel() != null) {
             Size refSize = data.getReferenceSize();
             UIFontTemplate font = UIFontTemplate.updateFontTemplate(data.getLabel().getFont(), refSize.getHeight(), parentSize.getHeight());
             button.setFont(font.getJFont());

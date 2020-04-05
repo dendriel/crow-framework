@@ -38,13 +38,17 @@ public abstract class UIBaseComponent<T> implements UIComponent<T> {
     }
 
     protected void onComponentChanged() {
-        observers.forEach(o -> o.componentChanged());
+        observers.forEach(UIComponentObserver::componentChanged);
     }
 
     public void wrapUp(Container container) {
     }
 
     public void destroy(Container container) {
+    }
+
+    public boolean isEnabled() {
+        return isEnabled;
     }
 
     @Override

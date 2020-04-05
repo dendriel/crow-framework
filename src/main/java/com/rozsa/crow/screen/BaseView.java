@@ -3,6 +3,7 @@ package com.rozsa.crow.screen;
 import com.rozsa.crow.screen.attributes.Offset;
 import com.rozsa.crow.screen.attributes.Rect;
 import com.rozsa.crow.screen.attributes.Size;
+import com.rozsa.crow.screen.ui.UIAnimation;
 import com.rozsa.crow.screen.ui.UIBaseComponentTemplate;
 import com.rozsa.crow.screen.ui.UIIcon;
 import com.rozsa.crow.screen.ui.UILabel;
@@ -115,6 +116,10 @@ public class BaseView extends JPanel implements UIComponentObserver {
 
     public UIInputField getInputField(String tag) {
         return getComponent(tag, UIInputField.class);
+    }
+
+    public UIAnimation getAnimation(String tag) {
+        return getComponent(tag, UIAnimation.class);
     }
 
     public <T extends UIComponent> T getComponent(String tag, Class<T> clazz) {

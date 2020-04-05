@@ -8,11 +8,13 @@ public class UIAnimationTemplate extends UIIconTemplate {
     private boolean repeat;
     private int firstFrame;
     private boolean isRunning;
+    private boolean isVisible;
 
     public UIAnimationTemplate() {
         super(UIComponentType.ANIMATION);
         repeat = true;
         isRunning = true;
+        isVisible = true;
     }
 
     public int getFirstFrame() {
@@ -53,5 +55,13 @@ public class UIAnimationTemplate extends UIIconTemplate {
 
     public void setFrameRect(Rect frameRect) {
         this.frameRect = frameRect;
+    }
+
+    public boolean isVisible() {
+        return isVisible;
+    }
+
+    public void setVisible(boolean visible) {
+        isVisible = visible;
     }
 }

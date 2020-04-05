@@ -59,7 +59,7 @@ public class Image {
             ImageCache.add(filePath, image);
 
             return image;
-        } catch (IOException ex) {
+        } catch (Exception ex) {
             System.out.printf("Failed to load image [%s]. Ex.: %s\n", filePath, ex);
         }
 

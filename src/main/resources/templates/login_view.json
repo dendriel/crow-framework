@@ -2,7 +2,7 @@
   "rect": { "offset": { "x": 0, "y": 0}, "size": { "width": 1600, "height": 900}},
   "labels": [
     {
-      "tag": "title",
+      "tag": "titleLabel",
       "rect": { "offset": { "x": 720, "y": 30}, "size": { "width": 150, "height": 70}},
       "font": { "font": "Serif", "style": 0, "size": 60},
       "text": "Login"
@@ -51,8 +51,10 @@
     {
       "tag": "loginButton",
       "rect": { "offset": { "x": 920, "y": 400}, "size": { "width": 100, "height": 50}},
-      "font": { "font": "Serif", "style": 0, "size": 30 },
-      "label": { "text": "Login" },
+      "label": {
+        "text": "Login",
+        "font": { "font": "Serif", "style": 0, "size": 24 }
+      },
       "defaultImage": "/images/button.png",
       "pressedImage": "/images/button_pressed.png",
       "rolloverImage": "/images/button_highlight.png",

@@ -1,6 +1,7 @@
 package com.rozsa;
 
 import com.rozsa.samples.components.animation.AnimationTest;
+import com.rozsa.samples.forms.select.SelectTest;
 
 import java.io.IOException;
 
@@ -22,8 +23,11 @@ public class Main {
 //        LoginFromTemplateTest loginFromTemplate = new LoginFromTemplateTest();
 //        loginFromTemplate.run();
 
-        AnimationTest animationTest = new AnimationTest();
-        animationTest.run();
+//        AnimationTest animationTest = new AnimationTest();
+//        animationTest.run();
+
+        SelectTest selectTest = new SelectTest();
+        selectTest.run();
     }
 }
 

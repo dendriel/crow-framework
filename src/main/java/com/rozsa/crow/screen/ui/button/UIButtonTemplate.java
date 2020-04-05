@@ -1,6 +1,5 @@
 package com.rozsa.crow.screen.ui.button;
 
-import com.rozsa.crow.screen.attributes.Rect;
 import com.rozsa.crow.screen.ui.UIBaseComponentTemplate;
 import com.rozsa.crow.screen.ui.UIComponentType;
 import com.rozsa.crow.screen.ui.UILabelTemplate;

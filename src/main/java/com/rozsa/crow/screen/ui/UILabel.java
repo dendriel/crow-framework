@@ -5,6 +5,7 @@ import com.rozsa.crow.screen.attributes.Rect;
 import com.rozsa.crow.screen.attributes.Size;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.image.ImageObserver;
 

@@ -28,7 +28,7 @@ public class AnimationTest {
     }
 
     public ViewTemplate getTemplate() throws IOException {
-        JsonReader<ViewTemplate> reader = new JsonReader<>("/templates/animation_test_template.json", ViewTemplate.class);
+        JsonReader<ViewTemplate> reader = new JsonReader<>("/templates/animation_test.json", ViewTemplate.class);
         return reader.read();
     }
 }
