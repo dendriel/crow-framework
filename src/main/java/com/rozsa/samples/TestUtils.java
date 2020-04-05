@@ -21,8 +21,8 @@ public class TestUtils {
         config.setResizable(true);
         config.setFullscreen(isFullscreen);
         config.setAnimationsEnabled(enableAnimations);
-//        config.setAnimationsFPS(60);
-        config.setAnimationsFPS(8);
+        config.setAnimationsFPS(60);
+//        config.setAnimationsFPS(8);
 
         ScreenHandler<ScreenType> screen = new ScreenHandler<>(config);
         screen.setVisible(true);

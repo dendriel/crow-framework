@@ -71,11 +71,11 @@ public class UIAnimation extends UIIcon {
 
     @Override
     protected BufferedImage getImageToPaint() {
-        System.out.println("Fullimage: " + rect);
         BufferedImage fullImage = image.getContent(rect.getWidth(), rect.getHeight());
         Size frameSize = frameRect.getSize();
-        int x = (int)Math.ceil(currentFrame * (float)frameSize.getWidth());
-        System.out.println("Draw frame " + currentFrame + " - " + x + ",0 " + frameSize);
+
+        float frameWidth = ((float)data.getFrameRect().getSize().getWidth() / data.getRect().getSize().getWidth()) * rect.getSize().getWidth();
+        int x = (int)(currentFrame * frameWidth);
 
         return fullImage.getSubimage(x, 0, frameSize.getWidth(), frameSize.getHeight());
     }
