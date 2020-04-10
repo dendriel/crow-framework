@@ -35,6 +35,14 @@ public class InputHandler implements KeyListener {
         return InputKey.UNKNOWN;
     }
 
+    public InputKey getNextAsync() {
+        InputKey key = inputs.poll();
+        if (key == null) {
+            return InputKey.UNKNOWN;
+        }
+        return key;
+    }
+
     public void clearCache() {
         inputs.clear();
     }

@@ -8,8 +8,6 @@ public class ScreenHandlerConfig {
     private boolean isFullscreen;
     private boolean isVisible;
     private boolean isResizable;
-    private boolean isAnimationsEnabled;
-    private int animationsFPS;
 
     public ScreenHandlerConfig() {
         isVisible = true;
@@ -53,21 +51,5 @@ public class ScreenHandlerConfig {
 
     public void setResizable(boolean resizable) {
         isResizable = resizable;
-    }
-
-    public boolean isAnimationsEnabled() {
-        return isAnimationsEnabled;
-    }
-
-    public void setAnimationsEnabled(boolean animationsEnabled) {
-        isAnimationsEnabled = animationsEnabled;
-    }
-
-    public int getAnimationsFPS() {
-        return animationsFPS;
-    }
-
-    public void setAnimationsFPS(int animationsFPS) {
-        this.animationsFPS = animationsFPS;
     }
 }

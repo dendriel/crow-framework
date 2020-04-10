@@ -14,7 +14,7 @@ import java.io.IOException;
 
 public class AnimationTest {
     public void run() throws IOException {
-        ScreenHandler<ScreenType> screen = TestUtils.createDefaultScreenHandler("Animation test", false, true);
+        ScreenHandler<ScreenType> screen = TestUtils.createDefaultScreenHandler("Animation test", false);
 
         Size simpleScreenSize = screen.getSize();
         SimpleScreen simpleScreen = new SimpleScreen(simpleScreenSize, Color.from(116, 140, 171));

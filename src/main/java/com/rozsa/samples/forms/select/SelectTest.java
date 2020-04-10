@@ -17,7 +17,7 @@ import java.util.List;
 
 public class SelectTest {
     public void run() throws IOException {
-        ScreenHandler<ScreenType> screen = TestUtils.createDefaultScreenHandler("Select test", false, true);
+        ScreenHandler<ScreenType> screen = TestUtils.createDefaultScreenHandler("Select test", false);
 
         Size simpleScreenSize = screen.getSize();
         SimpleScreen simpleScreen = new SimpleScreen(simpleScreenSize, Color.from(103, 129, 165));

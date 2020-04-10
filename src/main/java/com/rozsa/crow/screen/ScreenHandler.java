@@ -1,5 +1,6 @@
 package com.rozsa.crow.screen;
 
+import com.rozsa.crow.game.GameLoop;
 import com.rozsa.crow.screen.attributes.Size;
 
 import javax.swing.*;
@@ -35,22 +36,11 @@ public class ScreenHandler<TScreenKey extends Enum<TScreenKey>> {
         }
 
         setVisible(config.isVisible());
-
-        if (config.isAnimationsEnabled()) {
-            new Thread(this::drawLoop).start();
-        }
+        GameLoop.setScreenUpdateListener(this::screenUpdate);
     }
 
-    private void drawLoop() {
-        long timeBetweenFrames = (long)(1000 / (float)config.getAnimationsFPS());
-        while(true) {
-            screens.values().forEach(BaseScreen::draw);
-            try {
-                Thread.sleep(timeBetweenFrames);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
+    private void screenUpdate() {
+        screens.values().forEach(BaseScreen::draw);
     }
 
     private void setupWindow() {
@@ -147,6 +137,7 @@ public class ScreenHandler<TScreenKey extends Enum<TScreenKey>> {
         compensateInsets(config.getSize().clone());
     }
 
+    // TODO: the method name doesnt make sense if we pass isVisible;
     public void setOnlyVisible(TScreenKey key, boolean isVisible) {
         screens.values().forEach(s -> s.setVisible(false));
         if (screens.containsKey(key)) {
