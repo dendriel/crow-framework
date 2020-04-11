@@ -44,7 +44,7 @@ public class RendererView extends BaseView implements RendererObserver {
     }
 
     /**
-     * Persistent renderers will be removeAllRenderers after clearAll is called.
+     * Persistent renderers wont be removed after removeAllRenderers is called.
      * @param renderer
      */
     public void addPersistentRenderer(Renderer renderer) {
@@ -55,6 +55,10 @@ public class RendererView extends BaseView implements RendererObserver {
     public void removeRenderer(Renderer renderer) {
         renderers.remove(renderer);
         renderer.removeRendererChangedListener(this);
+    }
+
+    public void removeRenderers(List<Renderer> renderers) {
+        renderers.forEach(this::removeRenderer);
     }
 
     /**

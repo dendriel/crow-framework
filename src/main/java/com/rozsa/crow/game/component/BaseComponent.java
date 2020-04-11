@@ -11,7 +11,7 @@ public abstract class BaseComponent implements Component {
 
     protected String name;
 
-    protected int id;
+    protected long id;
 
     public BaseComponent() {
         this(true, "unnamed");
@@ -79,7 +79,7 @@ public abstract class BaseComponent implements Component {
     }
 
     @Override
-    public int getId() {
+    public long getId() {
         return id;
     }
 }
