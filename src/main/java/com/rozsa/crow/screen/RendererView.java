@@ -19,12 +19,9 @@ import java.util.*;
 public class RendererView extends BaseView implements RendererObserver {
     private List<Renderer> renderers;
     private List<Renderer> persistentRenderers;
-
-    private Size tileSize;
-
-    private int offsetX;
-
-    private int offsetY;
+    protected Size tileSize;
+    protected int offsetX;
+    protected int offsetY;
 
     public RendererView(Rect rect, Size tileSize, Size tileSizeFactor) {
         super(rect.add(tileSizeFactor));
