@@ -120,7 +120,7 @@ public class Sprite implements Drawable {
 
     @Override
     public Size getSize() {
-        return size;
+        return size.clone();
     }
 
     public void setSize(Size size) {

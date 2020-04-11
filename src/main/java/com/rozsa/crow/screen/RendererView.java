@@ -154,14 +154,26 @@ public class RendererView extends BaseView implements RendererObserver {
     }
 
     private boolean isRendererOutsideGameView(Renderer r) {
-        int screenPosX = r.getX() - offsetX;
-        int screenPosY = r.getY() - offsetY;
-
-        if (screenPosX < 0 || screenPosX >= rect.getWidth() ||
-                screenPosY < 0 || screenPosY >= rect.getHeight()) {
-            return true;
+        if (isPointInsideScreen(r.getX(), r.getY())) {
+            return false;
         }
 
-        return false;
+        Size rSize = r.getSize();
+        if (isPointInsideScreen(r.getX() + rSize.getWidth(), r.getY())) {
+            return false;
+        }
+
+        if (isPointInsideScreen(r.getX(), r.getY() + rSize.getHeight())) {
+            return false;
+        }
+
+        return !isPointInsideScreen(r.getX() + rSize.getWidth(), r.getY() + rSize.getHeight());
+    }
+
+    private boolean isPointInsideScreen(int x, int y) {
+        int horBound = offsetX + rect.getWidth();
+        int verBound = offsetY + rect.getHeight();
+        return (x >= offsetX && x < horBound &&
+                y >= offsetY && y < verBound);
     }
 }

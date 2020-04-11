@@ -57,6 +57,11 @@ public class Size {
         return new Size(width, height);
     }
 
+    public boolean isLargerThan(Size size) {
+        return this.width > size.getWidth() &&
+                this.height > size.getHeight();
+    }
+
     public Size clone() {
         return new Size(width, height);
     }

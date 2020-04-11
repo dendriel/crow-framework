@@ -4,6 +4,7 @@ import com.rozsa.crow.game.api.PositionObserver;
 import com.rozsa.crow.game.api.RendererObserver;
 import com.rozsa.crow.screen.api.Drawable;
 import com.rozsa.crow.screen.attributes.Offset;
+import com.rozsa.crow.screen.attributes.Size;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -90,6 +91,24 @@ public class Renderer extends BaseComponent implements PositionObserver {
             return new ArrayList<>(drawings);
         }
         return drawings.stream().filter(Drawable::isEnabled).collect(Collectors.toList());
+    }
+
+    public Size getSize() {
+        int largestW = 0;
+        int largestH = 0;
+
+        for (Drawable d : drawings) {
+            Size size = d.getSize();
+            if (size.getWidth() > largestW) {
+                largestW = size.getWidth();
+            }
+
+            if (size.getHeight() > largestH) {
+                largestH = size.getHeight();
+            }
+        }
+
+        return new Size(largestW, largestH);
     }
 
     public void addDrawing(Drawable drawing) {
