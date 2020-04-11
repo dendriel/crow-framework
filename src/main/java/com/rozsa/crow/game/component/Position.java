@@ -41,6 +41,10 @@ public class Position extends BaseComponent implements PositionObserver {
         return pos.getY();
     }
 
+    public int getZ() {
+        return pos.getZ();
+    }
+
     public Offset getOffset() {
         return pos.getOffset();
     }
