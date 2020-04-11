@@ -4,6 +4,7 @@ import com.rozsa.crow.game.component.Renderer;
 import com.rozsa.crow.screen.api.Drawable;
 import com.rozsa.crow.screen.attributes.Offset;
 import com.rozsa.crow.screen.attributes.Scale;
+import com.rozsa.crow.screen.attributes.Size;
 
 import java.util.Comparator;
 import java.util.List;
@@ -13,6 +14,7 @@ public class Sprite implements Drawable {
     private int order;
     private Offset offset;
     private Scale scale;
+    private Size size;
     private Image image;
     private boolean enabled;
     private boolean isFlipX;
@@ -41,6 +43,7 @@ public class Sprite implements Drawable {
         this.isFlipY = data.isFlipY();
         this.scale = data.getScale();
         this.offset = data.getOffset();
+        this.size = data.getSize();
     }
 
     public Renderer getRenderer() {
@@ -113,6 +116,15 @@ public class Sprite implements Drawable {
 
     public void setFlipY(boolean flipY) {
         isFlipY = flipY;
+    }
+
+    @Override
+    public Size getSize() {
+        return size;
+    }
+
+    public void setSize(Size size) {
+        this.size = size;
     }
 
     private static class SortDrawingsByOrder implements Comparator<Drawable> {

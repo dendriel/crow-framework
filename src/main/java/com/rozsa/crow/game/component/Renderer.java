@@ -3,6 +3,7 @@ package com.rozsa.crow.game.component;
 import com.rozsa.crow.game.api.PositionObserver;
 import com.rozsa.crow.game.api.RendererObserver;
 import com.rozsa.crow.screen.api.Drawable;
+import com.rozsa.crow.screen.attributes.Offset;
 
 import java.util.ArrayList;
 import java.util.HashSet;

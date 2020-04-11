@@ -111,7 +111,7 @@ public class Position extends BaseComponent implements PositionObserver {
 
     private void onPositionChanged() {
         positionObservers.forEach(o -> o.positionChanged(getAbsolutePosX(), getAbsolutePosY()));
-        children.forEach(c -> c.parentPositionChanged());
+        children.forEach(Position::parentPositionChanged);
     }
 
     @Override

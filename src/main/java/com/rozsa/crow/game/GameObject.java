@@ -34,6 +34,10 @@ public final class GameObject {
         assert position != null : String.format("GameObject has no assigned Position!");
     }
 
+    public void update() {
+        components.forEach(Component::update);
+    }
+
     public Position getPosition() {
         return position;
     }

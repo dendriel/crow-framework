@@ -2,12 +2,14 @@ package com.rozsa.crow.screen.sprite;
 
 import com.rozsa.crow.screen.attributes.Offset;
 import com.rozsa.crow.screen.attributes.Scale;
+import com.rozsa.crow.screen.attributes.Size;
 
 public class SpriteTemplate {
     private String imageFile;
     private int order;
     private Offset offset;
     private Scale scale;
+    private Size size;
     private boolean enabled;
     private boolean isFlipX;
     private boolean isFlipY;
@@ -88,4 +90,11 @@ public class SpriteTemplate {
         this.offset = offset;
     }
 
+    public Size getSize() {
+        return size;
+    }
+
+    public void setSize(Size size) {
+        this.size = size;
+    }
 }

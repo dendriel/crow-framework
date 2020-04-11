@@ -17,4 +17,6 @@ public interface Component extends Identifiable {
     boolean isDisabled();
 
     void wrapUp();
+
+    void update();
 }

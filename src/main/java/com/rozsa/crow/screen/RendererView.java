@@ -19,13 +19,11 @@ import java.util.*;
 public class RendererView extends BaseView implements RendererObserver {
     private List<Renderer> renderers;
     private List<Renderer> persistentRenderers;
-    protected Size tileSize;
     protected int offsetX;
     protected int offsetY;
 
-    public RendererView(Rect rect, Size tileSize, Size tileSizeFactor) {
-        super(rect.add(tileSizeFactor));
-        this.tileSize = tileSize;
+    public RendererView(Rect rect) {
+        super(rect);
         renderers = new ArrayList<>();
         persistentRenderers = new ArrayList<>();
     }
@@ -108,21 +106,23 @@ public class RendererView extends BaseView implements RendererObserver {
         Renderer renderer = drawing.getRenderer();
         Offset offset = drawing.getOffset();
         Scale scale = drawing.getScale();
-        int screenPosX = renderer.getX() * tileSize.getWidth() - offsetX + offset.getX();
-        int screenPosY = renderer.getY() * tileSize.getHeight() - offsetY + offset.getY();
-        int width = (int)(tileSize.getWidth() * scale.getWidth());
-        int height = (int)(tileSize.getHeight() * scale.getHeight());
+        Size size = drawing.getSize();
+
+        int screenPosX = renderer.getX() - offsetX + offset.getX();
+        int screenPosY = renderer.getY() - offsetY + offset.getY();
+        int width = (int)(size.getWidth() * scale.getWidth());
+        int height = (int)(size.getHeight() * scale.getHeight());
 
         if (renderer.isFlipX() || drawing.isFlipX()) {
             boolean flipTwice = renderer.isFlipX() && drawing.isFlipX();
             width *= flipTwice ? 1 : -1;
-            screenPosX += flipTwice ? 0 : tileSize.getWidth();
+            screenPosX += flipTwice ? 0 : size.getWidth();
         }
 
         if (renderer.isFlipY() || drawing.isFlipY()) {
             boolean flipTwice = renderer.isFlipY() && drawing.isFlipY();
             width *= flipTwice ? 1 : -1;
-            screenPosX += flipTwice ? 0 : tileSize.getWidth();
+            screenPosX += flipTwice ? 0 : size.getWidth();
         }
 
 
@@ -154,8 +154,8 @@ public class RendererView extends BaseView implements RendererObserver {
     }
 
     private boolean isRendererOutsideGameView(Renderer r) {
-        int screenPosX = r.getX() * tileSize.getWidth() - offsetX;
-        int screenPosY = r.getY() * tileSize.getHeight() - offsetY;
+        int screenPosX = r.getX() - offsetX;
+        int screenPosY = r.getY() - offsetY;
 
         if (screenPosX < 0 || screenPosX >= rect.getWidth() ||
                 screenPosY < 0 || screenPosY >= rect.getHeight()) {

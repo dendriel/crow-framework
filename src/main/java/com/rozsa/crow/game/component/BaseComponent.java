@@ -39,6 +39,9 @@ public abstract class BaseComponent implements Component {
     }
 
     @Override
+    public void update() {}
+
+    @Override
     public GameObject getGameObject() {
         return gameObject;
     }

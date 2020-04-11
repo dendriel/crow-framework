@@ -18,6 +18,11 @@ public class Offset {
     public Offset() {
     }
 
+    public void setOrigin() {
+        x = 0;
+        y = 0;
+    }
+
     public int getX() {
         return x;
     }
