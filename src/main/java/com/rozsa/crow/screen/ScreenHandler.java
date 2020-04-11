@@ -1,6 +1,7 @@
 package com.rozsa.crow.screen;
 
 import com.rozsa.crow.game.GameLoop;
+import com.rozsa.crow.screen.api.WindowCloseRequestListener;
 import com.rozsa.crow.screen.attributes.Size;
 
 import javax.swing.*;
@@ -9,6 +10,7 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowEvent;
+import java.util.HashSet;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
@@ -16,6 +18,8 @@ public class ScreenHandler<TScreenKey extends Enum<TScreenKey>> {
     private final ScreenHandlerConfig config;
     private JFrame frame;
     private ConcurrentMap<TScreenKey, BaseScreen> screens;
+
+    private HashSet<WindowCloseRequestListener> onWindowCloseRequestListeners;
 
     public ScreenHandler(ScreenHandlerConfig config) {
         this(config, null);
@@ -25,6 +29,7 @@ public class ScreenHandler<TScreenKey extends Enum<TScreenKey>> {
         this.config = config;
         frame = new JFrame();
         screens = new ConcurrentHashMap<>();
+        onWindowCloseRequestListeners = new HashSet<>();
         setup(inputListener);
     }
 
@@ -37,6 +42,14 @@ public class ScreenHandler<TScreenKey extends Enum<TScreenKey>> {
 
         setVisible(config.isVisible());
         GameLoop.setScreenUpdateListener(this::screenUpdate);
+    }
+
+    public void addOnWindowCloseRequestListener(WindowCloseRequestListener listener) {
+        onWindowCloseRequestListeners.add(listener);
+    }
+
+    public void removeOnWindowCloseRequestListener(WindowCloseRequestListener listener) {
+        onWindowCloseRequestListeners.remove(listener);
     }
 
     private void screenUpdate() {
@@ -57,7 +70,25 @@ public class ScreenHandler<TScreenKey extends Enum<TScreenKey>> {
         frame.setLocationRelativeTo(null);
         frame.setLayout(null);
         frame.getContentPane().setLayout(null);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setupCloseOperation();
+    }
+
+    private void setupCloseOperation() {
+        if (config.isTerminateOnWindowCloseClick()) {
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            return;
+        }
+
+        frame.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent windowEvent) {
+                onCloseRequest();
+            }
+        });
+    }
+
+    private void onCloseRequest() {
+        onWindowCloseRequestListeners.forEach(WindowCloseRequestListener::onWindowClose);
     }
 
     private void setupWindowed(Size size, boolean isResizable) {

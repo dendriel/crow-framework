@@ -5,7 +5,9 @@ import com.rozsa.crow.screen.UpdateListener;
 import java.util.HashSet;
 
 public class GameLoop {
+    private static Thread gameLoop;
     private static boolean isStarted;
+    private static boolean keepRunning;
     private static int gameLoopFPS = 60;
     private static HashSet<UpdateListener> onUpdateListeners;
     private static UpdateListener screenUpdateListener;
@@ -16,9 +18,25 @@ public class GameLoop {
     }
 
     private static void start() {
+        if (isStarted) {
+            return;
+        }
+        isStarted = true;
+        keepRunning = true;
+        gameLoop = new Thread(GameLoop::updateLoop);
+        gameLoop.start();
+    }
+
+    public static void terminate(long timeToWait) {
         if (!isStarted) {
-            isStarted = true;
-            new Thread(GameLoop::updateLoop).start();
+            return;
+        }
+
+        keepRunning = false;
+        try {
+            gameLoop.join(timeToWait);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 
@@ -42,7 +60,7 @@ public class GameLoop {
 
     private static void updateLoop() {
         long frameTime = (long)(1000 / (float)gameLoopFPS);
-        while(true) {
+        while(keepRunning) {
             long startTime = System.currentTimeMillis();
 
             onUpdateListeners.forEach(UpdateListener::onUpdate);

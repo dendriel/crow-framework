@@ -8,6 +8,7 @@ public class ScreenHandlerConfig {
     private boolean isFullscreen;
     private boolean isVisible;
     private boolean isResizable;
+    private boolean terminateOnWindowCloseClick;
 
     public ScreenHandlerConfig() {
         isVisible = true;
@@ -51,5 +52,13 @@ public class ScreenHandlerConfig {
 
     public void setResizable(boolean resizable) {
         isResizable = resizable;
+    }
+
+    public boolean isTerminateOnWindowCloseClick() {
+        return terminateOnWindowCloseClick;
+    }
+
+    public void setTerminateOnWindowCloseClick(boolean terminateOnWindowCloseClick) {
+        this.terminateOnWindowCloseClick = terminateOnWindowCloseClick;
     }
 }
