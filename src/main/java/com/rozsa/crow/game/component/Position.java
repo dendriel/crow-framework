@@ -1,6 +1,7 @@
 package com.rozsa.crow.game.component;
 
 import com.rozsa.crow.game.api.PositionObserver;
+import com.rozsa.crow.game.attributes.Vector;
 import com.rozsa.crow.screen.attributes.Offset;
 
 import java.util.ArrayList;
@@ -13,21 +14,18 @@ public class Position extends BaseComponent implements PositionObserver {
 
     private List<PositionObserver> positionObservers;
 
-    private int posX;
+    private Vector pos;
 
-    private int posY;
-
-    public Position(int posX, int posY, String positionCompName) {
-        this.posX = posX;
-        this.posY = posY;
+    public Position(Vector pos, String positionCompName) {
+        this.pos = pos;
 
         children = new ArrayList<>();
         positionObservers = new ArrayList<>();
         name = positionCompName;
     }
 
-    public boolean isAt(int posX, int posY) {
-        return this.posX == posX && this.posY == posY;
+    public boolean isAt(Vector pos) {
+        return this.pos.equals(pos);
     }
 
     @Override
@@ -36,20 +34,24 @@ public class Position extends BaseComponent implements PositionObserver {
     }
 
     public int getX() {
-        return posX;
+        return pos.getX();
     }
 
     public int getY() {
-        return posY;
+        return pos.getY();
     }
 
     public Offset getOffset() {
-        return new Offset(posX, posY);
+        return pos.getOffset();
+    }
+
+    public Vector getVector() {
+        return pos;
     }
 
     public void setPosition(int x, int y) {
-        posX = x;
-        posY = y;
+        pos.setX(x);
+        pos.setY(y);
         onPositionChanged();
     }
 
@@ -57,8 +59,8 @@ public class Position extends BaseComponent implements PositionObserver {
         int parentPosX = parent != null ? parent.getX() : 0;
         int parentPosY = parent != null ? parent.getY() : 0;
 
-        posX = x + parentPosX;
-        posY = y + parentPosY;
+        pos.setX(x + parentPosX);
+        pos.setY(y + parentPosY);
         onPositionChanged();
     }
 
@@ -69,8 +71,8 @@ public class Position extends BaseComponent implements PositionObserver {
     public void setAbsolutePosition(int x, int y) {
         int parentPosX = parent != null ? parent.getX() : 0;
         int parentPosY = parent != null ? parent.getY() : 0;
-        posX = x - parentPosX;
-        posY = y - parentPosY;
+        pos.setX(x - parentPosX);
+        pos.setY(y - parentPosY);
         onPositionChanged();
     }
 
@@ -78,7 +80,7 @@ public class Position extends BaseComponent implements PositionObserver {
         int parentPosX = parent != null ? parent.getX() : 0;
         int parentPosY = parent != null ? parent.getY() : 0;
 
-        return new Offset(posX + parentPosX, posY + parentPosY);
+        return new Offset(pos.getX() + parentPosX, pos.getY() + parentPosY);
     }
 
     /**
@@ -86,14 +88,12 @@ public class Position extends BaseComponent implements PositionObserver {
      * if there is no parent.
      */
     public void setPosition(Offset offset) {
-        posX = offset.getX();
-        posY = offset.getY();
+        pos.setOffset(offset);
         onPositionChanged();
     }
 
     public void addOffset(Offset offset) {
-        posX += offset.getX();
-        posY += offset.getY();
+        pos.addOffset(offset);
         onPositionChanged();
     }
 
@@ -120,11 +120,11 @@ public class Position extends BaseComponent implements PositionObserver {
     }
 
     private int getAbsolutePosX() {
-        return getParentPosX() + posX;
+        return getParentPosX() + pos.getX();
     }
 
     private int getAbsolutePosY() {
-        return getParentPosY() + posY;
+        return getParentPosY() + pos.getY();
     }
 
     private int getParentPosX() {
@@ -137,7 +137,7 @@ public class Position extends BaseComponent implements PositionObserver {
 
     @Override
     public String toString() {
-        return String.format("X: %d Y: %d", posX, posY);
+        return pos.toString();
     }
 
     private void addChild(Position child) {

@@ -1,6 +1,7 @@
 package com.rozsa.crow.game;
 
 import com.rozsa.crow.game.api.Component;
+import com.rozsa.crow.game.attributes.Vector;
 import com.rozsa.crow.game.component.Position;
 import com.rozsa.crow.game.component.Renderer;
 import com.rozsa.crow.screen.sprite.Sprite;
@@ -127,26 +128,26 @@ public final class GameObject {
 
         private boolean isActive;
 
-        public Builder(int posX, int posY, boolean isActive) {
-            this(posX, posY, isActive, "unnamed");
+        public Builder(Vector pos, boolean isActive) {
+            this(pos, isActive, "unnamed");
         }
 
-        public Builder(int posX, int posY) {
-            this(posX, posY, "unnamed");
+        public Builder(Vector pos) {
+            this(pos, "unnamed");
         }
 
-        public Builder(int posX, int posY, String positionCompName) {
-            this(posX, posY, true, positionCompName);
+        public Builder(Vector pos, String positionCompName) {
+            this(pos, true, positionCompName);
         }
 
-        public Builder(int posX, int posY, boolean isActive, String positionCompName) {
+        public Builder(Vector pos, boolean isActive, String positionCompName) {
             this.isActive = isActive;
             components = new ArrayList<>();
-            addPosition(posX, posY, positionCompName);
+            addPosition(pos, positionCompName);
         }
 
-        private void addPosition(int posX, int posY, String positionCompName) {
-            position = new Position(posX, posY, positionCompName);
+        private void addPosition(Vector pos, String positionCompName) {
+            position = new Position(pos, positionCompName);
             components.add(position);
         }
 
