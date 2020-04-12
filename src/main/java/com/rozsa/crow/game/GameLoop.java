@@ -8,11 +8,14 @@ public class GameLoop {
     private static Thread gameLoop;
     private static boolean isStarted;
     private static boolean keepRunning;
-    private static int gameLoopFPS = 60;
+    private static int gameLoopFPS;
+    private static long frameTime;
     private static HashSet<UpdateListener> onUpdateListeners;
     private static UpdateListener screenUpdateListener;
 
     static {
+        gameLoopFPS = 60;
+        frameTime = (long)(1000 / (float)gameLoopFPS);
         onUpdateListeners = new HashSet<>();
         screenUpdateListener = () -> {};
     }
@@ -47,6 +50,11 @@ public class GameLoop {
 
     public static void setGameLoopFPS(int value) {
         gameLoopFPS = value;
+        frameTime = (long)(1000 / (float)gameLoopFPS);
+    }
+
+    public static long getFrameTime() {
+        return frameTime;
     }
 
     public static void addOnUpdateListener(UpdateListener listener) {
@@ -59,7 +67,6 @@ public class GameLoop {
     }
 
     private static void updateLoop() {
-        long frameTime = (long)(1000 / (float)gameLoopFPS);
         while(keepRunning) {
             long startTime = System.currentTimeMillis();
 
