@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum GameCommand {
+    UNKNOWN(InputKey.UNKNOWN),
     MOVE_LEFT(InputKey.LEFT),
     MOVE_UP(InputKey.UP),
     MOVE_RIGHT(InputKey.RIGHT),
@@ -43,6 +44,7 @@ public enum GameCommand {
     private static Map<InputKey, GameCommand> inputToCommandMapper;
     static {
         inputToCommandMapper = new HashMap<>();
+        inputToCommandMapper.put(UNKNOWN.getInput(), UNKNOWN);
         inputToCommandMapper.put(MOVE_LEFT.getInput(), MOVE_LEFT);
         inputToCommandMapper.put(MOVE_UP.getInput(), MOVE_UP);
         inputToCommandMapper.put(MOVE_RIGHT.getInput(), MOVE_RIGHT);
@@ -139,6 +141,10 @@ public enum GameCommand {
 
     public boolean isLoad() {
         return equals(LOAD);
+    }
+
+    public boolean isUnknown() {
+        return equals(UNKNOWN);
     }
 
     @Override

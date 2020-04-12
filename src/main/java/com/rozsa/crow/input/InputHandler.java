@@ -4,13 +4,17 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.concurrent.LinkedBlockingQueue;
 
+// Useful for queueing inputs.
 public class InputHandler implements KeyListener {
-    private boolean isKeyReleased = true;
-
     private volatile LinkedBlockingQueue<InputKey> inputs;
+    private boolean isKeyReleased = true;
 
     public InputHandler() {
         inputs = new LinkedBlockingQueue<>(5);
+    }
+
+    public InputHandler(int inputsBufferSize) {
+        inputs = new LinkedBlockingQueue<>(inputsBufferSize);
     }
 
     public void readUntil(InputKey input) {
@@ -56,7 +60,7 @@ public class InputHandler implements KeyListener {
         isKeyReleased = false;
 
         int keyCode = e.getKeyCode();
-        System.out.println("Keycode: " + keyCode);
+//        System.out.println("Keycode: " + keyCode);
         InputKey input = InputKey.from(keyCode);
         if (input == InputKey.UNKNOWN) {
             System.out.println("Unmapped Keycode: " + keyCode);
