@@ -50,7 +50,7 @@ public class Position extends BaseComponent implements PositionObserver {
     }
 
     public Vector getVector() {
-        return pos;
+        return pos.clone();
     }
 
     public void setPosition(int x, int y) {
