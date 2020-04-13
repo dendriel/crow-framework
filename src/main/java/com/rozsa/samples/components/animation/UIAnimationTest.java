@@ -12,7 +12,7 @@ import com.rozsa.samples.TestUtils;
 
 import java.io.IOException;
 
-public class AnimationTest {
+public class UIAnimationTest {
     public void run() throws IOException {
         ScreenHandler<ScreenType> screen = TestUtils.createDefaultScreenHandler("Animation test", false);
 
@@ -28,7 +28,7 @@ public class AnimationTest {
     }
 
     public ViewTemplate getTemplate() throws IOException {
-        JsonReader<ViewTemplate> reader = new JsonReader<>("/templates/animation_test.json", ViewTemplate.class);
+        JsonReader<ViewTemplate> reader = new JsonReader<>("/templates/ui_animation_test.json", ViewTemplate.class);
         return reader.read();
     }
 }

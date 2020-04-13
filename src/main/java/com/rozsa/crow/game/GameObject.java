@@ -3,7 +3,7 @@ package com.rozsa.crow.game;
 import com.rozsa.crow.game.api.Component;
 import com.rozsa.crow.game.attributes.Vector;
 import com.rozsa.crow.game.component.Position;
-import com.rozsa.crow.game.component.Renderer;
+import com.rozsa.crow.game.component.StaticRenderer;
 import com.rozsa.crow.screen.sprite.Sprite;
 import com.rozsa.crow.screen.sprite.SpriteTemplate;
 
@@ -42,8 +42,8 @@ public final class GameObject {
         return position;
     }
 
-    public Renderer getRenderer() {
-        return getComponent(Renderer.class);
+    public StaticRenderer getRenderer() {
+        return getComponent(StaticRenderer.class);
     }
 
     public void addComponent(Component component) {
@@ -156,7 +156,7 @@ public final class GameObject {
         }
 
         public Builder addRenderer(int layer) {
-            Renderer renderer = new Renderer(position, layer, Renderer.DEFAULT_RENDERER, false, false);
+            StaticRenderer renderer = new StaticRenderer(position, layer, StaticRenderer.DEFAULT_RENDERER, false, false);
             components.add(renderer);
             return this;
         }
@@ -167,7 +167,7 @@ public final class GameObject {
 
         public Builder addRenderer(int layer, SpriteTemplate spriteData, boolean flipX, boolean flipY) {
             Sprite sprite = new Sprite(spriteData);
-            Renderer renderer = new Renderer(position, layer, Renderer.DEFAULT_RENDERER, flipX, flipY, sprite);
+            StaticRenderer renderer = new StaticRenderer(position, layer, StaticRenderer.DEFAULT_RENDERER, flipX, flipY, sprite);
             components.add(renderer);
 
             return this;
@@ -175,7 +175,7 @@ public final class GameObject {
 
         public Builder addRenderer(int layer, boolean flipX, boolean flipY, List<SpriteTemplate> spritesData) {
             List<Sprite> sprites = spritesData.stream().map(Sprite::new).collect(Collectors.toList());
-            Renderer renderer = new Renderer(position, layer, Renderer.DEFAULT_RENDERER, flipX, flipY, sprites.toArray(new Sprite[0]));
+            StaticRenderer renderer = new StaticRenderer(position, layer, StaticRenderer.DEFAULT_RENDERER, flipX, flipY, sprites.toArray(new Sprite[0]));
             components.add(renderer);
 
             return this;

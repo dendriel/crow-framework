@@ -51,7 +51,7 @@ public class Position extends BaseComponent implements PositionObserver {
     }
 
     public Offset getOffset() {
-        return pos.getOffset();
+        return pos.getOffset().clone();
     }
 
     public Vector getVector() {

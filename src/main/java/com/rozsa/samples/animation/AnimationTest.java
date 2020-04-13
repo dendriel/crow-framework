@@ -1,4 +1,4 @@
-package com.rozsa.samples.renderer;
+package com.rozsa.samples.animation;
 
 import com.rozsa.crow.game.attributes.Vector;
 import com.rozsa.crow.game.component.Position;
@@ -12,12 +12,13 @@ import com.rozsa.samples.JsonReader;
 import com.rozsa.samples.ScreenType;
 import com.rozsa.samples.SimpleScreen;
 import com.rozsa.samples.TestUtils;
+import com.rozsa.samples.renderer.RendererViewData;
 
 import java.io.IOException;
 
-public class RendererViewTest {
+public class AnimationTest {
     public void run() throws IOException {
-        ScreenHandler<ScreenType> screen = TestUtils.createDefaultScreenHandler("Renderer test", false);
+        ScreenHandler<ScreenType> screen = TestUtils.createDefaultScreenHandler("Animation test", false);
 
         Size simpleScreenSize = screen.getSize();
         SimpleScreen simpleScreen = new SimpleScreen(simpleScreenSize, Color.from(116, 140, 171));
@@ -42,7 +43,7 @@ public class RendererViewTest {
     }
 
     private RendererViewData getTemplate() throws IOException {
-        JsonReader<RendererViewData> reader = new JsonReader<>("/templates/renderer_view_test.json", RendererViewData.class);
+        JsonReader<RendererViewData> reader = new JsonReader<>("/templates/animation_test.json", RendererViewData.class);
         return reader.read();
     }
 }

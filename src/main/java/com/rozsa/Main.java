@@ -1,8 +1,7 @@
 package com.rozsa;
 
-import com.rozsa.samples.components.animation.AnimationTest;
-import com.rozsa.samples.forms.login_from_template.LoginFromTemplateTest;
-import com.rozsa.samples.forms.select.SelectTest;
+import com.rozsa.samples.animation.AnimationTest;
+import com.rozsa.samples.components.animation.UIAnimationTest;
 import com.rozsa.samples.renderer.RendererViewTest;
 
 import java.io.IOException;
@@ -25,14 +24,17 @@ public class Main {
 //        LoginFromTemplateTest loginFromTemplate = new LoginFromTemplateTest();
 //        loginFromTemplate.run();
 
-//        AnimationTest animationTest = new AnimationTest();
-//        animationTest.run();
+//        UIAnimationTest uiAnimationTest = new UIAnimationTest();
+//        uiAnimationTest.run();
 
 //        SelectTest selectTest = new SelectTest();
 //        selectTest.run();
 
-        RendererViewTest rendererViewTest = new RendererViewTest();
-        rendererViewTest.run();
+//        RendererViewTest rendererViewTest = new RendererViewTest();
+//        rendererViewTest.run();
+
+        AnimationTest animationTest = new AnimationTest();
+        animationTest.run();
     }
 }
 

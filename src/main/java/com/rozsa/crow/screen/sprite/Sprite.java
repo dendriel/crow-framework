@@ -1,6 +1,6 @@
 package com.rozsa.crow.screen.sprite;
 
-import com.rozsa.crow.game.component.Renderer;
+import com.rozsa.crow.game.component.StaticRenderer;
 import com.rozsa.crow.screen.api.Drawable;
 import com.rozsa.crow.screen.attributes.Offset;
 import com.rozsa.crow.screen.attributes.Scale;
@@ -18,7 +18,7 @@ public class Sprite implements Drawable {
     private Image image;
     private boolean enabled;
     private boolean isFlipX;
-    private Renderer renderer;
+    private StaticRenderer renderer;
     private boolean isFlipY;
 
     public Sprite(SpriteTemplate data) {
@@ -46,11 +46,11 @@ public class Sprite implements Drawable {
         this.size = data.getSize();
     }
 
-    public Renderer getRenderer() {
+    public StaticRenderer getRenderer() {
         return renderer;
     }
 
-    public void setRenderer(Renderer renderer) {
+    public void setRenderer(StaticRenderer renderer) {
         this.renderer = renderer;
     }
 

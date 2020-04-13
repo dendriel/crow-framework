@@ -1,8 +1,9 @@
 package com.rozsa.crow.screen;
 
 import com.rozsa.crow.game.api.RendererObserver;
-import com.rozsa.crow.game.component.Renderer;
+import com.rozsa.crow.game.component.StaticRenderer;
 import com.rozsa.crow.screen.api.Drawable;
+import com.rozsa.crow.screen.api.Renderer;
 import com.rozsa.crow.screen.attributes.Offset;
 import com.rozsa.crow.screen.attributes.Rect;
 import com.rozsa.crow.screen.attributes.Scale;
@@ -114,8 +115,9 @@ public class RendererView extends BaseView implements RendererObserver {
         Scale scale = drawing.getScale();
         Size size = drawing.getSize();
 
-        int screenPosX = renderer.getX() - offsetX + offset.getX();
-        int screenPosY = renderer.getY() - offsetY + offset.getY();
+        Offset rendererPos = renderer.getPos();
+        int screenPosX = rendererPos.getX() - offsetX + offset.getX();
+        int screenPosY = rendererPos.getY() - offsetY + offset.getY();
         int width = (int)(size.getWidth() * scale.getWidth());
         int height = (int)(size.getHeight() * scale.getHeight());
 
@@ -160,20 +162,21 @@ public class RendererView extends BaseView implements RendererObserver {
     }
 
     private boolean isRendererOutsideGameView(Renderer r) {
-        if (isPointInsideScreen(r.getX(), r.getY())) {
+        Offset rendererPos = r.getPos();
+        if (isPointInsideScreen(rendererPos.getX(), rendererPos.getY())) {
             return false;
         }
 
         Size rSize = r.getSize();
-        if (isPointInsideScreen(r.getX() + rSize.getWidth(), r.getY())) {
+        if (isPointInsideScreen(rendererPos.getX() + rSize.getWidth(), rendererPos.getY())) {
             return false;
         }
 
-        if (isPointInsideScreen(r.getX(), r.getY() + rSize.getHeight())) {
+        if (isPointInsideScreen(rendererPos.getX(), rendererPos.getY() + rSize.getHeight())) {
             return false;
         }
 
-        return !isPointInsideScreen(r.getX() + rSize.getWidth(), r.getY() + rSize.getHeight());
+        return !isPointInsideScreen(rendererPos.getX() + rSize.getWidth(), rendererPos.getY() + rSize.getHeight());
     }
 
     private boolean isPointInsideScreen(int x, int y) {

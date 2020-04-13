@@ -3,6 +3,7 @@ package com.rozsa.crow.game.component;
 import com.rozsa.crow.game.api.PositionObserver;
 import com.rozsa.crow.game.api.RendererObserver;
 import com.rozsa.crow.screen.api.Drawable;
+import com.rozsa.crow.screen.api.Renderer;
 import com.rozsa.crow.screen.attributes.Offset;
 import com.rozsa.crow.screen.attributes.Size;
 
@@ -12,30 +13,28 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class Renderer extends BaseComponent implements PositionObserver {
+public class StaticRenderer extends BaseComponent implements Renderer, PositionObserver {
     public static String DEFAULT_RENDERER = "_defaultRendererComponent";
     private List<Drawable> drawings;
     private int layer;
-    private int posX;
-    private int posY;
+    private Offset pos;
     private boolean flipX;
     private boolean flipY;
 
     private Set<RendererObserver> observers;
 
-    public Renderer(Position position, int layer, String name, boolean flipX, boolean flipY) {
+    public StaticRenderer(Position position, int layer, String name, boolean flipX, boolean flipY) {
         this(position, layer, true, name, flipX, flipY);
     }
 
-    public Renderer(Position position, int layer, String name, boolean flipX, boolean flipY, Drawable... drawings) {
+    public StaticRenderer(Position position, int layer, String name, boolean flipX, boolean flipY, Drawable... drawings) {
         this(position, layer, true, name, flipX, flipY, drawings);
     }
 
-    public Renderer(Position position, int layer, boolean isEnabled, String name, boolean flipX, boolean flipY, Drawable... drawings) {
+    public StaticRenderer(Position position, int layer, boolean isEnabled, String name, boolean flipX, boolean flipY, Drawable... drawings) {
         super(isEnabled, name);
         position.addPositionChangedListener(this);
-        posX = position.getX();
-        posY = position.getY();
+        pos = position.getOffset();
         this.layer = layer;
         this.flipX = flipX;
         this.flipY = flipY;
@@ -61,8 +60,8 @@ public class Renderer extends BaseComponent implements PositionObserver {
 
     @Override
     public void positionChanged(int newPosX, int newPosY) {
-        posX = newPosX;
-        posY = newPosY;
+        pos.setX(newPosX);
+        pos.setY(newPosY);
         onRendererChanged();
     }
 
@@ -79,18 +78,22 @@ public class Renderer extends BaseComponent implements PositionObserver {
     }
 
     public int getX() {
-        return posX;
+        return pos.getX();
     }
 
     public int getY() {
-        return posY;
+        return pos.getY();
+    }
+
+    public Offset getPos() {
+        return pos.clone();
     }
 
     public List<Drawable> getDrawings(boolean filterInactive) {
         if (filterInactive) {
-            return new ArrayList<>(drawings);
+            return drawings.stream().filter(Drawable::isEnabled).collect(Collectors.toList());
         }
-        return drawings.stream().filter(Drawable::isEnabled).collect(Collectors.toList());
+        return new ArrayList<>(drawings);
     }
 
     public Size getSize() {

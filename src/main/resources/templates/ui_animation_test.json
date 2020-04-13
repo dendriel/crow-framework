@@ -1,0 +1,65 @@
+{
+  "rect": { "offset": { "x": 0, "y": 0}, "size": { "width": 1600, "height": 900}},
+  "animations": [
+    {
+      "tag": "default_animation",
+      "rect": { "offset": { "x": 300, "y": 200}, "size": { "width": 768, "height": 128} },
+      "frameRect": { "offset": { "x": 0, "y": 0}, "size": { "width": 128, "height": 128} },
+      "imageFile": "/images/skel_walk_1536x256.png",
+      "timeBetweenFrames": 80,
+      "repeat": true,
+      "firstFrame": 0,
+      "isRunning": true
+    },
+    {
+      "tag": "default_animation",
+      "rect": { "offset": { "x": 428, "y": 200}, "size": { "width": 768, "height": 128} },
+      "frameRect": { "offset": { "x": 0, "y": 0}, "size": { "width": 128, "height": 128} },
+      "imageFile": "/images/skel_walk_1536x256.png",
+      "timeBetweenFrames": 70,
+      "repeat": true,
+      "firstFrame": 0,
+      "isRunning": true
+    },
+    {
+      "tag": "default_animation",
+      "rect": { "offset": { "x": 556, "y": 200}, "size": { "width": 768, "height": 128} },
+      "frameRect": { "offset": { "x": 0, "y": 0}, "size": { "width": 128, "height": 128} },
+      "imageFile": "/images/skel_walk_1536x256.png",
+      "timeBetweenFrames": 60,
+      "repeat": true,
+      "firstFrame": 0,
+      "isRunning": true
+    },
+    {
+      "tag": "default_animation",
+      "rect": { "offset": { "x": 300, "y": 400}, "size": { "width": 960, "height": 160} },
+      "frameRect": { "offset": { "x": 0, "y": 0}, "size": { "width": 160, "height": 160} },
+      "imageFile": "/images/skel_warrior_idle_960x160.png",
+      "timeBetweenFrames": 80,
+      "repeat": true,
+      "firstFrame": 0,
+      "isRunning": true
+    },
+    {
+      "tag": "default_animation",
+      "rect": { "offset": { "x": 400, "y": 432}, "size": { "width": 768, "height": 128} },
+      "frameRect": { "offset": { "x": 0, "y": 0}, "size": { "width": 128, "height": 128} },
+      "imageFile": "/images/skel_idle_960x160.png",
+      "timeBetweenFrames": 80,
+      "repeat": true,
+      "firstFrame": 0,
+      "isRunning": true
+    },
+    {
+      "tag": "default_animation",
+      "rect": { "offset": { "x": 528, "y": 400}, "size": { "width": 960, "height": 160} },
+      "frameRect": { "offset": { "x": 0, "y": 0}, "size": { "width": 160, "height": 160} },
+      "imageFile": "/images/skel_mage_idle_960x160.png",
+      "timeBetweenFrames": 80,
+      "repeat": true,
+      "firstFrame": 0,
+      "isRunning": true
+    }
+  ]
+}

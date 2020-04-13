@@ -6,11 +6,8 @@ import com.rozsa.crow.game.api.Component;
 public abstract class BaseComponent implements Component {
     // this should be final....
     protected GameObject gameObject;
-
-    private boolean isEnabled = true;
-
+    private boolean isEnabled;
     protected String name;
-
     protected long id;
 
     public BaseComponent() {

@@ -1,15 +1,15 @@
 package com.rozsa.crow.screen.api;
 
-import com.rozsa.crow.game.component.Renderer;
+import com.rozsa.crow.game.component.StaticRenderer;
 import com.rozsa.crow.screen.attributes.Offset;
 import com.rozsa.crow.screen.attributes.Scale;
 import com.rozsa.crow.screen.attributes.Size;
 import com.rozsa.crow.screen.sprite.Image;
 
 public interface Drawable {
-    void setRenderer(Renderer renderer);
+    void setRenderer(StaticRenderer renderer);
 
-    Renderer getRenderer();
+    StaticRenderer getRenderer();
 
     int getOrder();
 
