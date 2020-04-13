@@ -36,7 +36,7 @@ public class RendererViewTest {
     private void setupRenderers(RendererView view, RendererViewData data) {
         Position r1Pos = new Position(new Vector(760, 410, 0));
         Sprite r1Sprite = new Sprite(data.getArcherSpriteData());
-        StaticRenderer r1 = new StaticRenderer(r1Pos, 0, StaticRenderer.DEFAULT_RENDERER, false, false, r1Sprite);
+        StaticRenderer r1 = new StaticRenderer(r1Pos, 0, StaticRenderer.DEFAULT_STATIC_RENDERER, false, false, r1Sprite);
 
         view.addRenderer(r1);
     }

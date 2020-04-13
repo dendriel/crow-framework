@@ -14,7 +14,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class StaticRenderer extends BaseComponent implements Renderer, PositionObserver {
-    public static String DEFAULT_RENDERER = "_defaultRendererComponent";
+    public static String DEFAULT_STATIC_RENDERER = "_defaultRendererComponent";
     private List<Drawable> drawings;
     private int layer;
     private Offset pos;

@@ -156,7 +156,7 @@ public final class GameObject {
         }
 
         public Builder addRenderer(int layer) {
-            StaticRenderer renderer = new StaticRenderer(position, layer, StaticRenderer.DEFAULT_RENDERER, false, false);
+            StaticRenderer renderer = new StaticRenderer(position, layer, StaticRenderer.DEFAULT_STATIC_RENDERER, false, false);
             components.add(renderer);
             return this;
         }
@@ -167,7 +167,7 @@ public final class GameObject {
 
         public Builder addRenderer(int layer, SpriteTemplate spriteData, boolean flipX, boolean flipY) {
             Sprite sprite = new Sprite(spriteData);
-            StaticRenderer renderer = new StaticRenderer(position, layer, StaticRenderer.DEFAULT_RENDERER, flipX, flipY, sprite);
+            StaticRenderer renderer = new StaticRenderer(position, layer, StaticRenderer.DEFAULT_STATIC_RENDERER, flipX, flipY, sprite);
             components.add(renderer);
 
             return this;
@@ -175,7 +175,7 @@ public final class GameObject {
 
         public Builder addRenderer(int layer, boolean flipX, boolean flipY, List<SpriteTemplate> spritesData) {
             List<Sprite> sprites = spritesData.stream().map(Sprite::new).collect(Collectors.toList());
-            StaticRenderer renderer = new StaticRenderer(position, layer, StaticRenderer.DEFAULT_RENDERER, flipX, flipY, sprites.toArray(new Sprite[0]));
+            StaticRenderer renderer = new StaticRenderer(position, layer, StaticRenderer.DEFAULT_STATIC_RENDERER, flipX, flipY, sprites.toArray(new Sprite[0]));
             components.add(renderer);
 
             return this;

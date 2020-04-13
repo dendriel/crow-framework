@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class Main {
     // testing purposes
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InterruptedException {
 //        SplashSetupTest splashSetupTest = new SplashSetupTest(false);
 //        splashSetupTest.run();
 

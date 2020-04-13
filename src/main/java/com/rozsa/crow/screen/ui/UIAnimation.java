@@ -112,6 +112,7 @@ public class UIAnimation extends UIIcon {
         new Thread(UIAnimation::animatorLoop).start();
     }
 
+    // TODO: review this thread.
     private static void animatorLoop() {
         while (true) {
             runningAnimations.forEach(UIAnimation::animate);

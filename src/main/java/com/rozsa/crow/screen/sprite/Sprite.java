@@ -1,7 +1,7 @@
 package com.rozsa.crow.screen.sprite;
 
-import com.rozsa.crow.game.component.StaticRenderer;
 import com.rozsa.crow.screen.api.Drawable;
+import com.rozsa.crow.screen.api.Renderer;
 import com.rozsa.crow.screen.attributes.Offset;
 import com.rozsa.crow.screen.attributes.Scale;
 import com.rozsa.crow.screen.attributes.Size;
@@ -18,7 +18,7 @@ public class Sprite implements Drawable {
     private Image image;
     private boolean enabled;
     private boolean isFlipX;
-    private StaticRenderer renderer;
+    private Renderer renderer;
     private boolean isFlipY;
 
     public Sprite(SpriteTemplate data) {
@@ -30,6 +30,13 @@ public class Sprite implements Drawable {
         reset();
         load();
         enabled = isEnabled;
+    }
+
+    public Sprite(SpriteTemplate data, Image image, boolean isEnabled) {
+        this.data = data;
+        this.image = image;
+        enabled = isEnabled;
+        reset();
     }
 
     public static void sortByOrderAscending(List<Drawable> set) {
@@ -46,11 +53,11 @@ public class Sprite implements Drawable {
         this.size = data.getSize();
     }
 
-    public StaticRenderer getRenderer() {
+    public Renderer getRenderer() {
         return renderer;
     }
 
-    public void setRenderer(StaticRenderer renderer) {
+    public void setRenderer(Renderer renderer) {
         this.renderer = renderer;
     }
 
