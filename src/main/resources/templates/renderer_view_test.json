@@ -1,0 +1,13 @@
+{
+  "rect": { "offset": { "x": 0, "y": 0}, "size": { "width": 1600, "height": 900}},
+  "archerSpriteData": {
+    "imageFile": "/images/archer01.png",
+    "order": 0,
+    "enabled": true,
+    "offset": {"x": 0, "y": 0},
+    "size": { "width": 80, "height": 80 },
+    "scale": { "width": 1, "height": 1 },
+    "flipX": false,
+    "flipY": false
+  }
+}

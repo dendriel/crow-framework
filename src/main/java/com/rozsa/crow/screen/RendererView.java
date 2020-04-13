@@ -141,7 +141,7 @@ public class RendererView extends BaseView implements RendererObserver {
         Map<Integer, List<Drawable>> sprites = new TreeMap<>();
 
         for (Renderer r : renderers) {
-            if (r.isDisabled() || r.getGameObject().isInactive()) {
+            if (r.isDisabled() || (r.getGameObject() != null && r.getGameObject().isInactive())) {
                 continue;
             }
 

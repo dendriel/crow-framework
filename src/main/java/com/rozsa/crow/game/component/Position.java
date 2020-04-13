@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Position extends BaseComponent implements PositionObserver {
+    public static String DEFAULT_POSITION = "_defaultPositionComponent";
     private Position parent;
 
     private final List<Position> children;
@@ -15,6 +16,10 @@ public class Position extends BaseComponent implements PositionObserver {
     private List<PositionObserver> positionObservers;
 
     private Vector pos;
+
+    public Position(Vector pos) {
+        this(pos, DEFAULT_POSITION);
+    }
 
     public Position(Vector pos, String positionCompName) {
         this.pos = pos;
@@ -91,9 +96,13 @@ public class Position extends BaseComponent implements PositionObserver {
      * Sets the position relative to the parent; or the position relative to the map (absolute)
      * if there is no parent.
      */
-    public void setPosition(Offset offset) {
-        pos.setOffset(offset);
+    public void setPosition(Vector pos) {
+        this.pos = pos;
         onPositionChanged();
+    }
+
+    public void setOffset(Offset offset) {
+        this.pos.setOffset(offset);
     }
 
     public void addOffset(Offset offset) {

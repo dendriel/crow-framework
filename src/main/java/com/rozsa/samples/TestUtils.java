@@ -20,6 +20,7 @@ public class TestUtils {
         config.setVisible(false);
         config.setResizable(true);
         config.setFullscreen(isFullscreen);
+        config.setTerminateOnWindowCloseClick(true);
 
         ScreenHandler<ScreenType> screen = new ScreenHandler<>(config);
         screen.setVisible(true);
