@@ -41,9 +41,13 @@ public class AnimationTest {
         GameLoop.addOnUpdateListener(ar::update);
 
         do {
-            Thread.sleep(3000);
-            ar.run(CharacterAnimations.WALKING);
-            Thread.sleep(3000);
+            Thread.sleep(2000);
+            ar.run(CharacterAnimations.IDLE);
+            Thread.sleep(2000);
+            ar.run(CharacterAnimations.ATTACK_REPEAT);
+            Thread.sleep(2000);
+            ar.run(CharacterAnimations.IDLE);
+            Thread.sleep(2000);
             ar.run(CharacterAnimations.ATTACK);
 
         } while (true);
@@ -56,29 +60,36 @@ public class AnimationTest {
 
         view.addRenderer(r1);
 
-        AnimationTemplate walkAnimationTemplate = new AnimationTemplate();
-        walkAnimationTemplate.setRect(new Rect(0, 0, 960, 160));
-        walkAnimationTemplate.setImageFile("/images/skel_attack_960x160.png");
-        walkAnimationTemplate.setFrameRect(new Rect(0, 0, 160, 160));
-        walkAnimationTemplate.setTimeBetweenFrames(40);
-        walkAnimationTemplate.setRepeat(false);
+        AnimationTemplate attackData = new AnimationTemplate();
+        attackData.setRect(new Rect(0, 0, 960, 160));
+        attackData.setImageFile("/images/skel_attack_960x160.png");
+        attackData.setFrameRect(new Rect(0, 0, 160, 160));
+        attackData.setTimeBetweenFrames(40);
+        attackData.setRepeat(false);
 
-        Animation walk_animation = new Animation(walkAnimationTemplate);
+        Animation attackAnimation = new Animation(attackData);
 
-        AnimationTemplate attackAnimationTemplate = new AnimationTemplate();
-        attackAnimationTemplate.setRect(new Rect(0, 0, 960, 160));
-        attackAnimationTemplate.setImageFile("/images/skel_mage_idle_960x160.png");
-        attackAnimationTemplate.setFrameRect(new Rect(0, 0, 160, 160));
-        attackAnimationTemplate.setTimeBetweenFrames(40);
-        attackAnimationTemplate.setRepeat(true);
+        AnimationTemplate attackRepeatData = attackData.clone();
+        attackRepeatData.setRepeat(true);
+        attackRepeatData.setIntervalBeforeRepeating(300);
+        Animation attackRepeatAnimation = new Animation(attackRepeatData);
 
-        Animation attack_animation = new Animation(attackAnimationTemplate);
+        AnimationTemplate idleData = new AnimationTemplate();
+        idleData.setRect(new Rect(0, 0, 960, 160));
+        idleData.setImageFile("/images/skel_mage_idle_960x160.png");
+        idleData.setFrameRect(new Rect(0, 0, 160, 160));
+        idleData.setTimeBetweenFrames(40);
+        idleData.setRepeat(true);
+
+        Animation idleAnimation = new Animation(idleData);
 
         Position arPos = new Position(new Vector(860, 410, 0));
         AnimatedRenderer<CharacterAnimations> ar = new AnimatedRenderer<>(arPos, 0, AnimatedRenderer.DEFAULT_ANIMATED_RENDERER, false, false);
 
-        ar.add(CharacterAnimations.ATTACK, attack_animation);
-        ar.add(CharacterAnimations.WALKING, walk_animation);
+        ar.add(CharacterAnimations.IDLE, idleAnimation);
+        ar.add(CharacterAnimations.ATTACK, attackAnimation);
+        ar.add(CharacterAnimations.ATTACK_REPEAT, attackRepeatAnimation);
+
         ar.run(CharacterAnimations.ATTACK);
 
         view.addRenderer(ar);
@@ -91,7 +102,8 @@ public class AnimationTest {
     }
 
     private enum CharacterAnimations {
+        IDLE,
         ATTACK,
-        WALKING,
+        ATTACK_REPEAT,
     }
 }

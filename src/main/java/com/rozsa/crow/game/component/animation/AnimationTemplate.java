@@ -7,8 +7,22 @@ public class AnimationTemplate {
     private String imageFile;
     private Rect frameRect;
     private long timeBetweenFrames;
-    private boolean repeat;
     private int firstFrame;
+    private boolean repeat;
+    private long intervalBeforeRepeating;
+
+    public AnimationTemplate clone() {
+        AnimationTemplate clone = new AnimationTemplate();
+        clone.setRect(rect.clone());
+        clone.setImageFile(imageFile);
+        clone.setFrameRect(frameRect.clone());
+        clone.setTimeBetweenFrames(timeBetweenFrames);
+        clone.setFirstFrame(firstFrame);
+        clone.setRepeat(repeat);
+        clone.setIntervalBeforeRepeating(intervalBeforeRepeating);
+
+        return clone;
+    }
 
     public Rect getRect() {
         return rect;
@@ -56,5 +70,13 @@ public class AnimationTemplate {
 
     public void setFirstFrame(int firstFrame) {
         this.firstFrame = firstFrame;
+    }
+
+    public long getIntervalBeforeRepeating() {
+        return intervalBeforeRepeating;
+    }
+
+    public void setIntervalBeforeRepeating(long intervalBeforeRepeating) {
+        this.intervalBeforeRepeating = intervalBeforeRepeating;
     }
 }
