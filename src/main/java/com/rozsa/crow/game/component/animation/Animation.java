@@ -45,7 +45,6 @@ public class Animation {
         lastFrameUpdateTime = 0;
     }
 
-    // Probably this goes on AnimatedRenderer
     void update() {
         if (timePassedSinceLastFrame() < data.getTimeBetweenFrames()) {
             return;

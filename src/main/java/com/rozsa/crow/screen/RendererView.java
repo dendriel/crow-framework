@@ -129,14 +129,15 @@ public class RendererView extends BaseView implements RendererObserver {
 
         if (renderer.isFlipY() || drawing.isFlipY()) {
             boolean flipTwice = renderer.isFlipY() && drawing.isFlipY();
-            width *= flipTwice ? 1 : -1;
-            screenPosX += flipTwice ? 0 : size.getWidth();
+            height *= flipTwice ? 1 : -1;
+            screenPosY += flipTwice ? 0 : size.getHeight();
         }
 
 
         int absWidth = Math.abs(width);
+        int absHeight = Math.abs(height);
 
-        g.drawImage(drawing.getImage().getContent(absWidth, height), screenPosX, screenPosY, width, height, this);
+        g.drawImage(drawing.getImage().getContent(absWidth, absHeight), screenPosX, screenPosY, width, height, this);
     }
 
     private Map<Integer, List<Drawable>> reduceRenderers(List<Renderer> renderers) {

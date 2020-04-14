@@ -45,7 +45,6 @@ public class AnimatedRenderer<TKey> extends StaticRenderer {
             return Size.zeroed();
         }
 
-        // TODO.
         return animation.getFrameSize();
     }
 

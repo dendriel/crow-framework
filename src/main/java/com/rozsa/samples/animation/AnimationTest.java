@@ -20,6 +20,8 @@ import com.rozsa.samples.TestUtils;
 import com.rozsa.samples.renderer.RendererViewData;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AnimationTest {
     public void run() throws IOException, InterruptedException {
@@ -36,10 +38,11 @@ public class AnimationTest {
         screen.add(ScreenType.SIMPLE, simpleScreen);
         screen.setOnlyVisible(ScreenType.SIMPLE, true);
 
-        AnimatedRenderer<CharacterAnimations> ar = setupRenderers(view, data);
+        List<AnimatedRenderer<CharacterAnimations>> anims = setupRenderers(view, data);
 
-        GameLoop.addOnUpdateListener(ar::update);
+        GameLoop.addOnUpdateListener(() -> anims.forEach(AnimatedRenderer::update));
 
+        AnimatedRenderer<CharacterAnimations> ar = anims.get(0);
         do {
             Thread.sleep(2000);
             ar.run(CharacterAnimations.IDLE);
@@ -53,7 +56,7 @@ public class AnimationTest {
         } while (true);
     }
 
-    private AnimatedRenderer<CharacterAnimations> setupRenderers(RendererView view, RendererViewData data) {
+    private List<AnimatedRenderer<CharacterAnimations>> setupRenderers(RendererView view, RendererViewData data) {
         Position r1Pos = new Position(new Vector(680, 410, 0));
         Sprite r1Sprite = new Sprite(data.getArcherSpriteData());
         StaticRenderer r1 = new StaticRenderer(r1Pos, 0, StaticRenderer.DEFAULT_STATIC_RENDERER, false, false, r1Sprite);
@@ -85,15 +88,28 @@ public class AnimationTest {
 
         Position arPos = new Position(new Vector(860, 410, 0));
         AnimatedRenderer<CharacterAnimations> ar = new AnimatedRenderer<>(arPos, 0, AnimatedRenderer.DEFAULT_ANIMATED_RENDERER, false, false);
-
         ar.add(CharacterAnimations.IDLE, idleAnimation);
         ar.add(CharacterAnimations.ATTACK, attackAnimation);
         ar.add(CharacterAnimations.ATTACK_REPEAT, attackRepeatAnimation);
-
         ar.run(CharacterAnimations.ATTACK);
 
+
+        AnimationTemplate idle2Data = idleData.clone();
+        Animation idle2Animation = new Animation(idle2Data);
+
+        Position ar2Pos = new Position(new Vector(760, 410, 0));
+        AnimatedRenderer<CharacterAnimations> ar2 = new AnimatedRenderer<>(ar2Pos, 0, AnimatedRenderer.DEFAULT_ANIMATED_RENDERER, true, true);
+        ar2.add(CharacterAnimations.IDLE, idle2Animation);
+        ar2.run(CharacterAnimations.IDLE);
+
         view.addRenderer(ar);
-        return ar;
+        view.addRenderer(ar2);
+
+        ArrayList<AnimatedRenderer<CharacterAnimations>> anims = new ArrayList<>();
+        anims.add(ar);
+        anims.add(ar2);
+
+        return anims;
     }
 
     private RendererViewData getTemplate() throws IOException {
