@@ -105,6 +105,32 @@ public final class GameObject {
         return component != null ? kind.cast(component) : null;
     }
 
+    public <T> List<T> getAllServices(Class<T> kind) {
+        List<Component> targetComponents = components.stream()
+                .filter(c -> c.getClass().equals(kind) || kind.isInstance(c))
+                .collect(Collectors.toList());
+
+        List<T> castedComponents = new ArrayList<>();
+        targetComponents.forEach(c -> castedComponents.add(kind.cast(c)));
+
+        return castedComponents;
+    }
+
+    public <T> List<T> getServicesFromChildren(Class<T> kind) {
+        List<T> components = new ArrayList<>();
+        List<Position> children = position.getChildren();
+
+        for (Position pos : children) {
+            T currComp = pos.getGameObject().getService(kind);
+            components.add(currComp);
+
+            List<T> childrenComp = pos.getGameObject().getServicesFromChildren(kind);
+            components.addAll(childrenComp);
+        }
+
+        return components;
+    }
+
     public <T extends Component> boolean containsComponent(Class<T> kind) {
         return getComponent(kind) != null;
     }
@@ -155,17 +181,17 @@ public final class GameObject {
             components.add(position);
         }
 
-        public Builder addRenderer(int layer) {
+        public Builder addStaticRenderer(int layer) {
             StaticRenderer renderer = new StaticRenderer(position, layer, StaticRenderer.DEFAULT_STATIC_RENDERER, false, false);
             components.add(renderer);
             return this;
         }
 
-        public Builder addRenderer(int layer, SpriteTemplate spriteData) {
-            return addRenderer(layer, spriteData, false, false);
+        public Builder addStaticRenderer(int layer, SpriteTemplate spriteData) {
+            return addStaticRenderer(layer, spriteData, false, false);
         }
 
-        public Builder addRenderer(int layer, SpriteTemplate spriteData, boolean flipX, boolean flipY) {
+        public Builder addStaticRenderer(int layer, SpriteTemplate spriteData, boolean flipX, boolean flipY) {
             Sprite sprite = new Sprite(spriteData);
             StaticRenderer renderer = new StaticRenderer(position, layer, StaticRenderer.DEFAULT_STATIC_RENDERER, flipX, flipY, sprite);
             components.add(renderer);
@@ -173,7 +199,7 @@ public final class GameObject {
             return this;
         }
 
-        public Builder addRenderer(int layer, boolean flipX, boolean flipY, List<SpriteTemplate> spritesData) {
+        public Builder addStaticRenderer(int layer, boolean flipX, boolean flipY, List<SpriteTemplate> spritesData) {
             List<Sprite> sprites = spritesData.stream().map(Sprite::new).collect(Collectors.toList());
             StaticRenderer renderer = new StaticRenderer(position, layer, StaticRenderer.DEFAULT_STATIC_RENDERER, flipX, flipY, sprites.toArray(new Sprite[0]));
             components.add(renderer);

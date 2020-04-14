@@ -14,6 +14,10 @@ public interface Renderer {
 
     boolean isFlipY();
 
+    void setFlipX(boolean flipX);
+
+    void setFlipY(boolean flipY);
+
     boolean isDisabled();
 
     GameObject getGameObject();
