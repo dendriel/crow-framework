@@ -16,7 +16,7 @@ import java.util.List;
 public class Animation {
     private final AnimationTemplate data;
 
-    private Image image;
+    private List<Image> images;
     private Cooldown cooldownBeforeRepeating;
 
     private Rect rect;
@@ -33,11 +33,19 @@ public class Animation {
     }
 
     private void setup() {
-        image = Image.load(data.getImageFile());
-
         rect = data.getRect();
         frameRect = data.getFrameRect();
         totalFrames = rect.getWidth() / frameRect.getWidth();
+
+        loadSpritesheets();
+    }
+
+    private void loadSpritesheets() {
+        images = new ArrayList<>();
+        for (String spritesheet : data.getSpritesheets()) {
+            Image image = Image.load(spritesheet);
+            images.add(image);
+        }
     }
 
     void reset() {
@@ -99,16 +107,18 @@ public class Animation {
         data.setOrder(0);
         data.setSize(frameRect.getSize());
 
-        Image image = new Image(getImageToPaint());
-        Sprite sprite = new Sprite(data, image, true);
-        sprite.setRenderer(renderer);
-
         List<Drawable> drawings = new ArrayList<>();
-        drawings.add(sprite);
+        for (Image image : images) {
+            Image drawing = new Image(getImageToPaint(image));
+            Sprite sprite = new Sprite(data.clone(), drawing, true);
+            sprite.setRenderer(renderer);
+            drawings.add(sprite);
+        }
+
         return drawings;
     }
 
-    private BufferedImage getImageToPaint() {
+    private BufferedImage getImageToPaint(Image image) {
         BufferedImage fullImage = image.getContent(rect.getWidth(), rect.getHeight());
         Size frameSize = frameRect.getSize();
 

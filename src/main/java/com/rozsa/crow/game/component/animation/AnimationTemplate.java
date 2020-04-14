@@ -2,9 +2,12 @@ package com.rozsa.crow.game.component.animation;
 
 import com.rozsa.crow.screen.attributes.Rect;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class AnimationTemplate {
     private Rect rect;
-    private String imageFile;
+    private List<String> spritesheets;
     private Rect frameRect;
     private long timeBetweenFrames;
     private int firstFrame;
@@ -14,7 +17,7 @@ public class AnimationTemplate {
     public AnimationTemplate clone() {
         AnimationTemplate clone = new AnimationTemplate();
         clone.setRect(rect.clone());
-        clone.setImageFile(imageFile);
+        clone.setSpritesheets(new ArrayList<>(spritesheets));
         clone.setFrameRect(frameRect.clone());
         clone.setTimeBetweenFrames(timeBetweenFrames);
         clone.setFirstFrame(firstFrame);
@@ -32,12 +35,12 @@ public class AnimationTemplate {
         this.rect = rect;
     }
 
-    public String getImageFile() {
-        return imageFile;
+    public List<String> getSpritesheets() {
+        return spritesheets;
     }
 
-    public void setImageFile(String imageFile) {
-        this.imageFile = imageFile;
+    public void setSpritesheets(List<String> spritesheets) {
+        this.spritesheets = spritesheets;
     }
 
     public Rect getFrameRect() {

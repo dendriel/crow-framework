@@ -65,7 +65,9 @@ public class AnimationTest {
 
         AnimationTemplate attackData = new AnimationTemplate();
         attackData.setRect(new Rect(0, 0, 960, 160));
-        attackData.setImageFile("/images/skel_attack_960x160.png");
+        List<String> attackSpritesheet = new ArrayList<>();
+        attackSpritesheet.add("/images/skel_attack_960x160.png");
+        attackData.setSpritesheets(attackSpritesheet);
         attackData.setFrameRect(new Rect(0, 0, 160, 160));
         attackData.setTimeBetweenFrames(40);
         attackData.setRepeat(false);
@@ -75,11 +77,14 @@ public class AnimationTest {
         AnimationTemplate attackRepeatData = attackData.clone();
         attackRepeatData.setRepeat(true);
         attackRepeatData.setIntervalBeforeRepeating(300);
+
         Animation attackRepeatAnimation = new Animation(attackRepeatData);
 
         AnimationTemplate idleData = new AnimationTemplate();
         idleData.setRect(new Rect(0, 0, 960, 160));
-        idleData.setImageFile("/images/skel_mage_idle_960x160.png");
+        List<String> idleSpritesheet = new ArrayList<>();
+        idleSpritesheet.add("/images/skel_mage_idle_960x160.png");
+        idleData.setSpritesheets(idleSpritesheet);
         idleData.setFrameRect(new Rect(0, 0, 160, 160));
         idleData.setTimeBetweenFrames(40);
         idleData.setRepeat(true);

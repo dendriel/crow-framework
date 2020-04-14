@@ -30,6 +30,7 @@ public class SpriteTemplate {
         clone.setEnabled(enabled);
         clone.setFlipX(isFlipX);
         clone.setFlipY(isFlipY);
+        clone.setSize(size.clone());
 
         return clone;
     }
