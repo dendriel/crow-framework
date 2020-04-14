@@ -45,13 +45,17 @@ public class AnimationTest {
         AnimatedRenderer<CharacterAnimations> ar = anims.get(0);
         do {
             Thread.sleep(2000);
-            ar.run(CharacterAnimations.IDLE);
+            ar.setActive(CharacterAnimations.ATTACK, false);
+            ar.setActive(CharacterAnimations.IDLE, true);
             Thread.sleep(2000);
-            ar.run(CharacterAnimations.ATTACK_REPEAT);
+            ar.setActive(CharacterAnimations.IDLE, false);
+            ar.setActive(CharacterAnimations.ATTACK_REPEAT, true);
             Thread.sleep(2000);
-            ar.run(CharacterAnimations.IDLE);
+            ar.setActive(CharacterAnimations.ATTACK_REPEAT, false);
+            ar.setActive(CharacterAnimations.IDLE, true);
             Thread.sleep(2000);
-            ar.run(CharacterAnimations.ATTACK);
+            ar.setActive(CharacterAnimations.IDLE, false);
+            ar.setActive(CharacterAnimations.ATTACK, true);
 
         } while (true);
     }
@@ -96,7 +100,7 @@ public class AnimationTest {
         ar.add(CharacterAnimations.IDLE, idleAnimation);
         ar.add(CharacterAnimations.ATTACK, attackAnimation);
         ar.add(CharacterAnimations.ATTACK_REPEAT, attackRepeatAnimation);
-        ar.run(CharacterAnimations.ATTACK);
+        ar.setActive(CharacterAnimations.ATTACK, true);
 
 
         AnimationTemplate idle2Data = idleData.clone();
@@ -105,7 +109,7 @@ public class AnimationTest {
         Position ar2Pos = new Position(new Vector(760, 410, 0));
         AnimatedRenderer<CharacterAnimations> ar2 = new AnimatedRenderer<>(ar2Pos, 0, AnimatedRenderer.DEFAULT_ANIMATED_RENDERER, true, true);
         ar2.add(CharacterAnimations.IDLE, idle2Animation);
-        ar2.run(CharacterAnimations.IDLE);
+        ar2.setActive(CharacterAnimations.IDLE, true);
 
         view.addRenderer(ar);
         view.addRenderer(ar2);

@@ -16,6 +16,8 @@ import java.util.List;
 public class Animation {
     private final AnimationTemplate data;
 
+    private boolean isActive;
+
     private List<Image> images;
     private Cooldown cooldownBeforeRepeating;
 
@@ -37,6 +39,8 @@ public class Animation {
         frameRect = data.getFrameRect();
         totalFrames = rect.getWidth() / frameRect.getWidth();
 
+        isActive = data.isActive();
+
         loadSpritesheets();
     }
 
@@ -48,12 +52,27 @@ public class Animation {
         }
     }
 
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        if (active && !isActive) {
+            reset();
+        }
+        isActive = active;
+    }
+
     void reset() {
         currentFrame = data.getFirstFrame();
         lastFrameUpdateTime = 0;
     }
 
     void update() {
+        if (!isActive) {
+            return;
+        }
+
         if (timePassedSinceLastFrame() < data.getTimeBetweenFrames()) {
             return;
         }
@@ -106,6 +125,7 @@ public class Animation {
         data.setEnabled(true);
         data.setOrder(0);
         data.setSize(frameRect.getSize());
+        data.setOffset(rect.getOffset());
 
         List<Drawable> drawings = new ArrayList<>();
         for (Image image : images) {

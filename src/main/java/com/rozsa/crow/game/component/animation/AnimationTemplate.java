@@ -13,6 +13,7 @@ public class AnimationTemplate {
     private int firstFrame;
     private boolean repeat;
     private long intervalBeforeRepeating;
+    private boolean isActive;
 
     public AnimationTemplate clone() {
         AnimationTemplate clone = new AnimationTemplate();
@@ -81,5 +82,13 @@ public class AnimationTemplate {
 
     public void setIntervalBeforeRepeating(long intervalBeforeRepeating) {
         this.intervalBeforeRepeating = intervalBeforeRepeating;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
     }
 }

@@ -14,8 +14,6 @@ public class AnimatedRenderer<TKey> extends StaticRenderer {
     public static final String DEFAULT_ANIMATED_RENDERER = "_defaultAnimatorComponent";
     private final Map<TKey, Animation> animations;
 
-    private TKey currAnimating;
-
     public AnimatedRenderer(Position position, int layer, String name, boolean flipX, boolean flipY) {
         super(position, layer, name, flipX, flipY);
 
@@ -30,43 +28,33 @@ public class AnimatedRenderer<TKey> extends StaticRenderer {
             return;
         }
 
-        Animation animation = animations.get(currAnimating);
-        if (animation == null) {
-            return;
-        }
-
-        animation.update();
+        animations.values().forEach(Animation::update);
+        refreshDrawings();
     }
 
-    @Override
-    public Size getSize() {
-        Animation animation = animations.get(currAnimating);
-        if (animation == null) {
-            return Size.zeroed();
+    private void refreshDrawings() {
+        drawings.clear();
+        for (Animation animation : animations.values()) {
+            if (animation.isActive()) {
+                drawings.addAll(animation.getDrawings(this));
+            }
         }
-
-        return animation.getFrameSize();
     }
 
     @Override
     public List<Drawable> getDrawings(boolean filterInactive) {
-        Animation animation = animations.get(currAnimating);
-        if (animation == null) {
-            return new ArrayList<>();
-        }
-
-        return animation.getDrawings(this);
+        return drawings;
     }
 
     public void add(TKey key, Animation animation) {
         animations.put(key, animation);
     }
 
-    public void run(TKey key) {
+    public void setActive(TKey key, boolean isActive) {
         if (!animations.containsKey(key)) {
             return;
         }
-        currAnimating = key;
-        animations.get(key).reset();
+
+        animations.get(key).setActive(isActive);
     }
 }
