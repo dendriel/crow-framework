@@ -13,13 +13,9 @@ public enum GameCommand {
     MOVE_DOWN(InputKey.DOWN),
     PICKUP(InputKey.ENTER),
     REMOVE(InputKey.BACKSPACE),
-    INVENTORY(InputKey.I),
     CLOSE(InputKey.ESCAPE),
     SWITCH_TARGET(InputKey.TAB),
     ACTION(InputKey.SPACE),
-    BUY(InputKey.B),
-    SELL(InputKey.S),
-    ATTRIBUTES(InputKey.C),
     USE_ITEM_00(InputKey.KEY_00),
     USE_ITEM_01(InputKey.KEY_01),
     USE_ITEM_02(InputKey.KEY_02),
@@ -32,6 +28,20 @@ public enum GameCommand {
     USE_ITEM_09(InputKey.KEY_09),
     SAVE(InputKey.INSERT),
     LOAD(InputKey.HOME),
+
+    KEYPAD_01(InputKey.KEYPAD_01),
+    KEYPAD_03(InputKey.KEYPAD_03),
+    KEYPAD_07(InputKey.KEYPAD_07),
+    KEYPAD_09(InputKey.KEYPAD_09),
+
+    W(InputKey.W),
+    A(InputKey.A),
+    S(InputKey.S),
+    D(InputKey.D),
+
+    B(InputKey.B),
+    C(InputKey.C),
+    I(InputKey.I),
 
     // DEBUG ONLY
     FLY_UP(InputKey.NUMPAD_UP),
@@ -50,14 +60,19 @@ public enum GameCommand {
         inputToCommandMapper.put(MOVE_RIGHT.getInput(), MOVE_RIGHT);
         inputToCommandMapper.put(MOVE_DOWN.getInput(), MOVE_DOWN);
         inputToCommandMapper.put(PICKUP.getInput(), PICKUP);
-        inputToCommandMapper.put(INVENTORY.getInput(), INVENTORY);
         inputToCommandMapper.put(CLOSE.getInput(), CLOSE);
         inputToCommandMapper.put(REMOVE.getInput(), REMOVE);
         inputToCommandMapper.put(SWITCH_TARGET.getInput(), SWITCH_TARGET);
         inputToCommandMapper.put(ACTION.getInput(), ACTION);
-        inputToCommandMapper.put(BUY.getInput(), BUY);
-        inputToCommandMapper.put(SELL.getInput(), SELL);
-        inputToCommandMapper.put(ATTRIBUTES.getInput(), ATTRIBUTES);
+        inputToCommandMapper.put(B.getInput(), B);
+        inputToCommandMapper.put(C.getInput(), C);
+        inputToCommandMapper.put(I.getInput(), I);
+
+        inputToCommandMapper.put(W.getInput(), W);
+        inputToCommandMapper.put(A.getInput(), A);
+        inputToCommandMapper.put(S.getInput(), S);
+        inputToCommandMapper.put(D.getInput(), D);
+
         inputToCommandMapper.put(USE_ITEM_00.getInput(), USE_ITEM_00);
         inputToCommandMapper.put(USE_ITEM_01.getInput(), USE_ITEM_01);
         inputToCommandMapper.put(USE_ITEM_02.getInput(), USE_ITEM_02);
@@ -70,6 +85,11 @@ public enum GameCommand {
         inputToCommandMapper.put(USE_ITEM_09.getInput(), USE_ITEM_09);
         inputToCommandMapper.put(SAVE.getInput(), SAVE);
         inputToCommandMapper.put(LOAD.getInput(), LOAD);
+
+        inputToCommandMapper.put(KEYPAD_01.getInput(), KEYPAD_01);
+        inputToCommandMapper.put(KEYPAD_03.getInput(), KEYPAD_03);
+        inputToCommandMapper.put(KEYPAD_07.getInput(), KEYPAD_07);
+        inputToCommandMapper.put(KEYPAD_09.getInput(), KEYPAD_09);
 
         // DEBUG ONLY
         inputToCommandMapper.put(FLY_UP.getInput(), FLY_UP);
@@ -100,11 +120,21 @@ public enum GameCommand {
                 equals(MOVE_UP) || equals(MOVE_DOWN);
     }
 
+    public boolean isMovementWASD() {
+        return equals(W) || equals(A) ||
+                equals(S) || equals(D);
+    }
+
     public boolean isUseHotkey() {
         return equals(USE_ITEM_00) || equals(USE_ITEM_01) || equals(USE_ITEM_02) ||
                 equals(USE_ITEM_03) || equals(USE_ITEM_04) || equals(USE_ITEM_05) ||
                 equals(USE_ITEM_06) || equals(USE_ITEM_07) || equals(USE_ITEM_08) ||
                 equals(USE_ITEM_09);
+    }
+
+    public boolean isKeypad() {
+        return equals(KEYPAD_01) || equals(KEYPAD_03) ||
+                equals(KEYPAD_07) || equals(KEYPAD_09);
     }
 
     public boolean isPickup() {
@@ -115,24 +145,12 @@ public enum GameCommand {
         return equals(ACTION);
     }
 
-    public boolean isInventory() {
-        return equals(INVENTORY);
-    }
-
-    public boolean isAttributes() {
-        return equals(ATTRIBUTES);
-    }
-
     public boolean isClose() {
         return equals(CLOSE);
     }
 
     public boolean isSwitchTarget() {
         return equals(SWITCH_TARGET);
-    }
-
-    public boolean isSkill() {
-        return equals(SELL);
     }
 
     public boolean isSave() {

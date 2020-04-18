@@ -25,16 +25,25 @@ public enum InputKey {
     KEY_07(55),
     KEY_08(56),
     KEY_09(57),
+    A(65),
     B(66),
     C(67),
+    D(68),
     I(73),
     S(83),
+    W(87),
     NUMPAD_DOWN(98),
     NUMPAD_LEFT(100),
     NUMPAD_RIGHT(102),
     NUMPAD_UP(104),
     INSERT(155),
+
+    KEYPAD_01(97),
+    KEYPAD_03(99),
+    KEYPAD_07(103),
+    KEYPAD_09(105),
     ;
+
     private static Map<Integer, InputKey> keyCodeToPlayerInputMapper;
     static {
         keyCodeToPlayerInputMapper = new HashMap<>();
@@ -59,15 +68,24 @@ public enum InputKey {
         keyCodeToPlayerInputMapper.put(KEY_07.getKeyCode(), KEY_07);
         keyCodeToPlayerInputMapper.put(KEY_08.getKeyCode(), KEY_08);
         keyCodeToPlayerInputMapper.put(KEY_09.getKeyCode(), KEY_09);
-        keyCodeToPlayerInputMapper.put(I.getKeyCode(), I);
+        keyCodeToPlayerInputMapper.put(A.getKeyCode(), A);
         keyCodeToPlayerInputMapper.put(B.getKeyCode(), B);
-        keyCodeToPlayerInputMapper.put(S.getKeyCode(), S);
         keyCodeToPlayerInputMapper.put(C.getKeyCode(), C);
+        keyCodeToPlayerInputMapper.put(D.getKeyCode(), D);
+        keyCodeToPlayerInputMapper.put(I.getKeyCode(), I);
+        keyCodeToPlayerInputMapper.put(S.getKeyCode(), S);
+        keyCodeToPlayerInputMapper.put(W.getKeyCode(), W);
         keyCodeToPlayerInputMapper.put(NUMPAD_DOWN.getKeyCode(), NUMPAD_DOWN);
         keyCodeToPlayerInputMapper.put(NUMPAD_LEFT.getKeyCode(), NUMPAD_LEFT);
         keyCodeToPlayerInputMapper.put(NUMPAD_RIGHT.getKeyCode(), NUMPAD_RIGHT);
         keyCodeToPlayerInputMapper.put(NUMPAD_UP.getKeyCode(), NUMPAD_UP);
         keyCodeToPlayerInputMapper.put(INSERT.getKeyCode(), INSERT);
+
+        keyCodeToPlayerInputMapper.put(KEYPAD_01.getKeyCode(), KEYPAD_01);
+        keyCodeToPlayerInputMapper.put(KEYPAD_03.getKeyCode(), KEYPAD_03);
+        keyCodeToPlayerInputMapper.put(KEYPAD_07.getKeyCode(), KEYPAD_07);
+        keyCodeToPlayerInputMapper.put(KEYPAD_09.getKeyCode(), KEYPAD_09);
+
     }
     private final int keyCode;
 

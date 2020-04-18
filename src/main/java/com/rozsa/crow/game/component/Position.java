@@ -171,6 +171,7 @@ public class Position extends BaseComponent implements PositionObserver {
         parent = newParent;
         if (parent != null) {
             parent.addChild(this);
+            onPositionChanged();
         }
     }
 

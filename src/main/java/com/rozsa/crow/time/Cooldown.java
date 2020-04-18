@@ -5,6 +5,8 @@ public class Cooldown {
     private long startTime;
     private boolean isStarted;
 
+    public Cooldown() {}
+
     public Cooldown(long waitingTime) {
         this.waitingTime = waitingTime;
     }
@@ -14,17 +16,17 @@ public class Cooldown {
         start();
     }
 
+    public void start() {
+        reset();
+        isStarted = true;
+    }
+
     public boolean isStarted() {
         return isStarted;
     }
 
     public boolean isStopped() {
         return !isStarted;
-    }
-
-    public void start() {
-        reset();
-        isStarted = true;
     }
 
     private void reset() {

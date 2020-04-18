@@ -59,6 +59,10 @@ public class Vector {
         this.z = z;
     }
 
+    public static Vector origin() {
+        return new Vector(0,0,0);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
