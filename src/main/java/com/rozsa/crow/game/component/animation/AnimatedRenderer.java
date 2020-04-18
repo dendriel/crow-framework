@@ -35,15 +35,24 @@ public class AnimatedRenderer<TKey> extends StaticRenderer {
         refreshDrawings();
     }
 
-    private Map<TKey, Animation> getCurrentAnimations() {
+    protected Map<TKey, Animation> getCurrentAnimations() {
         return animationsLayers.get(animationLayer);
     }
 
-    private Map<TKey, Animation> getAnimations(int layer) {
+    protected Map<TKey, Animation> getAnimations(int layer) {
         if (!animationsLayers.containsKey(layer)) {
             animationsLayers.put(layer, new HashMap<>());
         }
         return animationsLayers.get(layer);
+    }
+
+    protected Animation getAnimation(TKey key) {
+        return getAnimation(key, animationLayer);
+    }
+
+    protected Animation getAnimation(TKey key, int layer) {
+        Map<TKey, Animation> animations = getAnimations(layer);
+        return animations.get(key);
     }
 
     private void refreshDrawings() {
@@ -91,6 +100,19 @@ public class AnimatedRenderer<TKey> extends StaticRenderer {
         }
 
         animations.get(key).setActive(isActive);
+    }
+
+    public void trigger(TKey key) {
+        trigger(key, animationLayer);
+    }
+
+    public void trigger(TKey key, int layer) {
+        Map<TKey, Animation> animations = getAnimations(layer);
+        if (!animations.containsKey(key)) {
+            return;
+        }
+
+        animations.get(key).trigger();
     }
 
     public boolean isAllAnimationsInactive() {

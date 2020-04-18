@@ -11,6 +11,7 @@ public class UIButtonTemplate extends UIBaseComponentTemplate {
     private String rolloverImage;
     private String disabledImage;
     private boolean isDisabled;
+    private boolean isFocusable;
     private UILabelTemplate label;
     private UIToolTipTemplate toolTip;
 
@@ -65,6 +66,14 @@ public class UIButtonTemplate extends UIBaseComponentTemplate {
 
     public void setDisabled(boolean disabled) {
         isDisabled = disabled;
+    }
+
+    public boolean isFocusable() {
+        return isFocusable;
+    }
+
+    public void setFocusable(boolean focusable) {
+        isFocusable = focusable;
     }
 
     public UIToolTipTemplate getToolTip() {

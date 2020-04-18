@@ -38,6 +38,10 @@ public final class GameObject {
         components.forEach(Component::update);
     }
 
+    public void lateUpdate() {
+        components.forEach(Component::lateUpdate);
+    }
+
     public Position getPosition() {
         return position;
     }

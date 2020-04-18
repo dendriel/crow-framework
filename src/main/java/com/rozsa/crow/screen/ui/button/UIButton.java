@@ -52,6 +52,7 @@ public class UIButton extends UIBaseComponent<UIButtonTemplate> {
         setupToolTip();
         setupBounds();
 
+        button.setFocusable(data.isFocusable());
         button.setEnabled(!data.isDisabled());
     }
 
@@ -184,7 +185,7 @@ public class UIButton extends UIBaseComponent<UIButtonTemplate> {
     }
 
     private void onMouseEntered(MouseEvent evt) {
-        System.out.println("onMouseEntered");
+//        System.out.println("onMouseEntered");
         buttonMouseEnteredListeners.forEach(l -> l.getListener().onEvent(l.getState()));
     }
 
@@ -197,7 +198,7 @@ public class UIButton extends UIBaseComponent<UIButtonTemplate> {
     }
 
     private void onMouseExited(MouseEvent evt) {
-        System.out.println("onMouseExited");
+//        System.out.println("onMouseExited");
         buttonMouseExitedListeners.forEach(l -> l.getListener().onEvent(l.getState()));
     }
 

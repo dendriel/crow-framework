@@ -19,4 +19,6 @@ public interface Component extends Identifiable {
     void wrapUp();
 
     void update();
+
+    void lateUpdate();
 }

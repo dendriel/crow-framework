@@ -17,6 +17,7 @@ public class Animation {
     private final AnimationTemplate data;
 
     private boolean isActive;
+    private boolean isTriggered;
 
     private List<Image> images;
     private Cooldown cooldownBeforeRepeating;
@@ -53,14 +54,24 @@ public class Animation {
     }
 
     public boolean isActive() {
-        return isActive;
+        return isActive || isTriggered;
     }
 
     public void setActive(boolean active) {
         if (active && !isActive) {
             reset();
         }
+
+        if (isTriggered && !active) {
+            isTriggered = false;
+        }
+
         isActive = active;
+    }
+
+    public void trigger() {
+        isTriggered = true;
+        reset();
     }
 
     void reset() {
@@ -69,7 +80,7 @@ public class Animation {
     }
 
     void update() {
-        if (!isActive) {
+        if (!isActive && !isTriggered) {
             return;
         }
 
@@ -93,6 +104,11 @@ public class Animation {
         int nextFrame = currentFrame + 1;
         if (nextFrame < totalFrames) {
             currentFrame = nextFrame;
+            return;
+        }
+
+        if (isTriggered) {
+            isTriggered = false;
             return;
         }
 
