@@ -1,6 +1,12 @@
 package com.rozsa.crow.game.path.astar;
 
-public interface AStarNode {
+public interface AStarNode extends Comparable {
+    /**
+     * Object unique identifier.
+     * @return
+     */
+    Object getKey();
+
     /**
      * Previous node.
      */

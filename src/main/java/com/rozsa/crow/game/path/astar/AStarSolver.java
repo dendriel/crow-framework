@@ -2,9 +2,7 @@ package com.rozsa.crow.game.path.astar;
 
 import com.rozsa.crow.time.TimeUtils;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public abstract class AStarSolver {
     /**
@@ -15,12 +13,13 @@ public abstract class AStarSolver {
     /**
      * Open list (frontier) nodes.
      */
-    protected List<AStarNode> openList;
+    protected Map<Object, AStarNode> openList;
+    protected PriorityQueue<AStarNode> sortedOpenList;
 
     /**
      * Closed list (visited) nodes.
      */
-    protected List<AStarNode> closedList;
+    protected Map<Object, AStarNode> closedList;
 
     /**
      * Elapsed time since started solving a maze (in milliseconds).
@@ -48,8 +47,9 @@ public abstract class AStarSolver {
     public List<AStarNode> findSolution() {
         elapsedTimeInMs = 0;
 
-        openList = new ArrayList<>();
-        closedList = new ArrayList<>();
+        openList = new HashMap<>();
+        sortedOpenList = new PriorityQueue<>();
+        closedList = new HashMap<>();
 
         initializeOpenList();
 
@@ -58,9 +58,9 @@ public abstract class AStarSolver {
         boolean foundSolution = false;
         do {
             startTime = TimeUtils.getCurrentTime();
-
             nextNode = findLightestNode();
-            closedList.add(nextNode);
+
+            closedList.put(nextNode.getKey(), nextNode);
             currNode = nextNode;
 
             if (hasFoundASolution()) {
@@ -69,7 +69,8 @@ public abstract class AStarSolver {
             }
 
             List<AStarNode> neighbors = findNeighbors();
-            openList.addAll(neighbors);
+            neighbors.forEach(n -> openList.put(n.getKey(), n));
+            sortedOpenList.addAll(neighbors);
 
             elapsedTimeInMs += TimeUtils.getTimePassedSince(startTime);
         } while (openList.size() > 0);
@@ -95,7 +96,8 @@ public abstract class AStarSolver {
      * Add the first node to be visited in the open list.
      */
     private void initializeOpenList() {
-        openList.add(startingNode);
+        openList.put(startingNode.getKey(), startingNode);
+        sortedOpenList.add(startingNode);
     }
 
     /**
@@ -105,17 +107,8 @@ public abstract class AStarSolver {
      * @return The node with best heuristics in the list.
      */
     private AStarNode findLightestNode() {
-        AStarNode bestNode = openList.get(0);
-
-        for (int i = 1; i < openList.size(); i++) {
-            AStarNode currNode = openList.get(i);
-            if (currNode.getTotalCost() < bestNode.getTotalCost()) {
-                bestNode = currNode;
-            }
-        }
-
-        openList.remove(bestNode);
-
+        AStarNode bestNode = sortedOpenList.poll();
+        openList.remove(bestNode.getKey());
         return bestNode;
     }
 
