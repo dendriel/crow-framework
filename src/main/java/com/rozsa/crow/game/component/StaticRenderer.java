@@ -16,10 +16,10 @@ import java.util.stream.Collectors;
 public class StaticRenderer extends BaseComponent implements Renderer, PositionObserver {
     public static String DEFAULT_STATIC_RENDERER = "_defaultRendererComponent";
     protected List<Drawable> drawings;
-    private int layer;
-    private Offset pos;
-    private boolean flipX;
-    private boolean flipY;
+    protected int layer;
+    protected Offset pos;
+    protected boolean flipX;
+    protected boolean flipY;
 
     private Set<RendererObserver> observers;
 
