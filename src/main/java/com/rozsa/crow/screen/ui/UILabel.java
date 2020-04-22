@@ -32,6 +32,10 @@ public class UILabel extends UIBaseComponent<UILabelTemplate> {
         setupLabel();
     }
 
+    public UILabelTemplate getTemplate() {
+        return data;
+    }
+
     public void updateComponentTemplate(UILabelTemplate data) {
         if (this.data.equals(data)) {
             return;
@@ -52,6 +56,8 @@ public class UILabel extends UIBaseComponent<UILabelTemplate> {
         label.setText(data.getValue());
 
         setupBounds();
+
+        label.setVisible(isEnabled);
     }
 
     public void updateScreenSize(Size parentSize) {

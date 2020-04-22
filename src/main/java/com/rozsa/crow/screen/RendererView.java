@@ -86,6 +86,10 @@ public class RendererView extends BaseView implements RendererObserver {
         this.offsetY = offsetY;
     }
 
+    public Offset getScreenOffset() {
+        return new Offset(offsetX, offsetY);
+    }
+
     @Override
     public void rendererChanged(Renderer renderer) {
         draw();

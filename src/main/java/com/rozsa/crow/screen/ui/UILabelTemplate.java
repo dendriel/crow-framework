@@ -19,14 +19,18 @@ public class UILabelTemplate extends UIBaseComponentTemplate implements UIText {
         font = new UIFontTemplate();
     }
 
+    private UILabelTemplate(UILabelTemplate from) {
+        super(from);
+
+        this.font = from.font.clone();
+        this.color = from.color.clone();
+        this.rect = from.rect.clone();
+        this.verticalAlignment = from.verticalAlignment;
+        this.horizontalAlignment = from.horizontalAlignment;
+    }
+
     public UILabelTemplate clone() {
-        UILabelTemplate clone = new UILabelTemplate();
-        clone.font = font.clone();
-        clone.color = color.clone();
-        clone.rect = rect.clone();
-        clone.verticalAlignment = verticalAlignment;
-        clone.horizontalAlignment = horizontalAlignment;
-        return clone;
+        return new UILabelTemplate(this);
     }
 
     public int getHorizontalAlignment() {

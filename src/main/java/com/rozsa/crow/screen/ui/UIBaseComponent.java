@@ -18,7 +18,7 @@ public abstract class UIBaseComponent<T> implements UIComponent<T> {
     protected final String tag;
     protected Rect rect;
     protected Offset parentOffset;
-    protected boolean isEnabled = true;
+    protected boolean isEnabled;
 
     public UIBaseComponent(UIBaseComponentTemplate data) {
         this.data = data;
@@ -27,6 +27,7 @@ public abstract class UIBaseComponent<T> implements UIComponent<T> {
         expandMode = data.getExpandMode();
         parentOffset = Offset.origin();
         observers = new ArrayList<>();
+        isEnabled = data.isEnabled();
     }
 
     public void addUIComponentChangedListener(UIComponentObserver observer) {

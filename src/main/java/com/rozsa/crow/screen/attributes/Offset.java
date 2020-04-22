@@ -43,6 +43,10 @@ public class Offset {
         return new Offset(x + target.getX(), y + target.getY());
     }
 
+    public Offset remove(Offset target) {
+        return new Offset(x - target.getX(), y - target.getY());
+    }
+
     @Override
     public String toString() {
         return String.format("%d,%d", x, y);

@@ -8,6 +8,7 @@ import com.rozsa.crow.screen.sprite.Image;
 import com.rozsa.crow.screen.sprite.Sprite;
 import com.rozsa.crow.screen.sprite.SpriteTemplate;
 import com.rozsa.crow.time.Cooldown;
+import com.rozsa.crow.time.TimeUtils;
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import java.util.List;
 
 public class Animation {
     private final AnimationTemplate data;
+    private long length;
 
     private boolean isActive;
     private boolean isTriggered;
@@ -28,11 +30,14 @@ public class Animation {
     private long lastFrameUpdateTime;
     private Rect frameRect;
 
+    private long lastTriggered;
+
     public Animation(AnimationTemplate data) {
         this.data = data;
 
         cooldownBeforeRepeating = new Cooldown(data.getIntervalBeforeRepeating());
         setup();
+        length = data.getTimeBetweenFrames() * totalFrames;
     }
 
     private void setup() {
@@ -71,7 +76,17 @@ public class Animation {
 
     public void trigger() {
         isTriggered = true;
+        isActive = false;
+        lastTriggered = TimeUtils.getCurrentTime();
         reset();
+    }
+
+    public long getLastTriggered() {
+        return lastTriggered;
+    }
+
+    public long getLength() {
+        return length;
     }
 
     void reset() {
