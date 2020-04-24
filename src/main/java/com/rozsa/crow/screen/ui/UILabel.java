@@ -103,6 +103,10 @@ public class UILabel extends UIBaseComponent<UILabelTemplate> {
         setupBounds();
     }
 
+    public Offset getCustomOffset() {
+        return customOffset;
+    }
+
     public Rect getRect() {
         return data.getRect();
     }
