@@ -2,6 +2,7 @@ package com.rozsa.crow.screen;
 
 import com.rozsa.crow.game.GameLoop;
 import com.rozsa.crow.screen.api.WindowCloseRequestListener;
+import com.rozsa.crow.screen.attributes.Offset;
 import com.rozsa.crow.screen.attributes.Size;
 
 import javax.swing.*;
@@ -71,6 +72,18 @@ public class ScreenHandler<TScreenKey extends Enum<TScreenKey>> {
         frame.setLayout(null);
         frame.getContentPane().setLayout(null);
         setupCloseOperation();
+    }
+
+    public Offset getPosition() {
+        Insets insets = frame.getInsets();
+        int insetWidth = insets.left;// + insets.right;
+        int insetHeight = insets.top;// + insets.bottom;
+
+        Point point = frame.getLocation();
+
+        Offset position = new Offset((int)point.getX(), (int)point.getY());
+        position = position.add(new Offset(insetWidth, insetHeight));
+        return position;
     }
 
     private void setupCloseOperation() {
