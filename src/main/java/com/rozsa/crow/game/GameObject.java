@@ -21,25 +21,27 @@ public final class GameObject {
     private GameObject(Builder builder) {
         isActive = builder.isActive;
         components = builder.components;
-        components.forEach(c -> {
-            c.setGameObject(this);
-            c.wrapUp();
-        });
-
         position = (Position) components.stream()
                 .filter(c -> c instanceof Position)
                 .findFirst()
                 .orElse(null);
 
         assert position != null : String.format("GameObject has no assigned Position!");
+
+        components.forEach(c -> {
+            c.setGameObject(this);
+            c.wrapUp();
+        });
     }
 
     public void update() {
         components.forEach(Component::update);
+        position.getChildren().forEach(p -> p.getGameObject().update());
     }
 
     public void lateUpdate() {
         components.forEach(Component::lateUpdate);
+        position.getChildren().forEach(p -> p.getGameObject().lateUpdate());
     }
 
     public Position getPosition() {
@@ -74,13 +76,32 @@ public final class GameObject {
         return component != null ? kind.cast(component) : null;
     }
 
+    public <T extends Component> T getComponentFromChildren(Class<T> kind) {
+        List<Position> children = position.getChildren();
+        for (Position pos : children) {
+            T currComp = pos.getGameObject().getComponent(kind);
+            if (currComp != null) {
+                return currComp;
+            }
+
+            T childrenComp = pos.getGameObject().getComponentFromChildren(kind);
+            if (childrenComp != null) {
+                return childrenComp;
+            }
+        }
+
+        return null;
+    }
+
     public <T extends Component> List<T> getComponentsFromChildren(Class<T> kind) {
         List<T> components = new ArrayList<>();
         List<Position> children = position.getChildren();
 
         for (Position pos : children) {
             T currComp = pos.getGameObject().getComponent(kind);
-            components.add(currComp);
+            if (currComp != null) {
+                components.add(currComp);
+            }
 
             List<T> childrenComp = pos.getGameObject().getComponentsFromChildren(kind);
             components.addAll(childrenComp);
