@@ -3,6 +3,7 @@ package com.rozsa;
 import com.rozsa.samples.animation.AnimationTest;
 import com.rozsa.samples.components.animation.UIAnimationTest;
 import com.rozsa.samples.components.labelgroup.LabelGroupTest;
+import com.rozsa.samples.components.slider.SliderTest;
 import com.rozsa.samples.renderer.RendererViewTest;
 
 import java.io.IOException;
@@ -37,8 +38,11 @@ public class Main {
 //        AnimationTest animationTest = new AnimationTest();
 //        animationTest.run();
 
-        LabelGroupTest labelGroupTest = new LabelGroupTest();
-        labelGroupTest.run();
+//        LabelGroupTest labelGroupTest = new LabelGroupTest();
+//        labelGroupTest.run();
+
+        SliderTest sliderTest = new SliderTest();
+        sliderTest.run();
     }
 }
 

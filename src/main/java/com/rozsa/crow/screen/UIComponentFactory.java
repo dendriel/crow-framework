@@ -25,6 +25,7 @@ class UIComponentFactory {
         typeToCreatorMapper.put(BUTTON, template -> new UIButton((UIButtonTemplate) template));
         typeToCreatorMapper.put(ANIMATION, template -> new UIAnimation((UIAnimationTemplate) template));
         typeToCreatorMapper.put(LABEL_GROUP, template -> new UILabelGroup((UILabelGroupTemplate) template));
+        typeToCreatorMapper.put(SLIDER, template -> new UISlider((UISliderTemplate) template));
     }
 
     static UIComponent create(UIBaseComponentTemplate template, Size viewSize) {

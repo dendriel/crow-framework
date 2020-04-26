@@ -17,6 +17,7 @@ public class ViewTemplate {
     private List<UIInputFieldTemplate> inputFields;
     private List<UIAnimationTemplate> animations;
     private List<UILabelGroupTemplate> labelGroups;
+    private List<UISliderTemplate> sliders;
 
     public ViewTemplate() {
         labels = new ArrayList<>();
@@ -25,6 +26,7 @@ public class ViewTemplate {
         inputFields = new ArrayList<>();
         animations = new ArrayList<>();
         labelGroups = new ArrayList<>();
+        sliders = new ArrayList<>();
     }
 
     public ViewTemplate(Rect rect) {
@@ -49,6 +51,7 @@ public class ViewTemplate {
             components.addAll(inputFields);
             components.addAll(animations);
             components.addAll(labelGroups);
+            components.addAll(sliders);
         }
 
         return components;
@@ -100,5 +103,13 @@ public class ViewTemplate {
 
     public void setLabelGroups(List<UILabelGroupTemplate> labelGroups) {
         this.labelGroups = labelGroups;
+    }
+
+    public List<UISliderTemplate> getSliders() {
+        return sliders;
+    }
+
+    public void setSliders(List<UISliderTemplate> sliders) {
+        this.sliders = sliders;
     }
 }

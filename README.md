@@ -50,4 +50,5 @@ screenHandler.setOnlyVisible(ScreenType.SPLASH, true);
 - UIButton - interactive button;
 - UIInputField - interactive text input;
 - UIAnimation - animated icon (uses spritesheet);
-- UILabelGroup - group of horizontal or vertical labels.
+- UILabelGroup - group of horizontal or vertical labels;
+- UISlider - horizontal and vertical slider.

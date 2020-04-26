@@ -69,6 +69,10 @@ public class Rect {
         size.setHeight(height);
     }
 
+    public void setOffset(Offset newOffset) {
+        offset = newOffset;
+    }
+
     public void setSize(Size newSize) {
         size = newSize;
     }
