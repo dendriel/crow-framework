@@ -1,5 +1,6 @@
 package com.rozsa.crow.game.attributes;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.rozsa.crow.screen.attributes.Offset;
 
 import java.util.Objects;
@@ -31,6 +32,7 @@ public class Vector {
         y += offset.getY();
     }
 
+    @JsonIgnore
     public Offset getOffset() {
         return new Offset(x, y);
     }
