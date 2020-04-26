@@ -18,11 +18,13 @@ public class UIInputFieldTemplate extends UIBaseComponentTemplate {
     private UIToolTipTemplate toolTip;
     private boolean isPasswordInput;
     private boolean isDisabled;
+    private String text;
 
     public UIInputFieldTemplate() {
         super(UIComponentType.INPUT_FIELD);
         font = new UIFontTemplate();
         backgroundVisible = true;
+        text = "";
     }
 
     public UIFontTemplate getFont() {
@@ -95,5 +97,13 @@ public class UIInputFieldTemplate extends UIBaseComponentTemplate {
 
     public void setDisabled(boolean disabled) {
         isDisabled = disabled;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
     }
 }

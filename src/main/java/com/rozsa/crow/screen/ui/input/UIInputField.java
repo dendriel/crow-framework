@@ -47,6 +47,7 @@ public class UIInputField extends UIBaseComponent<UIInputFieldTemplate> {
         setupToolTip();
         setupBounds();
 
+        textField.setText(data.getText());
         textField.setEnabled(!data.isDisabled());
         textField.addActionListener(this::onSubmitted);
     }
