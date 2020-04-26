@@ -13,13 +13,10 @@ import java.util.List;
 
 public class UILabelGroup extends UIBaseComponent<UILabelGroupTemplate> {
     private final List<UILabel> labels;
-
     private final UILabelGroupTemplate data;
 
-    private final Offset parentOffset;
-
     public UILabelGroup(UILabelGroupTemplate data) {
-        this(data, new Offset());
+        this(data, Offset.origin());
     }
 
     public UILabelGroup(UILabelGroupTemplate data, Offset parentOffset) {
@@ -33,6 +30,7 @@ public class UILabelGroup extends UIBaseComponent<UILabelGroupTemplate> {
     }
 
     private void setup() {
+        data.getLabelData().setReferenceSize(data.getReferenceSize());
         int size = getLabelCount();
         for (int i = 0; i < size; i++) {
             UILabel newLabel = createLabel(i);
@@ -77,23 +75,27 @@ public class UILabelGroup extends UIBaseComponent<UILabelGroupTemplate> {
 
     private UILabel createLabel(int index) {
         UILabelTemplate newData = data.copyLabelData();
-        Offset spacing = data.getSpacing();
+        Size spacing = data.getSpacing();
         Offset pos = data.getPos();
 
         Rect rect = newData.getRect();
-        int x = pos.getX() + (index * spacing.getX());
-        int y = pos.getY() + index * (spacing.getY() + rect.getHeight());
+        int horSpacing = (data.getSize().getWidth() > 1) ? spacing.getWidth() + rect.getWidth() : 0;
+        int verSpacing = (data.getSize().getHeight() > 1) ? spacing.getHeight() + rect.getHeight() : 0;
+
+        int x = pos.getX() + (index * horSpacing);
+        int y = pos.getY() + (index * verSpacing);
 
         rect.setX(x);
         rect.setY(y);
 
-        return new UILabel(newData, parentOffset);
+        newData.setRect(rect);
+
+        return new UILabel(newData);
     }
 
     public void updateScreenSize(Size parentSize) {
-        // TODO: updateScreenSize
+        labels.forEach(l -> l.updateScreenSize(parentSize));
     }
-
 
     @Override
     public void show() {

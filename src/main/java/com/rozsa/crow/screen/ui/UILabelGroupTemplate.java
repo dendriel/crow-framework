@@ -7,12 +7,12 @@ public class UILabelGroupTemplate extends UIBaseComponentTemplate {
     private UILabelTemplate labelData;
     private Offset pos;
     private Size size;
-    private Offset spacing;
+    private Size spacing;
 
     public UILabelGroupTemplate() {
         super(UIComponentType.LABEL_GROUP);
-        pos = new Offset();
-        spacing = new Offset();
+        pos = Offset.origin();
+        spacing = new Size();
     }
 
     public UILabelTemplate getLabelData() {
@@ -31,11 +31,11 @@ public class UILabelGroupTemplate extends UIBaseComponentTemplate {
         this.pos = pos;
     }
 
-    public Offset getSpacing() {
+    public Size getSpacing() {
         return spacing;
     }
 
-    public void setSpacing(Offset spacing) {
+    public void setSpacing(Size spacing) {
         this.spacing = spacing;
     }
 

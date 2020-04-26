@@ -24,9 +24,10 @@ class UIComponentFactory {
         typeToCreatorMapper.put(INPUT_FIELD, template -> new UIInputField((UIInputFieldTemplate) template));
         typeToCreatorMapper.put(BUTTON, template -> new UIButton((UIButtonTemplate) template));
         typeToCreatorMapper.put(ANIMATION, template -> new UIAnimation((UIAnimationTemplate) template));
+        typeToCreatorMapper.put(LABEL_GROUP, template -> new UILabelGroup((UILabelGroupTemplate) template));
     }
 
-    public static UIComponent create(UIBaseComponentTemplate template, Size viewSize) {
+    static UIComponent create(UIBaseComponentTemplate template, Size viewSize) {
         template.setReferenceSize(viewSize);
         return typeToCreatorMapper.get(template.getType()).apply(template);
     }

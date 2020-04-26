@@ -15,7 +15,7 @@ public class UILabel extends UIBaseComponent<UILabelTemplate> {
     private Offset customOffset;
 
     public UILabel(UILabelTemplate data) {
-        this(data, new Offset());
+        this(data, Offset.origin());
     }
 
     public UILabel(UILabelTemplate data, Offset parentOffset) {

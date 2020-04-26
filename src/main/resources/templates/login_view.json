@@ -50,7 +50,7 @@
   "buttons": [
     {
       "tag": "loginButton",
-      "rect": { "offset": { "x": 920, "y": 400}, "size": { "width": 100, "height": 50}},
+      "rect": { "offset": { "x": 920, "y": 400}, "size": { "width": 100, "height": 50} },
       "label": {
         "text": "Login",
         "font": { "font": "Serif", "style": 0, "size": 24 }

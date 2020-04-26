@@ -49,4 +49,5 @@ screenHandler.setOnlyVisible(ScreenType.SPLASH, true);
 - UIIcon - static image;
 - UIButton - interactive button;
 - UIInputField - interactive text input;
-- UIAnimation - animated icon (uses spritesheet).
+- UIAnimation - animated icon (uses spritesheet);
+- UILabelGroup - group of horizontal or vertical labels.
