@@ -123,6 +123,10 @@ public class BaseView extends JPanel implements UIComponentObserver {
         return getComponent(tag, UILabelGroup.class);
     }
 
+    public UISlider getSlider(String tag) {
+        return getComponent(tag, UISlider.class);
+    }
+
     public <T extends UIComponent> T getComponent(String tag, Class<T> clazz) {
         return clazz.cast(components
                 .stream()
