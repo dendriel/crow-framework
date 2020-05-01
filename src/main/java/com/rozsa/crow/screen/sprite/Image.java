@@ -43,12 +43,16 @@ public class Image {
     }
 
     public static Image load(String filePath) {
+        return load(filePath, filePath);
+    }
+
+    public static Image load(String filePath, String key) {
         try {
             if (filePath == null || filePath.isEmpty()) {
                 return null;
             }
 
-            Image image = ImageCache.get(filePath);
+            Image image = ImageCache.get(key);
             if (image != null) {
                 return image;
             }
@@ -56,7 +60,7 @@ public class Image {
             URL url = Image.class.getResource(filePath);
             BufferedImage bufferedImage = ImageIO.read(url);
             image = new Image(bufferedImage);
-            ImageCache.add(filePath, image);
+            ImageCache.add(key, image);
 
             return image;
         } catch (Exception ex) {

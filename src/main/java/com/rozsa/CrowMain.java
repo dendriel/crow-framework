@@ -8,7 +8,7 @@ import com.rozsa.samples.renderer.RendererViewTest;
 
 import java.io.IOException;
 
-public class Main {
+public class CrowMain {
     // testing purposes
     public static void main(String[] args) throws IOException, InterruptedException {
 //        SplashSetupTest splashSetupTest = new SplashSetupTest(false);
