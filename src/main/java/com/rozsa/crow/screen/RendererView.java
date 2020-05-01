@@ -97,8 +97,6 @@ public class RendererView extends BaseView implements RendererObserver {
 
     @Override
     protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-
         List<Renderer> tempRenderers = new ArrayList<>(renderers);
 
         Map<Integer, List<Drawable>> sprites = reduceRenderers(tempRenderers);
@@ -107,6 +105,8 @@ public class RendererView extends BaseView implements RendererObserver {
             Sprite.sortByOrderAscending(spriteSet);
             spriteSet.forEach(s -> draw(s, g));
         }
+
+        super.paintComponent(g);
     }
 
     private void draw(Drawable drawing, Graphics g) {

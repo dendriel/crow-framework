@@ -10,9 +10,9 @@ public class SpriteTemplate {
     private Offset offset;
     private Scale scale;
     private Size size;
-    private boolean enabled;
-    private boolean isFlipX;
-    private boolean isFlipY;
+    private Boolean enabled;
+    private Boolean isFlipX;
+    private Boolean isFlipY;
 
     public SpriteTemplate() {
         offset = new Offset();
@@ -51,27 +51,27 @@ public class SpriteTemplate {
         this.order = order;
     }
 
-    public boolean isEnabled() {
+    public Boolean isEnabled() {
         return enabled;
     }
 
-    public void setEnabled(boolean enabled) {
+    public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
     }
 
-    public boolean isFlipX() {
-        return isFlipX;
+    public Boolean isFlipX() {
+        return isFlipX != null ? isFlipX : false;
     }
 
-    public void setFlipX(boolean flipX) {
+    public void setFlipX(Boolean flipX) {
         isFlipX = flipX;
     }
 
-    public boolean isFlipY() {
-        return isFlipY;
+    public Boolean isFlipY() {
+        return isFlipY != null ? isFlipY : false;
     }
 
-    public void setFlipY(boolean flipY) {
+    public void setFlipY(Boolean flipY) {
         isFlipY = flipY;
     }
 
