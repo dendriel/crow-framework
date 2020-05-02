@@ -3,7 +3,7 @@ package com.rozsa.crow.screen.sprite;
 import java.util.HashMap;
 import java.util.Map;
 
-class ImageCache {
+public class ImageCache {
     private static Map<String, Image> imageCache = new HashMap<>();
 
     public static Image get(String filePath) {

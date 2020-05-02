@@ -13,6 +13,8 @@ public class Image {
     private HashMap<Size, BufferedImage> content;
     private BufferedImage defaultContent;
 
+    public Image() {}
+
     public Image(BufferedImage content) {
         defaultContent = content;
 
