@@ -19,6 +19,7 @@ public class ButtonsView extends BaseView {
         UIIconTemplate backgroundData = new UIIconTemplate();
         backgroundData.setImageFile("/images/test_bg_1920x1080.png");
         backgroundData.setRect(rect);
+        backgroundData.setReferenceSize(rect.getSize());
         UIIcon backgroundIcon = new UIIcon(backgroundData);
         addComponent(backgroundIcon);
 
@@ -30,20 +31,26 @@ public class ButtonsView extends BaseView {
         labelData.setVerticalAlignment(0);
         labelData.setHorizontalAlignment(0);
         labelData.setRect(rect);
+        labelData.setReferenceSize(rect.getSize());
         UILabel label = new UILabel(labelData);
         addComponent(label);
 
         // Button
-        for (int i = 0; i < 8; i++) {
+        int buttonCount = 8;
+        int width = rect.getWidth() / buttonCount;
+        for (int i = 0; i < buttonCount; i++) {
             UILabelTemplate labelTemplate = labelData.clone();
             labelTemplate.getFont().setSize(24);
             labelTemplate.setText("Click " + i);
+            labelTemplate.setReferenceSize(rect.getSize());
 
             UIButtonTemplate buttonData = new UIButtonTemplate();
-            buttonData.setRect(new Rect(100*i, 0, 100, 100));
+            buttonData.setRect(new Rect(width*i, 0, width, 100));
             buttonData.setLabel(labelTemplate);
+            buttonData.setExpandMode(UIExpandMode.FILL);
             buttonData.setDefaultImage("/images/button.png");
             buttonData.setPressedImage("/images/button_pressed.png");
+            buttonData.setReferenceSize(rect.getSize());
             if (i % 2 == 0) {
                 buttonData.setDisabledImage("/images/button_pressed.png");
                 buttonData.setDisabled(true);
@@ -71,6 +78,13 @@ public class ButtonsView extends BaseView {
             UIButton button = new UIButton(buttonData);
             UIEventListener listener = (s) -> label.setText("Button " + s + " pressed!");
             button.addButtonPressedListener(listener, i);
+
+            if (i % 3 == 0) {
+                UIEventListener heldListener = (s) -> label.setText("Button " + s + " held!");
+                button.addButtonHeldListener(heldListener, i);
+                UIEventListener releasedListener = (s) -> label.setText("Button " + s + " released!");
+                button.addButtonReleasedListener(releasedListener, i);
+            }
 
             if (i % 2 == 0) {
                 UIEventListener onMouseEntered = (s) -> label.setText("Mouse entered " + s);

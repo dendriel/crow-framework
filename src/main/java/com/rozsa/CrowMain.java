@@ -2,6 +2,7 @@ package com.rozsa;
 
 import com.rozsa.samples.animation.AnimationTest;
 import com.rozsa.samples.components.animation.UIAnimationTest;
+import com.rozsa.samples.components.button.ButtonTest;
 import com.rozsa.samples.components.labelgroup.LabelGroupTest;
 import com.rozsa.samples.components.slider.SliderTest;
 import com.rozsa.samples.renderer.RendererViewTest;
@@ -14,8 +15,8 @@ public class CrowMain {
 //        SplashSetupTest splashSetupTest = new SplashSetupTest(false);
 //        splashSetupTest.run();
 
-//        ButtonTest buttonTest = new ButtonTest();
-//        buttonTest.run();
+        ButtonTest buttonTest = new ButtonTest();
+        buttonTest.run();
 
 //        InputTest inputTest = new InputTest();
 //        inputTest.run();
@@ -41,8 +42,8 @@ public class CrowMain {
 //        LabelGroupTest labelGroupTest = new LabelGroupTest();
 //        labelGroupTest.run();
 
-        SliderTest sliderTest = new SliderTest();
-        sliderTest.run();
+//        SliderTest sliderTest = new SliderTest();
+//        sliderTest.run();
     }
 }
 

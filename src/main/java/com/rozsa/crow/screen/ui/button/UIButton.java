@@ -12,6 +12,7 @@ import com.rozsa.crow.screen.ui.listener.UIEventListener;
 import com.rozsa.crow.screen.ui.listener.UIEventListenerTuple;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
@@ -25,14 +26,20 @@ public class UIButton extends UIBaseComponent<UIButtonTemplate> {
     private UIButtonTemplate data;
     private CustomJButton button;
     private Set<UIEventListenerTuple<UIEventListener>> buttonPressedListeners;
+    private Set<UIEventListenerTuple<UIEventListener>> buttonHeldListeners;
+    private Set<UIEventListenerTuple<UIEventListener>> buttonReleasedListeners;
     private Set<UIEventListenerTuple<UIEventListener>> buttonMouseEnteredListeners;
     private Set<UIEventListenerTuple<UIEventListener>> buttonMouseExitedListeners;
+
+    private boolean isPressed;
 
     public UIButton(UIButtonTemplate data) {
         super(data);
         this.data = data;
         parentOffset = Offset.origin();
         buttonPressedListeners = new HashSet<>();
+        buttonHeldListeners = new HashSet<>();
+        buttonReleasedListeners = new HashSet<>();
         buttonMouseEnteredListeners = new HashSet<>();
         buttonMouseExitedListeners = new HashSet<>();
         setup();
@@ -121,6 +128,8 @@ public class UIButton extends UIBaseComponent<UIButtonTemplate> {
             public void mouseEntered(MouseEvent evt) { onMouseEntered(evt); }
             public void mouseExited(MouseEvent evt) { onMouseExited(evt); }
         });
+
+        button.getModel().addChangeListener(this::onButtonChanged);
     }
 
     private void setupToolTip() {
@@ -172,8 +181,21 @@ public class UIButton extends UIBaseComponent<UIButtonTemplate> {
     }
 
     private void onButtonPressed(ActionEvent e) {
-        System.out.println("ButtonPressed");
         buttonPressedListeners.forEach(l -> l.getListener().onEvent(l.getState()));
+    }
+
+    private void onButtonChanged(ChangeEvent e) {
+        ButtonModel model = (ButtonModel) e.getSource();
+        if (model.isPressed() == isPressed) {
+            return;
+        }
+
+        isPressed = model.isPressed();
+        if (isPressed) {
+            buttonHeldListeners.forEach(l -> l.getListener().onEvent(l.getState()));
+        } else {
+            buttonReleasedListeners.forEach(l -> l.getListener().onEvent(l.getState()));
+        }
     }
 
     public void addButtonPressedListener(UIEventListener listener, Object state) {
@@ -182,6 +204,22 @@ public class UIButton extends UIBaseComponent<UIButtonTemplate> {
 
     public void removeButtonPressedListener(UIEventListener listener) {
         buttonPressedListeners.remove(new UIEventListenerTuple<>(listener, null));
+    }
+
+    public void addButtonHeldListener(UIEventListener listener, Object state) {
+        buttonHeldListeners.add(new UIEventListenerTuple<>(listener, state));
+    }
+
+    public void removeButtonHeldListener(UIEventListener listener) {
+        buttonHeldListeners.remove(new UIEventListenerTuple<>(listener, null));
+    }
+
+    public void addButtonReleasedListener(UIEventListener listener, Object state) {
+        buttonReleasedListeners.add(new UIEventListenerTuple<>(listener, state));
+    }
+
+    public void removeButtonReleasedListener(UIEventListener listener) {
+        buttonReleasedListeners.remove(new UIEventListenerTuple<>(listener, null));
     }
 
     private void onMouseEntered(MouseEvent evt) {
