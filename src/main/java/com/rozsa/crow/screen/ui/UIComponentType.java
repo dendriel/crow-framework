@@ -11,4 +11,5 @@ public enum UIComponentType {
     SELECT,
     SLOT,
     SLIDER,
+    SCROLL_PANE
 }

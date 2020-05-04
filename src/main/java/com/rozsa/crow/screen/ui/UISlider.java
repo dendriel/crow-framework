@@ -4,7 +4,6 @@ import com.rozsa.crow.screen.attributes.Rect;
 import com.rozsa.crow.screen.attributes.Size;
 import com.rozsa.crow.screen.sprite.Image;
 import com.rozsa.crow.screen.ui.api.UIFillBar;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.awt.*;
 import java.awt.image.ImageObserver;
@@ -76,7 +75,7 @@ public class UISlider extends UIBaseComponent<UISliderTemplate> implements UIFil
 
     @Override
     public void updateComponentTemplate(UISliderTemplate data) {
-        throw new NotImplementedException();
+        throw new UnsupportedOperationException();
     }
 
     private Rect getBackgroundRect(Rect rect) {

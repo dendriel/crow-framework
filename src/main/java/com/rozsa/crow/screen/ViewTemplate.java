@@ -18,6 +18,7 @@ public class ViewTemplate {
     private List<UIAnimationTemplate> animations;
     private List<UILabelGroupTemplate> labelGroups;
     private List<UISliderTemplate> sliders;
+    private List<UIScrollPaneTemplate> scrollPanes;
 
     public ViewTemplate() {
         labels = new ArrayList<>();
@@ -52,6 +53,7 @@ public class ViewTemplate {
             components.addAll(animations);
             components.addAll(labelGroups);
             components.addAll(sliders);
+            components.addAll(scrollPanes);
         }
 
         return components;
@@ -111,5 +113,13 @@ public class ViewTemplate {
 
     public void setSliders(List<UISliderTemplate> sliders) {
         this.sliders = sliders;
+    }
+
+    public List<UIScrollPaneTemplate> getScrollPanes() {
+        return scrollPanes;
+    }
+
+    public void setScrollPanes(List<UIScrollPaneTemplate> scrollPanes) {
+        this.scrollPanes = scrollPanes;
     }
 }

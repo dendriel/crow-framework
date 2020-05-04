@@ -4,7 +4,6 @@ import com.rozsa.crow.screen.attributes.Offset;
 import com.rozsa.crow.screen.attributes.Rect;
 import com.rozsa.crow.screen.attributes.Size;
 import com.rozsa.crow.screen.ui.api.UIText;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.awt.*;
 import java.awt.image.ImageObserver;
@@ -122,6 +121,6 @@ public class UILabelGroup extends UIBaseComponent<UILabelGroupTemplate> {
 
     @Override
     public void updateComponentTemplate(UILabelGroupTemplate data) {
-        throw new NotImplementedException();
+        throw new UnsupportedOperationException();
     }
 }

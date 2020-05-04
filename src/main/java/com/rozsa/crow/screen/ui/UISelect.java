@@ -6,7 +6,6 @@ import com.rozsa.crow.screen.ui.api.UIComponentObserver;
 import com.rozsa.crow.screen.ui.api.UIHandler;
 import com.rozsa.crow.screen.ui.api.UISelectOption;
 import com.rozsa.crow.screen.ui.api.UISlotGroupHandler;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.awt.*;
 import java.awt.image.ImageObserver;
@@ -108,7 +107,7 @@ public class UISelect extends UIBaseComponent<UISlotGroupTemplate> implements UI
 
     @Override
     public void updateComponentTemplate(UISlotGroupTemplate data) {
-        throw new NotImplementedException();
+        throw new UnsupportedOperationException();
     }
 
     @Override

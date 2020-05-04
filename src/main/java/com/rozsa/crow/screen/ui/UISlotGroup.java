@@ -5,7 +5,6 @@ import com.rozsa.crow.screen.attributes.Rect;
 import com.rozsa.crow.screen.attributes.Size;
 import com.rozsa.crow.screen.ui.api.UIHandler;
 import com.rozsa.crow.screen.ui.api.UISlotContent;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.awt.*;
 import java.awt.image.ImageObserver;
@@ -15,9 +14,7 @@ import java.util.stream.Collectors;
 
 public class UISlotGroup extends UIBaseComponent<UISlotGroupTemplate> implements UIHandler {
     private final List<UISlot> slots;
-
     private final UISlotGroupTemplate data;
-
     private final Offset parentOffset;
 
     public UISlotGroup(UISlotGroupTemplate data) {
@@ -110,7 +107,7 @@ public class UISlotGroup extends UIBaseComponent<UISlotGroupTemplate> implements
 
     @Override
     public void updateComponentTemplate(UISlotGroupTemplate data) {
-        throw new NotImplementedException();
+        throw new UnsupportedOperationException();
     }
 
     @Override
