@@ -5,9 +5,7 @@ import com.rozsa.crow.screen.ui.button.UIBorderTemplate;
 
 public class UIToolTipTemplate {
     private String text;
-    private String font;
-    private int style;
-    private int size;
+    private UIFontTemplate font;
     private Color color;
     private Color backgroundColor;
     private boolean backgroundEnabled;
@@ -25,28 +23,12 @@ public class UIToolTipTemplate {
         this.text = text;
     }
 
-    public String getFont() {
+    public UIFontTemplate getFont() {
         return font;
     }
 
-    public void setFont(String font) {
+    public void setFont(UIFontTemplate font) {
         this.font = font;
-    }
-
-    public int getStyle() {
-        return style;
-    }
-
-    public void setStyle(int style) {
-        this.style = style;
-    }
-
-    public int getSize() {
-        return size;
-    }
-
-    public void setSize(int size) {
-        this.size = size;
     }
 
     public Color getColor() {

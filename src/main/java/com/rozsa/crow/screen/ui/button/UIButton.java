@@ -63,6 +63,10 @@ public class UIButton extends UIBaseComponent<UIButtonTemplate> {
         button.setEnabled(!data.isDisabled());
     }
 
+    public JButton getJButton() {
+        return button;
+    }
+
     private void setupBounds() {
         int x = rect.getX() + parentOffset.getX();
         int y = rect.getY() + parentOffset.getY();

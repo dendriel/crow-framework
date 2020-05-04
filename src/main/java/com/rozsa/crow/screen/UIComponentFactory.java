@@ -5,6 +5,8 @@ import com.rozsa.crow.screen.ui.*;
 import com.rozsa.crow.screen.ui.api.UIComponent;
 import com.rozsa.crow.screen.ui.button.UIButton;
 import com.rozsa.crow.screen.ui.button.UIButtonTemplate;
+import com.rozsa.crow.screen.ui.buttongroup.UIButtonGroup;
+import com.rozsa.crow.screen.ui.buttongroup.UIButtonGroupTemplate;
 import com.rozsa.crow.screen.ui.input.UIInputField;
 import com.rozsa.crow.screen.ui.input.UIInputFieldTemplate;
 
@@ -27,6 +29,7 @@ class UIComponentFactory {
         typeToCreatorMapper.put(LABEL_GROUP, template -> new UILabelGroup((UILabelGroupTemplate) template));
         typeToCreatorMapper.put(SLIDER, template -> new UISlider((UISliderTemplate) template));
         typeToCreatorMapper.put(SCROLL_PANE, template -> new UIScrollPane((UIScrollPaneTemplate) template));
+        typeToCreatorMapper.put(BUTTON_GROUP, template -> new UIButtonGroup((UIButtonGroupTemplate) template));
     }
 
     static UIComponent create(UIBaseComponentTemplate template, Size viewSize) {

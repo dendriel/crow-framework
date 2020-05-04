@@ -61,9 +61,7 @@ public class ButtonsView extends BaseView {
             toolTip.setBackgroundColor(new Color(0, 100, 0));
             toolTip.setBackgroundEnabled(true);
             toolTip.setColor(new Color(255, 255, 255));
-            toolTip.setFont("Serif");
-            toolTip.setStyle(0);
-            toolTip.setSize(24);
+            toolTip.setFont(new UIFontTemplate("Serif", 0, 24));
 
             UIBorderTemplate border = new UIBorderTemplate();
             border.setStyle(UIBorderTemplate.BorderStyle.ETCHED);

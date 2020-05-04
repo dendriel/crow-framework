@@ -18,7 +18,7 @@ public class UIToolTip extends JToolTip {
         setBackground(data.getBackgroundColor().getJColor());
         setForeground(data.getColor().getJColor());
 
-        Font font = new Font(data.getFont(), data.getStyle(), data.getSize());
+        Font font = data.getFont().getJFont();
         setFont(font);
         setOpaque(data.isBackgroundEnabled());
 

@@ -3,6 +3,7 @@ package com.rozsa.crow.screen;
 import com.rozsa.crow.screen.attributes.Rect;
 import com.rozsa.crow.screen.ui.*;
 import com.rozsa.crow.screen.ui.button.UIButtonTemplate;
+import com.rozsa.crow.screen.ui.buttongroup.UIButtonGroupTemplate;
 import com.rozsa.crow.screen.ui.input.UIInputFieldTemplate;
 
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ public class ViewTemplate {
     private List<UILabelGroupTemplate> labelGroups;
     private List<UISliderTemplate> sliders;
     private List<UIScrollPaneTemplate> scrollPanes;
+    private List<UIButtonGroupTemplate> buttonGroups;
 
     public ViewTemplate() {
         labels = new ArrayList<>();
@@ -28,6 +30,8 @@ public class ViewTemplate {
         animations = new ArrayList<>();
         labelGroups = new ArrayList<>();
         sliders = new ArrayList<>();
+        scrollPanes = new ArrayList<>();
+        buttonGroups = new ArrayList<>();
     }
 
     public ViewTemplate(Rect rect) {
@@ -54,6 +58,7 @@ public class ViewTemplate {
             components.addAll(labelGroups);
             components.addAll(sliders);
             components.addAll(scrollPanes);
+            components.addAll(buttonGroups);
         }
 
         return components;
@@ -121,5 +126,13 @@ public class ViewTemplate {
 
     public void setScrollPanes(List<UIScrollPaneTemplate> scrollPanes) {
         this.scrollPanes = scrollPanes;
+    }
+
+    public List<UIButtonGroupTemplate> getButtonGroups() {
+        return buttonGroups;
+    }
+
+    public void setButtonGroups(List<UIButtonGroupTemplate> buttonGroups) {
+        this.buttonGroups = buttonGroups;
     }
 }

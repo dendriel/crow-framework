@@ -1,0 +1,47 @@
+{
+  "rect": { "offset": { "x": 0, "y": 0}, "size": { "width": 1600, "height": 900}},
+  "buttonGroups": [
+    {
+      "rect": { "offset": { "x": 300, "y": 200}, "size": { "width": 250, "height": 250}},
+      "size": { "width": 4, "height": 5 },
+      "spacing": { "width": 10, "height": 10 },
+      "button":
+      {
+        "tag": "templateButton",
+        "rect": { "offset": { "x": 0, "y": 0}, "size": { "width": 50, "height": 50} },
+        "label": {
+          "text": "Login",
+          "font": { "font": "Serif", "style": 0, "size": 20 }
+        },
+        "defaultImage": "/images/button.png",
+        "pressedImage": "/images/button_pressed.png",
+        "rolloverImage": "/images/button_highlight.png",
+        "disabledImage": "/images/button_disabled.png",
+        "toolTip":
+        {
+          "text": "button group tooltip<br/>lol",
+          "font": { "font": "Serif", "style": 0, "size": 20 },
+          "backgroundEnabled": true,
+          "backgroundColor": { "r": 128, "g": 100, "b": 200 },
+          "color": { "r": 53, "g": 67, "b": 87 },
+          "border": {
+            "style": "ETCHED",
+            "colorA": { "r": 53, "g": 67, "b": 87 },
+            "colorB": { "r": 67, "g": 67, "b": 0 },
+            "colorC":{ "r": 0, "g": 128, "b": 87 },
+            "colorD": { "r": 53, "g": 200, "b": 0 },
+            "thickness": 1,
+            "type": 1
+          }
+        }
+      },
+      "background": {
+        "rect": { "offset": { "x": 0, "y": 0}, "size": { "width": 250, "height": 250}},
+        "tag": "bgIcon",
+        "imageFile": "/images/test_bg_800x600.png"
+      }
+    }
+  ],
+  "icons": []
+}
+
