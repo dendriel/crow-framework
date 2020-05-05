@@ -3,9 +3,16 @@
   "buttonGroups": [
     {
       "tag": "buttonGroup",
-      "rect": { "offset": { "x": 300, "y": 100}, "size": { "width": 250, "height": 250}},
+      "rect": { "offset": { "x": 300, "y": 100}, "size": { "width": 280, "height": 270}},
       "size": { "width": 4, "height": 8 },
       "spacing": { "width": 0, "height": 10 },
+      "border": { "top": 10, "left":10, "bottom": 10, "right":10 },
+      "customScrollBarUI": {
+        "track": "/images/ui/track.png",
+        "thumb": "/images/ui/thumb.png",
+        "increaseButton": "/images/ui/increase_button.png",
+        "decreaseButton": "/images/ui/decrease_button.png"
+      },
       "button":
       {
         "tag": "templateButton",
@@ -37,7 +44,7 @@
         }
       },
       "background": {
-        "rect": { "offset": { "x": 0, "y": 0}, "size": { "width": 250, "height": 250}},
+        "rect": { "offset": { "x": 0, "y": 0}, "size": { "width": 270, "height": 270}},
         "tag": "bgIcon",
         "imageFile": "/images/test_bg_800x600.png"
       }

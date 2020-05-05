@@ -1,11 +1,15 @@
 package com.rozsa.crow.screen.ui.buttongroup;
 
+import com.rozsa.crow.screen.attributes.Border;
 import com.rozsa.crow.screen.attributes.Rect;
 import com.rozsa.crow.screen.attributes.Size;
 import com.rozsa.crow.screen.ui.*;
 import com.rozsa.crow.screen.ui.button.UIButton;
+import com.rozsa.crow.screen.ui.button.UIButtonTemplate;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.EtchedBorder;
 import java.awt.*;
 import java.awt.image.ImageObserver;
 import java.util.ArrayList;
@@ -16,9 +20,7 @@ public class UIButtonGroup extends UIBaseComponent<UIButtonGroupTemplate> {
     private final List<UIButton> buttons;
     private final JPanel panel;
 
-
     private JScrollPane scrollPane;
-
     private UIIcon background;
 
     public UIButtonGroup(UIButtonGroupTemplate data) {
@@ -53,7 +55,16 @@ public class UIButtonGroup extends UIBaseComponent<UIButtonGroupTemplate> {
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setBackground(new Color(0, 0, 0, 0));
-        // TODO: remove borders!
+        Border border = data.getBorder();
+        scrollPane.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(border.getTop(), border.getLeft(), border.getBottom(), border.getRight()), new EtchedBorder()));
+
+        CustomScrollBarUITemplate customScrollBarUITemplate = data.getCustomScrollBarUI();
+        if (customScrollBarUITemplate != null) {
+            CustomScrollBarUI customScrollBarUI = new CustomScrollBarUI(customScrollBarUITemplate);
+            scrollPane.getVerticalScrollBar().setUI(customScrollBarUI);
+        }
+
+//        scrollPane.getVerticalScrollBar().setUnitIncrement(50);
         // TODO: allow to customize the scroll images
         setupBounds();
     }
@@ -66,8 +77,10 @@ public class UIButtonGroup extends UIBaseComponent<UIButtonGroupTemplate> {
 
     private void setupButtons() {
         int size = data.getWidth() * data.getHeight();
+        UIButtonTemplate buttonTemplate = data.getButton();
+        buttonTemplate.setReferenceSize(data.getReferenceSize());
         for (int i = 0; i < size; i++) {
-            UIButton button = new UIButton(data.getButton());
+            UIButton button = new UIButton(buttonTemplate);
             buttons.add(button);
             panel.add(button.getJButton());
         }
@@ -107,11 +120,13 @@ public class UIButtonGroup extends UIBaseComponent<UIButtonGroupTemplate> {
     public void updateScreenSize(Size parentSize) {
         super.updateScreenSize(parentSize);
 
-        if (expandMode.equals(UIExpandMode.FILL)) {
-            background.updateScreenSize(parentSize);
-            setupBounds();
-            // TODO: update inner panel bounds!
+        if (expandMode.equals(UIExpandMode.NONE)) {
+            return;
         }
+
+        background.updateScreenSize(parentSize);
+        setupBounds();
+        setupPanel();
     }
 
     @Override
