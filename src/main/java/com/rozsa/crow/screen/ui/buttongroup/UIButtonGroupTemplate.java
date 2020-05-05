@@ -11,6 +11,8 @@ public class UIButtonGroupTemplate extends UIBaseComponentTemplate {
     private UIButtonTemplate button;
     private UIIconTemplate background;
     private Size size;
+    // Use spacing to enforce a distance between components (when the components size is bigger than
+    // the rect).
     private Size spacing;
 
     public UIButtonGroupTemplate() {

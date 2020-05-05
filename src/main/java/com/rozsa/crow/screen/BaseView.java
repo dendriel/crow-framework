@@ -7,6 +7,7 @@ import com.rozsa.crow.screen.ui.*;
 import com.rozsa.crow.screen.ui.api.UIComponent;
 import com.rozsa.crow.screen.ui.api.UIComponentObserver;
 import com.rozsa.crow.screen.ui.button.UIButton;
+import com.rozsa.crow.screen.ui.buttongroup.UIButtonGroup;
 import com.rozsa.crow.screen.ui.input.UIInputField;
 
 import javax.swing.*;
@@ -125,6 +126,10 @@ public class BaseView extends JPanel implements UIComponentObserver {
 
     public UISlider getSlider(String tag) {
         return getComponent(tag, UISlider.class);
+    }
+
+    public UIButtonGroup getButtonGroup(String tag) {
+        return getComponent(tag, UIButtonGroup.class);
     }
 
     public <T extends UIComponent> T getComponent(String tag, Class<T> clazz) {

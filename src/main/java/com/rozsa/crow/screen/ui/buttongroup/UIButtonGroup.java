@@ -2,9 +2,7 @@ package com.rozsa.crow.screen.ui.buttongroup;
 
 import com.rozsa.crow.screen.attributes.Rect;
 import com.rozsa.crow.screen.attributes.Size;
-import com.rozsa.crow.screen.ui.UIBaseComponent;
-import com.rozsa.crow.screen.ui.UIIcon;
-import com.rozsa.crow.screen.ui.UIIconTemplate;
+import com.rozsa.crow.screen.ui.*;
 import com.rozsa.crow.screen.ui.button.UIButton;
 
 import javax.swing.*;
@@ -17,6 +15,9 @@ public class UIButtonGroup extends UIBaseComponent<UIButtonGroupTemplate> {
     private final UIButtonGroupTemplate data;
     private final List<UIButton> buttons;
     private final JPanel panel;
+
+
+    private JScrollPane scrollPane;
 
     private UIIcon background;
 
@@ -33,19 +34,34 @@ public class UIButtonGroup extends UIBaseComponent<UIButtonGroupTemplate> {
         rect = data.getRect();
         setupPanel();
         setupButtons();
-        setupIcon();
+        setupBackground();
+        setupScrollPane();
     }
 
     private void setupPanel() {
+        Size size = data.getSize();
         Size spacing = data.getSpacing();
         panel.setBounds(rect.getX(), rect.getY(), rect.getWidth(), rect.getHeight());
 
-        FlowLayout flow = new FlowLayout();
-        flow.setHgap(spacing.getWidth());
-        flow.setVgap(spacing.getHeight());
-
+        GridLayout gridLayout = new GridLayout(size.getHeight(), size.getWidth(), spacing.getWidth(), spacing.getHeight());
+        panel.setLayout(gridLayout);
         panel.setBackground(new Color(0, 0, 0, 0));
-        panel.setLayout(flow);
+    }
+
+    private void setupScrollPane() {
+        scrollPane = new JScrollPane(panel);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setBackground(new Color(0, 0, 0, 0));
+        // TODO: remove borders!
+        // TODO: allow to customize the scroll images
+        setupBounds();
+    }
+
+    private void setupBounds() {
+        int x = rect.getX() + parentOffset.getX();
+        int y = rect.getY() + parentOffset.getY();
+        scrollPane.setBounds(x, y, rect.getWidth(), rect.getHeight());
     }
 
     private void setupButtons() {
@@ -57,17 +73,19 @@ public class UIButtonGroup extends UIBaseComponent<UIButtonGroupTemplate> {
         }
     }
 
-    private void setupIcon() {
+    private void setupBackground() {
         UIIconTemplate bgTemplate = data.getBackground();
         if (bgTemplate == null) {
             return;
         }
 
-        background = new UIIcon(bgTemplate);
         // setup parent offset
-        Rect targetRect = background.getRect();
-        targetRect.setOffset(rect.getOffset());
-        background.setRect(targetRect);
+        Rect targetRect = bgTemplate.getRect();
+        targetRect.setOffset(rect.getOffset().add(targetRect.getOffset()));
+        bgTemplate.setRect(targetRect);
+        bgTemplate.setReferenceSize(data.getReferenceSize());
+
+        background = new UIIcon(bgTemplate);
     }
 
     @Override
@@ -82,7 +100,18 @@ public class UIButtonGroup extends UIBaseComponent<UIButtonGroupTemplate> {
 
     @Override
     public void wrapUp(Container container) {
-        container.add(panel);
+        container.add(scrollPane);
+    }
+
+    @Override
+    public void updateScreenSize(Size parentSize) {
+        super.updateScreenSize(parentSize);
+
+        if (expandMode.equals(UIExpandMode.FILL)) {
+            background.updateScreenSize(parentSize);
+            setupBounds();
+            // TODO: update inner panel bounds!
+        }
     }
 
     @Override

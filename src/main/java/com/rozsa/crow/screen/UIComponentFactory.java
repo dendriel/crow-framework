@@ -28,7 +28,6 @@ class UIComponentFactory {
         typeToCreatorMapper.put(ANIMATION, template -> new UIAnimation((UIAnimationTemplate) template));
         typeToCreatorMapper.put(LABEL_GROUP, template -> new UILabelGroup((UILabelGroupTemplate) template));
         typeToCreatorMapper.put(SLIDER, template -> new UISlider((UISliderTemplate) template));
-        typeToCreatorMapper.put(SCROLL_PANE, template -> new UIScrollPane((UIScrollPaneTemplate) template));
         typeToCreatorMapper.put(BUTTON_GROUP, template -> new UIButtonGroup((UIButtonGroupTemplate) template));
     }
 

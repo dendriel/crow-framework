@@ -78,6 +78,7 @@ public class UIIcon extends UIBaseComponent<UIIconTemplate> {
 
         rectToPaint.setX(x);
         rectToPaint.setY(y);
+
         return rectToPaint;
     }
 
