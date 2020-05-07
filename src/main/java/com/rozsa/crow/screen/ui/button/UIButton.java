@@ -118,6 +118,9 @@ public class UIButton extends UIBaseComponent<UIButtonTemplate> {
             BufferedImage bufferedImage = image.getContent(rect.getWidth(), rect.getHeight());
             button.setRolloverIcon(new ImageIcon(bufferedImage));
         }
+        else {
+            button.setRolloverEnabled(false);
+        }
 
         if (data.getDisabledImage() != null) {
             Image image = Image.load(data.getDisabledImage());

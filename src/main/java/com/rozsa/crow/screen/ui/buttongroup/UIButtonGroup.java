@@ -64,8 +64,7 @@ public class UIButtonGroup extends UIBaseComponent<UIButtonGroupTemplate> {
             scrollPane.getVerticalScrollBar().setUI(customScrollBarUI);
         }
 
-//        scrollPane.getVerticalScrollBar().setUnitIncrement(50);
-        // TODO: allow to customize the scroll images
+//        scrollPane.getVerticalScrollBar().setUnitIncrement(100);
         setupBounds();
     }
 

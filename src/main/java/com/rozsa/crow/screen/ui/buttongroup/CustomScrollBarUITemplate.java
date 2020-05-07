@@ -1,10 +1,12 @@
 package com.rozsa.crow.screen.ui.buttongroup;
 
+import com.rozsa.crow.screen.ui.button.UIButtonTemplate;
+
 public class CustomScrollBarUITemplate {
     private String thumb;
     private String track;
-    private String increaseButton;
-    private String decreaseButton;
+    private UIButtonTemplate increaseButton;
+    private UIButtonTemplate decreaseButton;
 
     public String getThumb() {
         return thumb;
@@ -22,19 +24,19 @@ public class CustomScrollBarUITemplate {
         this.track = track;
     }
 
-    public String getIncreaseButton() {
+    public UIButtonTemplate getIncreaseButton() {
         return increaseButton;
     }
 
-    public void setIncreaseButton(String increaseButton) {
+    public void setIncreaseButton(UIButtonTemplate increaseButton) {
         this.increaseButton = increaseButton;
     }
 
-    public String getDecreaseButton() {
+    public UIButtonTemplate getDecreaseButton() {
         return decreaseButton;
     }
 
-    public void setDecreaseButton(String decreaseButton) {
+    public void setDecreaseButton(UIButtonTemplate decreaseButton) {
         this.decreaseButton = decreaseButton;
     }
 }
