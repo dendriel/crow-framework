@@ -53,3 +53,15 @@ screenHandler.setOnlyVisible(ScreenType.SPLASH, true);
 - UILabelGroup - group of horizontal or vertical labels;
 - UISlider - horizontal and vertical slider;
 - UIButtonGroup - setup a group of buttons.
+
+# Build
+
+```shell
+gradlew build
+
+or (windows)
+
+gradlew.bat build
+```
+
+The built library can be found at `build/libs/crow-framework-1.0-SNAPSHOT.jar`

@@ -101,3 +101,8 @@ buildNumber.properties
 
 .idea/**
 out/**
+
+# Gradle
+.gradle/**
+**/build/
+!src/**/build/
