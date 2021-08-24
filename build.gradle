@@ -1,17 +1,23 @@
-plugins {
-    id 'java-library'
-}
 
-repositories {
-    mavenCentral()
-}
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'java-library'
 
-dependencies {
-    implementation 'org.imgscalr:imgscalr-lib:4.2'
-    implementation 'com.fasterxml.jackson.core:jackson-databind:2.10.0.pr2'
-}
+    repositories {
+        mavenCentral()
+    }
 
-group = 'com.rozsa.crow'
-version = '1.0-SNAPSHOT'
-description = 'crow-framework'
-java.sourceCompatibility = JavaVersion.VERSION_1_8
+    dependencies {
+        implementation 'com.fasterxml.jackson.core:jackson-databind:2.10.0.pr2'
+    }
+
+    test {
+        useJUnitPlatform()
+    }
+
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(11)
+        }
+    }
+}

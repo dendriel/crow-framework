@@ -6,6 +6,7 @@ import com.rozsa.samples.components.button.ButtonTest;
 import com.rozsa.samples.components.buttongroup.ButtonGroupTest;
 import com.rozsa.samples.components.labelgroup.LabelGroupTest;
 import com.rozsa.samples.components.slider.SliderTest;
+import com.rozsa.samples.forms.login_from_template.LoginFromTemplateTest;
 import com.rozsa.samples.renderer.RendererViewTest;
 
 import java.io.IOException;
@@ -37,8 +38,8 @@ public class CrowMain {
 //        RendererViewTest rendererViewTest = new RendererViewTest();
 //        rendererViewTest.run();
 
-//        AnimationTest animationTest = new AnimationTest();
-//        animationTest.run();
+        AnimationTest animationTest = new AnimationTest();
+        animationTest.run();
 
 //        LabelGroupTest labelGroupTest = new LabelGroupTest();
 //        labelGroupTest.run();
@@ -46,8 +47,8 @@ public class CrowMain {
 //        SliderTest sliderTest = new SliderTest();
 //        sliderTest.run();
 
-        ButtonGroupTest buttonGroupTest = new ButtonGroupTest();
-        buttonGroupTest.run();
+//        ButtonGroupTest buttonGroupTest = new ButtonGroupTest();
+//        buttonGroupTest.run();
     }
 }
 

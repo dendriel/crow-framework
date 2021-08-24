@@ -1,0 +1,6 @@
+description('Crow Framework testing module')
+
+
+dependencies {
+    implementation project(':crow-framework')
+}

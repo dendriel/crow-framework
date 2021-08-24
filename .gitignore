@@ -105,4 +105,4 @@ out/**
 # Gradle
 .gradle/**
 **/build/
-!src/**/build/
+!lib/**/build/

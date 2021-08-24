@@ -3,3 +3,7 @@
  */
 
 rootProject.name = 'crow-framework'
+include ('lib', 'test')
+//include 'test'
+
+project(':lib').name = 'crow-framework'

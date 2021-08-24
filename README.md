@@ -65,3 +65,20 @@ gradlew.bat build
 ```
 
 The built library can be found at `build/libs/crow-framework-1.0-SNAPSHOT.jar`
+
+# Samples
+
+Samples can be run directly from `CrowMain` inside `test` module:
+
+- AnimationTest
+- UIAnimationTest
+- ButtonTest
+- ButtonGroupTest
+- InputTest
+- LabelGroupTest
+- SliderTest
+- LoginTest
+- LoginFromTemplateTest
+- SelectTest
+- RendererViewTest
+- SplashSetupTest
