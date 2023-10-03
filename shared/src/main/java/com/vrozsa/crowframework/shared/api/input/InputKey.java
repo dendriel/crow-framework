@@ -1,10 +1,11 @@
 package com.vrozsa.crowframework.shared.api.input;
 
-import lombok.ToString;
-
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Maps available input keys names.
+ */
 public enum InputKey {
     UNKNOWN(-1),
     BACKSPACE(8),
@@ -95,6 +96,11 @@ public enum InputKey {
         this.keyCode = keyCode;
     }
 
+    /**
+     * Maps a InputKey from its numeric representation.
+     * @param keyCode numeric InputKey representation.
+     * @return the mapped InputKey; UNKNOWN if the input value doesn't map to an input.
+     */
     public static InputKey from(int keyCode) {
         InputKey input = keyCodeToPlayerInputMapper.get(keyCode);
         if (input == null) {
