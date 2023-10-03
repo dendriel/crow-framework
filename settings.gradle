@@ -1,6 +1,6 @@
 rootProject.name = 'crow-framework'
 
-include 'lib'
+
 include 'shared'
 include 'screen'
 include 'sample'
