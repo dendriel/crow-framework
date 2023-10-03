@@ -3,6 +3,7 @@ package com.vrozsa.crowframework.screen.builder;
 import com.vrozsa.crowframework.screen.api.ScreenType;
 import com.vrozsa.crowframework.screen.internal.ScreenHandler;
 import com.vrozsa.crowframework.screen.internal.ScreenHandlerConfig;
+import com.vrozsa.crowframework.shared.api.input.InputHandler;
 import com.vrozsa.crowframework.shared.attributes.Size;
 import com.vrozsa.crowframework.shared.logger.LoggerService;
 import lombok.AccessLevel;
@@ -12,12 +13,24 @@ import lombok.NoArgsConstructor;
 public class ScreenHandlerFactory {
     private static final LoggerService logger = LoggerService.of(ScreenHandlerFactory.class);
 
-    public static ScreenHandler<ScreenType> createWithSimpleScreen(final String backgroundImageFile) {
-        return createWithSimpleScreen(backgroundImageFile, true);
+    public static ScreenHandler<ScreenType> createWithSimpleScreen(final String backgroundImageFile, final InputHandler inputHandler) {
+        return createWithSimpleScreen(backgroundImageFile, true, inputHandler);
     }
 
     public static ScreenHandler<ScreenType> createWithSimpleScreen(final String backgroundImageFile, final boolean isVisible) {
-        ScreenHandler<ScreenType> screenHandler = create(ScreenType.class, isVisible);
+        return createWithSimpleScreen(backgroundImageFile, isVisible, null);
+    }
+
+    public static ScreenHandler<ScreenType> createWithSimpleScreen(final String backgroundImageFile) {
+        return createWithSimpleScreen(backgroundImageFile, true, null);
+    }
+
+    public static ScreenHandler<ScreenType> createWithSimpleScreen(
+            final String backgroundImageFile,
+            final boolean isVisible,
+            final InputHandler inputHandler
+    ) {
+        ScreenHandler<ScreenType> screenHandler = create(ScreenType.class, isVisible, inputHandler);
 
         var simpleScreen = SimpleScreenFactory.create(screenHandler.getSize(), backgroundImageFile);
 
@@ -28,10 +41,10 @@ public class ScreenHandlerFactory {
     }
 
     public static ScreenHandler<ScreenType> create() {
-        return create(ScreenType.class, true);
+        return create(ScreenType.class, true, null);
     }
 
-    public static <T extends Enum<T>> ScreenHandler<T> create(final Class<T> type, final boolean isVisible) {
+    public static <T extends Enum<T>> ScreenHandler<T> create(final Class<T> type, final boolean isVisible, final InputHandler inputHandler) {
         ScreenHandlerConfig config = ScreenHandlerConfig.builder()
                 .title("Main Test Window")
                 .size(Size.of(800, 600))
@@ -40,7 +53,7 @@ public class ScreenHandlerFactory {
                 .terminateOnWindowCloseClick(true)
                 .build();
 
-        ScreenHandler<T> screenHandler = new ScreenHandler<>(config);
+        ScreenHandler<T> screenHandler = new ScreenHandler<>(config, inputHandler);
         screenHandler.setVisible(isVisible);
 
         logger.debug("New screen handler created! %s", screenHandler);

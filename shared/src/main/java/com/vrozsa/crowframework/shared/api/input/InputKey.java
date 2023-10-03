@@ -1,5 +1,7 @@
 package com.vrozsa.crowframework.shared.api.input;
 
+import lombok.ToString;
+
 import java.util.HashMap;
 import java.util.Map;
 

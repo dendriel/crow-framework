@@ -1,6 +1,8 @@
 package com.vrozsa.crowframework.shared.api.input;
 
-public interface InputHandler {
+import java.awt.event.KeyListener;
+
+public interface InputHandler extends KeyListener {
 
     /**
      * Get the next key typed by the user available. If there is no key in the cache, will wait until a key is typed.

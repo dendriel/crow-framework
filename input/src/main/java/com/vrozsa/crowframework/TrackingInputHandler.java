@@ -1,9 +1,9 @@
 package com.vrozsa.crowframework;
 
+import com.vrozsa.crowframework.shared.api.input.InputHandler;
 import com.vrozsa.crowframework.shared.api.input.InputKey;
 
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -12,15 +12,15 @@ import java.util.Set;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
- * Allows to check keys status.
+ * Keep tracks of pressed keys.
  * WARNING: Must be attached to a screen component.
  */
-public class InputHandlerKeyPressedMapper implements KeyListener {
+public class TrackingInputHandler implements InputHandler {
     private final ReentrantLock keysLock;
     private final HashMap<InputKey, Boolean> keys;
     private final Set<InputKey> pressedKeys;
 
-    public InputHandlerKeyPressedMapper() {
+    public TrackingInputHandler() {
         keysLock = new ReentrantLock();
         keys = new HashMap<>();
         pressedKeys = new HashSet<>();
@@ -84,5 +84,16 @@ public class InputHandlerKeyPressedMapper implements KeyListener {
 
     @Override
     public void keyTyped(KeyEvent e) {
+    }
+
+    @Override
+    public InputKey getNext() {
+        // not supported
+        return InputKey.UNKNOWN;
+    }
+
+    @Override
+    public void clearCache() {
+        // not supported
     }
 }

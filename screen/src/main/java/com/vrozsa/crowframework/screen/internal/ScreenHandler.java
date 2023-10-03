@@ -2,17 +2,15 @@ package com.vrozsa.crowframework.screen.internal;
 
 import com.vrozsa.crowframework.screen.api.WindowCloseRequestListener;
 import com.vrozsa.crowframework.shared.api.game.GameLoop;
+import com.vrozsa.crowframework.shared.api.input.InputHandler;
 import com.vrozsa.crowframework.shared.attributes.Offset;
 import com.vrozsa.crowframework.shared.attributes.Size;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.WindowEvent;
 import java.util.HashSet;
 import java.util.concurrent.ConcurrentHashMap;
@@ -30,20 +28,24 @@ public class ScreenHandler<TScreenKey extends Enum<TScreenKey>> {
         this(config, null, StandAloneGameLoop.getInstance());
     }
 
-    public ScreenHandler(final ScreenHandlerConfig config, final KeyListener inputListener, final GameLoop gameLoop) {
+    public ScreenHandler(final ScreenHandlerConfig config, final InputHandler inputHandler) {
+        this(config, inputHandler, StandAloneGameLoop.getInstance());
+    }
+
+    public ScreenHandler(final ScreenHandlerConfig config, final InputHandler inputHandler, final GameLoop gameLoop) {
         this.config = config;
         this.gameLoop = gameLoop;
         frame = new JFrame();
         screens = new ConcurrentHashMap<>();
         onWindowCloseRequestListeners = new HashSet<>();
-        setup(inputListener);
+        setup(inputHandler);
     }
 
-    private void setup(KeyListener inputListener) {
+    private void setup(InputHandler inputHandler) {
         setupWindow();
 
-        if (inputListener != null) {
-            setupInputListener(inputListener);
+        if (inputHandler != null) {
+            setupInputHandler(inputHandler);
         }
 
         setVisible(config.isVisible());
@@ -129,7 +131,7 @@ public class ScreenHandler<TScreenKey extends Enum<TScreenKey>> {
         screens.values().forEach(s -> s.updateScreenSize(newSize));
     }
 
-    private void setupInputListener(KeyListener inputListener) {
+    private void setupInputHandler(InputHandler inputListener) {
         JTextField textField = new JTextField();
         textField.addKeyListener(inputListener);
         textField.setBorder(null);

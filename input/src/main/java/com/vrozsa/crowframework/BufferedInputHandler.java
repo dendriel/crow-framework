@@ -1,16 +1,16 @@
 package com.vrozsa.crowframework;
 
+import com.vrozsa.crowframework.shared.api.input.InputHandler;
 import com.vrozsa.crowframework.shared.api.input.InputKey;
 
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * Reads and buffers typed keys until read.
  * WARNING: Must be attached to a screen component.
  */
-public class BufferedInputHandler implements KeyListener {
+public class BufferedInputHandler implements InputHandler {
     private final LinkedBlockingQueue<InputKey> inputs;
     private boolean isKeyReleased = true;
 
