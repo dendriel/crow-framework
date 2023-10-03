@@ -1,6 +1,0 @@
-description('Crow Framework library')
-
-
-dependencies {
-    implementation 'org.imgscalr:imgscalr-lib:4.2'
-}
