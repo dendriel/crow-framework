@@ -1,6 +1,5 @@
-rootProject.name = 'raven-framework'
+rootProject.name = 'crow-framework'
 
-//project(':lib').name = 'raven-framework'
 include 'lib'
 include 'shared'
 include 'screen'

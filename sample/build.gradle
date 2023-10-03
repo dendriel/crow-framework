@@ -18,7 +18,7 @@
 //    useJUnitPlatform()
 //}
 
-description('Raven Framework Samples')
+description('Crow Framework Samples')
 
 dependencies {
     implementation project(path: ':screen')
