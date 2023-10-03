@@ -1,6 +1,4 @@
-package com.vrozsa.crowframework.sample;
-
-import com.vrozsa.crowframework.sample.screen.splash.SplashSetupTest;
+package com.vrozsa.crowframework.sample.screen.splash;
 
 public class Main {
     public static void main(String[] args) {

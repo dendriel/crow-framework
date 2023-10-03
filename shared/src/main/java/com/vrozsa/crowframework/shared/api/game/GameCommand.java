@@ -1,6 +1,6 @@
 package com.vrozsa.crowframework.shared.api.game;
 
-import com.vrozsa.crowframework.shared.api.screen.input.InputKey;
+import com.vrozsa.crowframework.shared.api.input.InputKey;
 
 import java.util.HashMap;
 import java.util.Map;

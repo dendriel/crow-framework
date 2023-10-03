@@ -1,4 +1,4 @@
-package com.vrozsa.crowframework.shared.api.screen.input;
+package com.vrozsa.crowframework.shared.api.input;
 
 public interface InputHandler {
 

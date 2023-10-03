@@ -1,7 +1,11 @@
 rootProject.name = 'crow-framework'
 
 
+include 'input'
 include 'shared'
 include 'screen'
 include 'sample'
+include 'input'
+include 'input'
+include 'input'
 

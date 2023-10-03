@@ -1,4 +1,4 @@
-package com.vrozsa.crowframework.shared.api.screen.input;
+package com.vrozsa.crowframework.shared.api.input;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -44,7 +44,7 @@ public enum InputKey {
     KEYPAD_09(105),
     ;
 
-    private static Map<Integer, InputKey> keyCodeToPlayerInputMapper;
+    private static final Map<Integer, InputKey> keyCodeToPlayerInputMapper;
     static {
         keyCodeToPlayerInputMapper = new HashMap<>();
         keyCodeToPlayerInputMapper.put(UNKNOWN.getKeyCode(), UNKNOWN);
