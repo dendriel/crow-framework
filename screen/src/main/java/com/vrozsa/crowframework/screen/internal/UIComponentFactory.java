@@ -1,4 +1,4 @@
-package com.vrozsa.crowframework.screen;
+package com.vrozsa.crowframework.screen.internal;
 
 import com.vrozsa.crowframework.screen.ui.UIAnimation;
 import com.vrozsa.crowframework.screen.ui.UIAnimationTemplate;

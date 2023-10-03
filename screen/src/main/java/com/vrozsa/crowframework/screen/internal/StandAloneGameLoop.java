@@ -1,4 +1,4 @@
-package com.vrozsa.crowframework.screen;
+package com.vrozsa.crowframework.screen.internal;
 
 import com.vrozsa.crowframework.shared.api.game.GameLoop;
 import com.vrozsa.crowframework.shared.api.game.UpdateListener;

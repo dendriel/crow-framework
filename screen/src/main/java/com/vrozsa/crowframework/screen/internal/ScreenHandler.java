@@ -1,9 +1,12 @@
-package com.vrozsa.crowframework.screen;
+package com.vrozsa.crowframework.screen.internal;
 
 import com.vrozsa.crowframework.screen.api.WindowCloseRequestListener;
 import com.vrozsa.crowframework.shared.api.game.GameLoop;
 import com.vrozsa.crowframework.shared.attributes.Offset;
 import com.vrozsa.crowframework.shared.attributes.Size;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,6 +18,7 @@ import java.util.HashSet;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
+@AllArgsConstructor
 public class ScreenHandler<TScreenKey extends Enum<TScreenKey>> {
     private final ScreenHandlerConfig config;
     private final GameLoop gameLoop;

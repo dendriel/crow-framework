@@ -1,4 +1,4 @@
-package com.vrozsa.crowframework.screen;
+package com.vrozsa.crowframework.screen.internal;
 
 import com.vrozsa.crowframework.screen.sprite.Sprite;
 import com.vrozsa.crowframework.shared.api.screen.RendererObserver;

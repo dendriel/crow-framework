@@ -1,7 +1,7 @@
-package com.vrozsa.crowframework.sample.screen;
+package com.vrozsa.crowframework.screen.api;
 
-import com.vrozsa.crowframework.screen.BaseView;
-import com.vrozsa.crowframework.screen.BaseScreen;
+import com.vrozsa.crowframework.screen.internal.BaseScreen;
+import com.vrozsa.crowframework.screen.internal.BaseView;
 import com.vrozsa.crowframework.shared.attributes.Color;
 import com.vrozsa.crowframework.shared.attributes.Size;
 

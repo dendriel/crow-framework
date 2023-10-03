@@ -21,6 +21,10 @@ public class Rect {
         size = new Size(width, height);
     }
 
+    public static Rect atOrigin(final Size size) {
+        return new Rect(0, 0, size.getWidth(), size.getHeight());
+    }
+
     public int getX() {
         return offset.getX();
     }
