@@ -2,7 +2,7 @@ package com.vrozsa.crowframework.sample.input.readkeys;
 
 import com.vrozsa.crowframework.BufferedInputHandler;
 import com.vrozsa.crowframework.screen.api.ScreenType;
-import com.vrozsa.crowframework.screen.builder.ScreenHandlerFactory;
+import com.vrozsa.crowframework.screen.factory.ScreenHandlerFactory;
 import com.vrozsa.crowframework.screen.internal.ScreenHandler;
 import com.vrozsa.crowframework.shared.api.input.InputKey;
 import com.vrozsa.crowframework.shared.logger.LoggerService;

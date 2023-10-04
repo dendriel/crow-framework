@@ -1,6 +1,6 @@
 package com.vrozsa.crowframework.sample.screen.splash;
 
-import com.vrozsa.crowframework.screen.builder.ScreenHandlerFactory;
+import com.vrozsa.crowframework.screen.factory.ScreenHandlerFactory;
 
 import static com.vrozsa.crowframework.sample.TestValues.BACKGROUND_IMAGE_FILE;
 

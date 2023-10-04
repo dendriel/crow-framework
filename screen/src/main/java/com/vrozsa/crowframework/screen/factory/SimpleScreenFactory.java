@@ -1,4 +1,4 @@
-package com.vrozsa.crowframework.screen.builder;
+package com.vrozsa.crowframework.screen.factory;
 
 import com.vrozsa.crowframework.screen.api.SimpleScreen;
 import com.vrozsa.crowframework.screen.api.SimpleViewType;

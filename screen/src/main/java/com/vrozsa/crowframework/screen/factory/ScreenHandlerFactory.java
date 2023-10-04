@@ -1,4 +1,4 @@
-package com.vrozsa.crowframework.screen.builder;
+package com.vrozsa.crowframework.screen.factory;
 
 import com.vrozsa.crowframework.screen.api.ScreenType;
 import com.vrozsa.crowframework.screen.internal.ScreenHandler;
@@ -56,7 +56,7 @@ public class ScreenHandlerFactory {
         ScreenHandler<T> screenHandler = new ScreenHandler<>(config, inputHandler);
         screenHandler.setVisible(isVisible);
 
-        logger.debug("New screen handler created! %s", screenHandler);
+        logger.debug("New screen handler created! {}", screenHandler);
 
         return screenHandler;
     }

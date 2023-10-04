@@ -6,5 +6,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public
 class TestValues {
-    public static final String BACKGROUND_IMAGE_FILE = "/images/test_bg_1920x1080.png";
+    public static final String BACKGROUND_IMAGE_FILE = "/assets/images/test_bg_1920x1080.png";
 }

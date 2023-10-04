@@ -24,4 +24,5 @@ dependencies {
     implementation project(path: ':screen')
     implementation project(path: ':shared')
     implementation project(path: ':input')
+    implementation project(path: ':audio')
 }
