@@ -1,7 +1,7 @@
 package com.vrozsa.crowframework.screen.ui;
 
 import com.vrozsa.crowframework.shared.api.screen.Image;
-import com.vrozsa.crowframework.screen.sprite.ImageLoader;
+import com.vrozsa.crowframework.shared.image.ImageLoader;
 import com.vrozsa.crowframework.shared.attributes.Offset;
 import com.vrozsa.crowframework.shared.attributes.Rect;
 import com.vrozsa.crowframework.shared.attributes.Size;

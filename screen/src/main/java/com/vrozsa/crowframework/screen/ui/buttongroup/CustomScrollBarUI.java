@@ -1,7 +1,7 @@
 package com.vrozsa.crowframework.screen.ui.buttongroup;
 
 
-import com.vrozsa.crowframework.screen.sprite.ImageLoader;
+import com.vrozsa.crowframework.shared.image.ImageLoader;
 import com.vrozsa.crowframework.screen.ui.button.UIButton;
 import com.vrozsa.crowframework.shared.api.screen.Image;
 import com.vrozsa.crowframework.screen.ui.button.UIButtonTemplate;

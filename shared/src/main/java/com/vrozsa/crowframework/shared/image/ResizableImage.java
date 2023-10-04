@@ -1,4 +1,4 @@
-package com.vrozsa.crowframework.screen.sprite;
+package com.vrozsa.crowframework.shared.image;
 
 import com.vrozsa.crowframework.shared.api.screen.Image;
 import com.vrozsa.crowframework.shared.attributes.Size;

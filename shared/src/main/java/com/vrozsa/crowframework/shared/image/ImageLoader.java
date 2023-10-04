@@ -1,4 +1,4 @@
-package com.vrozsa.crowframework.screen.sprite;
+package com.vrozsa.crowframework.shared.image;
 
 import com.vrozsa.crowframework.shared.api.screen.Image;
 import lombok.AccessLevel;
@@ -8,8 +8,15 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.net.URL;
 
+/**
+ * Helper class to load Images.
+ */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class ImageLoader {
+
+    public static Image of(final BufferedImage bufferedImage) {
+        return new ResizableImage(bufferedImage);
+    }
 
     public static Image load(String filePath) {
         return load(filePath, filePath);

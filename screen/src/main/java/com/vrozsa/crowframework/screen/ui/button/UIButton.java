@@ -1,6 +1,6 @@
 package com.vrozsa.crowframework.screen.ui.button;
 
-import com.vrozsa.crowframework.screen.sprite.ImageLoader;
+import com.vrozsa.crowframework.shared.image.ImageLoader;
 import com.vrozsa.crowframework.screen.ui.UIExpandMode;
 import com.vrozsa.crowframework.screen.ui.UIFontTemplate;
 import com.vrozsa.crowframework.screen.ui.UILabelTemplate;

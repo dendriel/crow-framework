@@ -6,6 +6,7 @@ import com.vrozsa.crowframework.shared.attributes.Rect;
 import com.vrozsa.crowframework.shared.attributes.Size;
 import com.vrozsa.crowframework.shared.api.screen.Image;
 import com.vrozsa.crowframework.shared.api.screen.Sprite;
+import com.vrozsa.crowframework.shared.image.ImageLoader;
 import com.vrozsa.crowframework.shared.templates.SpriteTemplate;
 import com.vrozsa.crowframework.shared.time.Cooldown;
 import com.vrozsa.crowframework.shared.time.TimeUtils;
@@ -53,7 +54,7 @@ public class Animation {
     private void loadSpritesheets() {
         images = new ArrayList<>();
         for (String spritesheet : data.getSpritesheets()) {
-            Image image = Image.load(spritesheet);
+            Image image = ImageLoader.load(spritesheet);
             images.add(image);
         }
     }
@@ -160,8 +161,8 @@ public class Animation {
 
         List<Drawable> drawings = new ArrayList<>();
         for (Image image : images) {
-            Image drawing = new Image(getImageToPaint(image));
-            Sprite sprite = new Sprite(data.copy(), drawing, true);
+            Image drawing = ImageLoader.of(getImageToPaint(image));
+            Sprite sprite = Sprite.of(data.copy(), drawing, true);
             sprite.setRenderer(renderer);
             drawings.add(sprite);
         }

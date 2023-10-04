@@ -1,6 +1,5 @@
 package com.vrozsa.crowframework.screen.internal;
 
-import com.vrozsa.crowframework.screen.sprite.DrawableSprite;
 import com.vrozsa.crowframework.shared.api.screen.RendererObserver;
 import com.vrozsa.crowframework.shared.api.screen.Renderer;
 
@@ -9,6 +8,7 @@ import com.vrozsa.crowframework.shared.attributes.Offset;
 import com.vrozsa.crowframework.shared.attributes.Rect;
 import com.vrozsa.crowframework.shared.attributes.Scale;
 import com.vrozsa.crowframework.shared.attributes.Size;
+import com.vrozsa.crowframework.shared.image.DrawingsSorter;
 
 import java.awt.Graphics;
 import java.util.List;
@@ -102,7 +102,7 @@ public class RendererView extends BaseView implements RendererObserver {
         Map<Integer, List<Drawable>> sprites = reduceRenderers(tempRenderers);
 
         for (List<Drawable> spriteSet : sprites.values()) {
-            DrawableSprite.sortByOrderAscending(spriteSet);
+            spriteSet.sort(new DrawingsSorter());
             spriteSet.forEach(s -> draw(s, g));
         }
 

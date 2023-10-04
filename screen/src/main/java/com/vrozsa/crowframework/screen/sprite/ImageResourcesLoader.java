@@ -1,5 +1,7 @@
 package com.vrozsa.crowframework.screen.sprite;
 
+import com.vrozsa.crowframework.shared.image.ImageLoader;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
