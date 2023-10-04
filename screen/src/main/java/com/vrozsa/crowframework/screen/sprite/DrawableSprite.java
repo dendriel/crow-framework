@@ -3,14 +3,16 @@ package com.vrozsa.crowframework.screen.sprite;
 import com.vrozsa.crowframework.shared.api.screen.Drawable;
 import com.vrozsa.crowframework.shared.api.screen.Image;
 import com.vrozsa.crowframework.shared.api.screen.Renderer;
+import com.vrozsa.crowframework.shared.api.screen.Sprite;
 import com.vrozsa.crowframework.shared.attributes.Offset;
 import com.vrozsa.crowframework.shared.attributes.Scale;
 import com.vrozsa.crowframework.shared.attributes.Size;
+import com.vrozsa.crowframework.shared.templates.SpriteTemplate;
 
 import java.util.Comparator;
 import java.util.List;
 
-public class Sprite implements Drawable {
+public class DrawableSprite implements Drawable, Sprite {
     private final SpriteTemplate data;
     private int order;
     private Offset offset;
@@ -22,18 +24,18 @@ public class Sprite implements Drawable {
     private Renderer renderer;
     private boolean isFlipY;
 
-    public Sprite(SpriteTemplate data) {
+    public DrawableSprite(SpriteTemplate data) {
         this(data, data.isEnabled());
     }
 
-    public Sprite(SpriteTemplate data, boolean isEnabled) {
+    public DrawableSprite(SpriteTemplate data, boolean isEnabled) {
         this.data = data;
         reset();
         load();
         enabled = isEnabled;
     }
 
-    public Sprite(SpriteTemplate data, Image resizableImage, boolean isEnabled) {
+    public DrawableSprite(SpriteTemplate data, Image resizableImage, boolean isEnabled) {
         this.data = data;
         this.resizableImage = resizableImage;
         enabled = isEnabled;

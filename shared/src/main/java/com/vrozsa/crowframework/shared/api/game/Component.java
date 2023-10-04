@@ -1,13 +1,12 @@
 package com.vrozsa.crowframework.shared.api.game;
 
 
-// TODO: remove this
 public interface Component extends Identifiable {
     GameObject getGameObject();
 
     void setGameObject(GameObject gameObject);
 
-//    Position getPosition();
+//    Component getPosition();
 
     boolean isEnabled();
 

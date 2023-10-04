@@ -6,4 +6,5 @@ include 'screen'
 include 'sample'
 include 'input'
 include 'audio'
+include 'game'
 
