@@ -1,4 +1,4 @@
-package com.vrozsa.crowframework.sample.input.readkeys;
+package com.vrozsa.crowframework.sample.input;
 
 import com.vrozsa.crowframework.BufferedInputHandler;
 import com.vrozsa.crowframework.screen.api.ScreenType;
@@ -9,7 +9,7 @@ import com.vrozsa.crowframework.shared.logger.LoggerService;
 
 import static com.vrozsa.crowframework.sample.TestValues.BACKGROUND_IMAGE_FILE;
 
-public class Main {
+public class ReadKeys {
 
     private static final LoggerService logger = LoggerService.of("ReadKeys Sample");
 

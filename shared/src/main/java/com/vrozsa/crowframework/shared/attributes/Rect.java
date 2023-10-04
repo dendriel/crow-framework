@@ -25,6 +25,10 @@ public class Rect {
         return new Rect(0, 0, size.getWidth(), size.getHeight());
     }
 
+    public static Rect of(final int x, final int y, final int width, final int height) {
+        return new Rect(x, y, width, height);
+    }
+
     public int getX() {
         return offset.getX();
     }
@@ -39,6 +43,14 @@ public class Rect {
 
     public void setY(int y) {
         offset.setY(y);
+    }
+
+    public int centerX() {
+        return (size.getWidth() - offset.getX()) / 2;
+    }
+
+    public int centerY() {
+        return (size.getHeight() - offset.getY()) / 2;
     }
 
     public int getWidth() {

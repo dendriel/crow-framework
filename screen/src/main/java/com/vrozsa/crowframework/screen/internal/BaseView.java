@@ -59,7 +59,7 @@ public class BaseView extends JPanel implements UIComponentObserver {
         }
     }
 
-    protected void addComponent(UIComponent component) {
+    public void addComponent(final UIComponent component) {
         component.addUIComponentChangedListener(this);
         component.wrapUp(this);
         components.add(component);

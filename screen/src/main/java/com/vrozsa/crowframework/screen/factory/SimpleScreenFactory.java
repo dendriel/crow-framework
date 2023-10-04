@@ -19,8 +19,8 @@ public class SimpleScreenFactory {
 
         Rect rect = Rect.atOrigin(size);
         StaticView staticView = new StaticView(rect, backgroundImageFile);
-        simpleScreen.addView(staticView);
-        simpleScreen.displayView();
+        simpleScreen.addView(SimpleViewType.STATIC, staticView);
+        simpleScreen.displayView(SimpleViewType.STATIC);
 
         logger.debug("New SimpleScreen created! %s", simpleScreen);
 

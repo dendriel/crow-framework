@@ -4,6 +4,7 @@ import com.vrozsa.crowframework.shared.attributes.Color;
 import com.vrozsa.crowframework.shared.attributes.Size;
 
 import javax.swing.*;
+import java.awt.Dimension;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -49,6 +50,11 @@ public abstract class BaseScreen<TKey, TKeyGroup> extends JPanel {
         }
 
         return views.get(key);
+    }
+
+    protected Size getScreenSize() {
+        Dimension dim = super.getSize();
+        return Size.of(dim.width, dim.height);
     }
 
     protected void addViewGroup(TKeyGroup key, TKey...viewKeys) {
