@@ -58,7 +58,7 @@ public class BaseView extends JPanel implements View, UIComponentObserver {
 
     private void setupComponents() {
         for (UIBaseComponentTemplate template : data.getComponents()) {
-            UIComponent component = UIComponentFactory.create(template, rect.getSize());
+            var component = UIComponentFactory.create(template, rect.getSize());
             addComponent(component);
         }
     }

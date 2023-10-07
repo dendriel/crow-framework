@@ -66,17 +66,23 @@ class CrowScreenManager implements ScreenManager, OffsetGetter {
     }
 
     @Override
+    public UIIcon addIcon(final String imageFile, final int x, final int y, final int width, final int height) {
+        return addIcon(imageFile, Rect.of(x, y, width, height));
+    }
+
+    @Override
     public UIIcon addIcon(final String imageFile, final Rect rect) {
-        var iconTemplate = new UIIconTemplate();
-        iconTemplate.setImageFile(imageFile);
-        iconTemplate.setRect(rect);
-        iconTemplate.setReferenceSize(rect.getSize());
+        var iconTemplate = UIIconTemplate.builder()
+                .imageFile(imageFile)
+                .rect(rect)
+                .referenceSize(rect.getSize())
+                .build();
 
-        var icon = new UIIcon(iconTemplate);
+        var icon = UIIcon.from(iconTemplate);
+        var view = screenHandler.getScreen(DEFAULT_SCREEN)
+                .getView(DEFAULT_VIEW);
 
-        screenHandler.getScreen(DEFAULT_SCREEN)
-                .getView(DEFAULT_VIEW)
-                .addComponent(icon);
+        view.addComponent(icon);
 
         return icon;
     }

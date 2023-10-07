@@ -7,4 +7,5 @@ import lombok.NoArgsConstructor;
 public
 class TestValues {
     public static final String BACKGROUND_IMAGE_FILE = "/assets/images/test_bg_1920x1080.png";
+    public static final String HERO_IMAGE_FILE = "/assets/images/archer01_80x80.png";
 }

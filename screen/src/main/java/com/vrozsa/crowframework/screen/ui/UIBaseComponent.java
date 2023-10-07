@@ -11,7 +11,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class UIBaseComponent<T> implements UIComponent<T> {
+public abstract class UIBaseComponent<T extends UIBaseComponentTemplate> implements UIComponent<T> {
     private final UIBaseComponentTemplate data;
     protected final List<UIComponentObserver> observers;
     protected final UIComponentType type;

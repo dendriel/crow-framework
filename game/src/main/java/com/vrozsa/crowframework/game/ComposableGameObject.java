@@ -27,7 +27,7 @@ public final class ComposableGameObject implements GameObject {
                 .findFirst()
                 .orElse(null);
 
-        assert position != null : String.format("GameObject has no assigned Position!");
+        assert position != null : "GameObject has no assigned Position!";
 
         components.forEach(c -> {
             c.setGameObject(this);

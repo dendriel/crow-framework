@@ -14,12 +14,13 @@ public class StaticView extends BaseView {
     }
 
     private void setupComponents(final Rect rect, final String imageFile) {
-        UIIconTemplate backgroundData = new UIIconTemplate();
-        backgroundData.setImageFile(imageFile);
-        backgroundData.setRect(rect);
-        backgroundData.setReferenceSize(rect.getSize());
+        var backgroundData = UIIconTemplate.builder()
+                .imageFile(imageFile)
+                .rect(rect)
+                .referenceSize(rect.getSize())
+                .build();
 
-        UIIcon backgroundIcon = new UIIcon(backgroundData);
+        var backgroundIcon = UIIcon.from(backgroundData);
         addComponent(backgroundIcon);
     }
 }

@@ -13,7 +13,11 @@ public class UIIcon extends UIBaseComponent<UIIconTemplate> {
     private UIIconTemplate data;
     protected Image resizableImage;
 
-    public UIIcon(UIIconTemplate data) {
+    public static UIIcon from(final UIIconTemplate data) {
+        return new UIIcon(data);
+    }
+
+    protected UIIcon(UIIconTemplate data) {
         super(data);
         this.data = data;
         setup();

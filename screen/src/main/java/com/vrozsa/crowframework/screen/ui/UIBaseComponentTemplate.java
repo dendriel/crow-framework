@@ -9,6 +9,9 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UIBaseComponentTemplate {
+    protected static final UIExpandMode DEFAULT_EXPAND_MODE = UIExpandMode.FILL;
+    protected static final boolean DEFAULT_IS_ENABLED = true;
+
     protected final UIComponentType type;
     protected Rect rect;
     protected String tag;
@@ -17,13 +20,23 @@ public class UIBaseComponentTemplate {
     protected Size referenceSize;
     protected boolean isEnabled;
 
-    public UIBaseComponentTemplate(UIComponentType type) {
+    public UIBaseComponentTemplate(final UIComponentType type) {
         this.type = type;
-        expandMode = UIExpandMode.FILL;
-        isEnabled = true;
+        expandMode = DEFAULT_EXPAND_MODE;
+        isEnabled = DEFAULT_IS_ENABLED;
     }
 
-    protected UIBaseComponentTemplate(UIBaseComponentTemplate from) {
+    public UIBaseComponentTemplate(
+            UIComponentType type, Rect rect, String tag, UIExpandMode expandMode, Size referenceSize, boolean isEnabled) {
+        this.type = type;
+        this.rect = rect;
+        this.tag = tag;
+        this.expandMode = expandMode;
+        this.referenceSize = referenceSize;
+        this.isEnabled = isEnabled;
+    }
+
+    protected UIBaseComponentTemplate(final UIBaseComponentTemplate from) {
         this.type = from.type;
         this.rect = from.rect.clone();
         this.tag = from.tag;

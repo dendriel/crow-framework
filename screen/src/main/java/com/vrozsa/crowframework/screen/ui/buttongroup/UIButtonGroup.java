@@ -100,7 +100,7 @@ public class UIButtonGroup extends UIBaseComponent<UIButtonGroupTemplate> {
         bgTemplate.setRect(targetRect);
         bgTemplate.setReferenceSize(data.getReferenceSize());
 
-        background = new UIIcon(bgTemplate);
+        background = UIIcon.from(bgTemplate);
     }
 
     @Override

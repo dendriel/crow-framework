@@ -20,18 +20,25 @@ import com.vrozsa.crowframework.screen.ui.buttongroup.UIButtonGroup;
 import com.vrozsa.crowframework.screen.ui.buttongroup.UIButtonGroupTemplate;
 import com.vrozsa.crowframework.screen.ui.input.UIInputField;
 import com.vrozsa.crowframework.screen.ui.input.UIInputFieldTemplate;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.Map;
 import java.util.function.Function;
 
+/**
+ * Creates UIComponents from data templates.
+ */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 class UIComponentFactory {
-    private static Map<UIComponentType, Function<UIBaseComponentTemplate, UIComponent>> typeToCreatorMapper;
+    private static final
+        Map<UIComponentType, Function<UIBaseComponentTemplate, UIComponent<? extends UIBaseComponentTemplate>>> typeToCreatorMapper;
 
     static {
-        typeToCreatorMapper = new HashMap<>();
+        typeToCreatorMapper = new EnumMap<>(UIComponentType.class);
         typeToCreatorMapper.put(UIComponentType.LABEL, template -> new UILabel((UILabelTemplate) template));
-        typeToCreatorMapper.put(UIComponentType.ICON, template -> new UIIcon((UIIconTemplate) template));
+        typeToCreatorMapper.put(UIComponentType.ICON, template -> UIIcon.from((UIIconTemplate) template));
         typeToCreatorMapper.put(UIComponentType.INPUT_FIELD, template -> new UIInputField((UIInputFieldTemplate) template));
         typeToCreatorMapper.put(UIComponentType.BUTTON, template -> new UIButton((UIButtonTemplate) template));
         typeToCreatorMapper.put(UIComponentType.ANIMATION, template -> new UIAnimation((UIAnimationTemplate) template));
@@ -40,7 +47,7 @@ class UIComponentFactory {
         typeToCreatorMapper.put(UIComponentType.BUTTON_GROUP, template -> new UIButtonGroup((UIButtonGroupTemplate) template));
     }
 
-    static UIComponent create(UIBaseComponentTemplate template, Size viewSize) {
+    static UIComponent<? extends UIBaseComponentTemplate> create(final UIBaseComponentTemplate template, final Size viewSize) {
         template.setReferenceSize(viewSize);
         return typeToCreatorMapper.get(template.getType()).apply(template);
     }
