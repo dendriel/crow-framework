@@ -153,11 +153,12 @@ public class Animation {
     }
 
     List<Drawable> getDrawings(Renderer renderer) {
-        SpriteTemplate data = new SpriteTemplate();
-        data.setEnabled(true);
-        data.setOrder(0);
-        data.setSize(frameRect.getSize());
-        data.setOffset(rect.getOffset());
+        SpriteTemplate data = SpriteTemplate.builder()
+        .enabled(true)
+        .order(0)
+        .size(frameRect.getSize())
+        .offset(rect.getOffset())
+                .build();
 
         List<Drawable> drawings = new ArrayList<>();
         for (Image image : images) {

@@ -45,6 +45,11 @@ public class TrackingInputHandler implements InputHandler {
     }
 
     @Override
+    public void readUntil(InputKey... keys) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public void keyPressed(KeyEvent e) {
         int keyCode = e.getKeyCode();
 
@@ -93,7 +98,7 @@ public class TrackingInputHandler implements InputHandler {
     }
 
     @Override
-    public void clearCache() {
+    public void clear() {
         // not supported
     }
 }

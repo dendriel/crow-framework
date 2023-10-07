@@ -23,16 +23,24 @@ public final class LoggerService {
     }
 
     public void debug(final String template, final Object...args) {
-        System.out.printf("[INFO] [%s] " + template + "%n", className, toString(args));
-
+        print("[DEBUG]", template, args);
     }
 
     public void info(final String template, final Object...args) {
-        System.out.printf("[INFO] [%s] " + template + "%n", className, toString(args));
+        print("[INFO]", template, args);
+
+    }
+
+    public void warn(final String template, final Object...args) {
+        print("[WARN]", template, args);
     }
 
     public void error(final String template, final Object...args) {
-        System.out.printf("[ERROR] [%s] " + template + "%n", className, toString(args));
+        print("[ERROR]", template, args);
+    }
+
+    private void print(final String logLevel, final String template, final Object...args) {
+        System.out.printf("[%s] [%s] " + template + "%n", logLevel, className, toString(args));
     }
 
     private static List<String> toString(final Object[] args) {

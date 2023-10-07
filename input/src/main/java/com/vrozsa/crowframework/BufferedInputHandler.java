@@ -2,8 +2,10 @@ package com.vrozsa.crowframework;
 
 import com.vrozsa.crowframework.shared.api.input.InputHandler;
 import com.vrozsa.crowframework.shared.api.input.InputKey;
+import com.vrozsa.crowframework.shared.logger.LoggerService;
 
 import java.awt.event.KeyEvent;
+import java.util.List;
 import java.util.concurrent.LinkedBlockingQueue;
 
 /**
@@ -11,6 +13,8 @@ import java.util.concurrent.LinkedBlockingQueue;
  * WARNING: Must be attached to a screen component.
  */
 public class BufferedInputHandler implements InputHandler {
+    private static final LoggerService logger = LoggerService.of(BufferedInputHandler.class);
+
     private final LinkedBlockingQueue<InputKey> inputs;
     private boolean isKeyReleased = true;
 
@@ -22,24 +26,34 @@ public class BufferedInputHandler implements InputHandler {
         inputs = new LinkedBlockingQueue<>(inputsBufferSize);
     }
 
-    public void readUntil(InputKey input) {
+    public List<InputKey> getPressedKeys() {
+        throw new UnsupportedOperationException();
+    }
+
+    public void readUntil(final InputKey... keys) {
+        List<InputKey> targetKeys = List.of(keys);
+        if (targetKeys.isEmpty()) {
+            logger.warn("[readUntil] Received an empty key set to wait for.");
+            return;
+        }
+
         InputKey nextInput;
         do {
             try {
                 nextInput = inputs.take();
-            } catch (Exception e) {
-                e.printStackTrace();
+            }
+            catch (InterruptedException e) {
+                logger.warn("[readUntil] Current thread was interrupted! %s", e.toString());
                 nextInput = InputKey.UNKNOWN;
             }
-        } while (!nextInput.equals(input));
+        } while (!targetKeys.contains(nextInput));
     }
 
     public InputKey getNext() {
         try {
             return inputs.take();
-        } catch (Exception e) {
-            System.out.println("Failed to get input from queue!");
-            e.printStackTrace();
+        } catch (InterruptedException e) {
+            logger.warn("[getNext] Current thread was interrupted! %s", e.toString());
         }
         return InputKey.UNKNOWN;
     }
@@ -52,7 +66,7 @@ public class BufferedInputHandler implements InputHandler {
         return key;
     }
 
-    public void clearCache() {
+    public void clear() {
         inputs.clear();
     }
 

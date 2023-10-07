@@ -25,7 +25,7 @@ public class DrawableSprite implements Drawable, Sprite {
     private boolean isFlipY;
 
     public DrawableSprite(SpriteTemplate data) {
-        this(data, data.isEnabled());
+        this(data, data.enabled());
     }
 
     public DrawableSprite(SpriteTemplate data, boolean isEnabled) {
@@ -43,13 +43,13 @@ public class DrawableSprite implements Drawable, Sprite {
     }
 
     private void reset() {
-        this.order = data.getOrder();
-        this.enabled = data.isEnabled();
+        this.order = data.order();
+        this.enabled = data.enabled();
         this.isFlipX = data.isFlipX();
         this.isFlipY = data.isFlipY();
-        this.scale = data.getScale();
-        this.offset = data.getOffset();
-        this.size = data.getSize();
+        this.scale = data.scale();
+        this.offset = data.offset();
+        this.size = data.size();
     }
 
     public Image getImage() {
@@ -57,12 +57,12 @@ public class DrawableSprite implements Drawable, Sprite {
     }
 
     public Offset getDefaultOffset() {
-        return data.getOffset();
+        return data.offset();
     }
 
 
     public Scale getDefaultScale() {
-        return data.getScale();
+        return data.scale();
     }
 
     public void setScaleWidth(double width) {
@@ -70,7 +70,7 @@ public class DrawableSprite implements Drawable, Sprite {
     }
 
     private void load() {
-        resizableImage = ImageLoader.load(data.getImageFile());
+        resizableImage = ImageLoader.load(data.imageFile());
     }
 
     @Override

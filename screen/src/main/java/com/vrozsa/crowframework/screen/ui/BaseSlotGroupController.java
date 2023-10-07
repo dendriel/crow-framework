@@ -34,7 +34,7 @@ public abstract class BaseSlotGroupController implements BaseComponent {
     protected abstract void hideView();
 
     public void handle() {
-        input.clearCache();
+        input.clear();
         isInterrupt = false;
         showView();
 
@@ -44,7 +44,7 @@ public abstract class BaseSlotGroupController implements BaseComponent {
         } while (keepGoing);
 
         hideView();
-        input.clearCache();
+        input.clear();
     }
 
     private boolean handleSlotGroupInteraction() {
