@@ -2,7 +2,7 @@ package com.vrozsa.crowframework.screen.ui;
 
 import com.vrozsa.crowframework.shared.attributes.Offset;
 import com.vrozsa.crowframework.shared.attributes.Size;
-import com.vrozsa.crowframework.screen.ui.api.UIComponentObserver;
+import com.vrozsa.crowframework.shared.api.screen.ui.UIComponentObserver;
 import com.vrozsa.crowframework.screen.ui.api.UIHandler;
 import com.vrozsa.crowframework.screen.ui.api.UISelectOption;
 import com.vrozsa.crowframework.screen.ui.api.UISlotGroupHandler;

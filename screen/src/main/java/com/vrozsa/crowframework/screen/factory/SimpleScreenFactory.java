@@ -14,13 +14,13 @@ import lombok.NoArgsConstructor;
 public class SimpleScreenFactory {
     private static final LoggerService logger = LoggerService.of(SimpleScreenFactory.class);
 
-    public static BaseScreen<SimpleViewType, SimpleViewType> create(final Size size, final String backgroundImageFile) {
-        var simpleScreen = new SimpleScreen(size);
+    public static BaseScreen create(final Size size, final String backgroundImageFile) {
+        var simpleScreen = new SimpleScreen("xpto", size);
 
-        var rect = Rect.atOrigin(size);
-        var staticView = new StaticView(rect, backgroundImageFile);
-        simpleScreen.addView(SimpleViewType.STATIC, staticView);
-        simpleScreen.displayView(SimpleViewType.STATIC);
+//        var rect = Rect.atOrigin(size);
+//        var staticView = new StaticView(rect, backgroundImageFile);
+//        simpleScreen.addView(SimpleViewType.STATIC, staticView);
+//        simpleScreen.displayView(SimpleViewType.STATIC);
 
         logger.debug("New SimpleScreen created! %s", simpleScreen);
 

@@ -1,10 +1,11 @@
 package com.vrozsa.crowframework.screen.ui;
 
+import com.vrozsa.crowframework.shared.api.screen.ui.UIComponentType;
 import com.vrozsa.crowframework.shared.attributes.Offset;
 import com.vrozsa.crowframework.shared.attributes.Rect;
 import com.vrozsa.crowframework.shared.attributes.Size;
-import com.vrozsa.crowframework.screen.ui.api.UIComponent;
-import com.vrozsa.crowframework.screen.ui.api.UIComponentObserver;
+import com.vrozsa.crowframework.shared.api.screen.ui.UIComponent;
+import com.vrozsa.crowframework.shared.api.screen.ui.UIComponentObserver;
 
 import java.awt.*;
 import java.util.ArrayList;

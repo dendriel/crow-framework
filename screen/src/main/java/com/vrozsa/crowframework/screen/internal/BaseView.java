@@ -8,30 +8,34 @@ import com.vrozsa.crowframework.screen.ui.UILabelGroup;
 import com.vrozsa.crowframework.screen.ui.UISlider;
 import com.vrozsa.crowframework.screen.ui.button.UIButton;
 import com.vrozsa.crowframework.screen.ui.buttongroup.UIButtonGroup;
+import com.vrozsa.crowframework.shared.api.screen.View;
 import com.vrozsa.crowframework.shared.attributes.Offset;
 import com.vrozsa.crowframework.shared.attributes.Rect;
 import com.vrozsa.crowframework.shared.attributes.Size;
-import com.vrozsa.crowframework.screen.ui.api.UIComponent;
-import com.vrozsa.crowframework.screen.ui.api.UIComponentObserver;
+import com.vrozsa.crowframework.shared.api.screen.ui.UIComponent;
+import com.vrozsa.crowframework.shared.api.screen.ui.UIComponentObserver;
 import com.vrozsa.crowframework.screen.ui.input.UIInputField;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JPanel;
+import java.awt.Color;
+import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
-public class BaseView extends JPanel implements UIComponentObserver {
+/**
+ * Views are the frame where components are displayed. A view is contained in the screen.
+ */
+public class BaseView extends JPanel implements View, UIComponentObserver {
     private final ViewTemplate data;
-    protected final List<UIComponent> components;
+    protected final List<UIComponent<?>> components;
     protected final Rect rect;
 
-    public BaseView(Rect rect) {
-        this(new ViewTemplate(rect));
+    public BaseView(final String name, final Rect rect) {
+        this(new ViewTemplate(name, rect));
     }
 
-    public BaseView(ViewTemplate data) {
+    public BaseView(final ViewTemplate data) {
         this.data = data;
         this.rect = data.getRect().clone();
         components = new ArrayList<>();
@@ -59,13 +63,17 @@ public class BaseView extends JPanel implements UIComponentObserver {
         }
     }
 
-    public void addComponent(final UIComponent component) {
+    public String name() {
+        return data.getName();
+    }
+
+    public <T> void addComponent(final UIComponent<T> component) {
         component.addUIComponentChangedListener(this);
         component.wrapUp(this);
         components.add(component);
     }
 
-    private void clearComponent(UIComponent component) {
+    private <T> void clearComponent(UIComponent<T> component) {
         component.removeUIComponentChangedListener(this);
         component.destroy(this);
     }
@@ -84,15 +92,15 @@ public class BaseView extends JPanel implements UIComponentObserver {
         components.forEach(UIComponent::hide);
     }
 
-    public void updateScreenSize(Size parentSize) {
-        Rect rect = data.getRect();
-        Size refSize = rect.getSize();
+    public void resize(final Size parentSize) {
+        var rect = data.getRect();
+        var refSize = rect.getSize();
 
-        Offset newOffset = Offset.updateOffset(rect.getOffset(), refSize, parentSize);
+        var newOffset = Offset.updateOffset(rect.getOffset(), refSize, parentSize);
         this.rect.setX(newOffset.getX());
         this.rect.setY(newOffset.getY());
 
-        Size newSize = Size.updateSize(rect.getSize(), refSize, parentSize);
+        var newSize = Size.updateSize(rect.getSize(), refSize, parentSize);
         this.rect.setWidth(newSize.getWidth());
         this.rect.setHeight(newSize.getHeight());
 

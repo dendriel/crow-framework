@@ -18,13 +18,14 @@ import java.util.*;
  * Allow to display game-play objects in the screen (in addition to UI components).
  */
 public class RendererView extends BaseView implements RendererObserver {
+    public static final String NAME = "RENDERER_VIEW";
     private List<Renderer> renderers;
     private List<Renderer> persistentRenderers;
     protected int offsetX;
     protected int offsetY;
 
     public RendererView(Rect rect) {
-        super(rect);
+        super(NAME, rect);
         renderers = new ArrayList<>();
         persistentRenderers = new ArrayList<>();
     }

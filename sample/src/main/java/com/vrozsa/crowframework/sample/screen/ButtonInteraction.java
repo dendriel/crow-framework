@@ -22,7 +22,7 @@ public class ButtonInteraction {
 
         ScreenHandler screenHandler = ScreenHandlerFactory.createWithSimpleScreen(BACKGROUND_IMAGE_FILE);
 
-        SimpleScreen screen = (SimpleScreen)screenHandler.get(ScreenType.SIMPLE.name());
+        SimpleScreen screen = (SimpleScreen)screenHandler.getScreen(ScreenType.SIMPLE.name());
         Rect screenRect = new Rect(0, 0, screen.getWidth(), screen.getHeight());
 
         // Dynamic Label
@@ -67,8 +67,8 @@ public class ButtonInteraction {
         button.addMouseExitedListener(onMouseExited, i);
 
 
-        screen.addComponent(label);
-        screen.addComponent(button);
+//        screen.addComponent(label);
+//        screen.addComponent(button);
         screen.displayView();
     }
 }

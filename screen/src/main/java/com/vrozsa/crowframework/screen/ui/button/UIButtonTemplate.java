@@ -1,7 +1,7 @@
 package com.vrozsa.crowframework.screen.ui.button;
 
 import com.vrozsa.crowframework.screen.ui.UIBaseComponentTemplate;
-import com.vrozsa.crowframework.screen.ui.UIComponentType;
+import com.vrozsa.crowframework.shared.api.screen.ui.UIComponentType;
 import com.vrozsa.crowframework.screen.ui.UILabelTemplate;
 import com.vrozsa.crowframework.screen.ui.UIToolTipTemplate;
 

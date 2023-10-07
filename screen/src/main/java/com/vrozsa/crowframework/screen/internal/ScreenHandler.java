@@ -3,12 +3,14 @@ package com.vrozsa.crowframework.screen.internal;
 import com.vrozsa.crowframework.screen.api.WindowCloseRequestListener;
 import com.vrozsa.crowframework.shared.api.game.GameLoop;
 import com.vrozsa.crowframework.shared.api.input.InputHandler;
+import com.vrozsa.crowframework.shared.api.screen.Screen;
 import com.vrozsa.crowframework.shared.attributes.Offset;
 import com.vrozsa.crowframework.shared.attributes.Size;
 import lombok.AllArgsConstructor;
 
 import javax.swing.ActionMap;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
@@ -22,7 +24,7 @@ public class ScreenHandler {
     private final ScreenHandlerConfig config;
     private final GameLoop gameLoop;
     private final JFrame frame;
-    private final ConcurrentMap<String, BaseScreen> screens;
+    private final ConcurrentMap<String, Screen> screens;
     private final HashSet<WindowCloseRequestListener> onWindowCloseRequestListeners;
 
     public ScreenHandler(final ScreenHandlerConfig config) {
@@ -62,7 +64,7 @@ public class ScreenHandler {
     }
 
     private void screenUpdate() {
-        screens.values().forEach(BaseScreen::draw);
+        screens.values().forEach(Screen::draw);
     }
 
     private void setupWindow() {
@@ -129,7 +131,7 @@ public class ScreenHandler {
         int newHeight = removeHeightInsets((int)dim.getHeight());
 
         var newSize = new Size(newWidth, newHeight);
-        screens.values().forEach(s -> s.updateScreenSize(newSize));
+        screens.values().forEach(s -> s.resize(newSize));
     }
 
     private void setupInputHandler(InputHandler inputListener) {
@@ -155,13 +157,14 @@ public class ScreenHandler {
         size.addWidth(insetWidth);
         size.addHeight(insetHeight);
         frame.setSize(size.getWidth(), size.getHeight());
-        screens.values().forEach(s -> s.updateScreenSize(getSize()));
+        screens.values().forEach(s -> s.resize(getSize()));
     }
 
-    public void add(String key, BaseScreen screen) {
+    public void add(String key, Screen screen) {
         screens.put(key, screen);
-        frame.add(screen);
-        screen.updateScreenSize(getSize());
+        // Smelly... the Screen contract doesn't tell (and should not) anything about a screen being a JPanel.
+        frame.add((JPanel)screen);
+        screen.resize(getSize());
     }
 
     public boolean remove(String key, BaseScreen screen) {
@@ -173,7 +176,7 @@ public class ScreenHandler {
         return true;
     }
 
-    public BaseScreen get(String key) {
+    public Screen getScreen(final String key) {
         if (!screens.containsKey(key)) {
             return null;
         }
@@ -192,7 +195,7 @@ public class ScreenHandler {
     public void setOnlyScreenVisible(final String key, final boolean isVisible) {
         screens.values().forEach(s -> s.setVisible(false));
         if (screens.containsKey(key)) {
-            BaseScreen target = screens.get(key);
+            Screen target = screens.get(key);
             target.setVisible(isVisible);
             target.draw();
         }

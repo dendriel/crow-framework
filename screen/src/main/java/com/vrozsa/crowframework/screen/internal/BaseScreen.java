@@ -1,26 +1,29 @@
 package com.vrozsa.crowframework.screen.internal;
 
+import com.vrozsa.crowframework.shared.api.screen.Screen;
+import com.vrozsa.crowframework.shared.api.screen.View;
 import com.vrozsa.crowframework.shared.attributes.Color;
 import com.vrozsa.crowframework.shared.attributes.Size;
 
-import javax.swing.*;
+import javax.swing.JPanel;
 import java.awt.Dimension;
 import java.util.HashMap;
 import java.util.Map;
 
 
-public abstract class BaseScreen<TKey, TKeyGroup> extends JPanel {
-    private Map<TKey, BaseView> views;
+public abstract class BaseScreen extends JPanel implements Screen {
+    private final String name;
+    private final Map<String, View> views;
+    private final Map<String, String[]> viewGroup;
 
-    private Map<TKeyGroup, TKey[]> viewGroup;
+    private String lastViewGroupSet;
 
-    private TKeyGroup lastViewGroupSet;
-
-    public BaseScreen(Size size) {
-        this(size, Color.blue());
+    protected BaseScreen(final String name, final Size size) {
+        this(name, size, Color.blue());
     }
 
-    public BaseScreen(Size size, Color bgColor) {
+    protected BaseScreen(final String name, final Size size, final Color bgColor) {
+        this.name = name;
         views = new HashMap<>();
         viewGroup = new HashMap<>();
 
@@ -31,20 +34,25 @@ public abstract class BaseScreen<TKey, TKeyGroup> extends JPanel {
         setSize(size.getWidth(), size.getHeight());
         setBackground(color.getJColor());
         setLayout(null);
-        updateScreenSize(size);
+        resize(size);
         setIgnoreRepaint(true);
     }
 
-    protected void addView(TKey key, BaseView view) {
-        views.put(key, view);
-        add(view);
+    public String name() {
+        return name;
     }
 
-    protected void removeView(TKey key) {
+    protected void addView(final String key, final View view) {
+        views.put(key, view);
+        // Also smelly, inferring that all views are JPanels.
+        add((JPanel)view);
+    }
+
+    protected void removeView(String key) {
         views.remove(key);
     }
 
-    protected BaseView getView(TKey key) {
+    public View getView(final String key) {
         if (!views.containsKey(key)) {
             return null;
         }
@@ -57,28 +65,29 @@ public abstract class BaseScreen<TKey, TKeyGroup> extends JPanel {
         return Size.of(dim.width, dim.height);
     }
 
-    protected void addViewGroup(TKeyGroup key, TKey...viewKeys) {
+    protected void addViewGroup(String key, String...viewKeys) {
         viewGroup.put(key, viewKeys);
     }
 
-    protected void removeViewGroup(Integer key) {
-        viewGroup.remove(key);
-    }
+//    protected void removeViewGroup(Integer key) {
+//        viewGroup.remove(key);
+//    }
 
-    protected void displayViewGroup(TKeyGroup key) {
+    protected void displayViewGroup(final String key) {
         if (!viewGroup.containsKey(key)) {
             return;
         }
 
-        if (lastViewGroupSet == key) {
+        if (lastViewGroupSet.equals(key)) {
             return;
         }
 
-        views.values().forEach(this::remove);
-        for (TKey viewKey : viewGroup.get(key)) {
-            BaseView targetView = getView(viewKey);
+        views.values().forEach(view -> remove((JPanel)view));
+
+        for (var viewKey : viewGroup.get(key)) {
+            var targetView = getView(viewKey);
             if (targetView != null) {
-                add(targetView);
+                add((JPanel)targetView);
             }
         }
 
@@ -87,19 +96,17 @@ public abstract class BaseScreen<TKey, TKeyGroup> extends JPanel {
         draw();
     }
 
-    public void updateScreenSize(Size parentSize) {
+    public void resize(final Size parentSize) {
         setSize(parentSize.getWidth(), parentSize.getHeight());
-        views.values().forEach(v -> v.updateScreenSize(parentSize));
+        views.values().forEach(v -> v.resize(parentSize));
     }
 
-    protected TKeyGroup getLastViewGroupSet() {
+    protected String getLastViewGroupSet() {
         return lastViewGroupSet;
     }
 
-    protected void draw() {
+    public void draw() {
         repaint();
-        views.values().forEach(BaseView::draw);
+        views.values().forEach(View::draw);
     }
-
-    public abstract String name();
 }

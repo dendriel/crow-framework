@@ -1,6 +1,7 @@
 package com.vrozsa.crowframework.screen.ui;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.vrozsa.crowframework.shared.api.screen.ui.UIComponentType;
 import com.vrozsa.crowframework.shared.attributes.Rect;
 import com.vrozsa.crowframework.shared.attributes.Size;
 

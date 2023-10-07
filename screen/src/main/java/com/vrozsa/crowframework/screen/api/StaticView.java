@@ -8,7 +8,7 @@ import com.vrozsa.crowframework.shared.attributes.Rect;
 
 public class StaticView extends BaseView {
     public StaticView(final Rect rect, final String imageFile) {
-        super(rect);
+        super("STATIC", rect);
 
         setupComponents(rect, imageFile);
     }

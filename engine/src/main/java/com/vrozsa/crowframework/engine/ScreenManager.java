@@ -1,45 +1,18 @@
 package com.vrozsa.crowframework.engine;
 
-import com.vrozsa.crowframework.screen.api.WindowCloseRequestListener;
-import com.vrozsa.crowframework.screen.internal.BaseScreen;
-import com.vrozsa.crowframework.screen.internal.ScreenHandler;
-import com.vrozsa.crowframework.screen.internal.ScreenHandlerConfig;
-import com.vrozsa.crowframework.shared.api.input.InputHandler;
-import com.vrozsa.crowframework.shared.attributes.Offset;
+import com.vrozsa.crowframework.screen.ui.UIIcon;
+import com.vrozsa.crowframework.shared.attributes.Rect;
 
-class ScreenManager implements OffsetGetter {
-    private final ScreenHandler screenHandler;
+/**
+ * Manages screen related features.
+ */
+public interface ScreenManager {
 
-    ScreenManager(final ScreenHandlerConfig screenHandlerConfig, final InputHandler inputHandler) {
-        screenHandler = new ScreenHandler(screenHandlerConfig, inputHandler);
-    }
-
-    @Override
-    public Offset getOffset() {
-        return screenHandler.getPosition();
-    }
-
-    void addWindowCloseRequestListener(WindowCloseRequestListener listener) {
-        screenHandler.addOnWindowCloseRequestListener(listener);
-    }
-
-    void addScreen(final String name, final BaseScreen screen) {
-        screenHandler.add(name, screen);
-    }
-
-    void setOnlyScreenVisible(final String name, final boolean isVisible) {
-        screenHandler.setOnlyScreenVisible(name, isVisible);
-    }
-
-    void show() {
-        screenHandler.setVisible(true);
-    }
-
-    void hide() {
-        screenHandler.setVisible(false);
-    }
-
-    void close() {
-        screenHandler.exit();
-    }
+    /**
+     * Adds a new Icon component to the default screen and view.
+     * @param imageFile icon target image.
+     * @param rect icon position and size.
+     * @return the new icon component.
+     */
+    UIIcon addIcon(final String imageFile, final Rect rect);
 }

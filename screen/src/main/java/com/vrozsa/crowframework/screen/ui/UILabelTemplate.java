@@ -1,5 +1,6 @@
 package com.vrozsa.crowframework.screen.ui;
 
+import com.vrozsa.crowframework.shared.api.screen.ui.UIComponentType;
 import com.vrozsa.crowframework.shared.attributes.Color;
 import com.vrozsa.crowframework.screen.ui.api.UIText;
 

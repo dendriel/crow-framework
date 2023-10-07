@@ -2,50 +2,36 @@ package com.vrozsa.crowframework.screen.api;
 
 import com.vrozsa.crowframework.screen.internal.BaseScreen;
 import com.vrozsa.crowframework.screen.internal.BaseView;
-import com.vrozsa.crowframework.screen.ui.api.UIComponent;
 import com.vrozsa.crowframework.shared.attributes.Color;
 import com.vrozsa.crowframework.shared.attributes.Size;
 
-public class SimpleScreen extends BaseScreen<SimpleViewType, SimpleViewType> {
-    public static final String NAME = "SIMPLE";
+public class SimpleScreen extends BaseScreen {
+    private static final String DEFAULT_VIEW_GROUP = "DEFAULT";
 
-    public SimpleScreen(Size size) {
-        this(size, Color.blue());
+    public SimpleScreen(final String name, final Size size) {
+        this(name, size, Color.blue());
     }
 
-    public SimpleScreen(Size size, Color color) {
-        super(size, color);
-    }
-
-    public String name() {
-        return NAME;
+    public SimpleScreen(final String name, final Size size, final Color color) {
+        super(name, size, color);
     }
 
     // In real scenarios the screen will know by itself what views to create/display.
-    public void addView(BaseView view) {
-        super.addView(SimpleViewType.BASIC, view);
-        addViewGroup(SimpleViewType.BASIC, SimpleViewType.BASIC);
+    public void addView(final BaseView view) {
+        this.addView(view, DEFAULT_VIEW_GROUP);
     }
 
-    public void addView(SimpleViewType type, BaseView view) {
-        super.addView(type, view);
-        addViewGroup(type, type);
+    public void addView(final BaseView view, final String viewGroup) {
+        super.addView(view.name(), view);
+        addViewGroup(viewGroup, view.name());
     }
 
     public void displayView() {
-        displayViewGroup(SimpleViewType.BASIC);
+        displayViewGroup(SimpleViewType.BASIC.name());
     }
 
-    public void displayView(SimpleViewType type) {
-        displayViewGroup(type);
-    }
-
-    /**
-     * Adds a new UI component to the screen
-     * @param component component to be added
-     */
-    public <T> void addComponent(final UIComponent<T> component) {
-        getView(SimpleViewType.STATIC).addComponent(component);
+    public void displayView(final String name) {
+        displayViewGroup(name);
     }
 
     public void draw(){

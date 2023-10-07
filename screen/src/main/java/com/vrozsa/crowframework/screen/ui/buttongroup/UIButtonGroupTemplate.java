@@ -1,6 +1,6 @@
 package com.vrozsa.crowframework.screen.ui.buttongroup;
 
-import com.vrozsa.crowframework.screen.ui.UIComponentType;
+import com.vrozsa.crowframework.shared.api.screen.ui.UIComponentType;
 import com.vrozsa.crowframework.screen.ui.UIIconTemplate;
 import com.vrozsa.crowframework.screen.ui.button.UIButtonTemplate;
 import com.vrozsa.crowframework.shared.attributes.Border;

@@ -1,5 +1,7 @@
 package com.vrozsa.crowframework.screen.ui;
 
+import com.vrozsa.crowframework.shared.api.screen.ui.UIComponentType;
+
 public class UIIconTemplate extends UIBaseComponentTemplate {
     private String imageFile;
 
