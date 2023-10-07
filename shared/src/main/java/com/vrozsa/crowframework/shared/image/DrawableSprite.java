@@ -13,64 +13,58 @@ import lombok.Data;
 
 @Data
 public class DrawableSprite implements Drawable, Sprite {
-    private final SpriteTemplate data;
+    private final SpriteTemplate template;
     private int order;
     private Offset offset;
     private Scale scale;
     private Size size;
-    private Image resizableImage;
+    private Image image;
     private boolean enabled;
     private boolean isFlipX;
     private Renderer renderer;
     private boolean isFlipY;
 
-    public DrawableSprite(SpriteTemplate data) {
-        this(data, data.enabled());
+    public DrawableSprite(final SpriteTemplate template, final Image image, boolean enabled) {
+        this.template = template;
+        this.image = image;
+        reset(enabled);
     }
 
-    public DrawableSprite(SpriteTemplate data, boolean isEnabled) {
-        this.data = data;
-        reset();
+    public DrawableSprite(final SpriteTemplate template) {
+        this.template = template;
+        reset(template.enabled());
         load();
-        enabled = isEnabled;
     }
 
-    public DrawableSprite(SpriteTemplate data, Image resizableImage, boolean isEnabled) {
-        this.data = data;
-        this.resizableImage = resizableImage;
-        enabled = isEnabled;
-        reset();
+    private void load() {
+        image = ImageLoader.load(template.imageFile());
     }
 
-    private void reset() {
-        this.order = data.order();
-        this.enabled = data.enabled();
-        this.isFlipX = data.isFlipX();
-        this.isFlipY = data.isFlipY();
-        this.scale = data.scale();
-        this.offset = data.offset();
-        this.size = data.size();
+    private void reset(final boolean enabled) {
+        this.enabled = enabled;
+        this.order = template.order();
+        this.isFlipX = template.isFlipX();
+        this.isFlipY = template.isFlipY();
+        this.scale = template.scale();
+        this.offset = template.offset();
+        this.size = template.size();
     }
 
     public Image getImage() {
-        return resizableImage;
+        return image;
     }
 
     public Offset getDefaultOffset() {
-        return data.offset();
+        return template.offset();
     }
 
 
     public Scale getDefaultScale() {
-        return data.scale();
+        return template.scale();
     }
 
     public void setScaleWidth(double width) {
         this.scale.setWidth(width);
-    }
-
-    private void load() {
-        resizableImage = ImageLoader.load(data.imageFile());
     }
 
     @Override

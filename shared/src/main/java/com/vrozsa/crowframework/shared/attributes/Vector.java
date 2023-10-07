@@ -12,10 +12,14 @@ public class Vector implements Cloneable {
 
     public Vector() {}
 
-    public Vector(int x, int y, int z) {
+    private Vector(int x, int y, int z) {
         this.x = x;
         this.y = y;
         this.z = z;
+    }
+
+    public static Vector of(int x, int y, int z) {
+        return new Vector(x, y, z);
     }
 
     /**

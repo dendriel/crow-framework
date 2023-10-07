@@ -13,6 +13,7 @@ dependencies {
     implementation project(path: ':screen')
     implementation project(path: ':shared')
     implementation project(path: ':input')
+    implementation project(path: ':game')
     testImplementation platform('org.junit:junit-bom:5.9.1')
     testImplementation 'org.junit.jupiter:junit-jupiter'
 }

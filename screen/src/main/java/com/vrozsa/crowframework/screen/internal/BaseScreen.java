@@ -7,14 +7,16 @@ import com.vrozsa.crowframework.shared.attributes.Size;
 
 import javax.swing.JPanel;
 import java.awt.Dimension;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
 public abstract class BaseScreen extends JPanel implements Screen {
     private final String name;
     private final Map<String, View> views;
-    private final Map<String, String[]> viewGroup;
+    private final Map<String, List<String>> viewGroup;
 
     private String lastViewGroupSet;
 
@@ -65,20 +67,21 @@ public abstract class BaseScreen extends JPanel implements Screen {
         return Size.of(dim.width, dim.height);
     }
 
-    protected void addViewGroup(String key, String...viewKeys) {
-        viewGroup.put(key, viewKeys);
+    public void addViewGroup(String key, String...viewKeys) {
+        viewGroup.computeIfAbsent(key, s -> new ArrayList<>());
+        viewGroup.get(key).addAll(List.of(viewKeys));
     }
 
 //    protected void removeViewGroup(Integer key) {
 //        viewGroup.remove(key);
 //    }
 
-    protected void displayViewGroup(final String key) {
+    public void displayViewGroup(final String key) {
         if (!viewGroup.containsKey(key)) {
             return;
         }
 
-        if (lastViewGroupSet.equals(key)) {
+        if (key.equals(lastViewGroupSet)) {
             return;
         }
 

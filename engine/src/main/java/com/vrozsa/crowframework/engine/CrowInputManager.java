@@ -6,10 +6,10 @@ import com.vrozsa.crowframework.shared.api.game.GameCommand;
 import com.vrozsa.crowframework.shared.api.input.InputHandler;
 import com.vrozsa.crowframework.shared.api.input.InputKey;
 
-class SimpleInputManager implements InputManager {
+class CrowInputManager implements InputManager {
     private final InputHandler inputHandler;
 
-    SimpleInputManager() {
+    CrowInputManager() {
         this.inputHandler = new BufferedInputHandler();
     }
 

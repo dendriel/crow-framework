@@ -1,12 +1,19 @@
 package com.vrozsa.crowframework.engine;
 
 import com.vrozsa.crowframework.screen.ui.UIIcon;
+import com.vrozsa.crowframework.shared.api.game.GameObject;
 import com.vrozsa.crowframework.shared.attributes.Rect;
 
 /**
  * Manages screen related features.
  */
 public interface ScreenManager {
+
+    /**
+     * Start rendering a Game Object. The game object must have been created with a Renderer.
+     * @param go the game object to be rendered.
+     */
+    void renderGO(final GameObject go);
 
     /**
      * Adds a new Icon component to the default screen and view.

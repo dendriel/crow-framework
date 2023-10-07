@@ -14,9 +14,11 @@ public record SpriteTemplate (
     Size size,
     boolean enabled,
     boolean isFlipX,
-    boolean isFlipY) {
+    boolean isFlipY
+) {
 
     public SpriteTemplate {
+        enabled = true;
         offset = new Offset();
         scale = new Scale(1, 1);
     }

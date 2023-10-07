@@ -1,22 +1,31 @@
 package com.vrozsa.crowframework.engine;
 
-
+import com.vrozsa.crowframework.game.RunnableGameLoop;
 import com.vrozsa.crowframework.screen.internal.ScreenHandlerConfig;
+import com.vrozsa.crowframework.shared.api.game.GameLoop;
 import com.vrozsa.crowframework.shared.attributes.Size;
 
 /**
  * Crow Engine aimed to be an out-of-box engine to easily build games using Crow Framework.
  */
-class SimpleCrowEngine implements CrowEngine {
+class Engine implements CrowEngine {
     private final CrowEngineConfig config;
-    private final SimpleInputManager inputManager;
+    private final CrowInputManager inputManager;
     private final CrowScreenManager screenManager;
+    private final CrowGameManager gameManager;
+    private final GameLoop gameLoop;
 
-    SimpleCrowEngine(final CrowEngineConfig config) {
+    Engine(final CrowEngineConfig config) {
         this.config = config;
-        inputManager = new SimpleInputManager();
-
+        inputManager = new CrowInputManager();
         screenManager = setupScreenManager();
+        gameManager = new CrowGameManager(screenManager);
+
+        gameLoop = RunnableGameLoop.get();
+        gameLoop.setScreenUpdateListener(screenManager::update);
+        gameLoop.addUpdateListener(gameManager::update);
+
+        gameLoop.start();
     }
 
     private CrowScreenManager setupScreenManager() {
@@ -34,5 +43,10 @@ class SimpleCrowEngine implements CrowEngine {
     @Override
     public CrowScreenManager getScreenManager() {
         return screenManager;
+    }
+
+    @Override
+    public GameManager getGameManager() {
+        return gameManager;
     }
 }

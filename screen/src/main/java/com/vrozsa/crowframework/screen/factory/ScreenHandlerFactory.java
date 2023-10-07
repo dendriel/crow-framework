@@ -3,6 +3,7 @@ package com.vrozsa.crowframework.screen.factory;
 import com.vrozsa.crowframework.screen.api.ScreenType;
 import com.vrozsa.crowframework.screen.internal.ScreenHandler;
 import com.vrozsa.crowframework.screen.internal.ScreenHandlerConfig;
+import com.vrozsa.crowframework.screen.internal.StandAloneGameLoop;
 import com.vrozsa.crowframework.shared.api.input.InputHandler;
 import com.vrozsa.crowframework.shared.attributes.Size;
 import com.vrozsa.crowframework.shared.logger.LoggerService;
@@ -53,6 +54,8 @@ public class ScreenHandlerFactory {
                 .terminateOnWindowCloseClick(true)
                 .build();
 
+        // missing game loop
+//        , StandAloneGameLoop.getInstance()
         var screenHandler = new ScreenHandler(config, inputHandler);
         screenHandler.setVisible(isVisible);
 

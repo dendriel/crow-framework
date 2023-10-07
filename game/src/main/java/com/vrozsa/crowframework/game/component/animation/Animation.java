@@ -163,7 +163,7 @@ public class Animation {
         List<Drawable> drawings = new ArrayList<>();
         for (Image image : images) {
             Image drawing = ImageLoader.of(getImageToPaint(image));
-            Sprite sprite = Sprite.of(data.copy(), drawing, true);
+            Sprite sprite = Sprite.recreate(data.copy(), drawing, true);
             sprite.setRenderer(renderer);
             drawings.add(sprite);
         }

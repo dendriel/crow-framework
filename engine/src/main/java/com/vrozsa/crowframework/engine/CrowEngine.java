@@ -37,7 +37,7 @@ public interface CrowEngine {
      * @return
      */
     static CrowEngine create(final CrowEngineConfig config) {
-        return new SimpleCrowEngine(config);
+        return new Engine(config);
     }
 
     /**
@@ -51,4 +51,10 @@ public interface CrowEngine {
      * @return the screen manager.
      */
     ScreenManager getScreenManager();
+
+    /**
+     * Gets the GameManager instance.
+     * @return the game manager.
+     */
+    GameManager getGameManager();
 }

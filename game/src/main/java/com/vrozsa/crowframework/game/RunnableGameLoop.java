@@ -1,41 +1,49 @@
 package com.vrozsa.crowframework.game;
 
-
 import com.vrozsa.crowframework.shared.api.game.GameLoop;
 import com.vrozsa.crowframework.shared.api.game.UpdateListener;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
 
 import java.util.HashSet;
+import java.util.Objects;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class RunnableGameLoop implements GameLoop {
-    private static Thread gameLoop;
-    private static boolean isStarted;
-    private static boolean keepRunning;
-    private static int gameLoopFPS;
-    private static long frameTime;
-    private static HashSet<UpdateListener> onUpdateListeners;
-    private static UpdateListener screenUpdateListener;
+    private static RunnableGameLoop INSTANCE;
 
-    static {
+    private Thread gameLoop;
+    private boolean isStarted;
+    private volatile boolean keepRunning;
+    private int gameLoopFPS;
+    private long frameTime;
+    private HashSet<UpdateListener> onUpdateListeners;
+    private UpdateListener screenUpdateListener;
+
+    private RunnableGameLoop() {
         gameLoopFPS = 60;
         frameTime = (long)(1000 / (float)gameLoopFPS);
         onUpdateListeners = new HashSet<>();
         screenUpdateListener = () -> {};
     }
 
-    private static void start() {
+    public static GameLoop get() {
+        if (Objects.isNull(INSTANCE)) {
+            INSTANCE = new RunnableGameLoop();
+        }
+        return INSTANCE;
+    }
+
+    @Override
+    public void start() {
         if (isStarted) {
             return;
         }
         isStarted = true;
         keepRunning = true;
-        gameLoop = new Thread(RunnableGameLoop::updateLoop);
+        gameLoop = new Thread(this::updateLoop);
         gameLoop.start();
     }
 
-    public static void terminate(long timeToWait) {
+    @Override
+    public void terminate(final long timeToWait) {
         if (!isStarted) {
             return;
         }
@@ -44,41 +52,38 @@ public class RunnableGameLoop implements GameLoop {
         try {
             gameLoop.join(timeToWait);
         } catch (InterruptedException e) {
+            // should not get in here.
             e.printStackTrace();
         }
-    }
 
-    /**
-     * TODO: make this a singleton and stop using statics.
-     */
-    public static GameLoop create() {
-        return new RunnableGameLoop();
+        isStarted = false;
     }
 
     public void setScreenUpdateListener(UpdateListener listener) {
         screenUpdateListener = listener;
-        start();
     }
 
-    public static void setGameLoopFPS(int value) {
+    public void setGameLoopFPS(final int value) {
         gameLoopFPS = value;
         frameTime = (long)(1000 / (float)gameLoopFPS);
     }
 
-    public static long getFrameTime() {
+    public long getFrameTime() {
         return frameTime;
     }
 
-    public static void addOnUpdateListener(UpdateListener listener) {
+    @Override
+    public void addUpdateListener(final UpdateListener listener) {
         onUpdateListeners.add(listener);
         start();
     }
 
-    public static void removeOnUpdateListener(UpdateListener listener) {
+    @Override
+    public void removeUpdateListener(final UpdateListener listener) {
         onUpdateListeners.remove(listener);
     }
 
-    private static void updateLoop() {
+    private void updateLoop() {
         while(keepRunning) {
             long startTime = System.currentTimeMillis();
 
@@ -89,8 +94,10 @@ public class RunnableGameLoop implements GameLoop {
             try {
                 long sleepTime = Math.max(0, frameTime - timePassed);
                 Thread.sleep(sleepTime);
-            } catch (InterruptedException e) {
+            }
+            catch (InterruptedException e) {
                 e.printStackTrace();
+                return;
             }
         }
     }

@@ -69,6 +69,6 @@ public class ButtonInteraction {
 
 //        screen.addComponent(label);
 //        screen.addComponent(button);
-        screen.displayView();
+//        screen.displayView();
     }
 }

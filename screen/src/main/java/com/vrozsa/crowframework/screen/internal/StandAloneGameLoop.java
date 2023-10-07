@@ -36,6 +36,26 @@ public class StandAloneGameLoop implements GameLoop, Runnable {
     }
 
     @Override
+    public void start() {
+
+    }
+
+    @Override
+    public void terminate(long timeToWait) {
+
+    }
+
+    @Override
+    public void addUpdateListener(UpdateListener listener) {
+
+    }
+
+    @Override
+    public void removeUpdateListener(UpdateListener listener) {
+
+    }
+
+    @Override
     public void setScreenUpdateListener(final UpdateListener listener) {
         this.screenUpdateListener = listener;
         keepRunning = true;

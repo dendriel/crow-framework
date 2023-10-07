@@ -11,26 +11,33 @@ import com.vrozsa.crowframework.shared.attributes.Size;
 import com.vrozsa.crowframework.shared.image.DrawingsSorter;
 
 import java.awt.Graphics;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.*;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Allow to display game-play objects in the screen (in addition to UI components).
  */
 public class RendererView extends BaseView implements RendererObserver {
     public static final String NAME = "RENDERER_VIEW";
-    private List<Renderer> renderers;
-    private List<Renderer> persistentRenderers;
+    private final List<Renderer> renderers;
+    private final List<Renderer> persistentRenderers;
     protected int offsetX;
     protected int offsetY;
 
-    public RendererView(Rect rect) {
-        super(NAME, rect);
+    public RendererView(final Rect rect) {
+        this(NAME, rect);
+    }
+
+    public RendererView(final String name, final Rect rect) {
+        super(name, rect);
         renderers = new ArrayList<>();
         persistentRenderers = new ArrayList<>();
     }
 
-    public RendererView(ViewTemplate viewTemplate) {
+    public RendererView(final ViewTemplate viewTemplate) {
         super(viewTemplate);
         renderers = new ArrayList<>();
         persistentRenderers = new ArrayList<>();
@@ -173,7 +180,7 @@ public class RendererView extends BaseView implements RendererObserver {
             return false;
         }
 
-        Size rSize = r.getSize();
+        var rSize = r.getSize();
         if (isPointInsideScreen(rendererPos.getX() + rSize.getWidth(), rendererPos.getY())) {
             return false;
         }

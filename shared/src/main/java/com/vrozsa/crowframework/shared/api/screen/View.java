@@ -28,4 +28,10 @@ public interface View {
      * @param parentSize parent size to be used as a reference in the resizing.
      */
     void resize(final Size parentSize);
+
+    /**
+     * View name (unique identifier).
+     * @return the view name.
+     */
+    String name();
 }

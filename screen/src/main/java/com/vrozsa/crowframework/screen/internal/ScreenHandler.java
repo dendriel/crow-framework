@@ -1,7 +1,6 @@
 package com.vrozsa.crowframework.screen.internal;
 
 import com.vrozsa.crowframework.screen.api.WindowCloseRequestListener;
-import com.vrozsa.crowframework.shared.api.game.GameLoop;
 import com.vrozsa.crowframework.shared.api.input.InputHandler;
 import com.vrozsa.crowframework.shared.api.screen.Screen;
 import com.vrozsa.crowframework.shared.attributes.Offset;
@@ -22,22 +21,16 @@ import java.util.concurrent.ConcurrentMap;
 @AllArgsConstructor
 public class ScreenHandler {
     private final ScreenHandlerConfig config;
-    private final GameLoop gameLoop;
     private final JFrame frame;
     private final ConcurrentMap<String, Screen> screens;
     private final HashSet<WindowCloseRequestListener> onWindowCloseRequestListeners;
 
     public ScreenHandler(final ScreenHandlerConfig config) {
-        this(config, null, StandAloneGameLoop.getInstance());
+        this(config, null);
     }
 
     public ScreenHandler(final ScreenHandlerConfig config, final InputHandler inputHandler) {
-        this(config, inputHandler, StandAloneGameLoop.getInstance());
-    }
-
-    public ScreenHandler(final ScreenHandlerConfig config, final InputHandler inputHandler, final GameLoop gameLoop) {
         this.config = config;
-        this.gameLoop = gameLoop;
         frame = new JFrame();
         screens = new ConcurrentHashMap<>();
         onWindowCloseRequestListeners = new HashSet<>();
@@ -52,7 +45,6 @@ public class ScreenHandler {
         }
 
         setVisible(config.isVisible());
-        gameLoop.setScreenUpdateListener(this::screenUpdate);
     }
 
     public void addOnWindowCloseRequestListener(WindowCloseRequestListener listener) {
@@ -63,7 +55,7 @@ public class ScreenHandler {
         onWindowCloseRequestListeners.remove(listener);
     }
 
-    private void screenUpdate() {
+    public void update() {
         screens.values().forEach(Screen::draw);
     }
 
