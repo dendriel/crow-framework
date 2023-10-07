@@ -2,6 +2,7 @@ package com.vrozsa.crowframework.shared.attributes;
 
 import java.util.Objects;
 
+// TODO: make this immutable?
 public class Size {
     public static Size zeroed() {
         return new Size();

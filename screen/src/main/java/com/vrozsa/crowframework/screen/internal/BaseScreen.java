@@ -100,4 +100,6 @@ public abstract class BaseScreen<TKey, TKeyGroup> extends JPanel {
         repaint();
         views.values().forEach(BaseView::draw);
     }
+
+    public abstract String name();
 }

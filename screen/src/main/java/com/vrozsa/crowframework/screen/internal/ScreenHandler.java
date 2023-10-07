@@ -7,8 +7,9 @@ import com.vrozsa.crowframework.shared.attributes.Offset;
 import com.vrozsa.crowframework.shared.attributes.Size;
 import lombok.AllArgsConstructor;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.ActionMap;
+import javax.swing.JFrame;
+import javax.swing.JTextField;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.WindowEvent;
@@ -17,11 +18,11 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 @AllArgsConstructor
-public class ScreenHandler<TScreenKey extends Enum<TScreenKey>> {
+public class ScreenHandler {
     private final ScreenHandlerConfig config;
     private final GameLoop gameLoop;
     private final JFrame frame;
-    private final ConcurrentMap<TScreenKey, BaseScreen> screens;
+    private final ConcurrentMap<String, BaseScreen> screens;
     private final HashSet<WindowCloseRequestListener> onWindowCloseRequestListeners;
 
     public ScreenHandler(final ScreenHandlerConfig config) {
@@ -65,14 +66,14 @@ public class ScreenHandler<TScreenKey extends Enum<TScreenKey>> {
     }
 
     private void setupWindow() {
-        frame.setTitle(config.getTitle());
+        frame.setTitle(config.title());
 
         if (config.isFullscreen()) {
             frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
             frame.setUndecorated(true);
         }
         else {
-            setupWindowed(config.getSize(), config.isResizable());
+            setupWindowed(config.size(), config.isResizable());
         }
 
         frame.setLocationRelativeTo(null);
@@ -82,11 +83,11 @@ public class ScreenHandler<TScreenKey extends Enum<TScreenKey>> {
     }
 
     public Offset getPosition() {
-        Insets insets = frame.getInsets();
+        var insets = frame.getInsets();
         int insetWidth = insets.left;// + insets.right;
         int insetHeight = insets.top;// + insets.bottom;
 
-        Point point = frame.getLocation();
+        java.awt.Point point = frame.getLocation();
 
         Offset position = new Offset((int)point.getX(), (int)point.getY());
         position = position.add(new Offset(insetWidth, insetHeight));
@@ -94,7 +95,7 @@ public class ScreenHandler<TScreenKey extends Enum<TScreenKey>> {
     }
 
     private void setupCloseOperation() {
-        if (config.isTerminateOnWindowCloseClick()) {
+        if (config.terminateOnWindowCloseClick()) {
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             return;
         }
@@ -123,16 +124,16 @@ public class ScreenHandler<TScreenKey extends Enum<TScreenKey>> {
     }
 
     private void onScreenResized(ComponentEvent componentEvent) {
-        Dimension dim = componentEvent.getComponent().getSize();
+        java.awt.Dimension dim = componentEvent.getComponent().getSize();
         int newWidth = removeWidthInsets((int)dim.getWidth());
         int newHeight = removeHeightInsets((int)dim.getHeight());
 
-        Size newSize = new Size(newWidth, newHeight);
+        var newSize = new Size(newWidth, newHeight);
         screens.values().forEach(s -> s.updateScreenSize(newSize));
     }
 
     private void setupInputHandler(InputHandler inputListener) {
-        JTextField textField = new JTextField();
+        var textField = new JTextField();
         textField.addKeyListener(inputListener);
         textField.setBorder(null);
         // Allow tab key to be noticed.
@@ -143,7 +144,7 @@ public class ScreenHandler<TScreenKey extends Enum<TScreenKey>> {
     }
 
     private void compensateInsets(Size size) {
-        Insets insets = frame.getInsets();
+        var insets = frame.getInsets();
         int insetWidth = insets.left + insets.right;
         int insetHeight = insets.top + insets.bottom;
 
@@ -157,13 +158,13 @@ public class ScreenHandler<TScreenKey extends Enum<TScreenKey>> {
         screens.values().forEach(s -> s.updateScreenSize(getSize()));
     }
 
-    public void add(TScreenKey key, BaseScreen screen) {
+    public void add(String key, BaseScreen screen) {
         screens.put(key, screen);
         frame.add(screen);
         screen.updateScreenSize(getSize());
     }
 
-    public boolean remove(TScreenKey key, BaseScreen screen) {
+    public boolean remove(String key, BaseScreen screen) {
         if (!screens.containsKey(key)) {
             return false;
         }
@@ -172,7 +173,7 @@ public class ScreenHandler<TScreenKey extends Enum<TScreenKey>> {
         return true;
     }
 
-    public BaseScreen get(TScreenKey key) {
+    public BaseScreen get(String key) {
         if (!screens.containsKey(key)) {
             return null;
         }
@@ -185,11 +186,10 @@ public class ScreenHandler<TScreenKey extends Enum<TScreenKey>> {
 
     public void setVisible(boolean isVisible) {
         frame.setVisible(isVisible);
-        compensateInsets(config.getSize().clone());
+        compensateInsets(config.size().clone());
     }
 
-    // TODO: the method name doesnt make sense if we pass isVisible;
-    public void setOnlyVisible(TScreenKey key, boolean isVisible) {
+    public void setOnlyScreenVisible(final String key, final boolean isVisible) {
         screens.values().forEach(s -> s.setVisible(false));
         if (screens.containsKey(key)) {
             BaseScreen target = screens.get(key);
@@ -199,22 +199,22 @@ public class ScreenHandler<TScreenKey extends Enum<TScreenKey>> {
     }
 
     public int getWidth() {
-        Insets insets = frame.getInsets();
+        var insets = frame.getInsets();
         return frame.getWidth() - insets.left - insets.right;
     }
 
     public int getHeight() {
-        Insets insets = frame.getInsets();
+        var insets = frame.getInsets();
         return frame.getHeight() - insets.top - insets.bottom;
     }
 
     private int removeWidthInsets(int width) {
-        Insets insets = frame.getInsets();
+        var insets = frame.getInsets();
         return width - insets.left - insets.right;
     }
 
     private int removeHeightInsets(int height) {
-        Insets insets = frame.getInsets();
+        var insets = frame.getInsets();
         return height - insets.top - insets.bottom;
     }
 

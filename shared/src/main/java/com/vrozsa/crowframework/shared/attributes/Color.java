@@ -84,9 +84,13 @@ public class Color {
         return new Color(java.awt.Color.blue);
     }
 
-    public static Color from(java.awt.Color color) {
-        return new Color(color);
+    public static Color gray() {
+        return new Color(java.awt.Color.gray);
     }
+
+//    public static Color from(java.awt.Color color) {
+//        return new Color(color);
+//    }
 
     public static Color from(int r, int g, int b) {
         return new Color(r, g, b);

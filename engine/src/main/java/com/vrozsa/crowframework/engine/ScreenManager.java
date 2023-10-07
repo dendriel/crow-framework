@@ -1,30 +1,18 @@
 package com.vrozsa.crowframework.engine;
 
-import com.vrozsa.crowframework.screen.api.ScreenType;
 import com.vrozsa.crowframework.screen.api.WindowCloseRequestListener;
+import com.vrozsa.crowframework.screen.internal.BaseScreen;
 import com.vrozsa.crowframework.screen.internal.ScreenHandler;
+import com.vrozsa.crowframework.screen.internal.ScreenHandlerConfig;
+import com.vrozsa.crowframework.shared.api.input.InputHandler;
 import com.vrozsa.crowframework.shared.attributes.Offset;
 
 class ScreenManager implements OffsetGetter {
-//    private final ScreenManagerConfig config;
-    private ScreenHandler<ScreenType> screenHandler;
+    private final ScreenHandler screenHandler;
 
-    ScreenManager(
-//            final ScreenManagerConfig config,
-            SimpleInputManager inputManager
-    ) {
-//        this.config = config;
-
-//        setup(config.getScreenHandlerConfig(), inputManager);
+    ScreenManager(final ScreenHandlerConfig screenHandlerConfig, final InputHandler inputHandler) {
+        screenHandler = new ScreenHandler(screenHandlerConfig, inputHandler);
     }
-
-//    private void setup(ScreenHandlerConfig config, InputManager inputManager) {
-//        screenHandler = new ScreenHandler<>(config, inputManager.getInputHandler());
-//        Size size = screenHandler.getSize();
-//
-//        screenHandler.add(ScreenType.LOGIN, new LoginScreen(configLoader.getConfig(LoginScreenConfig.class), size));
-//        screenHandler.add(ScreenType.GAME, new GameScreen(configLoader.getConfig(GameScreenConfig.class), this, size, configLoader.getSysConfig().getTileSize()));
-//    }
 
     @Override
     public Offset getOffset() {
@@ -33,6 +21,14 @@ class ScreenManager implements OffsetGetter {
 
     void addWindowCloseRequestListener(WindowCloseRequestListener listener) {
         screenHandler.addOnWindowCloseRequestListener(listener);
+    }
+
+    void addScreen(final String name, final BaseScreen screen) {
+        screenHandler.add(name, screen);
+    }
+
+    void setOnlyScreenVisible(final String name, final boolean isVisible) {
+        screenHandler.setOnlyScreenVisible(name, isVisible);
     }
 
     void show() {

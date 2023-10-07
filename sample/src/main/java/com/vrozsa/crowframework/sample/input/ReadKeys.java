@@ -16,7 +16,7 @@ public class ReadKeys {
     public static void main(String[] args) {
         BufferedInputHandler inputHandler = new BufferedInputHandler();
 
-        ScreenHandler<ScreenType> screenHandler = ScreenHandlerFactory.createWithSimpleScreen(BACKGROUND_IMAGE_FILE, inputHandler);
+        ScreenHandler screenHandler = ScreenHandlerFactory.createWithSimpleScreen(BACKGROUND_IMAGE_FILE, inputHandler);
 
         logger.debug("Reading keys..");
 

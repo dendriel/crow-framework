@@ -20,9 +20,9 @@ public class ButtonInteraction {
 
     public static void main(String[] args) {
 
-        ScreenHandler<ScreenType> screenHandler = ScreenHandlerFactory.createWithSimpleScreen(BACKGROUND_IMAGE_FILE);
+        ScreenHandler screenHandler = ScreenHandlerFactory.createWithSimpleScreen(BACKGROUND_IMAGE_FILE);
 
-        SimpleScreen screen = (SimpleScreen)screenHandler.get(ScreenType.SIMPLE);
+        SimpleScreen screen = (SimpleScreen)screenHandler.get(ScreenType.SIMPLE.name());
         Rect screenRect = new Rect(0, 0, screen.getWidth(), screen.getHeight());
 
         // Dynamic Label

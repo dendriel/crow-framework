@@ -1,18 +1,28 @@
 package com.vrozsa.crowframework.engine;
 
+import com.vrozsa.crowframework.shared.attributes.Color;
+
 /**
  * Crow Engine public API.
  */
 public interface CrowEngine {
-    int DEFAULT_SCREEN_WIDTH = 800;
-    int DEFAULT_SCREEN_HEIGHT = 600;
 
     static CrowEngine create() {
-        return create(DEFAULT_SCREEN_WIDTH, DEFAULT_SCREEN_HEIGHT);
+        var config = CrowEngineConfig.builder().build();
+        return create(config);
     }
 
-    static CrowEngine create(final int screenWidth, final int screenHeight) {
-        return new SimpleCrowEngine(screenWidth,screenHeight);
+    static CrowEngine create(final int screenWidth, final int screenHeight, final Color color) {
+        var config = CrowEngineConfig.builder()
+                .screenWidth(screenWidth)
+                .screenHeight(screenHeight)
+                .color(color)
+                .build();
+        return create(config);
+    }
+
+    static CrowEngine create(final CrowEngineConfig config) {
+        return new SimpleCrowEngine(config);
     }
 
     InputManager getInputManager();

@@ -1,17 +1,19 @@
 package com.vrozsa.crowframework.sample.engine;
 
 import com.vrozsa.crowframework.engine.CrowEngine;
-import com.vrozsa.crowframework.engine.InputManager;
-import com.vrozsa.crowframework.shared.api.input.InputKey;
 
 public class SimpleEngineSetup {
 
     public static void main(String[] args) {
 
-        CrowEngine crowEngine = CrowEngine.create();
+//        var crow = CrowEngine.create(800, 600, Color.gray());
+        var crow = CrowEngine.create();
 
-        InputManager inputManager = crowEngine.getInputManager();
+//        crow.addUIComponent();
 
-        inputManager.readUntil(InputKey.ENTER);
+
+//        var inputManager = crow.getInputManager();
+//
+//        inputManager.readUntil(InputKey.ENTER);
     }
 }

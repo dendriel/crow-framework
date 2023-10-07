@@ -4,18 +4,21 @@ import com.vrozsa.crowframework.screen.internal.BaseScreen;
 import com.vrozsa.crowframework.screen.internal.BaseView;
 import com.vrozsa.crowframework.screen.ui.api.UIComponent;
 import com.vrozsa.crowframework.shared.attributes.Color;
-import com.vrozsa.crowframework.shared.attributes.Rect;
 import com.vrozsa.crowframework.shared.attributes.Size;
 
-import java.util.Objects;
-
 public class SimpleScreen extends BaseScreen<SimpleViewType, SimpleViewType> {
+    public static final String NAME = "SIMPLE";
+
     public SimpleScreen(Size size) {
         this(size, Color.blue());
     }
 
     public SimpleScreen(Size size, Color color) {
         super(size, color);
+    }
+
+    public String name() {
+        return NAME;
     }
 
     // In real scenarios the screen will know by itself what views to create/display.
