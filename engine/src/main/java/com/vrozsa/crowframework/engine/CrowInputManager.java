@@ -2,6 +2,7 @@ package com.vrozsa.crowframework.engine;
 
 
 import com.vrozsa.crowframework.BufferedInputHandler;
+import com.vrozsa.crowframework.TrackingInputHandler;
 import com.vrozsa.crowframework.shared.api.game.GameCommand;
 import com.vrozsa.crowframework.shared.api.input.InputHandler;
 import com.vrozsa.crowframework.shared.api.input.InputKey;
@@ -10,14 +11,14 @@ class CrowInputManager implements InputManager {
     private final InputHandler inputHandler;
 
     CrowInputManager() {
-        this.inputHandler = new BufferedInputHandler();
+        this.inputHandler = new TrackingInputHandler();
     }
 
     InputHandler getInputHandler() {
         return inputHandler;
     }
 
-    GameCommand getCommand() {
+    public GameCommand getCommand() {
         var pressedKeys = inputHandler.getPressedKeys();
         if (pressedKeys.isEmpty()) {
             return GameCommand.UNKNOWN;

@@ -1,5 +1,6 @@
 package com.vrozsa.crowframework.game.component;
 
+import com.vrozsa.crowframework.shared.api.game.PositionComponent;
 import com.vrozsa.crowframework.shared.api.game.PositionObserver;
 import com.vrozsa.crowframework.shared.attributes.Vector;
 import com.vrozsa.crowframework.shared.attributes.Offset;
@@ -7,7 +8,7 @@ import com.vrozsa.crowframework.shared.attributes.Offset;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Position extends BaseComponent implements PositionObserver {
+public class Position extends BaseComponent implements PositionComponent, PositionObserver {
     public static final String DEFAULT_POSITION = "_defaultPositionComponent";
     private Position parent;
 
@@ -58,7 +59,7 @@ public class Position extends BaseComponent implements PositionObserver {
         return pos.clone();
     }
 
-    public void setPosition(int x, int y) {
+    public void setPosition(final int x, final int y) {
         pos.setX(x);
         pos.setY(y);
         onPositionChanged();

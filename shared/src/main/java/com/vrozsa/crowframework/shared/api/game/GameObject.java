@@ -2,10 +2,20 @@ package com.vrozsa.crowframework.shared.api.game;
 
 import java.util.List;
 
+/**
+ * Game Objects are the in-game representation of entities and elements.
+ * (out-game elements would be menus, ui, HUD, etc)
+ */
 public interface GameObject {
 
+    /**
+     * Updates the game object state.
+     */
     void update();
 
+    /**
+     * Late updates the game object state.
+     */
     void lateUpdate();
 
     /**
@@ -14,7 +24,19 @@ public interface GameObject {
      */
     boolean isInactive();
 
-    <T extends Component> T getComponent(Class<T> kind);
+    /**
+     * Get this GameObject position. All objects have a position component.
+     * @return the game object position component.
+     */
+    PositionComponent getPosition();
+
+    /**
+     * Add a new component to this game object.
+     * @param component the component to be added.
+     */
+    void addComponent(final Component component);
+
+    <T> T getComponent(Class<T> kind);
 
     <T extends Component> T getComponent(Class<T> kind, String name);
 

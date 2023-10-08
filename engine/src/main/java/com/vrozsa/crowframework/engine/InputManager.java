@@ -1,5 +1,6 @@
 package com.vrozsa.crowframework.engine;
 
+import com.vrozsa.crowframework.shared.api.game.GameCommand;
 import com.vrozsa.crowframework.shared.api.input.InputKey;
 
 /**
@@ -11,4 +12,11 @@ public interface InputManager {
      * @param keys target keys to be read.
      */
     void readUntil(final InputKey...keys);
+
+
+    /**
+     * Get the current game command the user is inputting (keyboard keys are mapped to game commands).
+     * @return the next game command if any.
+     */
+    GameCommand getCommand();
 }

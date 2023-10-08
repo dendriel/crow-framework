@@ -14,13 +14,15 @@ public class RunnableGameLoop implements GameLoop {
     private volatile boolean keepRunning;
     private int gameLoopFPS;
     private long frameTime;
-    private HashSet<UpdateListener> onUpdateListeners;
+    private final HashSet<UpdateListener> onUpdateListeners;
+    private final HashSet<UpdateListener> onLateUpdateListeners;
     private UpdateListener screenUpdateListener;
 
     private RunnableGameLoop() {
         gameLoopFPS = 60;
         frameTime = (long)(1000 / (float)gameLoopFPS);
         onUpdateListeners = new HashSet<>();
+        onLateUpdateListeners = new HashSet<>();
         screenUpdateListener = () -> {};
     }
 
@@ -75,12 +77,21 @@ public class RunnableGameLoop implements GameLoop {
     @Override
     public void addUpdateListener(final UpdateListener listener) {
         onUpdateListeners.add(listener);
-        start();
     }
 
     @Override
     public void removeUpdateListener(final UpdateListener listener) {
         onUpdateListeners.remove(listener);
+    }
+
+    @Override
+    public void addLateUpdateListener(UpdateListener listener) {
+        onLateUpdateListeners.add(listener);
+    }
+
+    @Override
+    public void removeLateUpdateListener(UpdateListener listener) {
+        onLateUpdateListeners.remove(listener);
     }
 
     private void updateLoop() {

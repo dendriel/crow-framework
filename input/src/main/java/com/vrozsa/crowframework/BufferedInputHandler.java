@@ -10,11 +10,12 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * Reads and buffers typed keys until read.
+ * This kind of input handler may be useful if we want to track all player commands and reproduce it sequentially one
+ * action after another (so the player types the commands and sees the result progressively).
  * WARNING: Must be attached to a screen component.
  */
 public class BufferedInputHandler implements InputHandler {
     private static final LoggerService logger = LoggerService.of(BufferedInputHandler.class);
-
     private final LinkedBlockingQueue<InputKey> inputs;
     private boolean isKeyReleased = true;
 
@@ -27,7 +28,7 @@ public class BufferedInputHandler implements InputHandler {
     }
 
     public List<InputKey> getPressedKeys() {
-        throw new UnsupportedOperationException();
+        return List.copyOf(inputs);
     }
 
     public void readUntil(final InputKey... keys) {
@@ -52,9 +53,11 @@ public class BufferedInputHandler implements InputHandler {
     public InputKey getNext() {
         try {
             return inputs.take();
-        } catch (InterruptedException e) {
+        }
+        catch (InterruptedException e) {
             logger.warn("[getNext] Current thread was interrupted! %s", e.toString());
         }
+
         return InputKey.UNKNOWN;
     }
 
@@ -70,6 +73,10 @@ public class BufferedInputHandler implements InputHandler {
         inputs.clear();
     }
 
+    /**
+     * This keyPressed and keyReleased mechanism allows to add keys into the list only one typed key at a time.
+     * @param e the event to be processed
+     */
     @Override
     public void keyPressed(KeyEvent e) {
         if (!isKeyReleased) {
@@ -80,16 +87,17 @@ public class BufferedInputHandler implements InputHandler {
 
         int keyCode = e.getKeyCode();
 //        System.out.println("Keycode: " + keyCode);
-        InputKey input = InputKey.from(keyCode);
+        var input = InputKey.from(keyCode);
         if (input == InputKey.UNKNOWN) {
-            System.out.println("Unmapped Keycode: " + keyCode);
+            logger.warn("Unmapped Keycode: %s", keyCode);
             return;
         }
 
         try {
             inputs.put(input);
-        } catch (InterruptedException ex) {
-            System.out.printf("Failed to add input to queue. Ex.: %s", ex);
+        }
+        catch (InterruptedException ex) {
+            logger.warn("Failed to add input to queue. Ex.: %s", ex);
         }
     }
 

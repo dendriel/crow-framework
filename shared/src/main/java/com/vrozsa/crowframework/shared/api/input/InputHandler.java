@@ -19,8 +19,8 @@ public interface InputHandler extends KeyListener {
     void clear();
 
     /**
-     * Get all keys pressed right now.
-     * @return the keys that are being pressed.
+     * Get the keys currently being pressed.
+     * @return the keys pressed right now.
      */
     List<InputKey> getPressedKeys();
 

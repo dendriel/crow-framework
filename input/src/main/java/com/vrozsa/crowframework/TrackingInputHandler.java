@@ -5,7 +5,7 @@ import com.vrozsa.crowframework.shared.api.input.InputKey;
 
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -17,12 +17,12 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 public class TrackingInputHandler implements InputHandler {
     private final ReentrantLock keysLock;
-    private final HashMap<InputKey, Boolean> keys;
+    private final EnumMap<InputKey, Boolean> keys;
     private final Set<InputKey> pressedKeys;
 
     public TrackingInputHandler() {
         keysLock = new ReentrantLock();
-        keys = new HashMap<>();
+        keys = new EnumMap<>(InputKey.class);
         pressedKeys = new HashSet<>();
     }
 

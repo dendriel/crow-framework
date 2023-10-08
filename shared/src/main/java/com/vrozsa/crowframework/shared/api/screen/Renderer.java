@@ -6,6 +6,9 @@ import com.vrozsa.crowframework.shared.attributes.Size;
 
 import java.util.List;
 
+/**
+ * Represents a game object renderer component.
+ */
 public interface Renderer {
     Offset getPos();
 

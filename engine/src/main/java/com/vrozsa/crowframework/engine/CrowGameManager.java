@@ -18,6 +18,10 @@ class CrowGameManager implements GameManager {
         gos.forEach(GameObject::update);
     }
 
+    void lateUpdate() {
+        gos.forEach(GameObject::lateUpdate);
+    }
+
     @Override
     public void addGameObject(final GameObject go) {
         gos.add(go);

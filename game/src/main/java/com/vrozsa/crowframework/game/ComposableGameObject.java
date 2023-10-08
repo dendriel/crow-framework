@@ -49,7 +49,7 @@ public final class ComposableGameObject implements GameObject {
         return getComponent(StaticRenderer.class);
     }
 
-    public void addComponent(Component component) {
+    public void addComponent(final Component component) {
         components.add(component);
         component.setGameObject(this);
         component.wrapUp();
@@ -64,8 +64,8 @@ public final class ComposableGameObject implements GameObject {
         return component != null ? kind.cast(component) : null;
     }
 
-    public <T extends Component> T getComponent(Class<T> kind) {
-        Component component = components.stream()
+    public <T> T getComponent(Class<T> kind) {
+        var component = components.stream()
                 .filter(c -> c.getClass().equals(kind) || kind.isInstance(c))
                 .findFirst()
                 .orElse(null);
