@@ -93,7 +93,17 @@ public final class GameObjectBuilder  {
     }
 
     public GameObjectBuilder addSquareCollider() {
-        var collider = new SquareCollider();
+        return addSquareCollider(0);
+    }
+
+    /**
+     * Adds a new square collider component.
+     * @param cooldown time to wait between collision detections (otherwise detection may happen for many frames and
+     *                 trigger the handler multiple times if it doesn't implement a cooldown control).
+     * @return
+     */
+    public GameObjectBuilder addSquareCollider(final long cooldown) {
+        var collider = new SquareCollider(cooldown);
         components.add(collider);
         return this;
     }

@@ -8,10 +8,17 @@ public class Cooldown {
     private long startTime;
     private boolean isStarted;
 
-    public Cooldown() {}
-
-    public Cooldown(long waitingTime) {
+    private Cooldown(long waitingTime) {
         this.waitingTime = waitingTime;
+    }
+
+    /**
+     * Create a new cooldown object.
+     * @param waitingTime cooldown control time in milliseconds.
+     * @return the new cooldown (stopped state).
+     */
+    public static Cooldown create(final long waitingTime) {
+        return new Cooldown(waitingTime);
     }
 
     public void start(long waitingTime) {
@@ -37,7 +44,7 @@ public class Cooldown {
     }
 
     public boolean isFinished() {
-        return !isWaiting();
+        return !isStarted || !isWaiting();
     }
 
     public boolean isWaiting() {

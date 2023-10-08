@@ -36,4 +36,9 @@ public interface ColliderComponent {
      * @return the game object in which this component was added.
      */
     GameObject getGameObject();
+
+    /**
+     * Sign to the component that a collision has occurred (collisions are detected by a collision handler).
+     */
+    void signCollision();
 }

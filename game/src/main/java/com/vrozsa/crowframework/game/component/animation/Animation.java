@@ -36,7 +36,7 @@ public class Animation {
     public Animation(AnimationTemplate data) {
         this.data = data;
 
-        cooldownBeforeRepeating = new Cooldown(data.getIntervalBeforeRepeating());
+        cooldownBeforeRepeating = Cooldown.create(data.getIntervalBeforeRepeating());
         setup();
         length = data.getTimeBetweenFrames() * totalFrames;
     }

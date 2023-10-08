@@ -36,7 +36,7 @@ public class CollidingGameObject {
 
         GameObject heroGO = GameObjectBuilder.of(Vector.of(screenMiddleX-40, screenMiddleY-40, 0))
                 .addStaticRenderer(HERO_IMAGE_FILE, CHARS_SPRITE_SIZE.getWidth(), CHARS_SPRITE_SIZE.getHeight())
-                .addSquareCollider()
+                .addSquareCollider(1000)
                 .addIdentifier("Hero", 1)
                 .addCollisionHandler((source, target) -> {
                     var sourceID = source.getComponent(Identifier.class);
@@ -91,22 +91,5 @@ public class CollidingGameObject {
                 .build();
 
         gameManager.addGameObject(banditGO);
-
-//        GameCommand command;
-//        do {
-//            command = inputManager.getCommand();
-//            var pos = heroGO.getPosition();
-//            int newX = pos.getX();
-//            int newY = pos.getY();
-//
-//            switch (command) {
-//                case MOVE_UP -> newY -= movingSpeed;
-//                case MOVE_DOWN -> newY += movingSpeed;
-//                case MOVE_LEFT -> newX -= movingSpeed;
-//                case MOVE_RIGHT -> newX += movingSpeed;
-//            }
-//
-//            pos.setPosition(newX, newY);
-//        } while (!command.isClose());
     }
 }

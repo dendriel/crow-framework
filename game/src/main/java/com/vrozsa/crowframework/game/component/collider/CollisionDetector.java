@@ -51,11 +51,13 @@ public class CollisionDetector {
         var sourceCollisionHandler = sourceGo.getComponent(BaseCollisionHandler.class);
         if (!Objects.isNull(sourceCollisionHandler)) {
             sourceCollisionHandler.handle(sourceGo, targetGo);
+            source.signCollision();
         }
 
         var targetCollisionHandler = targetGo.getComponent(BaseCollisionHandler.class);
         if (!Objects.isNull(targetCollisionHandler)) {
             targetCollisionHandler.handle(targetGo, sourceGo);
+            target.signCollision();
         }
     }
 

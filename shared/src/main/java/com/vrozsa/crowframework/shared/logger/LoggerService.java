@@ -1,7 +1,12 @@
 package com.vrozsa.crowframework.shared.logger;
 
+import com.vrozsa.crowframework.shared.time.TimeUtils;
+
+import java.text.DateFormat;
 import java.text.MessageFormat;
+import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -41,11 +46,12 @@ public final class LoggerService {
     }
 
     private void print(final String logLevel, final String template, final Object...args) {
+        var dateTime = TimeUtils.getFormattedDateTime();
         var message = MessageFormat.format(template, args);
-        System.out.printf("[%s] [%s] %s %n", logLevel, className, message);
+        System.out.printf("%s [%s] [%s] %s %n", dateTime, logLevel, className, message);
     }
 
-    private static String[] toString(final Object[] args) {
-        return Arrays.stream(args).map(Object::toString).toArray(String[]::new);
-    }
+//    private static String[] toString(final Object[] args) {
+//        return Arrays.stream(args).map(Object::toString).toArray(String[]::new);
+//    }
 }
