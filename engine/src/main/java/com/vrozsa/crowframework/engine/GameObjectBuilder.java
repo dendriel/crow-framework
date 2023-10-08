@@ -125,6 +125,11 @@ public final class GameObjectBuilder  {
         return this;
     }
 
+    public GameObjectBuilder addComponent(Component component) {
+        components.add(component);
+        return this;
+    }
+
     public GameObjectBuilder addIdentifier(final String name, final long id) {
         var identifier = new Identifier(id, name);
         components.add(identifier);

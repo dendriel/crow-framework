@@ -31,6 +31,12 @@ public interface GameObject {
     boolean isInactive();
 
     /**
+     * Enable/disable the game object.
+     * @param isActive if the object is active (true) or not (false).
+     */
+    void setActive(boolean isActive);
+
+    /**
      * Get this GameObject position. All objects have a position component.
      * @return the game object position component.
      */

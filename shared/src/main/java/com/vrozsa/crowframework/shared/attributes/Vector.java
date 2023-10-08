@@ -22,6 +22,10 @@ public class Vector implements Cloneable {
         return new Vector(x, y, z);
     }
 
+    public static Vector of(final Offset offset) {
+        return new Vector(offset.getX(), offset.getY(), 0);
+    }
+
     /**
      * Generates a new instance equivalent to the instance used to invoke clone.
      * @return the cloned instance.

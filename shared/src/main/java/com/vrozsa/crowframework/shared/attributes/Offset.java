@@ -18,6 +18,10 @@ public class Offset {
     public Offset() {
     }
 
+    public static Offset of(final int x, final int y) {
+        return new Offset(x, y);
+    }
+
     public void setOrigin() {
         x = 0;
         y = 0;
