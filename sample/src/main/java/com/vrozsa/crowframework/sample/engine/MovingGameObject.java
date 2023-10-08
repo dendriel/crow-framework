@@ -11,25 +11,25 @@ import com.vrozsa.crowframework.shared.attributes.Vector;
 
 import static com.vrozsa.crowframework.sample.TestValues.BACKGROUND_IMAGE_FILE;
 import static com.vrozsa.crowframework.sample.TestValues.HERO_IMAGE_FILE;
+import static com.vrozsa.crowframework.sample.TestValues.SCREEN_HEIGHT;
+import static com.vrozsa.crowframework.sample.TestValues.SCREEN_WIDTH;
 import static com.vrozsa.crowframework.shared.api.game.GameCommand.MOVE_LEFT;
 import static com.vrozsa.crowframework.shared.api.game.GameCommand.MOVE_RIGHT;
 
-public class SimpleEngineSetup {
+public class MovingGameObject {
 
     public static void main(String[] args) {
-        final int screenWidth = 800;
-        final int screenHeight = 600;
-        final int screenMiddleX = screenWidth / 2;
-        final int screenMiddleY = screenHeight / 2;
+        final int screenMiddleX = SCREEN_WIDTH / 2;
+        final int screenMiddleY = SCREEN_HEIGHT / 2;
 
-        var crow = CrowEngine.create(screenWidth, screenHeight, Color.gray());
+        var crow = CrowEngine.create(SCREEN_WIDTH, SCREEN_HEIGHT, Color.gray());
 
         var screenManager = crow.getScreenManager();
-        screenManager.addIcon(BACKGROUND_IMAGE_FILE, 0, 0, screenWidth, screenHeight);
+        screenManager.addIcon(BACKGROUND_IMAGE_FILE, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
         var gameManager = crow.getGameManager();
 
-        GameObject heroGO = new GameObjectBuilder(Vector.of(screenMiddleX-40, screenMiddleY-40, 0))
+        GameObject heroGO = GameObjectBuilder.of(Vector.of(screenMiddleX-40, screenMiddleY-40, 0))
                 .addStaticRenderer(HERO_IMAGE_FILE, 80, 80)
                 .build();
 
