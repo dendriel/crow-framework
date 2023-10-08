@@ -64,13 +64,18 @@ public final class ComposableGameObject implements GameObject {
         return component != null ? kind.cast(component) : null;
     }
 
-    public <T> T getComponent(Class<T> kind) {
+    public <T> T getComponent(final Class<T> kind) {
         var component = components.stream()
                 .filter(c -> c.getClass().equals(kind) || kind.isInstance(c))
                 .findFirst()
                 .orElse(null);
 
         return component != null ? kind.cast(component) : null;
+    }
+
+    public <T> boolean hasComponent(final Class<T> kind) {
+        return components.stream()
+                .anyMatch(c -> c.getClass().equals(kind) || kind.isInstance(c));
     }
 
     public <T extends Component> T getComponentFromChildren(Class<T> kind) {

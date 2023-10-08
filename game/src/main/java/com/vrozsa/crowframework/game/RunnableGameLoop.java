@@ -17,6 +17,7 @@ public class RunnableGameLoop implements GameLoop {
     private final HashSet<UpdateListener> onUpdateListeners;
     private final HashSet<UpdateListener> onLateUpdateListeners;
     private UpdateListener screenUpdateListener;
+    private UpdateListener collisionUpdateListener;
 
     private RunnableGameLoop() {
         gameLoopFPS = 60;
@@ -24,6 +25,7 @@ public class RunnableGameLoop implements GameLoop {
         onUpdateListeners = new HashSet<>();
         onLateUpdateListeners = new HashSet<>();
         screenUpdateListener = () -> {};
+        collisionUpdateListener = () -> {};
     }
 
     public static GameLoop get() {
@@ -61,8 +63,12 @@ public class RunnableGameLoop implements GameLoop {
         isStarted = false;
     }
 
-    public void setScreenUpdateListener(UpdateListener listener) {
+    public void setScreenUpdateListener(final UpdateListener listener) {
         screenUpdateListener = listener;
+    }
+
+    public void setCollisionUpdateListener(final UpdateListener listener) {
+        collisionUpdateListener = listener;
     }
 
     public void setGameLoopFPS(final int value) {
@@ -98,7 +104,10 @@ public class RunnableGameLoop implements GameLoop {
         while(keepRunning) {
             long startTime = System.currentTimeMillis();
 
+            collisionUpdateListener.onUpdate();
+
             onUpdateListeners.forEach(UpdateListener::onUpdate);
+
             screenUpdateListener.onUpdate();
 
             long timePassed = System.currentTimeMillis() - startTime;

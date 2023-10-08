@@ -1,8 +1,12 @@
 package com.vrozsa.crowframework.engine;
 
 import com.vrozsa.crowframework.game.ComposableGameObject;
+import com.vrozsa.crowframework.game.component.Identifier;
 import com.vrozsa.crowframework.game.component.Position;
 import com.vrozsa.crowframework.game.component.StaticRenderer;
+import com.vrozsa.crowframework.game.component.collider.BaseCollisionHandler;
+import com.vrozsa.crowframework.game.component.collider.SquareCollider;
+import com.vrozsa.crowframework.shared.api.game.CollisionHandler;
 import com.vrozsa.crowframework.shared.api.game.Component;
 import com.vrozsa.crowframework.shared.api.game.GameObject;
 import com.vrozsa.crowframework.shared.api.screen.Sprite;
@@ -85,6 +89,35 @@ public final class GameObjectBuilder  {
                 new StaticRenderer(position, layer, StaticRenderer.DEFAULT_STATIC_RENDERER, flipX, flipY, sprites.toArray(new Sprite[0]));
         components.add(renderer);
 
+        return this;
+    }
+
+    public GameObjectBuilder addSquareCollider() {
+        var collider = new SquareCollider();
+        components.add(collider);
+        return this;
+    }
+
+    public GameObjectBuilder addCollisionHandler(final BaseCollisionHandler collisionHandler) {
+        components.add(collisionHandler);
+        return this;
+    }
+
+    public GameObjectBuilder addCollisionHandler(final CollisionHandler handler) {
+        var collisionHandler = new BaseCollisionHandler() {
+            @Override
+            protected void handle(GameObject source, GameObject target) {
+                handler.handle(source, target);
+            }
+        };
+
+        components.add(collisionHandler);
+        return this;
+    }
+
+    public GameObjectBuilder addIdentifier(final String name, final long id) {
+        var identifier = new Identifier(id, name);
+        components.add(identifier);
         return this;
     }
 

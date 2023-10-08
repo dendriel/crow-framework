@@ -20,7 +20,7 @@ public class StandAloneGameLoop implements GameLoop, Runnable {
     private volatile boolean keepRunning;
     private volatile Thread gameLoopThread;
 
-    private static StandAloneGameLoop instance;
+    private static StandAloneGameLoop INSTANCE;
 
     static {
         gameLoopFPS = 60;
@@ -28,42 +28,33 @@ public class StandAloneGameLoop implements GameLoop, Runnable {
     }
 
     public static StandAloneGameLoop getInstance() {
-        if (Objects.isNull(instance)) {
-            instance = new StandAloneGameLoop();
+        if (Objects.isNull(INSTANCE)) {
+            INSTANCE = new StandAloneGameLoop();
         }
 
-        return instance;
+        return INSTANCE;
     }
 
     @Override
-    public void start() {
-
-    }
+    public void start() {}
 
     @Override
-    public void terminate(long timeToWait) {
-
-    }
+    public void terminate(long timeToWait) {}
 
     @Override
-    public void addUpdateListener(UpdateListener listener) {
-
-    }
+    public void addUpdateListener(UpdateListener listener) {}
 
     @Override
-    public void removeUpdateListener(UpdateListener listener) {
-
-    }
+    public void removeUpdateListener(UpdateListener listener) {}
 
     @Override
-    public void addLateUpdateListener(UpdateListener listener) {
-
-    }
+    public void addLateUpdateListener(UpdateListener listener) {}
 
     @Override
-    public void removeLateUpdateListener(UpdateListener listener) {
+    public void removeLateUpdateListener(UpdateListener listener) {}
 
-    }
+    @Override
+    public void setCollisionUpdateListener(UpdateListener listener) {}
 
     @Override
     public void setScreenUpdateListener(final UpdateListener listener) {

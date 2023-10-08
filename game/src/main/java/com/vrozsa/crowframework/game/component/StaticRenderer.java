@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 public class StaticRenderer extends BaseComponent implements Renderer, PositionObserver {
     public static String DEFAULT_STATIC_RENDERER = "_defaultRendererComponent";
@@ -91,7 +90,8 @@ public class StaticRenderer extends BaseComponent implements Renderer, PositionO
 
     public List<Drawable> getDrawings(boolean filterInactive) {
         if (filterInactive) {
-            return drawings.stream().filter(Drawable::isEnabled).collect(Collectors.toList());
+            return drawings.stream()
+                    .filter(Drawable::isEnabled).toList();
         }
         return new ArrayList<>(drawings);
     }

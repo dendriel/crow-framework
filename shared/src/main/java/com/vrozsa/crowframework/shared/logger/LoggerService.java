@@ -1,5 +1,6 @@
 package com.vrozsa.crowframework.shared.logger;
 
+import java.text.MessageFormat;
 import java.util.Arrays;
 import java.util.List;
 
@@ -23,27 +24,28 @@ public final class LoggerService {
     }
 
     public void debug(final String template, final Object...args) {
-        print("[DEBUG]", template, args);
+        print("DEBUG", template, args);
     }
 
     public void info(final String template, final Object...args) {
-        print("[INFO]", template, args);
+        print("INFO", template, args);
 
     }
 
     public void warn(final String template, final Object...args) {
-        print("[WARN]", template, args);
+        print("WARN", template, args);
     }
 
     public void error(final String template, final Object...args) {
-        print("[ERROR]", template, args);
+        print("ERROR", template, args);
     }
 
     private void print(final String logLevel, final String template, final Object...args) {
-        System.out.printf("[%s] [%s] " + template + "%n", logLevel, className, toString(args));
+        var message = MessageFormat.format(template, args);
+        System.out.printf("[%s] [%s] %s %n", logLevel, className, message);
     }
 
-    private static List<String> toString(final Object[] args) {
-        return Arrays.stream(args).map(Object::toString).toList();
+    private static String[] toString(final Object[] args) {
+        return Arrays.stream(args).map(Object::toString).toArray(String[]::new);
     }
 }

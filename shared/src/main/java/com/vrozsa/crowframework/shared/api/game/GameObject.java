@@ -19,6 +19,12 @@ public interface GameObject {
     void lateUpdate();
 
     /**
+     * Checks if this GO is active
+     * @return true if active; false if inactive.
+     */
+    boolean isActive();
+
+    /**
      * Checks if this GO is inactive
      * @return true if inactive; false if active.
      */
@@ -35,6 +41,13 @@ public interface GameObject {
      * @param component the component to be added.
      */
     void addComponent(final Component component);
+
+    /**
+     * Checks if this game object has at least one component of the given kind.
+     * @param kind component to be checked.
+     * @return true if the GO has the component; false otherwise
+     */
+    <T> boolean hasComponent(Class<T> kind);
 
     <T> T getComponent(Class<T> kind);
 

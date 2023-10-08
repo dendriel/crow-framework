@@ -10,20 +10,20 @@ public abstract class BaseComponent implements Component {
     protected String name;
     protected long id;
 
-    public BaseComponent() {
+    protected BaseComponent() {
         this(true, "unnamed");
     }
 
-    public BaseComponent(boolean isEnabled) {
+    protected BaseComponent(boolean isEnabled) {
         this(isEnabled, "unnamed");
     }
 
-    public BaseComponent(boolean isEnabled, String name) {
+    protected BaseComponent(boolean isEnabled, String name) {
         this.isEnabled = isEnabled;
         this.name = name;
     }
 
-    protected <T extends Component> T getComponent(Class<T> kind) {
+    protected <T> T getComponent(Class<T> kind) {
         return gameObject.getComponent(kind);
     }
 

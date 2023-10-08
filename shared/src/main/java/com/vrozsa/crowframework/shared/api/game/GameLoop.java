@@ -46,4 +46,11 @@ public interface GameLoop {
      * @param listener screen's update listener.
      */
     void setScreenUpdateListener(UpdateListener listener);
+
+    /**
+     * Setup explicitly the collision update listener, so it can be executed in the correct order. Collision updates is
+     * the very first process to be handled in the game loop, before game objects updates.
+     * @param listener screen's update listener.
+     */
+    void setCollisionUpdateListener(UpdateListener listener);
 }
