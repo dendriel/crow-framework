@@ -49,21 +49,25 @@ public class CollisionDetector {
         var targetGo = target.getGameObject();
 
         var sourceCollisionHandler = sourceGo.getComponent(BaseCollisionHandler.class);
-        if (!Objects.isNull(sourceCollisionHandler)) {
+        if (!Objects.isNull(sourceCollisionHandler) && source.canCollideWith(target)) {
             sourceCollisionHandler.handle(sourceGo, targetGo);
             source.signCollision();
         }
 
         var targetCollisionHandler = targetGo.getComponent(BaseCollisionHandler.class);
-        if (!Objects.isNull(targetCollisionHandler)) {
+        if (!Objects.isNull(targetCollisionHandler) && target.canCollideWith(source)) {
             targetCollisionHandler.handle(targetGo, sourceGo);
             target.signCollision();
         }
     }
 
     private static boolean checkCollision(final ColliderComponent sourceCollider, final ColliderComponent targetCollider) {
-        Rect source = sourceCollider.getCollisionRect();
-        Rect target = targetCollider.getCollisionRect();
+        if (!sourceCollider.canCollideWith(targetCollider) && !targetCollider.canCollideWith(sourceCollider)) {
+            return false;
+        }
+
+        var source = sourceCollider.getCollisionRect();
+        var target = targetCollider.getCollisionRect();
 
         return source.getX() < target.getX() + target.getWidth() &&
             source.getX() + source.getWidth() > target.getX() &&

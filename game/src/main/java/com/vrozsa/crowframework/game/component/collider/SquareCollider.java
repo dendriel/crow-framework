@@ -14,11 +14,15 @@ public class SquareCollider extends BaseCollider {
         this(DEFAULT_COOLDOWN_MILLIS);
     }
     public SquareCollider(final long cooldown) {
+        this(cooldown, DEFAULT_COLLISION_LAYER, Set.of(DEFAULT_COLLISION_LAYER));
+    }
+
+    public SquareCollider(final long cooldown, final String collisionLayer, final Set<String> collidesWith) {
         super(
                 ColliderType.SQUARE,
-                DEFAULT_COLLISION_LAYER,
+                collisionLayer,
                 true,
-                Set.of(DEFAULT_COLLISION_LAYER),
+                collidesWith,
                 Cooldown.create(cooldown)
         );
     }

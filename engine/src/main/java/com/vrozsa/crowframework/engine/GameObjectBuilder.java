@@ -16,6 +16,7 @@ import com.vrozsa.crowframework.shared.templates.SpriteTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Builder facility for GameObjects.
@@ -100,10 +101,24 @@ public final class GameObjectBuilder  {
      * Adds a new square collider component.
      * @param cooldown time to wait between collision detections (otherwise detection may happen for many frames and
      *                 trigger the handler multiple times if it doesn't implement a cooldown control).
-     * @return
+     * @return the builder object.
      */
     public GameObjectBuilder addSquareCollider(final long cooldown) {
         var collider = new SquareCollider(cooldown);
+        components.add(collider);
+        return this;
+    }
+
+    /**
+     * Adds a new square collider component.
+     * @param cooldown time to wait between collision detections (otherwise detection may happen for many frames and
+     *                 trigger the handler multiple times if it doesn't implement a cooldown control).
+     * @param collisionLayer in which collision layer this component is.
+     * @param collidesWith which other collision layers this component collides with.
+     * @return the builder object.
+     */
+    public GameObjectBuilder addSquareCollider(final long cooldown, final String collisionLayer, final Set<String> collidesWith) {
+        var collider = new SquareCollider(cooldown, collisionLayer, collidesWith);
         components.add(collider);
         return this;
     }

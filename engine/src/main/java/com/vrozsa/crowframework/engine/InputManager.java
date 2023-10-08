@@ -3,6 +3,8 @@ package com.vrozsa.crowframework.engine;
 import com.vrozsa.crowframework.shared.api.game.GameCommand;
 import com.vrozsa.crowframework.shared.api.input.InputKey;
 
+import java.util.List;
+
 /**
  * Manages input related features.
  */
@@ -19,4 +21,10 @@ public interface InputManager {
      * @return the next game command if any.
      */
     GameCommand getCommand();
+
+    /**
+     * Get all commands corresponding to the currently pressed keys.
+     * @return all commands available right now.
+     */
+    List<GameCommand> getAllCommands();
 }

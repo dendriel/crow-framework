@@ -63,8 +63,20 @@ abstract class BaseCollider extends BaseComponent implements ColliderComponent {
         return type;
     }
 
+    public String getLayer() {
+        return layer;
+    }
+
+    public Set<String> getCollisionLayers() {
+        return Set.copyOf(collidesWith);
+    }
+
     public boolean canCollide() {
-        return isEnabled() && !collidesWith.isEmpty() && cooldown.isFinished();
+        return isEnabled() && cooldown.isFinished();
+    }
+
+    public boolean canCollideWith(final ColliderComponent target) {
+        return collidesWith.contains(target.getLayer());
     }
 
     public boolean cantCollide() {
