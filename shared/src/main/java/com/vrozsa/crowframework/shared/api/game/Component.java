@@ -41,7 +41,8 @@ public interface Component extends Identifiable {
     boolean isDisabled();
 
     /**
-     * WrapUp the initial component state (called once after the component is added to the parent game object).
+     * WrapUp the initial component state. It is called once at initialization time after all the component were added
+     * to the parent game object. Useful for initializations that depends on other components.
      */
     void wrapUp();
 

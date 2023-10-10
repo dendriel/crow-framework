@@ -3,7 +3,7 @@ package com.vrozsa.crowframework.shared.attributes;
 import java.util.Objects;
 
 // TODO: make this immutable?
-public class Size {
+public class Size implements Comparable<Size> {
     public static Size zeroed() {
         return new Size();
     }
@@ -88,5 +88,28 @@ public class Size {
     @Override
     public int hashCode() {
         return Objects.hash(width, height);
+    }
+
+    @Override
+    public int compareTo(Size o) {
+        if (super.equals(o)) {
+            return 0;
+        }
+
+        if (this.width > o.width) {
+            return 1;
+        }
+        else if (this.width < o.width) {
+            return -1;
+        }
+
+        if (this.height > o.height) {
+            return 1;
+        }
+        else if (this.height < o.height) {
+            return -1;
+        }
+
+        return 0;
     }
 }

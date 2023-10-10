@@ -43,11 +43,11 @@ public class RendererView extends BaseView implements RendererObserver {
         persistentRenderers = new ArrayList<>();
     }
 
-    public void addRenderer(Renderer... renderers) {
+    public void addRenderer(final Renderer... renderers) {
         Arrays.stream(renderers).forEach(this::addRenderer);
     }
 
-    public void addRenderer(List<Renderer> renderers) {
+    public void addRenderer(final List<Renderer> renderers) {
         renderers.forEach(this::addRenderer);
     }
 

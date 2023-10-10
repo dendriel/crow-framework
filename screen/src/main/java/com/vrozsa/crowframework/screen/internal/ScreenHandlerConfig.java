@@ -14,6 +14,8 @@ public record ScreenHandlerConfig(
 ) {
     private static final int DEFAULT_SCREEN_WIDTH = 800;
     private static final int DEFAULT_SCREEN_HEIGHT = 600;
+
+    //TODO this overrides the builder values!
     public ScreenHandlerConfig {
         title = "Crow Game";
         size = Size.of(DEFAULT_SCREEN_WIDTH, DEFAULT_SCREEN_HEIGHT);

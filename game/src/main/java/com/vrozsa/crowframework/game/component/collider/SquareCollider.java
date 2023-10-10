@@ -1,6 +1,7 @@
 package com.vrozsa.crowframework.game.component.collider;
 
 import com.vrozsa.crowframework.shared.api.game.ColliderType;
+import com.vrozsa.crowframework.shared.attributes.Rect;
 import com.vrozsa.crowframework.shared.time.Cooldown;
 
 import java.util.Set;
@@ -18,12 +19,18 @@ public class SquareCollider extends BaseCollider {
     }
 
     public SquareCollider(final long cooldown, final String collisionLayer, final Set<String> collidesWith) {
+        this(cooldown, collisionLayer, collidesWith, null);
+    }
+
+    public SquareCollider(
+            final long cooldown, final String collisionLayer, final Set<String> collidesWith, final Rect rect) {
         super(
                 ColliderType.SQUARE,
                 collisionLayer,
                 true,
                 collidesWith,
-                Cooldown.create(cooldown)
+                Cooldown.create(cooldown),
+                rect
         );
     }
 }

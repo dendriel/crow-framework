@@ -20,7 +20,7 @@ public class StaticRenderer extends BaseComponent implements Renderer, PositionO
     protected boolean flipX;
     protected boolean flipY;
 
-    private Set<RendererObserver> observers;
+    private final Set<RendererObserver> observers;
 
     public StaticRenderer(Position position, int layer, String name, boolean flipX, boolean flipY) {
         this(position, layer, true, name, flipX, flipY);
@@ -115,7 +115,7 @@ public class StaticRenderer extends BaseComponent implements Renderer, PositionO
         return new Size(largestW, largestH);
     }
 
-    public void addDrawing(Drawable drawing) {
+    public void addDrawing(final Drawable drawing) {
         drawings.add(drawing);
         drawing.setRenderer(this);
     }

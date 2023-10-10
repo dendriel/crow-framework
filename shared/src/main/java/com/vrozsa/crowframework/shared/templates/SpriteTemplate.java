@@ -17,10 +17,11 @@ public record SpriteTemplate (
     boolean isFlipY
 ) {
 
-    public SpriteTemplate {
-        enabled = true;
-        offset = new Offset();
-        scale = new Scale(1, 1);
+    // Defaults for lombok
+    public static class SpriteTemplateBuilder {
+        private boolean enabled = true;
+        private Offset offset = new Offset();
+        private Scale scale = new Scale(1, 1);
     }
 
     public SpriteTemplate copy() {

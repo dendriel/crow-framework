@@ -34,7 +34,7 @@ class Engine implements CrowEngine {
         var screenHandlerConfig = ScreenHandlerConfig.builder()
                 .size(Size.of(config.screenWidth(), config.screenHeight()))
                 .build();
-        return new CrowScreenManager(config.color(), screenHandlerConfig, inputManager.getInputHandler());
+        return new CrowScreenManager(config.color(), config.showGizmos(), screenHandlerConfig, inputManager.getInputHandler());
     }
 
     @Override

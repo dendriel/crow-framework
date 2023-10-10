@@ -7,6 +7,7 @@ import lombok.Builder;
 public record CrowEngineConfig(
         int screenWidth,
         int screenHeight,
+        boolean showGizmos,
         Color color
 ) {
     private static final int DEFAULT_SCREEN_WIDTH = 800;

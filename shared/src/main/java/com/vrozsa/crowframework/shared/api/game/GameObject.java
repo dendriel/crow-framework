@@ -50,12 +50,26 @@ public interface GameObject {
 
     /**
      * Checks if this game object has at least one component of the given kind.
-     * @param kind component to be checked.
+     * @param type component to be checked.
      * @return true if the GO has the component; false otherwise
      */
-    <T> boolean hasComponent(Class<T> kind);
+    <T> boolean hasComponent(Class<T> type);
 
-    <T> T getComponent(Class<T> kind);
+    /**
+     * Get a child component by its type.
+     * @param type type of component to be retrieved.
+     * @return the component if found.
+     * @param <T> component type.
+     */
+    <T> T getComponent(Class<T> type);
+
+    /**
+     * Get all children components by its type.
+     * @param type type of components to be retrieved.
+     * @return the components if found.
+     * @param <T> component type.
+     */
+    <T> List<T> getAllComponents(final Class<T> type);
 
     <T extends Component> T getComponent(Class<T> kind, String name);
 

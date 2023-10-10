@@ -1,6 +1,6 @@
 package com.vrozsa.crowframework.engine;
 
-import com.vrozsa.crowframework.game.component.StaticRenderer;
+import com.vrozsa.crowframework.game.component.collider.ColliderGizmos;
 import com.vrozsa.crowframework.screen.api.SimpleScreen;
 import com.vrozsa.crowframework.screen.api.WindowCloseRequestListener;
 import com.vrozsa.crowframework.screen.internal.BaseView;
@@ -11,6 +11,7 @@ import com.vrozsa.crowframework.screen.ui.UIIcon;
 import com.vrozsa.crowframework.screen.ui.UIIconTemplate;
 import com.vrozsa.crowframework.shared.api.game.GameObject;
 import com.vrozsa.crowframework.shared.api.input.InputHandler;
+import com.vrozsa.crowframework.shared.api.screen.Renderer;
 import com.vrozsa.crowframework.shared.api.screen.Screen;
 import com.vrozsa.crowframework.shared.attributes.Color;
 import com.vrozsa.crowframework.shared.attributes.Offset;
@@ -22,10 +23,12 @@ class CrowScreenManager implements ScreenManager, OffsetGetter {
     private static final String RENDERER_VIEW = "RENDERER_VIEW";
     private static final String BASE_VIEW_GROUP = "DEFAULT_VIEW_GROUP";
     private final ScreenHandler screenHandler;
+    private final boolean showGizmos;
 
-    CrowScreenManager(final Color bgColor, final ScreenHandlerConfig screenHandlerConfig, final InputHandler inputHandler) {
+    CrowScreenManager(
+            final Color bgColor, final boolean showGizmos, final ScreenHandlerConfig screenHandlerConfig, final InputHandler inputHandler) {
         screenHandler = new ScreenHandler(screenHandlerConfig, inputHandler);
-
+        this.showGizmos = showGizmos;
         setup(bgColor);
     }
 
@@ -107,6 +110,14 @@ class CrowScreenManager implements ScreenManager, OffsetGetter {
         var renderer = (RendererView)screenHandler.getScreen(DEFAULT_SCREEN)
                 .getView(RENDERER_VIEW);
 
-        renderer.addRenderer(go.getComponent(StaticRenderer.class));
+        var renderers = go.getAllComponents(Renderer.class);
+
+        if (!showGizmos) {
+            renderers = renderers.stream()
+                    .filter(r -> !(r instanceof ColliderGizmos))
+                    .toList();
+        }
+
+        renderer.addRenderer(renderers);
     }
 }

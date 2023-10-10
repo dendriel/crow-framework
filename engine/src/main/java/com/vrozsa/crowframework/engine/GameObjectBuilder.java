@@ -7,11 +7,13 @@ import com.vrozsa.crowframework.game.component.StaticRenderer;
 import com.vrozsa.crowframework.game.component.animation.AnimatedRenderer;
 import com.vrozsa.crowframework.game.component.animation.Animation;
 import com.vrozsa.crowframework.game.component.collider.BaseCollisionHandler;
+import com.vrozsa.crowframework.game.component.collider.ColliderGizmos;
 import com.vrozsa.crowframework.game.component.collider.SquareCollider;
 import com.vrozsa.crowframework.shared.api.game.CollisionHandler;
 import com.vrozsa.crowframework.shared.api.game.Component;
 import com.vrozsa.crowframework.shared.api.game.GameObject;
 import com.vrozsa.crowframework.shared.api.screen.Sprite;
+import com.vrozsa.crowframework.shared.attributes.Rect;
 import com.vrozsa.crowframework.shared.attributes.Size;
 import com.vrozsa.crowframework.shared.attributes.Vector;
 import com.vrozsa.crowframework.shared.templates.SpriteTemplate;
@@ -132,6 +134,22 @@ public final class GameObjectBuilder  {
         return this;
     }
 
+    /**
+     * Adds a new square collider component.
+     * @param cooldown time to wait between collision detections (otherwise detection may happen for many frames and
+     *                 trigger the handler multiple times if it doesn't implement a cooldown control).
+     * @param collisionLayer in which collision layer this component is.
+     * @param collidesWith which other collision layers this component collides with.
+     * @param rect the collision rect (if not specified, defaults to the sprite rect)
+     * @return the builder object.
+     */
+    public GameObjectBuilder addSquareCollider(
+            final long cooldown, final String collisionLayer, final Set<String> collidesWith, final Rect rect) {
+        var collider = new SquareCollider(cooldown, collisionLayer, collidesWith, rect);
+        components.add(collider);
+        return this;
+    }
+
     public GameObjectBuilder addCollisionHandler(final BaseCollisionHandler collisionHandler) {
         components.add(collisionHandler);
         return this;
@@ -146,6 +164,12 @@ public final class GameObjectBuilder  {
         };
 
         components.add(collisionHandler);
+        return this;
+    }
+
+    public GameObjectBuilder addCollisionGizmos() {
+        var colliderGizmos = new ColliderGizmos(position);
+        components.add(colliderGizmos);
         return this;
     }
 

@@ -54,6 +54,12 @@ public interface ColliderComponent {
     Rect getCollisionRect();
 
     /**
+     * Get the base rect of this collider.
+     * @return the base rect.
+     */
+    Rect getRect();
+
+    /**
      * Get the game object that owns this component.
      * @return the game object in which this component was added.
      */

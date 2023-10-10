@@ -18,6 +18,7 @@ import java.util.Set;
 abstract class BaseCollider extends BaseComponent implements ColliderComponent {
     protected static final String DEFAULT_COLLISION_LAYER = "DEFAULT_COLLISION_LAYER";
     protected static final long DEFAULT_COOLDOWN_MILLIS = 0;
+
     /**
      * The collider position is the same position as the parent GameObject position. If its rect offset is set,
      * the collider position will be the parent position + its rect offset.
@@ -26,11 +27,11 @@ abstract class BaseCollider extends BaseComponent implements ColliderComponent {
      * the collider size will override the renderer size.
      */
     protected Rect rect;
+
     protected boolean isActive;
     protected final String layer;
     protected final Set<String> collidesWith;
     protected final ColliderType type;
-
     protected final Cooldown cooldown;
 
     protected BaseCollider(
@@ -38,13 +39,15 @@ abstract class BaseCollider extends BaseComponent implements ColliderComponent {
             final String layer,
             final boolean isActive,
             final Set<String> collidesWith,
-            final Cooldown cooldown
+            final Cooldown cooldown,
+            final Rect rect
     ) {
         this.type = type;
         this.layer = layer;
         this.isActive = isActive;
         this.collidesWith = new HashSet<>(collidesWith);
         this.cooldown = cooldown;
+        this.rect = rect;
     }
 
     public void setActive(final boolean isActive) {
@@ -81,6 +84,14 @@ abstract class BaseCollider extends BaseComponent implements ColliderComponent {
 
     public boolean cantCollide() {
         return isDisabled() || collidesWith.isEmpty() || cooldown.isWaiting();
+    }
+
+    public Rect getRect() {
+        if (Objects.isNull(rect)) {
+            return Rect.atOrigin(getWidth(), getHeight());
+        }
+
+        return rect.clone();
     }
 
     public Rect getCollisionRect() {

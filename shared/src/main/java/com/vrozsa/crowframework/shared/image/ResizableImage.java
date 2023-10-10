@@ -13,13 +13,13 @@ public class ResizableImage implements Image {
 
     public ResizableImage() {}
 
-    public ResizableImage(BufferedImage content) {
+    public ResizableImage(final BufferedImage content) {
         defaultContent = content;
 
         initialize(content);
     }
 
-    private void initialize(BufferedImage defaultContent) {
+    private void initialize(final BufferedImage defaultContent) {
         this.content = new HashMap<>();
 
         var key = Size.of(defaultContent.getWidth(), defaultContent.getHeight());
@@ -32,13 +32,8 @@ public class ResizableImage implements Image {
 
     public BufferedImage getContent(int width, int height) {
         var key = Size.of(width, height);
-        var bufferedImage = content.get(key);
-
-        if (bufferedImage == null) {
-            bufferedImage = Scalr.resize(defaultContent, Scalr.Method.ULTRA_QUALITY, Scalr.Mode.FIT_EXACT, width, height);
-            content.put(key, bufferedImage);
-        }
-
-        return bufferedImage;
+        return content.computeIfAbsent(key, s ->
+                Scalr.resize(defaultContent, Scalr.Method.ULTRA_QUALITY, Scalr.Mode.FIT_EXACT, width, height)
+        );
     }
 }

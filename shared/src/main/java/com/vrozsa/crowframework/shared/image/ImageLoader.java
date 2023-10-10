@@ -1,18 +1,19 @@
 package com.vrozsa.crowframework.shared.image;
 
 import com.vrozsa.crowframework.shared.api.screen.Image;
+import com.vrozsa.crowframework.shared.logger.LoggerService;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.net.URL;
 
 /**
  * Helper class to load Images.
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class ImageLoader {
+    private static final LoggerService logger = LoggerService.of(ImageLoader.class);
 
     public static Image of(final BufferedImage bufferedImage) {
         return new ResizableImage(bufferedImage);
@@ -28,19 +29,20 @@ public final class ImageLoader {
                 return null;
             }
 
-            Image resizableImage = ImageCache.get(key);
+            var resizableImage = ImageCache.get(key);
             if (resizableImage != null) {
                 return resizableImage;
             }
 
-            URL url = ResizableImage.class.getResource(filePath);
-            BufferedImage bufferedImage = ImageIO.read(url);
+            var url = ResizableImage.class.getResource(filePath);
+            var bufferedImage = ImageIO.read(url);
             resizableImage = new ResizableImage(bufferedImage);
             ImageCache.add(key, resizableImage);
 
             return resizableImage;
-        } catch (Exception ex) {
-            System.out.printf("Failed to load image [%s]. Ex.: %s\n", filePath, ex);
+        }
+        catch (Exception ex) {
+            logger.error("Failed to load image [{0}].\n{1}", filePath, ex);
         }
 
         // Pre image caching should not let this happen.
