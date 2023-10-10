@@ -21,6 +21,10 @@ public class Rect {
         size = new Size(width, height);
     }
 
+    public static Rect atOrigin(final int width, final int height) {
+        return new Rect(0, 0, width, height);
+    }
+
     public static Rect atOrigin(final Size size) {
         return new Rect(0, 0, size.getWidth(), size.getHeight());
     }

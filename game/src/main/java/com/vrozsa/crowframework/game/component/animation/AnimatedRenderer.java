@@ -8,18 +8,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class AnimatedRenderer<TKey> extends StaticRenderer {
+public class AnimatedRenderer extends StaticRenderer {
     public static final String DEFAULT_ANIMATED_RENDERER = "_defaultAnimatorComponent";
     private static final Integer DEFAULT_ANIMATIONS_LAYER = 0;
 
-    private final Map<Integer, Map<TKey, Animation>> animationsLayers;
+    private final Map<Integer, Map<String, Animation>> animationsLayers;
     private Integer animationLayer;
 
     public AnimatedRenderer(Position position, int layer, String name, boolean flipX, boolean flipY) {
         super(position, layer, name, flipX, flipY);
 
         animationsLayers = new HashMap<>();
-        this.animationLayer = DEFAULT_ANIMATIONS_LAYER;
+        animationLayer = DEFAULT_ANIMATIONS_LAYER;
     }
 
     @Override
@@ -30,35 +30,37 @@ public class AnimatedRenderer<TKey> extends StaticRenderer {
             return;
         }
 
-        Map<TKey, Animation> animations = getCurrentAnimations();
-        animations.values().forEach(Animation::update);
+        getCurrentAnimations().values().forEach(Animation::update);
         refreshDrawings();
     }
 
-    protected Map<TKey, Animation> getCurrentAnimations() {
-        return animationsLayers.get(animationLayer);
+    protected Map<String, Animation> getCurrentAnimations() {
+        return getAnimations(animationLayer);
     }
 
-    protected Map<TKey, Animation> getAnimations(int layer) {
-        if (!animationsLayers.containsKey(layer)) {
-            animationsLayers.put(layer, new HashMap<>());
-        }
+    /**
+     * Get all animations by its layer id.
+     * @param layer the target animations layer.
+     * @return the animations of the animation layer. Will create a new entry if the layer is absent.
+     */
+    protected Map<String, Animation> getAnimations(int layer) {
+        animationsLayers.computeIfAbsent(layer, entry -> new HashMap<>());
         return animationsLayers.get(layer);
     }
 
-    protected Animation getAnimation(TKey key) {
+    protected Animation getAnimation(String key) {
         return getAnimation(key, animationLayer);
     }
 
-    protected Animation getAnimation(TKey key, int layer) {
-        Map<TKey, Animation> animations = getAnimations(layer);
+    protected Animation getAnimation(String key, int layer) {
+        var animations = getAnimations(layer);
         return animations.get(key);
     }
 
     private void refreshDrawings() {
         drawings.clear();
-        Map<TKey, Animation> animations = getCurrentAnimations();
-        for (Animation animation : animations.values()) {
+        var animations = getCurrentAnimations();
+        for (var animation : animations.values()) {
             if (animation.isActive()) {
                 drawings.addAll(animation.getDrawings(this));
             }
@@ -80,39 +82,34 @@ public class AnimatedRenderer<TKey> extends StaticRenderer {
         return animationLayer;
     }
 
-    public void add(TKey key, Animation animation) {
+    public void add(String key, Animation animation) {
         add(key, animation, animationLayer);
     }
 
-    public void add(TKey key, Animation animation, int layer) {
-        Map<TKey, Animation> animations = getAnimations(layer);
-        animations.put(key, animation);
+    public void add(String key, Animation animation, int layer) {
+        getAnimations(layer).put(key, animation);
     }
 
-    public void setActive(TKey key, boolean isActive) {
+    public void setActive(String key, boolean isActive) {
         setActive(key, isActive, animationLayer);
     }
 
-    public void setActive(TKey key, boolean isActive, int layer) {
-        Map<TKey, Animation> animations = getAnimations(layer);
-        if (!animations.containsKey(key)) {
-            return;
+    public void setActive(String key, boolean isActive, int layer) {
+        var animations = getAnimations(layer);
+        if (animations.containsKey(key)) {
+            animations.get(key).setActive(isActive);
         }
-
-        animations.get(key).setActive(isActive);
     }
 
-    public void trigger(TKey key) {
+    public void trigger(String key) {
         trigger(key, animationLayer);
     }
 
-    public void trigger(TKey key, int layer) {
-        Map<TKey, Animation> animations = getAnimations(layer);
-        if (!animations.containsKey(key)) {
-            return;
+    public void trigger(String key, int layer) {
+        var animations = getAnimations(layer);
+        if (animations.containsKey(key)) {
+            animations.get(key).trigger();
         }
-
-        animations.get(key).trigger();
     }
 
     public boolean isAllAnimationsInactive() {
@@ -120,8 +117,7 @@ public class AnimatedRenderer<TKey> extends StaticRenderer {
     }
 
     public boolean isAllAnimationsInactive(int layer) {
-        Map<TKey, Animation> animations = getAnimations(layer);
-        return animations.values().stream().noneMatch(Animation::isActive);
+        return getAnimations(layer).values().stream().noneMatch(Animation::isActive);
     }
 
     public void setAllAnimationsInactive() {
@@ -129,7 +125,6 @@ public class AnimatedRenderer<TKey> extends StaticRenderer {
     }
 
     public void setAllAnimationsInactive(int layer) {
-        Map<TKey, Animation> animations = getAnimations(layer);
-        animations.values().forEach(a -> a.setActive(false));
+        getAnimations(layer).values().forEach(a -> a.setActive(false));
     }
 }

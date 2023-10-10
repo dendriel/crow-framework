@@ -30,7 +30,8 @@ public class StaticRenderer extends BaseComponent implements Renderer, PositionO
         this(position, layer, true, name, flipX, flipY, drawings);
     }
 
-    public StaticRenderer(Position position, int layer, boolean isEnabled, String name, boolean flipX, boolean flipY, Drawable... drawings) {
+    public StaticRenderer(
+            Position position, int layer, boolean isEnabled, String name, boolean flipX, boolean flipY, Drawable... drawings) {
         super(isEnabled, name);
         position.addPositionChangedListener(this);
         pos = position.getOffset();

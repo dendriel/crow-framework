@@ -33,17 +33,17 @@ public class Animation {
 
     private long lastTriggered;
 
-    public Animation(AnimationTemplate data) {
+    public Animation(final AnimationTemplate data) {
         this.data = data;
 
-        cooldownBeforeRepeating = Cooldown.create(data.getIntervalBeforeRepeating());
+        cooldownBeforeRepeating = Cooldown.create(data.intervalBeforeRepeating());
         setup();
-        length = data.getTimeBetweenFrames() * totalFrames;
+        length = data.timeBetweenFrames() * totalFrames;
     }
 
     private void setup() {
-        rect = data.getRect();
-        frameRect = data.getFrameRect();
+        rect = data.rect();
+        frameRect = data.frameRect();
         totalFrames = rect.getWidth() / frameRect.getWidth();
 
         isActive = data.isActive();
@@ -53,8 +53,8 @@ public class Animation {
 
     private void loadSpritesheets() {
         images = new ArrayList<>();
-        for (String spritesheet : data.getSpritesheets()) {
-            Image image = ImageLoader.load(spritesheet);
+        for (var spritesheet : data.spritesheets()) {
+            var image = ImageLoader.load(spritesheet);
             images.add(image);
         }
     }
@@ -91,7 +91,7 @@ public class Animation {
     }
 
     void reset() {
-        currentFrame = data.getFirstFrame();
+        currentFrame = data.firstFrame();
         lastFrameUpdateTime = 0;
     }
 
@@ -100,7 +100,7 @@ public class Animation {
             return;
         }
 
-        if (timePassedSinceLastFrame() < data.getTimeBetweenFrames()) {
+        if (timePassedSinceLastFrame() < data.timeBetweenFrames()) {
             return;
         }
 
@@ -128,13 +128,13 @@ public class Animation {
             return;
         }
 
-        if (data.isRepeat()) {
+        if (data.repeat()) {
             repeat();
         }
     }
 
     private void repeat() {
-        if (data.getIntervalBeforeRepeating() <= 0) {
+        if (data.intervalBeforeRepeating() <= 0) {
             currentFrame = 0;
             return;
         }
@@ -153,17 +153,17 @@ public class Animation {
     }
 
     List<Drawable> getDrawings(Renderer renderer) {
-        SpriteTemplate data = SpriteTemplate.builder()
+        var spriteData = SpriteTemplate.builder()
         .enabled(true)
         .order(0)
         .size(frameRect.getSize())
         .offset(rect.getOffset())
                 .build();
 
-        List<Drawable> drawings = new ArrayList<>();
+        var drawings = new ArrayList<Drawable>();
         for (Image image : images) {
-            Image drawing = ImageLoader.of(getImageToPaint(image));
-            Sprite sprite = Sprite.recreate(data.copy(), drawing, true);
+            var drawing = ImageLoader.of(getImageToPaint(image));
+            var sprite = Sprite.recreate(spriteData.copy(), drawing, true);
             sprite.setRenderer(renderer);
             drawings.add(sprite);
         }
@@ -173,10 +173,10 @@ public class Animation {
 
     private BufferedImage getImageToPaint(Image image) {
         BufferedImage fullImage = image.getContent(rect.getWidth(), rect.getHeight());
-        Size frameSize = frameRect.getSize();
+        var frameSize = frameRect.getSize();
 
-        float frameWidth = ((float)data.getFrameRect().getSize().getWidth() / data.getRect().getSize().getWidth()) * rect.getSize().getWidth();
-        int x = (int)(currentFrame * frameWidth);
+        var frameWidth = ((float)data.frameRect().getSize().getWidth() / data.rect().getSize().getWidth()) * rect.getSize().getWidth();
+        var x = (int)(currentFrame * frameWidth);
 
         return fullImage.getSubimage(x, 0, frameSize.getWidth(), frameSize.getHeight());
     }

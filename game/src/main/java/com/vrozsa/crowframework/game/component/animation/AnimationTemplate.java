@@ -2,7 +2,7 @@ package com.vrozsa.crowframework.game.component.animation;
 
 
 import com.vrozsa.crowframework.shared.attributes.Rect;
-import lombok.Data;
+import lombok.Builder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,28 +10,27 @@ import java.util.List;
 /**
  * Template to used to configure animations.
  */
-@Data
-public class AnimationTemplate {
-    private Rect rect;
-    private List<String> spritesheets;
-    private Rect frameRect;
-    private long timeBetweenFrames;
-    private int firstFrame;
-    private boolean repeat;
-    private long intervalBeforeRepeating;
-    private boolean isActive;
-
+@Builder
+public record AnimationTemplate(
+   Rect rect,
+   List<String> spritesheets,
+   Rect frameRect,
+   long timeBetweenFrames,
+   int firstFrame,
+   boolean repeat,
+   long intervalBeforeRepeating,
+   boolean isActive
+) {
     public AnimationTemplate copy() {
-        var copy = new AnimationTemplate();
-
-        copy.rect = rect.clone();
-        copy.spritesheets = new ArrayList<>(spritesheets);
-        copy.frameRect = frameRect.clone();
-        copy.timeBetweenFrames = timeBetweenFrames;
-        copy.firstFrame = firstFrame;
-        copy.repeat = repeat;
-        copy.intervalBeforeRepeating = intervalBeforeRepeating;
-
-        return copy;
+        return new AnimationTemplate(
+                rect.clone(),
+                new ArrayList<>(spritesheets),
+                frameRect.clone(),
+                timeBetweenFrames,
+                firstFrame,
+                repeat,
+                intervalBeforeRepeating,
+                false
+        );
     }
 }
