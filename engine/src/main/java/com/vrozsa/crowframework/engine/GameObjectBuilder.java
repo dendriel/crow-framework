@@ -129,7 +129,7 @@ public final class GameObjectBuilder  {
      * @return the builder object.
      */
     public GameObjectBuilder addSquareCollider(final long cooldown, final String collisionLayer, final Set<String> collidesWith) {
-        var collider = new SquareCollider(cooldown, collisionLayer, collidesWith);
+        var collider = new SquareCollider(cooldown, collisionLayer, 0, collidesWith);
         components.add(collider);
         return this;
     }
@@ -144,8 +144,25 @@ public final class GameObjectBuilder  {
      * @return the builder object.
      */
     public GameObjectBuilder addSquareCollider(
-            final long cooldown, final String collisionLayer, final Set<String> collidesWith, final Rect rect) {
-        var collider = new SquareCollider(cooldown, collisionLayer, collidesWith, rect);
+            final long cooldown, final String collisionLayer,  final Set<String> collidesWith, final Rect rect) {
+        var collider = new SquareCollider(cooldown, collisionLayer, 0, collidesWith, rect);
+        components.add(collider);
+        return this;
+    }
+
+    /**
+     * Adds a new square collider component.
+     * @param cooldown time to wait between collision detections (otherwise detection may happen for many frames and
+     *                 trigger the handler multiple times if it doesn't implement a cooldown control).
+     * @param collisionLayer in which collision layer this component is.
+     * @param density defines the density of the object and how it will interact on collision.
+     * @param collidesWith which other collision layers this component collides with.
+     * @param rect the collision rect (if not specified, defaults to the sprite rect)
+     * @return the builder object.
+     */
+    public GameObjectBuilder addSquareCollider(
+            final long cooldown, final String collisionLayer, final int density, final Set<String> collidesWith, final Rect rect) {
+        var collider = new SquareCollider(cooldown, collisionLayer, density, collidesWith, rect);
         components.add(collider);
         return this;
     }

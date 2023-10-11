@@ -1,5 +1,7 @@
 package com.vrozsa.crowframework.shared.api.game;
 
+import com.vrozsa.crowframework.shared.attributes.Offset;
+
 /**
  * Represents the position of a Game Object in the game scenario.
  * All positions contain X,Y,Z axis. X is horizontal axis; Y is vertical axis; Z is depth axis (used to decide what
@@ -30,4 +32,10 @@ public interface PositionComponent {
      * @param y the new vertical position.
      */
     void setPosition(int x, int y);
+
+    /**
+     * Add an offset to the position value.
+     * @param offset offset to be added.
+     */
+    void addOffset(Offset offset);
 }

@@ -97,16 +97,16 @@ public class Position extends BaseComponent implements PositionComponent, Positi
      * Sets the position relative to the parent; or the position relative to the map (absolute)
      * if there is no parent.
      */
-    public void setPosition(Vector pos) {
+    public void setPosition(final Vector pos) {
         this.pos = pos;
         onPositionChanged();
     }
 
-    public void setOffset(Offset offset) {
+    public void setOffset(final Offset offset) {
         this.pos.setOffset(offset);
     }
 
-    public void addOffset(Offset offset) {
+    public void addOffset(final Offset offset) {
         pos.addOffset(offset);
         onPositionChanged();
     }

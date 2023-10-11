@@ -29,6 +29,7 @@ abstract class BaseCollider extends BaseComponent implements ColliderComponent {
     protected Rect rect;
 
     protected boolean isActive;
+    protected int density;
     protected final String layer;
     protected final Set<String> collidesWith;
     protected final ColliderType type;
@@ -38,6 +39,7 @@ abstract class BaseCollider extends BaseComponent implements ColliderComponent {
             final ColliderType type,
             final String layer,
             final boolean isActive,
+            final int density,
             final Set<String> collidesWith,
             final Cooldown cooldown,
             final Rect rect
@@ -45,6 +47,7 @@ abstract class BaseCollider extends BaseComponent implements ColliderComponent {
         this.type = type;
         this.layer = layer;
         this.isActive = isActive;
+        this.density = density;
         this.collidesWith = new HashSet<>(collidesWith);
         this.cooldown = cooldown;
         this.rect = rect;
@@ -70,16 +73,29 @@ abstract class BaseCollider extends BaseComponent implements ColliderComponent {
         return layer;
     }
 
+    public void setDensity(int density) {
+        this.density = density;
+    }
+
+    @Override
+    public int getDensity() {
+        return density;
+    }
+
     public Set<String> getCollisionLayers() {
         return Set.copyOf(collidesWith);
     }
 
-    public boolean canCollide() {
+    public boolean canTriggerCollision() {
         return isEnabled() && cooldown.isFinished();
     }
 
     public boolean canCollideWith(final ColliderComponent target) {
         return collidesWith.contains(target.getLayer());
+    }
+
+    public boolean cantCollideWith(final ColliderComponent target) {
+        return !canCollideWith(target);
     }
 
     public boolean cantCollide() {

@@ -13,7 +13,7 @@ public interface ColliderComponent {
      * Checks if this collider is able to collide with something right now due to internal state.
      * @return true if the collider is able to collide; false otherwise.
      */
-    boolean canCollide();
+    boolean canTriggerCollision();
 
     /**
      * Checks if this collider is able to collide with the target collider.
@@ -22,6 +22,14 @@ public interface ColliderComponent {
      * configured to collide with this collider collision layer; false if the colliders can't interact.
      */
     boolean canCollideWith(ColliderComponent target);
+
+    /**
+     * Checks if this collider is unable to collide with the target collider.
+     * @param target collider to be verified.
+     * @return true if this collider is not configured to collide with the target's collision layer, or if the target is
+     * not configured to collide with this collider collision layer; false if the colliders are able to interact.
+     */
+    boolean cantCollideWith(final ColliderComponent target);
 
     /**
      * Checks if this collider can't collide with anything right now due to internal state.
@@ -69,4 +77,19 @@ public interface ColliderComponent {
      * Sign to the component that a collision has occurred (collisions are detected by a collision handler).
      */
     void signCollision();
+
+    /**
+     * Density determines how this object interacts 'physically' with others on collision.
+     * @return the collider density.
+     */
+    int getDensity();
+
+    /**
+     * Density defines how the colliders will interact while in collision.
+     * A density of 0 means the collider won't interact (other colliders can go through a collider with a density of 0).
+     * If the density of a collider is 3x bigger than the other collider, the heavier collider won't be affected, but
+     * the light collider will.
+     * The density can be changed in runtime.
+     */
+    void setDensity(int value);
 }
