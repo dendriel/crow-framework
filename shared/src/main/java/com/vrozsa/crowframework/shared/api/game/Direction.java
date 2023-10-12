@@ -123,12 +123,54 @@ public enum Direction {
         return currPosY;
     }
 
-    public static Direction getDirection(int from, int to) {
-        if (from > to) {
-            return LEFT;
+//    public static Direction getDirection(int from, int to) {
+//        if (from > to) {
+//            return LEFT;
+//        }
+//        else {
+//            return RIGHT;
+//        }
+//    }
+
+    public static Direction fromOffset(final int x, int y) {
+        var hor = NONE;
+        var ver = NONE;
+
+        if (x > 0) {
+            hor = RIGHT;
         }
-        else {
-            return RIGHT;
+        else if (x < 0) {
+            hor = LEFT;
         }
+
+        if (y > 0) {
+            ver = UP;
+        }
+        else if (y < 0) {
+            ver = DOWN;
+        }
+
+        if (ver == UP) {
+            if (hor == RIGHT) {
+                return UP_RIGHT;
+            }
+            else if (hor == LEFT) {
+                return UP_LEFT;
+            }
+            return UP;
+        }
+
+        if (ver == DOWN) {
+            if (hor == RIGHT) {
+                return DOWN_RIGHT;
+            }
+            else if (hor == LEFT) {
+                return DOWN_LEFT;
+            }
+            return DOWN;
+        }
+
+        // RIGHT, LEFT or NONE.
+        return hor;
     }
 }

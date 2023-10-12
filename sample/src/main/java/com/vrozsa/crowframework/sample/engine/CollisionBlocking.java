@@ -99,8 +99,10 @@ public class CollisionBlocking {
                         super.update();
                         var commands = inputManager.getAllCommands();
                         var pos = getPosition();
-                        int newX = pos.getX();
-                        int newY = pos.getY();
+//                        int newX = pos.getX();
+//                        int newY = pos.getY();
+                        int offsetX = 0;
+                        int offsetY = 0;
 
                         int speed = movingSpeed;
 
@@ -112,24 +114,24 @@ public class CollisionBlocking {
                         // This way of reading the commands allows to handle multiple player actions per frame.
                         // This allows the character to move diagonally and shoot while moving.
                         if (commands.contains(MOVE_UP)) {
-                            newY -= speed;
+                            offsetY -= speed;
                         }
                         else if (commands.contains(MOVE_DOWN)) {
-                            newY += speed;
+                            offsetY += speed;
                         }
 
                         if (commands.contains(MOVE_LEFT)) {
-                            newX -= speed;
+                            offsetX -= speed;
                         }
                         else if (commands.contains(MOVE_RIGHT)) {
-                            newX += speed;
+                            offsetX += speed;
                         }
 
                         if (commands.contains(ACTION)) {
                             shoot();
                         }
 
-                        pos.setPosition(newX, newY);
+                        pos.addOffset(Offset.of(offsetX, offsetY));
                         var renderer = getComponent(Renderer.class);
 
                         if (commands.contains(MOVE_LEFT) && facingRight) {
@@ -162,8 +164,19 @@ public class CollisionBlocking {
 
         GameObject banditGO = GameObjectBuilder.of(Vector.of(screenMiddleX-240, screenMiddleY-40, 0))
                 .addStaticRenderer(BANDIT_IMAGE_FILE, CHARS_SPRITE_SIZE.getWidth(), CHARS_SPRITE_SIZE.getHeight())
-                .addSquareCollider(0, "enemies", 300, Set.of(), Rect.of(20, 5, 40, 70))
+                .addSquareCollider(0, "enemies", 50, Set.of(), Rect.of(20, 5, 40, 70))
+                .addCollisionHandler((s, t) -> {})
                 .addCollisionGizmos()
+                .addComponent(new BaseComponent() {
+
+                    final int speed = 5;
+                    @Override
+                    public void update() {
+                        super.update();
+
+                        getPosition().addOffset(Offset.of(speed, 0));
+                    }
+                })
                 .addIdentifier("Bandit", 2)
                 .build();
 

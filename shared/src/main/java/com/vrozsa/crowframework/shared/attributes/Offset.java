@@ -51,6 +51,10 @@ public class Offset {
         return new Offset(x - target.getX(), y - target.getY());
     }
 
+    public boolean atOrigin() {
+        return x == 0 && y == 0;
+    }
+
     @Override
     public String toString() {
         return String.format("%d,%d", x, y);

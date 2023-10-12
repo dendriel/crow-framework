@@ -42,7 +42,7 @@ public class Vector implements Cloneable {
         y = offset.getY();
     }
 
-    public void addOffset(Offset offset) {
+    public void addOffset(final Offset offset) {
         x += offset.getX();
         y += offset.getY();
     }

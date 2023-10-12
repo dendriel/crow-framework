@@ -2,6 +2,7 @@ package com.vrozsa.crowframework.game.component.collider;
 
 import com.vrozsa.crowframework.shared.api.game.ColliderComponent;
 import com.vrozsa.crowframework.shared.api.game.ColliderType;
+import com.vrozsa.crowframework.shared.api.game.PositionComponent;
 import com.vrozsa.crowframework.shared.attributes.Offset;
 
 import java.util.List;
@@ -11,7 +12,6 @@ import java.util.Objects;
  * Handles collision between game objects.
  */
 public class CollisionDetector {
-
     /**
      * Checks which objects collides between themselves and call the appropriate collider callbacks.
      * @param colliders colliders to be checked. *Filtering of inactive or invalid objects must take place beforehand.
@@ -80,9 +80,9 @@ public class CollisionDetector {
     }
 
     private static void handleInteraction(final ColliderComponent source, final ColliderComponent target) {
-        int sourceDensity = source.getDensity();
-        int targetDensity = target.getDensity();
-        if (sourceDensity == 0 || targetDensity == 0) {
+        int sourceWeight = source.getWeight();
+        int targetWeight = target.getWeight();
+        if (sourceWeight == 0 || targetWeight == 0) {
             return;
         }
 
@@ -90,44 +90,56 @@ public class CollisionDetector {
             return;
         }
 
-        ColliderComponent bigger = sourceDensity > targetDensity ? source : target;
-        ColliderComponent smaller = sourceDensity > targetDensity ? target : source;
+        var totalWeight = source.getWeight() + target.getWeight();
+        var sourceProp = (float)source.getWeight() / totalWeight;
+        var targetProp = (float)target.getWeight() / totalWeight;
 
-        float densityDiff = bigger.getDensity() / smaller.getDensity();
-        // bigger element is X times bigger, so it won't move.
-        if (densityDiff >= 3f) {
-            //source outweighs target, so target has to move.
-            moveAwayFrom(smaller, bigger);
-            return;
+        if (source.isMoving() && !target.isMoving()) {
+            var offset = source.getLastOffsetAdded();
+            applyMovement(offset, source.getGameObject().getPosition(), sourceProp, target.getGameObject().getPosition(), targetProp);
         }
+        else if (target.isMoving() && !source.isMoving()) {
+            var offset = target.getLastOffsetAdded();
+            applyMovement(offset, target.getGameObject().getPosition(), targetProp, source.getGameObject().getPosition(), sourceProp);
+        }
+        else if (source.isMoving() && target.isMoving()) {
 
-        // calculate proportion of movement.
-        // move each part relative to its proportion.
+            var offsetA = source.getLastOffsetAdded();
+            var offsetB = target.getLastOffsetAdded();
+
+            applyMovement(offsetA, source.getGameObject().getPosition(), sourceProp, target.getGameObject().getPosition(), targetProp);
+            applyMovement(offsetB, target.getGameObject().getPosition(), targetProp, source.getGameObject().getPosition(), sourceProp);
+        }
     }
 
-    private static void moveAwayFrom(final ColliderComponent source, final ColliderComponent target) {
-        var sourceRect = source.getCollisionRect();
-        var targetRect = target.getCollisionRect();
+    private static void applyMovement(final Offset offset,
+                                      final PositionComponent posA, final float proportionA,
+                                      final PositionComponent posB, final float proportionB
+    ) {
+        var offsetA = calcProportionalOffset(offset, proportionA, 1);
+        posB.addOffset(offsetA);
 
-        var sourceTopLeft = sourceRect.getX();
-        var sourceTopRight = sourceRect.getX() + sourceRect.getWidth();
-        var sourceCenterX = sourceRect.getX() + (sourceRect.getWidth() / 2);
+        var offsetB = calcProportionalOffset(offset, proportionB, -1);
+        posA.addOffset(offsetB);
+    }
 
-        var targetTopLeft = targetRect.getX();
-        var targetTopRight = targetRect.getX() + targetRect.getWidth();
-        var targetCenterX = targetRect.getX() + (targetRect.getWidth() / 2);
-
-        // source touching the target on the left side
-        if (sourceTopLeft < targetTopLeft &&
-            sourceTopRight > targetTopLeft) {
-            var fallback = sourceTopRight - targetTopLeft;
-            source.getGameObject().getPosition().addOffset(Offset.of(fallback*-1, 0));
+    private static Offset calcProportionalOffset(final Offset offset, final float proportion, final int inverter) {
+        int x;
+        if (offset.getX() > 0) {
+            x = (int)Math.ceil(offset.getX() * proportion * inverter);
         }
-        // source touching the target on the right side
-        else if (sourceTopRight > targetTopRight &&
-            sourceTopLeft < targetTopRight) {
-            var fallback = targetTopRight - sourceTopLeft;
-            source.getGameObject().getPosition().addOffset(Offset.of(fallback, 0));
+        else {
+            x = (int)Math.floor(offset.getX() * proportion * inverter);
         }
+
+        int y;
+        if (offset.getY() > 0) {
+            y = (int)Math.ceil(offset.getY() * proportion * inverter);
+        }
+        else {
+            y = (int)Math.floor(offset.getY() * proportion * inverter);
+        }
+
+        return Offset.of(x, y);
     }
 }

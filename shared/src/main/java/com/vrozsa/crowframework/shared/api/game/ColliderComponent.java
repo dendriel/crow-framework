@@ -1,5 +1,6 @@
 package com.vrozsa.crowframework.shared.api.game;
 
+import com.vrozsa.crowframework.shared.attributes.Offset;
 import com.vrozsa.crowframework.shared.attributes.Rect;
 
 import java.util.Set;
@@ -79,17 +80,29 @@ public interface ColliderComponent {
     void signCollision();
 
     /**
-     * Density determines how this object interacts 'physically' with others on collision.
-     * @return the collider density.
+     * Weight determines how this object interacts 'physically' with others on collision.
+     * @return the collider weight.
      */
-    int getDensity();
+    int getWeight();
 
     /**
-     * Density defines how the colliders will interact while in collision.
-     * A density of 0 means the collider won't interact (other colliders can go through a collider with a density of 0).
-     * If the density of a collider is 3x bigger than the other collider, the heavier collider won't be affected, but
+     * Weight defines how the colliders will interact while in collision.
+     * A weight of 0 means the collider won't interact (other colliders can go through a collider with a weight of 0).
+     * If the weight of a collider is 3x bigger than the other collider, the heavier collider won't be affected, but
      * the light collider will.
-     * The density can be changed in runtime.
+     * The weight can be changed in runtime.
      */
-    void setDensity(int value);
+    void setWeight(int value);
+
+    /**
+     * Returns if the object has moved last frame (reset every frame).
+     * @return true if the object has moved (had offset added to the position); false otherwise.
+     */
+    boolean isMoving();
+
+    /**
+     * Gets the offset added when moving last frame (reset every frame).
+     * @return offset added last frame.
+     */
+    Offset getLastOffsetAdded();
 }

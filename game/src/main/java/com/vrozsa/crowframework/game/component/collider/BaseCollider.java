@@ -4,6 +4,7 @@ import com.vrozsa.crowframework.game.component.BaseComponent;
 import com.vrozsa.crowframework.shared.api.game.ColliderComponent;
 import com.vrozsa.crowframework.shared.api.game.ColliderType;
 import com.vrozsa.crowframework.shared.api.screen.Renderer;
+import com.vrozsa.crowframework.shared.attributes.Offset;
 import com.vrozsa.crowframework.shared.attributes.Rect;
 import com.vrozsa.crowframework.shared.attributes.Size;
 import com.vrozsa.crowframework.shared.time.Cooldown;
@@ -29,17 +30,19 @@ abstract class BaseCollider extends BaseComponent implements ColliderComponent {
     protected Rect rect;
 
     protected boolean isActive;
-    protected int density;
+    protected int weight;
     protected final String layer;
     protected final Set<String> collidesWith;
     protected final ColliderType type;
     protected final Cooldown cooldown;
+    protected Offset lastOffsetAdded;
+    protected boolean offsetAddedLastFrame;
 
     protected BaseCollider(
             final ColliderType type,
             final String layer,
             final boolean isActive,
-            final int density,
+            final int weight,
             final Set<String> collidesWith,
             final Cooldown cooldown,
             final Rect rect
@@ -47,10 +50,41 @@ abstract class BaseCollider extends BaseComponent implements ColliderComponent {
         this.type = type;
         this.layer = layer;
         this.isActive = isActive;
-        this.density = density;
+        this.weight = weight;
         this.collidesWith = new HashSet<>(collidesWith);
         this.cooldown = cooldown;
         this.rect = rect;
+    }
+
+    @Override
+    public void wrapUp() {
+        super.wrapUp();
+
+        getPosition().addPositionOffsetAddedListener(this::onOffsetAdded);
+    }
+
+    @Override
+    public void update() {
+        super.update();
+        // reset this every update, before the GO handling phase.
+        offsetAddedLastFrame = false;
+        lastOffsetAdded = Offset.origin();
+    }
+
+    private void onOffsetAdded(int offsetX, int offsetY) {
+        lastOffsetAdded = Offset.of(offsetX, offsetY);
+
+        // the offset may be added in the game object update phase, and it is to be consumed by the collision handling
+        // before the next go update phase.
+        offsetAddedLastFrame = true;
+    }
+
+    public boolean isMoving() {
+        return offsetAddedLastFrame;
+    }
+
+    public Offset getLastOffsetAdded() {
+        return lastOffsetAdded;
     }
 
     public void setActive(final boolean isActive) {
@@ -73,13 +107,13 @@ abstract class BaseCollider extends BaseComponent implements ColliderComponent {
         return layer;
     }
 
-    public void setDensity(int density) {
-        this.density = density;
+    public void setWeight(int weight) {
+        this.weight = weight;
     }
 
     @Override
-    public int getDensity() {
-        return density;
+    public int getWeight() {
+        return weight;
     }
 
     public Set<String> getCollisionLayers() {

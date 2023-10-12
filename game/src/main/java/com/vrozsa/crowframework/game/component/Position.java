@@ -2,6 +2,7 @@ package com.vrozsa.crowframework.game.component;
 
 import com.vrozsa.crowframework.shared.api.game.PositionComponent;
 import com.vrozsa.crowframework.shared.api.game.PositionObserver;
+import com.vrozsa.crowframework.shared.api.game.PositionOffsetObserver;
 import com.vrozsa.crowframework.shared.attributes.Vector;
 import com.vrozsa.crowframework.shared.attributes.Offset;
 
@@ -11,22 +12,21 @@ import java.util.List;
 public class Position extends BaseComponent implements PositionComponent, PositionObserver {
     public static final String DEFAULT_POSITION = "_defaultPositionComponent";
     private Position parent;
-
     private final List<Position> children;
-
     private final List<PositionObserver> positionObservers;
-
+    private final List<PositionOffsetObserver> offsetAddedObservers;
     private Vector pos;
 
     public Position(Vector pos) {
         this(pos, DEFAULT_POSITION);
     }
 
-    public Position(Vector pos, String positionCompName) {
+    public Position(final Vector pos, final String positionCompName) {
         this.pos = pos;
 
         children = new ArrayList<>();
         positionObservers = new ArrayList<>();
+        offsetAddedObservers = new ArrayList<>();
         name = positionCompName;
     }
 
@@ -107,8 +107,12 @@ public class Position extends BaseComponent implements PositionComponent, Positi
     }
 
     public void addOffset(final Offset offset) {
+        if (offset.atOrigin()) {
+            return;
+        }
         pos.addOffset(offset);
         onPositionChanged();
+        onOffsetAdded(offset.getX(), offset.getY());
     }
 
     public void addPositionChangedListener(PositionObserver observer) {
@@ -122,6 +126,14 @@ public class Position extends BaseComponent implements PositionComponent, Positi
     private void onPositionChanged() {
         positionObservers.forEach(o -> o.positionChanged(getAbsolutePosX(), getAbsolutePosY()));
         children.forEach(Position::parentPositionChanged);
+    }
+
+    public void addPositionOffsetAddedListener(PositionOffsetObserver observer) {
+        offsetAddedObservers.add(observer);
+    }
+
+    private void onOffsetAdded(int offsetX, int offsetY) {
+        offsetAddedObservers.forEach(o -> o.offsetAdded(offsetX, offsetY));
     }
 
     @Override

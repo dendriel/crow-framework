@@ -18,17 +18,17 @@ public class SquareCollider extends BaseCollider {
         this(cooldown, DEFAULT_COLLISION_LAYER, 0, Set.of(DEFAULT_COLLISION_LAYER));
     }
 
-    public SquareCollider(final long cooldown, final String collisionLayer, final int density, final Set<String> collidesWith) {
-        this(cooldown, collisionLayer, density, collidesWith, null);
+    public SquareCollider(final long cooldown, final String collisionLayer, final int weight, final Set<String> collidesWith) {
+        this(cooldown, collisionLayer, weight, collidesWith, null);
     }
 
     public SquareCollider(
-            final long cooldown, final String collisionLayer, final int density, final Set<String> collidesWith, final Rect rect) {
+            final long cooldown, final String collisionLayer, final int weight, final Set<String> collidesWith, final Rect rect) {
         super(
                 ColliderType.SQUARE,
                 collisionLayer,
                 true,
-                density,
+                weight,
                 collidesWith,
                 Cooldown.create(cooldown),
                 rect
