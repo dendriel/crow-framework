@@ -6,6 +6,7 @@ import com.vrozsa.crowframework.game.component.Position;
 import com.vrozsa.crowframework.game.component.StaticRenderer;
 import com.vrozsa.crowframework.game.component.animation.AnimatedRenderer;
 import com.vrozsa.crowframework.game.component.animation.Animation;
+import com.vrozsa.crowframework.game.component.animation.AnimationTemplate;
 import com.vrozsa.crowframework.game.component.collider.BaseCollisionHandler;
 import com.vrozsa.crowframework.game.component.collider.ColliderGizmos;
 import com.vrozsa.crowframework.game.component.collider.SquareCollider;
@@ -86,9 +87,20 @@ public final class GameObjectBuilder  {
         return this;
     }
 
-    public GameObjectBuilder addAnimatedRenderer(int layer, Animation animation) {
+    /**
+     * Adds an animated renderer component.
+     * @param layer the renderer layer.
+     * @param templates the animations templates data.
+     * @return the builder.
+     */
+    public GameObjectBuilder addAnimatedRenderer(int layer, AnimationTemplate...templates) {
         var renderer = new AnimatedRenderer(this.position, layer, AnimatedRenderer.DEFAULT_ANIMATED_RENDERER, false, false);
-        renderer.add("default_animation", animation, 0);
+
+        for (var template : templates) {
+            var animation = Animation.of(template);
+            renderer.add(template.name(), animation, template.layer());
+        }
+
         components.add(renderer);
         return this;
     }

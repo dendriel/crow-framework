@@ -8,6 +8,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
+/**
+ * Handles animations from a game object.
+ *
+ * A AnimatedRenderer allows to configure animations by 'layers'. We may have animations like idle, walking, attacking,
+ * but layers allows us to create a layer with 'default animations'; then have another layer in which there also have idle,
+ * walking, attacking, but game object is in a 'overpowered' state and then the animations represents this state.
+ *
+ * This way, the 'layer' allows us to switch animation bundles transparently, keeping the same animation keys.
+ */
 public class AnimatedRenderer extends StaticRenderer {
     public static final String DEFAULT_ANIMATED_RENDERER = "_defaultAnimatorComponent";
     private static final Integer DEFAULT_ANIMATIONS_LAYER = 0;
@@ -90,6 +100,20 @@ public class AnimatedRenderer extends StaticRenderer {
         getAnimations(layer).put(key, animation);
     }
 
+    /**
+     * Enable the target animation from the current layer.
+     * @param key target animation key
+     */
+    public void setOnlyEnabled(final String key) {
+        setAllAnimationsInactive();
+        setActive(key, true, animationLayer);
+    }
+
+    /**
+     * Set the active state for the target animation.
+     * @param key key from animation.
+     * @param isActive true=active; false=inactive.
+     */
     public void setActive(String key, boolean isActive) {
         setActive(key, isActive, animationLayer);
     }

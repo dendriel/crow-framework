@@ -15,7 +15,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Animation {
+public final class Animation {
     private final AnimationTemplate data;
     private long length;
 
@@ -33,12 +33,16 @@ public class Animation {
 
     private long lastTriggered;
 
-    public Animation(final AnimationTemplate data) {
+    private Animation(final AnimationTemplate data) {
         this.data = data;
 
         cooldownBeforeRepeating = Cooldown.create(data.intervalBeforeRepeating());
         setup();
         length = data.timeBetweenFrames() * totalFrames;
+    }
+
+    public static Animation of(final AnimationTemplate template) {
+        return new Animation(template);
     }
 
     private void setup() {

@@ -3,6 +3,7 @@ package com.vrozsa.crowframework.engine;
 import com.vrozsa.crowframework.game.RunnableGameLoop;
 import com.vrozsa.crowframework.screen.internal.ScreenHandlerConfig;
 import com.vrozsa.crowframework.shared.api.game.GameLoop;
+import com.vrozsa.crowframework.shared.api.game.GameObject;
 import com.vrozsa.crowframework.shared.attributes.Size;
 
 /**
@@ -50,5 +51,10 @@ class Engine implements CrowEngine {
     @Override
     public GameManager getGameManager() {
         return gameManager;
+    }
+
+    @Override
+    public void addGameObject(final GameObject go) {
+        gameManager.addGameObject(go);
     }
 }

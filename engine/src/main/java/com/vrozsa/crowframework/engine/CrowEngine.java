@@ -1,5 +1,6 @@
 package com.vrozsa.crowframework.engine;
 
+import com.vrozsa.crowframework.shared.api.game.GameObject;
 import com.vrozsa.crowframework.shared.attributes.Color;
 
 /**
@@ -33,12 +34,18 @@ public interface CrowEngine {
 
     /**
      * Creates a new CrowEngine with custom configurations.
-     * @param config
-     * @return
+     * @param config CrowEngine configuration.
+     * @return the new CrowEngine object.
      */
     static CrowEngine create(final CrowEngineConfig config) {
         return new Engine(config);
     }
+
+    /**
+     * Adds a new game object into the game.
+     * @param go the game object to be added.
+     */
+    void addGameObject(final GameObject go);
 
     /**
      * Gets the InputManager instance.

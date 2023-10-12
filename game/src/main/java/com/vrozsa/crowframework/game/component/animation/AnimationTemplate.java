@@ -12,6 +12,8 @@ import java.util.List;
  */
 @Builder
 public record AnimationTemplate(
+   int layer,
+   String name,
    Rect rect,
    List<String> spritesheets,
    Rect frameRect,
@@ -23,6 +25,8 @@ public record AnimationTemplate(
 ) {
     public AnimationTemplate copy() {
         return new AnimationTemplate(
+                layer,
+                name,
                 rect.clone(),
                 new ArrayList<>(spritesheets),
                 frameRect.clone(),

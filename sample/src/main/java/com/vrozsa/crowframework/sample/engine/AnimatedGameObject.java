@@ -85,10 +85,8 @@ public class AnimatedGameObject {
                 .isActive(true)
                 .build();
 
-        var heroWalkAnim = new Animation(heroWalkAnimTemplate);
-
         var heroGO = GameObjectBuilder.of(Vector.of(screenMiddleX-40, screenMiddleY-40, 0))
-                .addAnimatedRenderer(100, heroWalkAnim)
+                .addAnimatedRenderer(100, heroWalkAnimTemplate)
                 .addSquareCollider(1000, "hero", Set.of())
                 .addIdentifier("Hero", 1)
                 .addCollisionHandler((source, target) -> {
