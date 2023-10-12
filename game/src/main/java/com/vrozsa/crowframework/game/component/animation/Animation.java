@@ -137,6 +137,11 @@ public final class Animation {
         }
     }
 
+    public boolean isLastFrame() {
+        System.out.println("curr frame: " + currentFrame + " total: " + totalFrames);
+        return (currentFrame + 1) >= totalFrames;
+    }
+
     private void repeat() {
         if (data.intervalBeforeRepeating() <= 0) {
             currentFrame = 0;

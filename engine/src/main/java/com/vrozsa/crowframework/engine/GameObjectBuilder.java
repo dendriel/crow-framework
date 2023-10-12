@@ -62,6 +62,13 @@ public final class GameObjectBuilder  {
         return this;
     }
 
+    /**
+     * Add a static renderer to the game object.
+     * @param imageFile image to be rendered.
+     * @param width image width.
+     * @param height image height.
+     * @return the builder object.
+     */
     public GameObjectBuilder addStaticRenderer(String imageFile, int width, int height) {
         return addStaticRenderer(0, imageFile, width, height);
     }
@@ -85,6 +92,10 @@ public final class GameObjectBuilder  {
         components.add(renderer);
 
         return this;
+    }
+
+    public GameObjectBuilder addAnimatedRenderer(int layer, List<AnimationTemplate> templates) {
+        return addAnimatedRenderer(layer, templates.toArray(new AnimationTemplate[0]));
     }
 
     /**

@@ -105,7 +105,7 @@ public class AnimatedRenderer extends StaticRenderer {
      * @param key target animation key
      */
     public void setOnlyEnabled(final String key) {
-        setAllAnimationsInactive();
+        setAllAnimationsInactive(key);
         setActive(key, true, animationLayer);
     }
 
@@ -136,6 +136,20 @@ public class AnimatedRenderer extends StaticRenderer {
         }
     }
 
+    public boolean isAnimationActive(String key) {
+        var animation = getCurrentAnimations()
+                .get(key);
+
+        return animation == null || animation.isActive();
+    }
+
+    public boolean isLastAnimationFrame(String key) {
+        var animation = getCurrentAnimations()
+                .get(key);
+
+        return animation == null || animation.isLastFrame();
+    }
+
     public boolean isAllAnimationsInactive() {
         return isAllAnimationsInactive(animationLayer);
     }
@@ -145,10 +159,24 @@ public class AnimatedRenderer extends StaticRenderer {
     }
 
     public void setAllAnimationsInactive() {
-        setAllAnimationsInactive(animationLayer);
+        setAllAnimationsInactive("");
     }
 
-    public void setAllAnimationsInactive(int layer) {
-        getAnimations(layer).values().forEach(a -> a.setActive(false));
+    public void setAllAnimationsInactive(String exceptionKey) {
+        setAllAnimationsInactive(animationLayer, exceptionKey);
+    }
+
+    public void setAllAnimationsInactive(int layer, String exceptionKey) {
+        var animations = getAnimations(layer);
+
+        for (var entry : animations.entrySet()) {
+            if (!entry.getKey().equals(exceptionKey)) {
+                entry.getValue().setActive(false);
+            }
+        }
+
+//        getAnimations(layer).values().stream()
+//                .filter(anim -> anim.)
+//                .forEach(a -> a.setActive(false));
     }
 }
