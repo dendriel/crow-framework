@@ -79,7 +79,6 @@ public class AnimatedRenderer extends StaticRenderer {
     @Override
     public List<Drawable> getDrawings(boolean filterInactive) {
         refreshDrawings();
-        System.out.println("Get drawings to paint: " + drawings.size());
         return drawings;
     }
 
