@@ -1,5 +1,6 @@
 package com.vrozsa.crowframework.game.component.animation;
 
+import com.vrozsa.crowframework.shared.api.game.AnimationTriggerEndedObserver;
 import com.vrozsa.crowframework.shared.api.screen.Drawable;
 import com.vrozsa.crowframework.shared.api.screen.Renderer;
 import com.vrozsa.crowframework.shared.attributes.Rect;
@@ -26,12 +27,12 @@ public final class Animation {
     private Cooldown cooldownBeforeRepeating;
 
     private Rect rect;
-    private int currentFrame;
+    private int currentFrameIdx;
     private int totalFrames;
     private long lastFrameUpdateTime;
     private Rect frameRect;
-
     private long lastTriggered;
+    private List<AnimationTriggerEndedObserver> triggerEndedObservers;
 
     private Animation(final AnimationTemplate data) {
         this.data = data;
@@ -39,6 +40,8 @@ public final class Animation {
         cooldownBeforeRepeating = Cooldown.create(data.intervalBeforeRepeating());
         setup();
         length = data.timeBetweenFrames() * totalFrames;
+
+        triggerEndedObservers = new ArrayList<>();
     }
 
     public static Animation of(final AnimationTemplate template) {
@@ -53,6 +56,18 @@ public final class Animation {
         isActive = data.isActive();
 
         loadSpritesheets();
+    }
+
+    public void addTriggerEndedObserver(final AnimationTriggerEndedObserver observer) {
+        triggerEndedObservers.add(observer);
+    }
+
+    public void removeTriggerEndedObserver(final AnimationTriggerEndedObserver observer) {
+        triggerEndedObservers.remove(observer);
+    }
+
+    private void onTriggerEnded() {
+        triggerEndedObservers.forEach(AnimationTriggerEndedObserver::triggerEnded);
     }
 
     private void loadSpritesheets() {
@@ -70,10 +85,12 @@ public final class Animation {
     public void setActive(boolean active) {
         if (active && !isActive) {
             reset();
+            updateLastFrameUpdateTime();
         }
 
         if (isTriggered && !active) {
             isTriggered = false;
+            onTriggerEnded();
         }
 
         isActive = active;
@@ -84,6 +101,7 @@ public final class Animation {
         isActive = false;
         lastTriggered = TimeUtils.getCurrentTime();
         reset();
+        updateLastFrameUpdateTime();
     }
 
     public long getLastTriggered() {
@@ -95,7 +113,7 @@ public final class Animation {
     }
 
     void reset() {
-        currentFrame = data.firstFrame();
+        currentFrameIdx = data.firstFrame();
         lastFrameUpdateTime = 0;
     }
 
@@ -121,14 +139,15 @@ public final class Animation {
     }
 
     private void setupNextFrame() {
-        int nextFrame = currentFrame + 1;
-        if (nextFrame < totalFrames) {
-            currentFrame = nextFrame;
+        int nextFrameIdx = currentFrameIdx + 1;
+        if (nextFrameIdx < totalFrames) {
+            currentFrameIdx = nextFrameIdx;
             return;
         }
 
         if (isTriggered) {
             isTriggered = false;
+            onTriggerEnded();
             return;
         }
 
@@ -138,13 +157,12 @@ public final class Animation {
     }
 
     public boolean isLastFrame() {
-        System.out.println("curr frame: " + currentFrame + " total: " + totalFrames);
-        return (currentFrame + 1) >= totalFrames;
+        return (currentFrameIdx + 1) >= totalFrames;
     }
 
     private void repeat() {
         if (data.intervalBeforeRepeating() <= 0) {
-            currentFrame = 0;
+            currentFrameIdx = 0;
             return;
         }
 
@@ -153,7 +171,7 @@ public final class Animation {
         }
         else if (cooldownBeforeRepeating.isFinished()) {
             cooldownBeforeRepeating.stop();
-            currentFrame = 0;
+            currentFrameIdx = 0;
         }
     }
 
@@ -185,7 +203,7 @@ public final class Animation {
         var frameSize = frameRect.getSize();
 
         var frameWidth = ((float)data.frameRect().getSize().getWidth() / data.rect().getSize().getWidth()) * rect.getSize().getWidth();
-        var x = (int)(currentFrame * frameWidth);
+        var x = (int)(currentFrameIdx * frameWidth);
 
         return fullImage.getSubimage(x, 0, frameSize.getWidth(), frameSize.getHeight());
     }

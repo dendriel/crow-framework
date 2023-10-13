@@ -22,6 +22,7 @@ public class CharacterDriver extends BaseComponent {
     private int diagonalSpeed;
     private boolean facingRight;
     private boolean isMoving;
+    private boolean isAttacking;
     private String projectileType;
     private Cooldown shootCooldown;
     private final Offset projectileSpawnOffset;
@@ -46,6 +47,10 @@ public class CharacterDriver extends BaseComponent {
 
         animatedRenderer = getComponent(AnimatedRenderer.class);
         assert animatedRenderer != null : "CharacterDriver requires a AnimatedRenderer!";
+
+        var attackAnim = animatedRenderer.getAnimation(ANIM_ATTACK_KEY);
+        assert attackAnim != null : "AnimatedRenderer requires an 'attack' animation!";
+        attackAnim.addTriggerEndedObserver(this::onAttackAnimationEnded);
 
         projectileHandler = getComponent(ProjectileHandler.class);
         assert projectileHandler != null : "CharacterDriver requires a ProjectileHandler!";
@@ -78,7 +83,6 @@ public class CharacterDriver extends BaseComponent {
         getPosition().addOffset(Offset.of(speed * x, speed * y));
 
         setWalking();
-        isMoving = true;
     }
 
     public void flipDirection() {
@@ -104,7 +108,12 @@ public class CharacterDriver extends BaseComponent {
         setAttacking();
     }
 
+    private void onAttackAnimationEnded() {
+        isAttacking = false;
+    }
+
     private void setWalking() {
+        isMoving = true;
         animatedRenderer.setOnlyEnabled(ANIM_WALK_KEY);
     }
 
@@ -113,43 +122,27 @@ public class CharacterDriver extends BaseComponent {
     }
 
     private void setAttacking() {
+        isAttacking = true;
         animatedRenderer.setAllAnimationsInactive();
         animatedRenderer.trigger(ANIM_ATTACK_KEY);
     }
 
     @Override
-    public void update() {
-        super.update();
-
+    public void lateUpdate() {
+        /*
+         * Handle animation state changing on late update so everything can take place in time. An animation ended trigger
+         * may happen after the driver update() is called, thus we have to control this in lateUpdate().
+         */
+        super.lateUpdate();
         if (isMoving) {
             isMoving = false;
             return;
         }
 
-        // While attacking, will set IDLE animation if is the last frame. Otherwise, the triggered animation will turn
-        // of after the last frame and we will have a flickering effect.
-        if (animatedRenderer.isAnimationActive(ANIM_ATTACK_KEY) &&
-                !animatedRenderer.isLastAnimationFrame(ANIM_ATTACK_KEY)) {
+        if (isAttacking) {
             return;
         }
 
         setIdle();
-
     }
-
-//    private void shoot() {
-//        if (arrowGO.isActive()) {
-//            logger.debug("Arrow already flying...");
-//            return;
-//        }
-//
-//        logger.debug("Arrow fired!");
-//
-//        var arrowController = arrowGO.getComponent(CollisionBlocking.ArrowController.class);
-//        arrowController.setDirection(facingRight ? Direction.RIGHT : Direction.LEFT);
-//        arrowController.setPosition(getPosition().getOffset());
-//        arrowGO.setActive(true);
-//    }
-
-
 }

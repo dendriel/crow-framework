@@ -41,7 +41,6 @@ public class AnimatedRenderer extends StaticRenderer {
         }
 
         getCurrentAnimations().values().forEach(Animation::update);
-        refreshDrawings();
     }
 
     protected Map<String, Animation> getCurrentAnimations() {
@@ -58,7 +57,7 @@ public class AnimatedRenderer extends StaticRenderer {
         return animationsLayers.get(layer);
     }
 
-    protected Animation getAnimation(String key) {
+    public Animation getAnimation(String key) {
         return getAnimation(key, animationLayer);
     }
 
@@ -79,6 +78,8 @@ public class AnimatedRenderer extends StaticRenderer {
 
     @Override
     public List<Drawable> getDrawings(boolean filterInactive) {
+        refreshDrawings();
+        System.out.println("Get drawings to paint: " + drawings.size());
         return drawings;
     }
 

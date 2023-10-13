@@ -22,6 +22,10 @@ class CrowGameManager implements GameManager {
         gos.forEach(GameObject::update);
     }
 
+    void lateUpdate() {
+        gos.forEach(GameObject::lateUpdate);
+    }
+
     // Called by gameLoop. May concur with user thread.
     void handleCollision() {
         var collisionObjects =
@@ -32,10 +36,6 @@ class CrowGameManager implements GameManager {
                         .toList();
 
         collisionDetector.handle(collisionObjects);
-    }
-
-    void lateUpdate() {
-        gos.forEach(GameObject::lateUpdate);
     }
 
     @Override

@@ -67,7 +67,7 @@ public final class RobinWoodConfigurationManager {
                 .rect(Rect.of(-20, -60, 720, 120))
                 .frameRect(Rect.atOrigin(120, 120))
                 .spritesheets(List.of(HERO_ATTACK_SPRITESHEET))
-                .timeBetweenFrames(60)
+                .timeBetweenFrames(30)
                 .firstFrame(0)
                 .repeat(false)
                 .intervalBeforeRepeating(0)
