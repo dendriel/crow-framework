@@ -12,6 +12,7 @@ import com.vrozsa.crowframework.shared.api.game.GameObject;
 import com.vrozsa.crowframework.shared.api.screen.Offsetable;
 import com.vrozsa.crowframework.shared.attributes.Color;
 import com.vrozsa.crowframework.shared.attributes.Offset;
+import com.vrozsa.crowframework.shared.attributes.Rect;
 import com.vrozsa.crowframework.shared.logger.LoggerService;
 import lombok.RequiredArgsConstructor;
 
@@ -21,33 +22,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.Supplier;
 
-import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.BACKGROUND_IMAGE_FILE;
-import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.BACKGROUND_SPRITE_LAYER;
-import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.BOARD_SIZE;
-import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.CHARACTER_SPRITE_LAYER;
-import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.ENEMIES_COLLISION_LAYER;
-import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.HERO_COLLISION_COOLDOWN;
-import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.HERO_COLLISION_LAYER;
-import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.HERO_COLLISION_RECT;
-import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.IRON_ARROW_IMAGE_FILE;
-import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.MOVEMENT_AXIS_SPEED;
-import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.MOVEMENT_DIAGONAL_SPEED;
-import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.PROJECTILE_IRON_ARROW;
-import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.PROJECTILE_LIFETIME;
-import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.PROJECTILE_SPAWN_OFFSET;
-import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.PROJECTILE_SPEED;
-import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.PROJECTILE_SPRITE_LAYER;
-import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.SCREEN_SIZE;
-import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.SHOOT_COOLDOWN;
-import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.SPRITE_HEIGHT;
-import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.SPRITE_WIDTH;
-import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.TREE_COLLISION_LAYER;
-import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.TREE_COLLISION_RECT;
-import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.TREE_SPRITE_LAYER;
-import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.getCameraFollowBox;
-import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.getCharScreenCenter;
-import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.getHeroAnimationTemplates;
-import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.getRandomTreeImageFile;
+import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.*;
 
 @RequiredArgsConstructor
 public class GameObjectFactory {
@@ -94,8 +69,8 @@ public class GameObjectFactory {
             int topY = 0;
             int bottomY = BOARD_SIZE.getHeight() - SPRITE_HEIGHT;
 
-            trees.add(createTree(x, topY, active));
-            trees.add(createTree(x, bottomY, active));
+            trees.add(createTree(x, topY, active, TOP_TREE_SPRITE_LAYER, TOP_TREE_COLLISION_RECT));
+            trees.add(createTree(x, bottomY, active, BOTTOM_TREE_SPRITE_LAYER, BOTTOM_TREE_COLLISION_RECT));
         }
 
         return GameObjectBuilder.of(boardX, boardY,0)
@@ -105,11 +80,11 @@ public class GameObjectFactory {
                 .build();
     }
 
-    public GameObject createTree(int x, int y, boolean active) {
+    public GameObject createTree(int x, int y, boolean active, int spriteLayer, Rect collisionRect) {
         return GameObjectBuilder.of(x, y, 0)
                 .setActive(active)
-                .addStaticRenderer(TREE_SPRITE_LAYER, getRandomTreeImageFile(), SPRITE_WIDTH, SPRITE_HEIGHT)
-                .addSquareCollider(0, TREE_COLLISION_LAYER, Integer.MAX_VALUE, Set.of(), TREE_COLLISION_RECT)
+                .addStaticRenderer(spriteLayer, getRandomTreeImageFile(), SPRITE_WIDTH, SPRITE_HEIGHT)
+                .addSquareCollider(0, TREE_COLLISION_LAYER, Integer.MAX_VALUE, Set.of(), collisionRect)
                 .addCollisionGizmos()
                 .build();
     }

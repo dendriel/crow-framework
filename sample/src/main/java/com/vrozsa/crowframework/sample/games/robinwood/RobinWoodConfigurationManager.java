@@ -1,6 +1,7 @@
 package com.vrozsa.crowframework.sample.games.robinwood;
 
 import com.vrozsa.crowframework.game.component.animation.AnimationTemplate;
+import com.vrozsa.crowframework.shared.attributes.Color;
 import com.vrozsa.crowframework.shared.attributes.Offset;
 import com.vrozsa.crowframework.shared.attributes.Rect;
 import com.vrozsa.crowframework.shared.attributes.Size;
@@ -27,6 +28,7 @@ public final class RobinWoodConfigurationManager {
 
     public static final List<String> TREE_IMAGE_FILES = List.of("maple_tree01.png", "maple_tree02.png", "maple_tree03.png", "pine_tree01.png", "pine_tree02.png", "pine_tree03.png") ;
 
+    public static final Color BG_SCREEN_COLOR = Color.from(154, 194, 93); // light green
     public static final Size SCREEN_SIZE = Size.of(800, 600);
     public static final Offset MIDDLE_SCREEN_OFFSET = Offset.of(SCREEN_SIZE.getWidth()/2, SCREEN_SIZE.getHeight()/2);
     public static final Offset HERO_STARTING_OFFSET = Offset.of(360, 260);
@@ -35,7 +37,8 @@ public final class RobinWoodConfigurationManager {
     public static Size BOARD_SIZE = Size.of(1600, 600);
 
     public static final int BACKGROUND_SPRITE_LAYER = 0;
-    public static final int TREE_SPRITE_LAYER = 10;
+    public static final int TOP_TREE_SPRITE_LAYER = 10;
+    public static final int BOTTOM_TREE_SPRITE_LAYER = 1000;
     public static final int CHARACTER_SPRITE_LAYER = 100;
     public static final int PROJECTILE_SPRITE_LAYER = 200;
     public static final int MOVEMENT_AXIS_SPEED = 5;
@@ -54,7 +57,8 @@ public final class RobinWoodConfigurationManager {
     public static final String HERO_PROJECTILE_COLLISION_LAYER = "hero_projectile";
 
     public static final Rect HERO_COLLISION_RECT = Rect.of(22, -20, 35 ,70);
-    public static final Rect TREE_COLLISION_RECT = Rect.of(0, 40, 80 ,40);
+    public static final Rect TOP_TREE_COLLISION_RECT = Rect.of(0, 0, 80 ,40);
+    public static final Rect BOTTOM_TREE_COLLISION_RECT = Rect.of(0, 40, 80 ,40);
 
     private static Random randomizer = new Random();
 
