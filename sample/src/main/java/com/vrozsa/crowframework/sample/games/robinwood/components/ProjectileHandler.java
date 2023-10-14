@@ -29,10 +29,7 @@ public class ProjectileHandler extends BaseComponent {
         var projectileController = projectile.getComponent(ProjectileController.class);
         assert projectileController != null : "Projectile has no controller!";
 
-        projectileController.setPosition(x, y);
-        projectileController.setDirection(direction);
-
-        projectile.setActive(true);
+        projectileController.activate(x, y, direction);
     }
 
     private GameObject getProjectile(final String type) {
@@ -41,7 +38,11 @@ public class ProjectileHandler extends BaseComponent {
         return projectilesOfType.stream()
                 .filter(GameObject::isInactive)
                 .findFirst()
-                .orElseGet(() -> createProjectile(type));
+                .orElseGet(() -> {
+                    GameObject projectile = createProjectile(type);
+                    projectilesOfType.add(projectile);
+                    return projectile;
+                });
     }
 
     private List<GameObject> getProjectilesOfType(final String type) {

@@ -36,6 +36,7 @@ public final class RobinWoodConfigurationManager {
     public static final int MOVEMENT_AXIS_SPEED = 5;
     public static final int MOVEMENT_DIAGONAL_SPEED = 3;
     public static final int PROJECTILE_SPEED = 10;
+    public static final int PROJECTILE_LIFETIME = 1000;
     public static final Offset PROJECTILE_SPAWN_OFFSET = Offset.of(30, 25);
     public static final int SHOOT_COOLDOWN = 1000;
 

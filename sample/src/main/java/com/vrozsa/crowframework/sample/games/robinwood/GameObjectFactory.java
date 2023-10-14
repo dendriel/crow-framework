@@ -43,7 +43,7 @@ public class GameObjectFactory {
         var projectile = GameObjectBuilder.of(0, 0, 0)
                 .setActive(false)
                 .addStaticRenderer(PROJECTILE_SPRITE_LAYER, IRON_ARROW_IMAGE_FILE, CHAR_IMAGE_WIDTH, CHAR_IMAGE_HEIGHT)
-                .addComponent(new ProjectileController(PROJECTILE_SPEED))
+                .addComponent(new ProjectileController(PROJECTILE_SPEED, PROJECTILE_LIFETIME))
                 .build();
 
         crowEngine.addGameObject(projectile);

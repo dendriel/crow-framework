@@ -4,16 +4,18 @@ import com.vrozsa.crowframework.game.component.BaseComponent;
 import com.vrozsa.crowframework.shared.api.game.Direction;
 import com.vrozsa.crowframework.shared.api.screen.Renderer;
 import com.vrozsa.crowframework.shared.attributes.Offset;
-import lombok.RequiredArgsConstructor;
+import com.vrozsa.crowframework.shared.time.Cooldown;
 
-import static com.vrozsa.crowframework.sample.TestValues.CHARS_SPRITE_SIZE;
-import static com.vrozsa.crowframework.sample.TestValues.SCREEN_WIDTH;
-
-@RequiredArgsConstructor
 public class ProjectileController extends BaseComponent {
     private final int speed;
+    private final Cooldown lifetimeCooldown;
     private Direction direction = Direction.NONE;
     private boolean facingRight = true;
+
+    public ProjectileController(int speed, int lifetime) {
+        this.speed = speed;
+        lifetimeCooldown = Cooldown.create(lifetime);
+    }
 
     @Override
     public void update() {
@@ -33,12 +35,23 @@ public class ProjectileController extends BaseComponent {
         position.addOffset(Offset.of(increment, 0));
 
         // Disable if out of the screen.
-        if (position.getX() < CHARS_SPRITE_SIZE.getWidth()*-1 || position.getX() >= SCREEN_WIDTH + CHARS_SPRITE_SIZE.getWidth()) {
-            getGameObject().setActive(false);
+        if (lifetimeCooldown.isFinished()) {
+            gameObject.setActive(false);
         }
     }
 
-    public void setDirection(final Direction direction) {
+    public void activate(final int x, final int y, final Direction direction) {
+        if (lifetimeCooldown.isWaiting()) {
+            return;
+        }
+
+        getPosition().setPosition(x, y);
+        setDirection(direction);
+        lifetimeCooldown.start();
+        gameObject.setActive(true);
+    }
+
+    private void setDirection(final Direction direction) {
         this.direction = direction;
 
         if (direction == Direction.RIGHT && !facingRight) {
@@ -52,9 +65,5 @@ public class ProjectileController extends BaseComponent {
             var renderer = getComponent(Renderer.class);
             renderer.setFlipX(true);
         }
-    }
-
-    public void setPosition(final int x, final int y) {
-        getPosition().setPosition(x, y);
     }
 }
