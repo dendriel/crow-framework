@@ -64,9 +64,9 @@ abstract class BaseCollider extends BaseComponent implements ColliderComponent {
     }
 
     @Override
-    public void update() {
-        super.update();
-        // reset this every update, before the GO handling phase.
+    public void earlyUpdate() {
+        super.earlyUpdate();
+        // reset this every update, before the GO handling phase in which it can be set again.
         offsetAddedLastFrame = false;
         lastOffsetAdded = Offset.origin();
     }

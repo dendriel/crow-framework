@@ -55,4 +55,9 @@ public interface Component extends Identifiable {
      * Late update the component state.
      */
     void lateUpdate();
+
+    /**
+     * Early update the game object state.
+     */
+    void earlyUpdate();
 }

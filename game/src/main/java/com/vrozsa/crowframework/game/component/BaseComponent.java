@@ -36,6 +36,9 @@ public abstract class BaseComponent implements Component {
     }
 
     @Override
+    public void earlyUpdate() {}
+
+    @Override
     public void update() {}
 
     @Override

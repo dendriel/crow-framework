@@ -16,6 +16,7 @@ import com.vrozsa.crowframework.shared.api.game.Component;
 import com.vrozsa.crowframework.shared.api.game.GameObject;
 import com.vrozsa.crowframework.shared.api.screen.Offsetable;
 import com.vrozsa.crowframework.shared.api.screen.Sprite;
+import com.vrozsa.crowframework.shared.attributes.Color;
 import com.vrozsa.crowframework.shared.attributes.Offset;
 import com.vrozsa.crowframework.shared.attributes.Rect;
 import com.vrozsa.crowframework.shared.attributes.Size;
@@ -140,7 +141,7 @@ public final class GameObjectBuilder  {
 
     /**
      * Adds a new square collider component.
-     * @param cooldown time to wait between collision detections (otherwise detection may happen for many frames and
+     * @param cooldown time to wait between triggering multiple detections (otherwise detection may happen for many frames and
      *                 trigger the handler multiple times if it doesn't implement a cooldown control).
      * @return the builder object.
      */
@@ -152,7 +153,7 @@ public final class GameObjectBuilder  {
 
     /**
      * Adds a new square collider component.
-     * @param cooldown time to wait between collision detections (otherwise detection may happen for many frames and
+     * @param cooldown time to wait before triggering multiple detections (otherwise detection may happen for many frames and
      *                 trigger the handler multiple times if it doesn't implement a cooldown control).
      * @param collisionLayer in which collision layer this component is.
      * @param collidesWith which other collision layers this component collides with.
@@ -166,7 +167,7 @@ public final class GameObjectBuilder  {
 
     /**
      * Adds a new square collider component.
-     * @param cooldown time to wait between collision detections (otherwise detection may happen for many frames and
+     * @param cooldown time to wait triggering multiple detections (otherwise detection may happen for many frames and
      *                 trigger the handler multiple times if it doesn't implement a cooldown control).
      * @param collisionLayer in which collision layer this component is.
      * @param collidesWith which other collision layers this component collides with.
@@ -220,6 +221,17 @@ public final class GameObjectBuilder  {
      */
     public GameObjectBuilder addCollisionGizmos() {
         var colliderGizmos = new ColliderGizmos(position);
+        components.add(colliderGizmos);
+        return this;
+    }
+
+    /**
+     * Add gizmos to visually debug the collision boxes in the game.
+     * @param color (optional) custom gizmo color.
+     * @return the builder object.
+     */
+    public GameObjectBuilder addCollisionGizmos(final Color color) {
+        var colliderGizmos = new ColliderGizmos(position, color);
         components.add(colliderGizmos);
         return this;
     }

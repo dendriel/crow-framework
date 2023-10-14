@@ -15,8 +15,16 @@ public interface GameObject {
 
     /**
      * Late updates the game object state.
+     * This runs after the update phase().
      */
     void lateUpdate();
+
+    /**
+     * Earlier updates the game object state. Useful for clearing this that the late update let in place for the collision
+     * handling phase (that runs before the earlierUpdate).
+     * This runs before the update() phase.
+     */
+    void earlyUpdate();
 
     /**
      * Checks if this GO is active

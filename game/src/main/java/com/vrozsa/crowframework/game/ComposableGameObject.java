@@ -30,6 +30,11 @@ public final class ComposableGameObject implements GameObject {
         this.components.forEach(Component::wrapUp);
     }
 
+    public void earlyUpdate() {
+        components.forEach(Component::earlyUpdate);
+        position.getChildren().forEach(p -> p.getGameObject().earlyUpdate());
+    }
+
     public void update() {
         components.forEach(Component::update);
         position.getChildren().forEach(p -> p.getGameObject().update());

@@ -44,8 +44,17 @@ public final class RobinWoodConfigurationManager {
     public static final int PROJECTILE_LIFETIME = 1000;
     public static final Offset PROJECTILE_SPAWN_OFFSET = Offset.of(30, 25);
     public static final int SHOOT_COOLDOWN = 1000;
+    public static final int HERO_COLLISION_COOLDOWN = 1000;
 
     public static final String PROJECTILE_IRON_ARROW = "iron_arrow";
+
+    public static final String TREE_COLLISION_LAYER = "tree";
+    public static final String HERO_COLLISION_LAYER = "hero";
+    public static final String ENEMIES_COLLISION_LAYER = "enemies";
+    public static final String HERO_PROJECTILE_COLLISION_LAYER = "hero_projectile";
+
+    public static final Rect HERO_COLLISION_RECT = Rect.of(22, -20, 35 ,70);
+    public static final Rect TREE_COLLISION_RECT = Rect.of(0, 40, 80 ,40);
 
     private static Random randomizer = new Random();
 

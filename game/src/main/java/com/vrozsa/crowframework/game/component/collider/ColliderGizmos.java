@@ -4,10 +4,10 @@ import com.vrozsa.crowframework.game.component.Position;
 import com.vrozsa.crowframework.game.component.StaticRenderer;
 import com.vrozsa.crowframework.shared.api.game.ColliderComponent;
 import com.vrozsa.crowframework.shared.api.screen.Sprite;
+import com.vrozsa.crowframework.shared.attributes.Color;
 import com.vrozsa.crowframework.shared.image.ResizableImage;
 import com.vrozsa.crowframework.shared.templates.SpriteTemplate;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.Objects;
@@ -15,11 +15,18 @@ import java.util.Objects;
 public class ColliderGizmos extends StaticRenderer {
     private static final int GIZMOS_LAYER = Integer.MAX_VALUE;
     private static final String GIZMOS_NAME = "COLLISION_GIZMOS";
-    private static final int GIZMOS_ALPHA = 25;
-    private static final Color GIZMOS_COLOR = new Color(Color.GREEN.getRed(), Color.GREEN.getGreen(), Color.GREEN.getBlue(), GIZMOS_ALPHA);
+    private static final int GIZMOS_ALPHA = 35;
+    private static final Color GIZMOS_COLOR = Color.green();
+    private final java.awt.Color color;
 
     public ColliderGizmos(final Position position) {
+        this(position, GIZMOS_COLOR);
+    }
+
+    public ColliderGizmos(final Position position, final Color color) {
         super(position, GIZMOS_LAYER, GIZMOS_NAME, false, false);
+
+        this.color = new java.awt.Color(color.getR(), color.getG(), color.getB(), GIZMOS_ALPHA);
     }
 
     @Override
@@ -36,7 +43,7 @@ public class ColliderGizmos extends StaticRenderer {
         int type = BufferedImage.TYPE_INT_ARGB;
         var image = new BufferedImage(rect.getWidth(), rect.getHeight(), type);
         Graphics2D g2d = image.createGraphics();
-        g2d.setColor(GIZMOS_COLOR);
+        g2d.setColor(color);
         g2d.fillRect(0, 0, rect.getWidth(), rect.getHeight());
         g2d.dispose();
 
