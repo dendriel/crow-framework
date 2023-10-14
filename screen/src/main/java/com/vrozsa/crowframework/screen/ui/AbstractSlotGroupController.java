@@ -10,13 +10,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public abstract class BaseSlotGroupController implements BaseComponent {
+public abstract class AbstractSlotGroupController implements BaseComponent {
     protected final Map<GameCommand, ISlotGroupControllerCommand> inputToCommandMapper;
     private final InputHandler input;
     protected GameCommand lastCommand;
     protected boolean isInterrupt;
 
-    public BaseSlotGroupController(InputHandler input) {
+    public AbstractSlotGroupController(InputHandler input) {
         this.input = input;
         inputToCommandMapper = new HashMap<>();
 

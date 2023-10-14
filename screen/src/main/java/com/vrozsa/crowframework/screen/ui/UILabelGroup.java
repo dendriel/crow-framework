@@ -10,7 +10,7 @@ import java.awt.image.ImageObserver;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UILabelGroup extends UIBaseComponent<UILabelGroupTemplate> {
+public class UILabelGroup extends UIAbstractComponent<UILabelGroupTemplate> {
     private final List<UILabel> labels;
     private final UILabelGroupTemplate data;
 

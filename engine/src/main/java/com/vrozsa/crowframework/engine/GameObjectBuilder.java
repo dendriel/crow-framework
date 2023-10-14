@@ -8,7 +8,7 @@ import com.vrozsa.crowframework.game.component.animation.AnimatedRenderer;
 import com.vrozsa.crowframework.game.component.animation.Animation;
 import com.vrozsa.crowframework.game.component.animation.AnimationTemplate;
 import com.vrozsa.crowframework.game.component.camera.CameraFollower;
-import com.vrozsa.crowframework.game.component.collider.BaseCollisionHandler;
+import com.vrozsa.crowframework.game.component.collider.AbstractCollisionHandler;
 import com.vrozsa.crowframework.game.component.collider.ColliderGizmos;
 import com.vrozsa.crowframework.game.component.collider.SquareCollider;
 import com.vrozsa.crowframework.shared.api.game.CollisionHandler;
@@ -198,13 +198,13 @@ public final class GameObjectBuilder  {
         return this;
     }
 
-    public GameObjectBuilder addCollisionHandler(final BaseCollisionHandler collisionHandler) {
+    public GameObjectBuilder addCollisionHandler(final AbstractCollisionHandler collisionHandler) {
         components.add(collisionHandler);
         return this;
     }
 
     public GameObjectBuilder addCollisionHandler(final CollisionHandler handler) {
-        var collisionHandler = new BaseCollisionHandler() {
+        var collisionHandler = new AbstractCollisionHandler() {
             @Override
             protected void handle(GameObject source, GameObject target) {
                 handler.handle(source, target);

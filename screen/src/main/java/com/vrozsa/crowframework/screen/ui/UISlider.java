@@ -9,7 +9,7 @@ import com.vrozsa.crowframework.screen.ui.api.UIFillBar;
 import java.awt.Graphics;
 import java.awt.image.ImageObserver;
 
-public class UISlider extends UIBaseComponent<UISliderTemplate> implements UIFillBar {
+public class UISlider extends UIAbstractComponent<UISliderTemplate> implements UIFillBar {
     private final UISliderTemplate data;
     private final Image dynamicImage;
     private final Image staticImage;

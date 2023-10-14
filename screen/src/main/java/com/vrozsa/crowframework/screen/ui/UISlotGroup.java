@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class UISlotGroup extends UIBaseComponent<UISlotGroupTemplate> implements UIHandler {
+public class UISlotGroup extends UIAbstractComponent<UISlotGroupTemplate> implements UIHandler {
     private final List<UISlot> slots;
     private final UISlotGroupTemplate data;
     private final Offset parentOffset;

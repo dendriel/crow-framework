@@ -1,6 +1,6 @@
 package com.vrozsa.crowframework.sample.games.robinwood.components;
 
-import com.vrozsa.crowframework.game.component.BaseComponent;
+import com.vrozsa.crowframework.game.component.AbstractComponent;
 import com.vrozsa.crowframework.game.component.animation.AnimatedRenderer;
 import com.vrozsa.crowframework.shared.api.screen.Renderer;
 import com.vrozsa.crowframework.shared.attributes.Offset;
@@ -13,7 +13,7 @@ import static com.vrozsa.crowframework.shared.api.game.Direction.RIGHT;
  * The character driver controls the character game object. This way, we can just issue commands to the driver
  * and let it handle the character state by itself.
  */
-public class CharacterDriver extends BaseComponent {
+public class CharacterDriver extends AbstractComponent {
     private static final String ANIM_WALK_KEY = "walk";
     private static final String ANIM_IDLE_KEY = "idle";
     private static final String ANIM_ATTACK_KEY = "attack";

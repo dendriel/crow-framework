@@ -8,7 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.ImageObserver;
 
-public class UILabel extends UIBaseComponent<UILabelTemplate> {
+public class UILabel extends UIAbstractComponent<UILabelTemplate> {
     private UILabelTemplate data;
     private JLabel label;
     private Offset customOffset;

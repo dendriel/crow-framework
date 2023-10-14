@@ -1,6 +1,6 @@
 package com.vrozsa.crowframework.sample.games.robinwood.components;
 
-import com.vrozsa.crowframework.game.component.BaseComponent;
+import com.vrozsa.crowframework.game.component.AbstractComponent;
 import com.vrozsa.crowframework.game.component.camera.CameraFollower;
 import com.vrozsa.crowframework.shared.api.screen.Offsetable;
 import com.vrozsa.crowframework.shared.attributes.Rect;
@@ -8,7 +8,7 @@ import com.vrozsa.crowframework.shared.attributes.Rect;
 /**
  * Restricts the allowed movement area as the game progress.
  */
-public class MovementAreaUpdater extends BaseComponent {
+public class MovementAreaUpdater extends AbstractComponent {
     private final Offsetable camera;
     private CameraFollower cameraFollower;
     private CharacterDriver characterDriver;

@@ -1,6 +1,6 @@
 package com.vrozsa.crowframework.game.component.camera;
 
-import com.vrozsa.crowframework.game.component.BaseComponent;
+import com.vrozsa.crowframework.game.component.AbstractComponent;
 import com.vrozsa.crowframework.game.component.Position;
 import com.vrozsa.crowframework.shared.api.screen.Offsetable;
 import com.vrozsa.crowframework.shared.attributes.Offset;
@@ -11,7 +11,7 @@ import java.util.Objects;
 /**
  * Camera follower allows to keep the camera centralized in relation to the target position.
  */
-public class CameraFollower extends BaseComponent {
+public class CameraFollower extends AbstractComponent {
     // Target object to
     private final Position target;
     private final Offsetable cameraOffsetable;

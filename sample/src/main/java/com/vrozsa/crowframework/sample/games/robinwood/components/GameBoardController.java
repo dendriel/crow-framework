@@ -1,6 +1,6 @@
 package com.vrozsa.crowframework.sample.games.robinwood.components;
 
-import com.vrozsa.crowframework.game.component.BaseComponent;
+import com.vrozsa.crowframework.game.component.AbstractComponent;
 import com.vrozsa.crowframework.shared.api.game.GameObject;
 import com.vrozsa.crowframework.shared.api.screen.Offsetable;
 
@@ -9,7 +9,7 @@ import com.vrozsa.crowframework.shared.api.screen.Offsetable;
  * of the current board being displayed. This way, the player will always see a board while moving forward. This gives
  * an impression of an 'infinite' map, but we are just moving the 2 boards game objects to achieve this effect.
  */
-public class GameBoardController extends BaseComponent {
+public class GameBoardController extends AbstractComponent {
 
     private final GameObject boardA;
     private final GameObject boardB;

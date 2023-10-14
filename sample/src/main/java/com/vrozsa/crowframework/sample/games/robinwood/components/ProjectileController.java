@@ -1,12 +1,12 @@
 package com.vrozsa.crowframework.sample.games.robinwood.components;
 
-import com.vrozsa.crowframework.game.component.BaseComponent;
+import com.vrozsa.crowframework.game.component.AbstractComponent;
 import com.vrozsa.crowframework.shared.api.game.Direction;
 import com.vrozsa.crowframework.shared.api.screen.Renderer;
 import com.vrozsa.crowframework.shared.attributes.Offset;
 import com.vrozsa.crowframework.shared.time.Cooldown;
 
-public class ProjectileController extends BaseComponent {
+public class ProjectileController extends AbstractComponent {
     private final int speed;
     private final Cooldown lifetimeCooldown;
     private Direction direction = Direction.NONE;

@@ -11,7 +11,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class UIBaseComponent<T extends UIBaseComponentTemplate> implements UIComponent<T> {
+public abstract class UIAbstractComponent<T extends UIBaseComponentTemplate> implements UIComponent<T> {
     private final UIBaseComponentTemplate data;
     protected final List<UIComponentObserver> observers;
     protected final UIComponentType type;
@@ -21,7 +21,7 @@ public abstract class UIBaseComponent<T extends UIBaseComponentTemplate> impleme
     protected Offset parentOffset;
     protected boolean isEnabled;
 
-    public UIBaseComponent(UIBaseComponentTemplate data) {
+    public UIAbstractComponent(UIBaseComponentTemplate data) {
         this.data = data;
         type = data.getType();
         tag = data.getTag();

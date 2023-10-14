@@ -9,7 +9,7 @@ import com.vrozsa.crowframework.shared.attributes.Offset;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Position extends BaseComponent implements PositionComponent, PositionObserver {
+public class Position extends AbstractComponent implements PositionComponent, PositionObserver {
     public static final String DEFAULT_POSITION = "_defaultPositionComponent";
     private PositionComponent parent;
     private final List<Position> children;

@@ -1,10 +1,7 @@
 package com.vrozsa.crowframework.screen.factory;
 
 import com.vrozsa.crowframework.screen.api.SimpleScreen;
-import com.vrozsa.crowframework.screen.api.SimpleViewType;
-import com.vrozsa.crowframework.screen.api.StaticView;
-import com.vrozsa.crowframework.screen.internal.BaseScreen;
-import com.vrozsa.crowframework.shared.attributes.Rect;
+import com.vrozsa.crowframework.screen.internal.AbstractScreen;
 import com.vrozsa.crowframework.shared.attributes.Size;
 import com.vrozsa.crowframework.shared.logger.LoggerService;
 import lombok.AccessLevel;
@@ -14,7 +11,7 @@ import lombok.NoArgsConstructor;
 public class SimpleScreenFactory {
     private static final LoggerService logger = LoggerService.of(SimpleScreenFactory.class);
 
-    public static BaseScreen create(final Size size, final String backgroundImageFile) {
+    public static AbstractScreen create(final Size size, final String backgroundImageFile) {
         var simpleScreen = new SimpleScreen("xpto", size);
 
 //        var rect = Rect.atOrigin(size);

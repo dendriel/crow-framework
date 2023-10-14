@@ -5,7 +5,7 @@ import com.vrozsa.crowframework.shared.api.input.InputHandler;
 import com.vrozsa.crowframework.screen.ui.api.UISelectOption;
 import com.vrozsa.crowframework.shared.api.sound.SfxPlayer;
 
-public class SelectController extends BaseSlotGroupController implements UISelect.SelectOptionListener {
+public class SelectController extends AbstractSlotGroupController implements UISelect.SelectOptionListener {
     private final UISelect select;
     private final SfxPlayer sfxPlayer;
     private final String moveSfx;

@@ -1,6 +1,6 @@
 package com.vrozsa.crowframework.screen.ui.buttongroup;
 
-import com.vrozsa.crowframework.screen.ui.UIBaseComponent;
+import com.vrozsa.crowframework.screen.ui.UIAbstractComponent;
 import com.vrozsa.crowframework.screen.ui.UIExpandMode;
 import com.vrozsa.crowframework.screen.ui.UIIcon;
 import com.vrozsa.crowframework.screen.ui.UIIconTemplate;
@@ -18,7 +18,7 @@ import java.awt.image.ImageObserver;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UIButtonGroup extends UIBaseComponent<UIButtonGroupTemplate> {
+public class UIButtonGroup extends UIAbstractComponent<UIButtonGroupTemplate> {
     private final UIButtonGroupTemplate data;
     private final List<UIButton> buttons;
     private final JPanel panel;

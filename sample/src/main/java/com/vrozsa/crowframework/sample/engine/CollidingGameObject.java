@@ -3,7 +3,7 @@ package com.vrozsa.crowframework.sample.engine;
 import com.vrozsa.crowframework.engine.CrowEngine;
 import com.vrozsa.crowframework.engine.GameObjectBuilder;
 import com.vrozsa.crowframework.engine.InputManager;
-import com.vrozsa.crowframework.game.component.BaseComponent;
+import com.vrozsa.crowframework.game.component.AbstractComponent;
 import com.vrozsa.crowframework.game.component.Identifier;
 import com.vrozsa.crowframework.shared.api.game.GameObject;
 import com.vrozsa.crowframework.shared.api.screen.Renderer;
@@ -48,7 +48,7 @@ public class CollidingGameObject {
 
         final int movingSpeed = 5;
 
-        heroGO.addComponent(new BaseComponent() {
+        heroGO.addComponent(new AbstractComponent() {
             private final InputManager inputManager = crow.getInputManager();
 
             private boolean facingRight = true;

@@ -3,9 +3,8 @@ package com.vrozsa.crowframework.sample.engine;
 import com.vrozsa.crowframework.engine.CrowEngine;
 import com.vrozsa.crowframework.engine.GameObjectBuilder;
 import com.vrozsa.crowframework.engine.InputManager;
-import com.vrozsa.crowframework.game.component.BaseComponent;
+import com.vrozsa.crowframework.game.component.AbstractComponent;
 import com.vrozsa.crowframework.game.component.Identifier;
-import com.vrozsa.crowframework.game.component.Position;
 import com.vrozsa.crowframework.shared.api.game.Direction;
 import com.vrozsa.crowframework.shared.api.game.GameObject;
 import com.vrozsa.crowframework.shared.api.screen.Renderer;
@@ -73,7 +72,7 @@ public class ProjectileCollision {
                     var targetID = target.getComponent(Identifier.class);
                     logger.debug("GO {0} has collided with {1}", sourceID.getName(), targetID.getName());
                 })
-                .addComponent(new BaseComponent() {
+                .addComponent(new AbstractComponent() {
                     private final InputManager inputManager = crow.getInputManager();
                     private boolean facingRight = true;
 
@@ -136,7 +135,7 @@ public class ProjectileCollision {
         gameManager.addGameObject(banditGO);
     }
 
-    private static class ArrowController extends BaseComponent {
+    private static class ArrowController extends AbstractComponent {
         private final int speed;
         private Direction direction = Direction.NONE;
         private boolean facingRight = true;

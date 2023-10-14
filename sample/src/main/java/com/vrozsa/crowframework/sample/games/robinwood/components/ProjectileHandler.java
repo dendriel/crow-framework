@@ -1,6 +1,6 @@
 package com.vrozsa.crowframework.sample.games.robinwood.components;
 
-import com.vrozsa.crowframework.game.component.BaseComponent;
+import com.vrozsa.crowframework.game.component.AbstractComponent;
 import com.vrozsa.crowframework.shared.api.game.Direction;
 import com.vrozsa.crowframework.shared.api.game.GameObject;
 
@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
 
-public class ProjectileHandler extends BaseComponent {
+public class ProjectileHandler extends AbstractComponent {
 
     // Projectiles supplier by type.
     private final Map<String, Supplier<GameObject>> projectilesSupplier;

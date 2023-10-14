@@ -44,7 +44,7 @@ public class CollisionDetector {
         var sourceGo = source.getGameObject();
         var targetGo = target.getGameObject();
 
-        var sourceCollisionHandler = sourceGo.getComponent(BaseCollisionHandler.class);
+        var sourceCollisionHandler = sourceGo.getComponent(AbstractCollisionHandler.class);
         if (!Objects.isNull(sourceCollisionHandler) &&
                 source.canTriggerCollision() &&
                 source.canCollideWith(target)) {
@@ -52,7 +52,7 @@ public class CollisionDetector {
             source.signCollision();
         }
 
-        var targetCollisionHandler = targetGo.getComponent(BaseCollisionHandler.class);
+        var targetCollisionHandler = targetGo.getComponent(AbstractCollisionHandler.class);
         if (!Objects.isNull(targetCollisionHandler) &&
                 target.canTriggerCollision() &&
                 target.canCollideWith(source)) {

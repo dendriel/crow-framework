@@ -1,12 +1,12 @@
 package com.vrozsa.crowframework.game.component.collider;
 
-import com.vrozsa.crowframework.game.component.BaseComponent;
+import com.vrozsa.crowframework.game.component.AbstractComponent;
 import com.vrozsa.crowframework.shared.api.game.GameObject;
 
 /**
  * Helper class to be used to implement collision handling logic.
  */
-public abstract class BaseCollisionHandler extends BaseComponent {
+public abstract class AbstractCollisionHandler extends AbstractComponent {
 
     /**
      * Handle collisions between objects.

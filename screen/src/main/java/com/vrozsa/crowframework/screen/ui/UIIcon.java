@@ -9,7 +9,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 
-public class UIIcon extends UIBaseComponent<UIIconTemplate> {
+public class UIIcon extends UIAbstractComponent<UIIconTemplate> {
     private UIIconTemplate data;
     protected Image resizableImage;
 

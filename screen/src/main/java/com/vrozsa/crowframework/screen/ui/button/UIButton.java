@@ -8,7 +8,7 @@ import com.vrozsa.crowframework.shared.api.screen.Image;
 import com.vrozsa.crowframework.shared.attributes.Offset;
 import com.vrozsa.crowframework.shared.attributes.Rect;
 import com.vrozsa.crowframework.shared.attributes.Size;
-import com.vrozsa.crowframework.screen.ui.UIBaseComponent;
+import com.vrozsa.crowframework.screen.ui.UIAbstractComponent;
 import com.vrozsa.crowframework.screen.ui.listener.UIEventListener;
 import com.vrozsa.crowframework.screen.ui.listener.UIEventListenerTuple;
 
@@ -23,7 +23,7 @@ import java.awt.image.ImageObserver;
 import java.util.HashSet;
 import java.util.Set;
 
-public class UIButton extends UIBaseComponent<UIButtonTemplate> {
+public class UIButton extends UIAbstractComponent<UIButtonTemplate> {
     private UIButtonTemplate data;
     private CustomJButton button;
     private Set<UIEventListenerTuple<UIEventListener>> buttonPressedListeners;

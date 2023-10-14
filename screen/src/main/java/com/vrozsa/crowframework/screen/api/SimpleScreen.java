@@ -1,11 +1,11 @@
 package com.vrozsa.crowframework.screen.api;
 
-import com.vrozsa.crowframework.screen.internal.BaseScreen;
+import com.vrozsa.crowframework.screen.internal.AbstractScreen;
 import com.vrozsa.crowframework.shared.api.screen.View;
 import com.vrozsa.crowframework.shared.attributes.Color;
 import com.vrozsa.crowframework.shared.attributes.Size;
 
-public class SimpleScreen extends BaseScreen {
+public class SimpleScreen extends AbstractScreen {
     public SimpleScreen(final String name, final Size size) {
         this(name, size, Color.blue());
     }

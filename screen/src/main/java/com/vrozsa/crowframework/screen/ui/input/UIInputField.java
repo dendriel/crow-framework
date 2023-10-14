@@ -1,6 +1,6 @@
 package com.vrozsa.crowframework.screen.ui.input;
 
-import com.vrozsa.crowframework.screen.ui.UIBaseComponent;
+import com.vrozsa.crowframework.screen.ui.UIAbstractComponent;
 import com.vrozsa.crowframework.screen.ui.UIExpandMode;
 import com.vrozsa.crowframework.screen.ui.UIFontTemplate;
 import com.vrozsa.crowframework.screen.ui.listener.UIEventListener;
@@ -15,7 +15,7 @@ import java.awt.image.ImageObserver;
 import java.util.HashSet;
 import java.util.Set;
 
-public class UIInputField extends UIBaseComponent<UIInputFieldTemplate> {
+public class UIInputField extends UIAbstractComponent<UIInputFieldTemplate> {
     private UIInputFieldTemplate data;
     private JTextField textField;
     private Set<UIEventListenerTuple<UIEventListener>> inputFieldSubmittedListeners;

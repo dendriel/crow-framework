@@ -12,7 +12,7 @@ import java.awt.image.ImageObserver;
 import java.util.HashSet;
 import java.util.List;
 
-public class UISelect extends UIBaseComponent<UISlotGroupTemplate> implements UIHandler, UISlotGroupHandler {
+public class UISelect extends UIAbstractComponent<UISlotGroupTemplate> implements UIHandler, UISlotGroupHandler {
     private final Offset parentOffset;
     private UISelectTemplate data;
     private UISlotGroup slots;

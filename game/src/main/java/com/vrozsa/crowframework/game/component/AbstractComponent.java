@@ -3,22 +3,22 @@ package com.vrozsa.crowframework.game.component;
 import com.vrozsa.crowframework.shared.api.game.Component;
 import com.vrozsa.crowframework.shared.api.game.GameObject;
 
-public abstract class BaseComponent implements Component {
+public abstract class AbstractComponent implements Component {
     // this should be final....
     protected GameObject gameObject;
     private boolean isEnabled;
     protected String name;
     protected long id;
 
-    protected BaseComponent() {
+    protected AbstractComponent() {
         this(true, "unnamed");
     }
 
-    protected BaseComponent(boolean isEnabled) {
+    protected AbstractComponent(boolean isEnabled) {
         this(isEnabled, "unnamed");
     }
 
-    protected BaseComponent(boolean isEnabled, String name) {
+    protected AbstractComponent(boolean isEnabled, String name) {
         this.isEnabled = isEnabled;
         this.name = name;
     }

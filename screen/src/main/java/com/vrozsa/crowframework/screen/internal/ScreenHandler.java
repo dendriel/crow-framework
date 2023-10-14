@@ -159,7 +159,7 @@ public class ScreenHandler {
         screen.resize(getSize());
     }
 
-    public boolean remove(String key, BaseScreen screen) {
+    public boolean remove(String key, AbstractScreen screen) {
         if (!screens.containsKey(key)) {
             return false;
         }

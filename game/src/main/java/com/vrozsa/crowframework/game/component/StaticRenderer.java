@@ -12,7 +12,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class StaticRenderer extends BaseComponent implements Renderer, PositionObserver {
+public class StaticRenderer extends AbstractComponent implements Renderer, PositionObserver {
     public static String DEFAULT_STATIC_RENDERER = "_defaultRendererComponent";
     protected List<Drawable> drawings;
     protected int layer;

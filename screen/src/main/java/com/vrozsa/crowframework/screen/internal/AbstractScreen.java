@@ -13,18 +13,18 @@ import java.util.List;
 import java.util.Map;
 
 
-public abstract class BaseScreen extends JPanel implements Screen {
+public abstract class AbstractScreen extends JPanel implements Screen {
     private final String name;
     private final Map<String, View> views;
     private final Map<String, List<String>> viewGroup;
 
     private String lastViewGroupSet;
 
-    protected BaseScreen(final String name, final Size size) {
+    protected AbstractScreen(final String name, final Size size) {
         this(name, size, Color.blue());
     }
 
-    protected BaseScreen(final String name, final Size size, final Color bgColor) {
+    protected AbstractScreen(final String name, final Size size, final Color bgColor) {
         this.name = name;
         views = new HashMap<>();
         viewGroup = new HashMap<>();

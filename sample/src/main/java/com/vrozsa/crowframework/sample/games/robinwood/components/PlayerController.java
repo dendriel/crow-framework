@@ -1,7 +1,7 @@
 package com.vrozsa.crowframework.sample.games.robinwood.components;
 
 import com.vrozsa.crowframework.engine.InputManager;
-import com.vrozsa.crowframework.game.component.BaseComponent;
+import com.vrozsa.crowframework.game.component.AbstractComponent;
 
 import static com.vrozsa.crowframework.shared.api.game.GameCommand.ACTION;
 import static com.vrozsa.crowframework.shared.api.game.GameCommand.MOVE_DOWN;
@@ -12,7 +12,7 @@ import static com.vrozsa.crowframework.shared.api.game.GameCommand.MOVE_UP;
 /**
  * The player controller allows the player to issue commands.
  */
-public class PlayerController extends BaseComponent {
+public class PlayerController extends AbstractComponent {
     private CharacterDriver driver;
 
     private final InputManager inputManager;

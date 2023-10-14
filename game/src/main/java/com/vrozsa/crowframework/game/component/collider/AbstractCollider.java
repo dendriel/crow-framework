@@ -1,6 +1,6 @@
 package com.vrozsa.crowframework.game.component.collider;
 
-import com.vrozsa.crowframework.game.component.BaseComponent;
+import com.vrozsa.crowframework.game.component.AbstractComponent;
 import com.vrozsa.crowframework.shared.api.game.ColliderComponent;
 import com.vrozsa.crowframework.shared.api.game.ColliderType;
 import com.vrozsa.crowframework.shared.api.screen.Renderer;
@@ -16,7 +16,7 @@ import java.util.Set;
 /**
  * Provides the template for creating specific colliders.
  */
-abstract class BaseCollider extends BaseComponent implements ColliderComponent {
+abstract class AbstractCollider extends AbstractComponent implements ColliderComponent {
     protected static final String DEFAULT_COLLISION_LAYER = "DEFAULT_COLLISION_LAYER";
     protected static final long DEFAULT_COOLDOWN_MILLIS = 0;
 
@@ -38,7 +38,7 @@ abstract class BaseCollider extends BaseComponent implements ColliderComponent {
     protected Offset lastOffsetAdded;
     protected boolean offsetAddedLastFrame;
 
-    protected BaseCollider(
+    protected AbstractCollider(
             final ColliderType type,
             final String layer,
             final boolean isActive,

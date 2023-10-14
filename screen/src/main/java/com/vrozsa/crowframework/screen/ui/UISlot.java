@@ -12,7 +12,7 @@ import java.awt.Container;
 import java.awt.Graphics;
 import java.awt.image.ImageObserver;
 
-public class UISlot extends UIBaseComponent<UISlotTemplate> implements UIHandler {
+public class UISlot extends UIAbstractComponent<UISlotTemplate> implements UIHandler {
     private final UISlotTemplate data;
     private final Offset parentOffset;
     private Image background;
