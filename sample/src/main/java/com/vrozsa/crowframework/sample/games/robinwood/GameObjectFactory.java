@@ -4,10 +4,12 @@ import com.vrozsa.crowframework.engine.CrowEngine;
 import com.vrozsa.crowframework.engine.GameObjectBuilder;
 import com.vrozsa.crowframework.sample.games.robinwood.components.CharacterDriver;
 import com.vrozsa.crowframework.sample.games.robinwood.components.GameBoardController;
+import com.vrozsa.crowframework.sample.games.robinwood.components.MovementAreaUpdater;
 import com.vrozsa.crowframework.sample.games.robinwood.components.PlayerController;
 import com.vrozsa.crowframework.sample.games.robinwood.components.ProjectileController;
 import com.vrozsa.crowframework.sample.games.robinwood.components.ProjectileHandler;
 import com.vrozsa.crowframework.shared.api.game.GameObject;
+import com.vrozsa.crowframework.shared.api.screen.Offsetable;
 import com.vrozsa.crowframework.shared.attributes.Offset;
 import com.vrozsa.crowframework.shared.logger.LoggerService;
 import lombok.RequiredArgsConstructor;
@@ -19,9 +21,9 @@ import java.util.function.Supplier;
 
 import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.BACKGROUND_IMAGE_FILE;
 import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.BACKGROUND_SPRITE_LAYER;
+import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.BOARD_SIZE;
 import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.CHARACTER_SPRITE_LAYER;
 import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.IRON_ARROW_IMAGE_FILE;
-import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.BOARD_SIZE;
 import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.MOVEMENT_AXIS_SPEED;
 import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.MOVEMENT_DIAGONAL_SPEED;
 import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.PROJECTILE_IRON_ARROW;
@@ -46,14 +48,20 @@ public class GameObjectFactory {
     private final CrowEngine crowEngine;
 
     public GameObject createHero(Offset startingPos) {
-        return GameObjectBuilder.of(startingPos.getX(), startingPos.getY(), 0)
+
+        Offsetable renderer = crowEngine.getScreenManager().getRendererView();
+
+        var heroGO = GameObjectBuilder.of(startingPos.getX(), startingPos.getY(), 0)
                 .addAnimatedRenderer(CHARACTER_SPRITE_LAYER, getHeroAnimationTemplates())
                 .addComponent(new CharacterDriver(
                         true, MOVEMENT_AXIS_SPEED, MOVEMENT_DIAGONAL_SPEED, PROJECTILE_IRON_ARROW, SHOOT_COOLDOWN, PROJECTILE_SPAWN_OFFSET))
                 .addComponent(new PlayerController(crowEngine.getInputManager()))
                 .addComponent(new ProjectileHandler(getProjectileSupplier()))
-                .addCameraFollower(crowEngine.getScreenManager().getRendererView(), getCharScreenCenter(), getCameraFollowBox())
+                .addCameraFollower(renderer, getCharScreenCenter(), getCameraFollowBox())
+                .addComponent(new MovementAreaUpdater(renderer))
                 .build();
+
+        return heroGO;
     }
 
     public GameObject createGameBoard() {

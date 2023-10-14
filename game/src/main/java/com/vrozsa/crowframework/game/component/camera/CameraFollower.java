@@ -16,9 +16,14 @@ public class CameraFollower extends BaseComponent {
     private final Position target;
     private final Offsetable cameraOffsetable;
     private final Offset offset;
-    private final Rect followBox;
+    private Rect followBox;
 
 
+    /**
+     * @param target target position to follow.
+     * @param cameraOffsetable interface to update the camera offset.
+     * @param offset offset added to the current object position (can be used to center the position in the screen).
+     */
     public CameraFollower(Position target, Offsetable cameraOffsetable, Offset offset) {
         this(target, cameraOffsetable, offset, null);
     }
@@ -56,14 +61,31 @@ public class CameraFollower extends BaseComponent {
             return;
         }
 
-        if (newOffset.getX() < followBox.getX() || newOffset.getX() > followBox.getX() + followBox.getWidth()) {
+        // cast width to long before the sum, so it won't overflow.
+        if (newOffset.getX() < followBox.getX() || newOffset.getX() > followBox.getX() + (long)followBox.getWidth()) {
             newOffset.setX(cameraOffsetable.getOffset().getX());
         }
 
-        if (newOffset.getY() < followBox.getY() || newOffset.getY() > followBox.getY() + followBox.getHeight()) {
+        if (newOffset.getY() < followBox.getY() || newOffset.getY() > followBox.getY() + (long)followBox.getHeight()) {
             newOffset.setY(cameraOffsetable.getOffset().getY());
         }
 
         cameraOffsetable.setOffset(newOffset);
+    }
+
+    /**
+     * Update the follow box.
+     * @param newFollowBox the new allowed area in which the target will be followed by the camera.
+     */
+    public void setFollowBox(final Rect newFollowBox) {
+        followBox = newFollowBox.clone();
+    }
+
+    /**
+     * Get the following box.
+     * @return the following box.
+     */
+    public Rect getFollowBox() {
+        return followBox.clone();
     }
 }

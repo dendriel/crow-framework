@@ -27,6 +27,8 @@ public class CharacterDriver extends BaseComponent {
     private Cooldown shootCooldown;
     private final Offset projectileSpawnOffset;
 
+    private int leftLimitX = 0;
+
     private AnimatedRenderer animatedRenderer;
     private ProjectileHandler projectileHandler;
 
@@ -80,11 +82,30 @@ public class CharacterDriver extends BaseComponent {
 
     private void move(int x, int y, boolean diagonalMovement) {
         var speed = diagonalMovement ? diagonalSpeed : axisSpeed;
-        getPosition().addOffset(Offset.of(speed * x, speed * y));
+        var offsetToAdd = Offset.of(speed * x, speed * y);
+
+        if (isInvalidLeftMovement(offsetToAdd.getX())) {
+            offsetToAdd.setX(0);
+        }
+
+        getPosition().addOffset(offsetToAdd);
 
         if (!isAttacking) {
             setWalking();
         }
+    }
+
+    private boolean isInvalidLeftMovement(int offsetX) {
+        var currPos = getPosition().getOffset();
+        return (currPos.getX() + offsetX) < leftLimitX;
+    }
+
+    /**
+     * Set the minimum X the character can before being blocked.
+     * @param leftLimitX Left X limit.
+     */
+    public void setLeftLimitX(int leftLimitX) {
+        this.leftLimitX = leftLimitX;
     }
 
     public void flipDirection() {
