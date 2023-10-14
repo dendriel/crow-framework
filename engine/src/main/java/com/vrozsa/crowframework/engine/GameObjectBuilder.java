@@ -224,10 +224,26 @@ public final class GameObjectBuilder  {
         return this;
     }
 
-    public GameObjectBuilder addCameraFollower(final Offsetable camera, final Offset offset) {
-        var cameraFollower = new CameraFollower(position, camera, offset);
+    /**
+     * Add a camera follower component.
+     * @param camera offsetable component of the renderer view.
+     * @param offset offset added to the current object position (can be used to center the position in the screen).
+     * @param followBox (optional) the boundaries in which the camera can follow the character. If out of the follow box
+     *                  the camera will stop following.
+     */
+    public GameObjectBuilder addCameraFollower(final Offsetable camera, final Offset offset, final Rect followBox) {
+        var cameraFollower = new CameraFollower(position, camera, offset, followBox);
         components.add(cameraFollower);
         return this;
+    }
+
+    /**
+     * Add a camera follower component.
+     * @param camera offsetable component of the renderer view.
+     * @param offset offset added to the current object position (can be used to center the position in the screen).
+     */
+    public GameObjectBuilder addCameraFollower(final Offsetable camera, final Offset offset) {
+        return addCameraFollower(camera, offset, null);
     }
 
     public GameObjectBuilder addComponent(Component component) {

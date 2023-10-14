@@ -7,6 +7,7 @@ import com.vrozsa.crowframework.sample.games.robinwood.components.PlayerControll
 import com.vrozsa.crowframework.sample.games.robinwood.components.ProjectileController;
 import com.vrozsa.crowframework.sample.games.robinwood.components.ProjectileHandler;
 import com.vrozsa.crowframework.shared.api.game.GameObject;
+import com.vrozsa.crowframework.shared.attributes.Offset;
 import com.vrozsa.crowframework.shared.logger.LoggerService;
 import lombok.RequiredArgsConstructor;
 
@@ -21,14 +22,14 @@ public class GameObjectFactory {
 
     private final CrowEngine crowEngine;
 
-    public GameObject createHero(int x, int y) {
-        return GameObjectBuilder.of(x, y, 0)
+    public GameObject createHero(Offset startingPos) {
+        return GameObjectBuilder.of(startingPos.getX(), startingPos.getY(), 0)
                 .addAnimatedRenderer(CHARACTER_SPRITE_LAYER, getHeroAnimationTemplates())
                 .addComponent(new CharacterDriver(
                         true, MOVEMENT_AXIS_SPEED, MOVEMENT_DIAGONAL_SPEED, PROJECTILE_IRON_ARROW, SHOOT_COOLDOWN, PROJECTILE_SPAWN_OFFSET))
                 .addComponent(new PlayerController(crowEngine.getInputManager()))
                 .addComponent(new ProjectileHandler(getProjectileSupplier()))
-                .addCameraFollower(crowEngine.getScreenManager().getRendererView(), getCharScreenCenter())
+                .addCameraFollower(crowEngine.getScreenManager().getRendererView(), getCharScreenCenter(), getCameraFollowBox())
                 .build();
     }
 

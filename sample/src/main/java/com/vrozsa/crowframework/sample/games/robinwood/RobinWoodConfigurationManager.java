@@ -3,6 +3,7 @@ package com.vrozsa.crowframework.sample.games.robinwood;
 import com.vrozsa.crowframework.game.component.animation.AnimationTemplate;
 import com.vrozsa.crowframework.shared.attributes.Offset;
 import com.vrozsa.crowframework.shared.attributes.Rect;
+import com.vrozsa.crowframework.shared.attributes.Size;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -23,8 +24,9 @@ public final class RobinWoodConfigurationManager {
     public static final String BACKGROUND_IMAGE_FILE = ASSETS_FOLDER + "grass_bg_1600x600.png";
     public static final String IRON_ARROW_IMAGE_FILE = ASSETS_FOLDER + "iron_arrow.png";
 
-    public static final Offset SCREEN_SIZE = Offset.of(800, 600);
-    public static final Offset MIDDLE_SCREEN_OFFSET = SCREEN_SIZE.divide(Offset.of(2));
+    public static final Size SCREEN_SIZE = Size.of(800, 600);
+    public static final Offset MIDDLE_SCREEN_OFFSET = Offset.of(SCREEN_SIZE.getWidth()/2, SCREEN_SIZE.getHeight()/2);
+    public static final Offset HERO_STARTING_OFFSET = Offset.of(360, 260);
     public static final int CHAR_IMAGE_WIDTH = 80;
     public static final int CHAR_IMAGE_HEIGHT = 80;
 
@@ -44,6 +46,10 @@ public final class RobinWoodConfigurationManager {
         int halfCharHeight = CHAR_IMAGE_HEIGHT / 2;
 
         return MIDDLE_SCREEN_OFFSET.sub(Offset.of(halfCharWidth, halfCharHeight));
+    }
+
+    public static Rect getCameraFollowBox() {
+        return Rect.of(0, 0, Integer.MAX_VALUE, 0);
     }
 
     public static List<AnimationTemplate> getHeroAnimationTemplates() {

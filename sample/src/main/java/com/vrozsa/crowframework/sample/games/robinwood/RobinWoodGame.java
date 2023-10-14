@@ -2,6 +2,8 @@ package com.vrozsa.crowframework.sample.games.robinwood;
 
 import com.vrozsa.crowframework.engine.CrowEngine;
 
+import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.HERO_STARTING_OFFSET;
+
 public class RobinWoodGame {
 
     public static void main(String[] args) {
@@ -12,7 +14,7 @@ public class RobinWoodGame {
         var bgGOA = factory.createBackground();
         crowEngine.addGameObject(bgGOA);
 
-        var heroGO = factory.createHero(300, 300);
+        var heroGO = factory.createHero(HERO_STARTING_OFFSET);
         crowEngine.addGameObject(heroGO);
 
 
