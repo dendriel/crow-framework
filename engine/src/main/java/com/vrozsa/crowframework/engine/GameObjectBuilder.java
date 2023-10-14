@@ -7,13 +7,16 @@ import com.vrozsa.crowframework.game.component.StaticRenderer;
 import com.vrozsa.crowframework.game.component.animation.AnimatedRenderer;
 import com.vrozsa.crowframework.game.component.animation.Animation;
 import com.vrozsa.crowframework.game.component.animation.AnimationTemplate;
+import com.vrozsa.crowframework.game.component.camera.CameraFollower;
 import com.vrozsa.crowframework.game.component.collider.BaseCollisionHandler;
 import com.vrozsa.crowframework.game.component.collider.ColliderGizmos;
 import com.vrozsa.crowframework.game.component.collider.SquareCollider;
 import com.vrozsa.crowframework.shared.api.game.CollisionHandler;
 import com.vrozsa.crowframework.shared.api.game.Component;
 import com.vrozsa.crowframework.shared.api.game.GameObject;
+import com.vrozsa.crowframework.shared.api.screen.Offsetable;
 import com.vrozsa.crowframework.shared.api.screen.Sprite;
+import com.vrozsa.crowframework.shared.attributes.Offset;
 import com.vrozsa.crowframework.shared.attributes.Rect;
 import com.vrozsa.crowframework.shared.attributes.Size;
 import com.vrozsa.crowframework.shared.attributes.Vector;
@@ -74,21 +77,25 @@ public final class GameObjectBuilder  {
     }
 
     public GameObjectBuilder addStaticRenderer(int layer, String imageFile, int width, int height) {
+        return addStaticRenderer(layer, imageFile, width, height, false);
+    }
+
+    public GameObjectBuilder addStaticRenderer(int layer, String imageFile, int width, int height, boolean alwaysRender) {
         var spriteTemplate = SpriteTemplate.builder()
                 .imageFile(imageFile)
                 .size(Size.of(width, height))
                 .build();
 
-        return addStaticRenderer(layer, spriteTemplate, false, false);
+        return addStaticRenderer(layer, spriteTemplate, false, false, alwaysRender);
     }
 
     public GameObjectBuilder addStaticRenderer(int layer, SpriteTemplate template) {
-        return addStaticRenderer(layer, template, false, false);
+        return addStaticRenderer(layer, template, false, false, false);
     }
 
-    public GameObjectBuilder addStaticRenderer(int layer, SpriteTemplate template, boolean flipX, boolean flipY) {
+    public GameObjectBuilder addStaticRenderer(int layer, SpriteTemplate template, boolean flipX, boolean flipY, boolean alwaysRender) {
         var sprite = Sprite.of(template);
-        var renderer = new StaticRenderer(position, layer, StaticRenderer.DEFAULT_STATIC_RENDERER, flipX, flipY, sprite);
+        var renderer = new StaticRenderer(position, layer, true, StaticRenderer.DEFAULT_STATIC_RENDERER, flipX, flipY, alwaysRender, sprite);
         components.add(renderer);
 
         return this;
@@ -207,9 +214,19 @@ public final class GameObjectBuilder  {
         return this;
     }
 
+    /**
+     * Add gizmos to visually debug the collision boxes in the game.
+     * @return the builder object.
+     */
     public GameObjectBuilder addCollisionGizmos() {
         var colliderGizmos = new ColliderGizmos(position);
         components.add(colliderGizmos);
+        return this;
+    }
+
+    public GameObjectBuilder addCameraFollower(final Offsetable camera, final Offset offset) {
+        var cameraFollower = new CameraFollower(position, camera, offset);
+        components.add(cameraFollower);
         return this;
     }
 

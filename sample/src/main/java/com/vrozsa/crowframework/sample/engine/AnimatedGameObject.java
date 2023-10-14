@@ -5,7 +5,6 @@ import com.vrozsa.crowframework.engine.GameObjectBuilder;
 import com.vrozsa.crowframework.engine.InputManager;
 import com.vrozsa.crowframework.game.component.BaseComponent;
 import com.vrozsa.crowframework.game.component.Identifier;
-import com.vrozsa.crowframework.game.component.animation.Animation;
 import com.vrozsa.crowframework.game.component.animation.AnimationTemplate;
 import com.vrozsa.crowframework.shared.api.game.Direction;
 import com.vrozsa.crowframework.shared.api.game.GameObject;
@@ -156,7 +155,7 @@ public class AnimatedGameObject {
 
                         var arrowController = arrowGO.getComponent(ArrowController.class);
                         arrowController.setDirection(facingRight ? Direction.RIGHT : Direction.LEFT);
-                        arrowController.setPosition(getPosition().getOffset().add(Offset.of(40, 40)));
+                        arrowController.setPosition(getPosition().getOffset().sum(Offset.of(40, 40)));
                         arrowGO.setActive(true);
                     }
                 })

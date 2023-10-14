@@ -23,9 +23,12 @@ public final class RobinWoodConfigurationManager {
     public static final String BACKGROUND_IMAGE_FILE = ASSETS_FOLDER + "grass_bg_1600x600.png";
     public static final String IRON_ARROW_IMAGE_FILE = ASSETS_FOLDER + "iron_arrow.png";
 
+    public static final Offset SCREEN_SIZE = Offset.of(800, 600);
+    public static final Offset MIDDLE_SCREEN_OFFSET = SCREEN_SIZE.divide(Offset.of(2));
     public static final int CHAR_IMAGE_WIDTH = 80;
     public static final int CHAR_IMAGE_HEIGHT = 80;
 
+    public static final int BACKGROUND_SPRITE_LAYER = 0;
     public static final int CHARACTER_SPRITE_LAYER = 100;
     public static final int PROJECTILE_SPRITE_LAYER = 200;
     public static final int MOVEMENT_AXIS_SPEED = 5;
@@ -36,6 +39,12 @@ public final class RobinWoodConfigurationManager {
 
     public static final String PROJECTILE_IRON_ARROW = "iron_arrow";
 
+    public static Offset getCharScreenCenter() {
+        int halfCharWidth = CHAR_IMAGE_WIDTH / 2;
+        int halfCharHeight = CHAR_IMAGE_HEIGHT / 2;
+
+        return MIDDLE_SCREEN_OFFSET.sub(Offset.of(halfCharWidth, halfCharHeight));
+    }
 
     public static List<AnimationTemplate> getHeroAnimationTemplates() {
         var idle = AnimationTemplate.builder()
@@ -67,7 +76,7 @@ public final class RobinWoodConfigurationManager {
                 .rect(Rect.of(-20, -60, 720, 120))
                 .frameRect(Rect.atOrigin(120, 120))
                 .spritesheets(List.of(HERO_ATTACK_SPRITESHEET))
-                .timeBetweenFrames(30)
+                .timeBetweenFrames(20)
                 .firstFrame(0)
                 .repeat(false)
                 .intervalBeforeRepeating(0)

@@ -28,12 +28,13 @@ public class GameObjectFactory {
                         true, MOVEMENT_AXIS_SPEED, MOVEMENT_DIAGONAL_SPEED, PROJECTILE_IRON_ARROW, SHOOT_COOLDOWN, PROJECTILE_SPAWN_OFFSET))
                 .addComponent(new PlayerController(crowEngine.getInputManager()))
                 .addComponent(new ProjectileHandler(getProjectileSupplier()))
+                .addCameraFollower(crowEngine.getScreenManager().getRendererView(), getCharScreenCenter())
                 .build();
     }
 
     public GameObject createBackground() {
         return GameObjectBuilder.of(0,0,0)
-                .addStaticRenderer(BACKGROUND_IMAGE_FILE, 1600, 600)
+                .addStaticRenderer(BACKGROUND_SPRITE_LAYER, BACKGROUND_IMAGE_FILE, 1600, 600, true)
                 .build();
     }
 

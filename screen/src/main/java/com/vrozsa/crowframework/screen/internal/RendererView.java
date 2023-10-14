@@ -1,13 +1,11 @@
 package com.vrozsa.crowframework.screen.internal;
 
-import com.vrozsa.crowframework.shared.api.screen.RendererObserver;
-import com.vrozsa.crowframework.shared.api.screen.Renderer;
-
 import com.vrozsa.crowframework.shared.api.screen.Drawable;
+import com.vrozsa.crowframework.shared.api.screen.Offsetable;
+import com.vrozsa.crowframework.shared.api.screen.Renderer;
+import com.vrozsa.crowframework.shared.api.screen.RendererObserver;
 import com.vrozsa.crowframework.shared.attributes.Offset;
 import com.vrozsa.crowframework.shared.attributes.Rect;
-import com.vrozsa.crowframework.shared.attributes.Scale;
-import com.vrozsa.crowframework.shared.attributes.Size;
 import com.vrozsa.crowframework.shared.image.DrawingsSorter;
 
 import java.awt.Graphics;
@@ -20,12 +18,11 @@ import java.util.TreeMap;
 /**
  * Allow to display game-play objects in the screen (in addition to UI components).
  */
-public class RendererView extends BaseView implements RendererObserver {
+public class RendererView extends BaseView implements RendererObserver, Offsetable {
     public static final String NAME = "RENDERER_VIEW";
     private final List<Renderer> renderers;
     private final List<Renderer> persistentRenderers;
-    protected int offsetX;
-    protected int offsetY;
+    protected Offset offset;
 
     public RendererView(final Rect rect) {
         this(NAME, rect);
@@ -35,6 +32,7 @@ public class RendererView extends BaseView implements RendererObserver {
         super(name, rect);
         renderers = new ArrayList<>();
         persistentRenderers = new ArrayList<>();
+        offset = Offset.origin();
     }
 
     public RendererView(final ViewTemplate viewTemplate) {
@@ -58,7 +56,7 @@ public class RendererView extends BaseView implements RendererObserver {
 
     /**
      * Persistent renderers wont be removed after removeAllRenderers is called.
-     * @param renderer
+     * @param renderer the renderer to be added.
      */
     public void addPersistentRenderer(Renderer renderer) {
         persistentRenderers.add(renderer);
@@ -75,6 +73,7 @@ public class RendererView extends BaseView implements RendererObserver {
     }
 
     /**
+     * Remove all renderers.
      * Won't remove persistent renderers.
      */
     public void removeAllRenderers() {
@@ -89,13 +88,21 @@ public class RendererView extends BaseView implements RendererObserver {
         persistentRenderers.forEach(this::addRenderer);
     }
 
-    public void setScreenOffset(int offsetX, int offsetY) {
-        this.offsetX = offsetX;
-        this.offsetY = offsetY;
+    /**
+     * Sets the offset in which the elements from this view will be drawn. Because all elements will be given an offset,
+     * this has an effect of 'moving' the camera'
+     * @param offset offset to be set.
+     */
+    public void setOffset(final Offset offset) {
+        this.offset = offset.clone();
     }
 
-    public Offset getScreenOffset() {
-        return new Offset(offsetX, offsetY);
+    /**
+     * Gets a copy of the current offset.
+     * @return current offset value.
+     */
+    public Offset getOffset() {
+        return offset.clone();
     }
 
     @Override
@@ -122,14 +129,14 @@ public class RendererView extends BaseView implements RendererObserver {
             return;
         }
 
-        Renderer renderer = drawing.getRenderer();
-        Offset offset = drawing.getOffset();
-        Scale scale = drawing.getScale();
-        Size size = drawing.getSize();
+        var renderer = drawing.getRenderer();
+        var drawingOffset = drawing.getOffset();
+        var scale = drawing.getScale();
+        var size = drawing.getSize();
 
         Offset rendererPos = renderer.getPos();
-        int screenPosX = rendererPos.getX() - offsetX + offset.getX();
-        int screenPosY = rendererPos.getY() - offsetY + offset.getY();
+        int screenPosX = rendererPos.getX() - offset.getX() + drawingOffset.getX();
+        int screenPosY = rendererPos.getY() - offset.getY() + drawingOffset.getY();
         int width = (int)(size.getWidth() * scale.getWidth());
         int height = (int)(size.getHeight() * scale.getHeight());
 
@@ -152,6 +159,11 @@ public class RendererView extends BaseView implements RendererObserver {
         g.drawImage(drawing.getImage().getContent(absWidth, absHeight), screenPosX, screenPosY, width, height, this);
     }
 
+    /**
+     * Gets a map of drawings that has to be drawn ordered by its layers.
+     * @param renderers the renderes from which the drawings will be taken.
+     * @return the generated map of drawings by layers.
+     */
     private Map<Integer, List<Drawable>> reduceRenderers(List<Renderer> renderers) {
         Map<Integer, List<Drawable>> sprites = new TreeMap<>();
 
@@ -160,7 +172,7 @@ public class RendererView extends BaseView implements RendererObserver {
                 continue;
             }
 
-            if (isRendererOutsideGameView(r)) {
+            if (!r.alwaysRender() && isRendererOutsideGameView(r)) {
                 continue;
             }
 
@@ -174,6 +186,11 @@ public class RendererView extends BaseView implements RendererObserver {
         return sprites;
     }
 
+    /**
+     * Checks if the renderer center is outside visible in the current position.
+     * @param r renderer to be checked.
+     * @return true if outside game view; false if inside.
+     */
     private boolean isRendererOutsideGameView(Renderer r) {
         Offset rendererPos = r.getPos();
         if (isPointInsideScreen(rendererPos.getX(), rendererPos.getY())) {
@@ -193,9 +210,9 @@ public class RendererView extends BaseView implements RendererObserver {
     }
 
     private boolean isPointInsideScreen(int x, int y) {
-        int horBound = offsetX + rect.getWidth();
-        int verBound = offsetY + rect.getHeight();
-        return (x >= offsetX && x < horBound &&
-                y >= offsetY && y < verBound);
+        int horBound = offset.getX() + rect.getWidth();
+        int verBound = offset.getY() + rect.getHeight();
+        return (x >= offset.getX() && x < horBound &&
+                y >= offset.getY() && y < verBound);
     }
 }

@@ -66,7 +66,7 @@ public class Rect {
     }
 
     public Rect add(Offset targetOffset) {
-        return new Rect(offset.add(targetOffset), size);
+        return new Rect(offset.sum(targetOffset), size);
     }
 
     public Rect add(Size targetSize) {

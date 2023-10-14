@@ -128,7 +128,7 @@ public class UISlot extends UIBaseComponent<UISlotTemplate> implements UIHandler
     public void wrapUp(Container container) {
         UILabelTemplate countLabelData = data.getCountLabel();
         if (countLabelData != null) {
-            countLabel = new UILabel(countLabelData, data.getRect().getOffset().add(parentOffset));
+            countLabel = new UILabel(countLabelData, data.getRect().getOffset().sum(parentOffset));
             countLabel.setCustomOffset(customOffset);
             countLabel.wrapUp(container);
         }

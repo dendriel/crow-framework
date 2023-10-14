@@ -36,7 +36,7 @@ public class UISelect extends UIBaseComponent<UISlotGroupTemplate> implements UI
     }
 
     private void setup() {
-        slots = new UISlotGroup(data.getOptionsSlotGroup(), data.getPos().add(parentOffset));
+        slots = new UISlotGroup(data.getOptionsSlotGroup(), data.getPos().sum(parentOffset));
         labels = new UILabelGroup(data.getLabelGroup());
 
         handlerController = new SelectHandlerController(this);

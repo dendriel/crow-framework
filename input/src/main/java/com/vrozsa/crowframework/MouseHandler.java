@@ -9,7 +9,7 @@ public class MouseHandler {
 
     public static Offset getRelativePosition(Offset windowPosition) {
         Point point = MouseInfo.getPointerInfo().getLocation();
-        return new Offset((int)point.getX(), (int)point.getY()).remove(windowPosition);
+        return new Offset((int)point.getX(), (int)point.getY()).sub(windowPosition);
     }
 
     public static Offset getAbsolutePosition() {

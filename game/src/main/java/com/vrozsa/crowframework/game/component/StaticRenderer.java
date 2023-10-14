@@ -19,19 +19,22 @@ public class StaticRenderer extends BaseComponent implements Renderer, PositionO
     protected Offset pos;
     protected boolean flipX;
     protected boolean flipY;
+    protected boolean alwaysRender;
 
     private final Set<RendererObserver> observers;
 
     public StaticRenderer(Position position, int layer, String name, boolean flipX, boolean flipY) {
-        this(position, layer, true, name, flipX, flipY);
+        this(position, layer, true, name, flipX, flipY, false);
     }
 
     public StaticRenderer(Position position, int layer, String name, boolean flipX, boolean flipY, Drawable... drawings) {
-        this(position, layer, true, name, flipX, flipY, drawings);
+        this(position, layer, true, name, flipX, flipY, false, drawings);
     }
 
     public StaticRenderer(
-            Position position, int layer, boolean isEnabled, String name, boolean flipX, boolean flipY, Drawable... drawings) {
+            Position position, int layer, boolean isEnabled, String name, boolean flipX, boolean flipY,
+            boolean alwaysRender, Drawable... drawings
+    ) {
         super(isEnabled, name);
         position.addPositionChangedListener(this);
         pos = position.getOffset();
@@ -39,6 +42,7 @@ public class StaticRenderer extends BaseComponent implements Renderer, PositionO
         this.flipX = flipX;
         this.flipY = flipY;
         this.drawings = new ArrayList<>();
+        this.alwaysRender = alwaysRender;
         initializeDrawings(drawings);
 
         observers = new HashSet<>();
@@ -63,6 +67,19 @@ public class StaticRenderer extends BaseComponent implements Renderer, PositionO
         pos.setX(newPosX);
         pos.setY(newPosY);
         onRendererChanged();
+    }
+
+    @Override
+    public boolean alwaysRender() {
+        return alwaysRender;
+    }
+
+    /**
+     * Update the state of the alwaysRender flag.
+     * @param alwaysRender true if it should always render; false if can be hidden when out of screen.
+     */
+    public void setAlwaysRender(boolean alwaysRender) {
+        this.alwaysRender = alwaysRender;
     }
 
     private void onRendererChanged() {

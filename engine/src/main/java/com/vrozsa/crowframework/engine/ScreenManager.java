@@ -1,5 +1,6 @@
 package com.vrozsa.crowframework.engine;
 
+import com.vrozsa.crowframework.screen.internal.RendererView;
 import com.vrozsa.crowframework.screen.ui.UIIcon;
 import com.vrozsa.crowframework.shared.api.game.GameObject;
 import com.vrozsa.crowframework.shared.attributes.Rect;
@@ -33,4 +34,10 @@ public interface ScreenManager {
      * @return the new icon component.
      */
     UIIcon addIcon(final String imageFile, final int x, final int y, final int width, final int height);
+
+    /**
+     * Gets the renderer view from the screen (the view which render game objects).
+     * @return the renderer view, if any.
+     */
+    RendererView getRendererView();
 }

@@ -84,7 +84,7 @@ public class ScreenHandler {
         java.awt.Point point = frame.getLocation();
 
         Offset position = new Offset((int)point.getX(), (int)point.getY());
-        position = position.add(new Offset(insetWidth, insetHeight));
+        position = position.sum(new Offset(insetWidth, insetHeight));
         return position;
     }
 

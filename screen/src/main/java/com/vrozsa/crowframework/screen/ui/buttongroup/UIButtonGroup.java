@@ -96,7 +96,7 @@ public class UIButtonGroup extends UIBaseComponent<UIButtonGroupTemplate> {
 
         // setup parent offset
         Rect targetRect = bgTemplate.getRect();
-        targetRect.setOffset(rect.getOffset().add(targetRect.getOffset()));
+        targetRect.setOffset(rect.getOffset().sum(targetRect.getOffset()));
         bgTemplate.setRect(targetRect);
         bgTemplate.setReferenceSize(data.getReferenceSize());
 

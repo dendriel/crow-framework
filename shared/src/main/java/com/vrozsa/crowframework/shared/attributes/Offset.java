@@ -22,6 +22,15 @@ public class Offset {
         return new Offset(x, y);
     }
 
+    /**
+     * Creates a new offset using the same value for x and y.
+     * @param dimension value to be set in x and y.
+     * @return the created offset.
+     */
+    public static Offset of(final int dimension) {
+        return new Offset(dimension, dimension);
+    }
+
     public void setOrigin() {
         x = 0;
         y = 0;
@@ -43,13 +52,33 @@ public class Offset {
         this.y = y;
     }
 
-    public Offset add(Offset target) {
+    /**
+     * Adds the target offset to this offset (idempotent). The base offset won't be changed.
+     * @param target the offset to be added.
+     * @return the new offset generated.
+     */
+    public Offset sum(Offset target) {
         return new Offset(x + target.getX(), y + target.getY());
     }
 
-    public Offset remove(Offset target) {
+    /**
+     * Removes the target offset to this offset (idempotent). The base offset won't be changed.
+     * @param target the offset to be removed.
+     * @return the new offset generated.
+     */
+    public Offset sub(Offset target) {
         return new Offset(x - target.getX(), y - target.getY());
     }
+
+    /**
+     * Divides this offset by the target offset (idempotent). The base offset won't be changed.
+     * @param target the offset to be used in the division.
+     * @return the new offset generated.
+     */
+    public Offset divide(Offset target) {
+        return new Offset(x / target.getX(), y / target.getY());
+    }
+
 
     public boolean atOrigin() {
         return x == 0 && y == 0;

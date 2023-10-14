@@ -82,7 +82,9 @@ public class CharacterDriver extends BaseComponent {
         var speed = diagonalMovement ? diagonalSpeed : axisSpeed;
         getPosition().addOffset(Offset.of(speed * x, speed * y));
 
-        setWalking();
+        if (!isAttacking) {
+            setWalking();
+        }
     }
 
     public void flipDirection() {

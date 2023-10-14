@@ -35,4 +35,12 @@ public interface Renderer {
     void addRendererChangedListener(RendererObserver observer);
 
     void removeRendererChangedListener(RendererObserver observer);
+
+    /**
+     * Tells if this renderer should be always displaying. This avoids the rendering optimization that hides sprites that
+     * are out of the screen view.
+     * Useful for sprites bigger than the screen.
+     * @return true if this renderer should always be drawn; false otherwise.
+     */
+    boolean alwaysRender();
 }
