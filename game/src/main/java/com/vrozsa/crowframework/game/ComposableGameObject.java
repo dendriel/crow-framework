@@ -4,6 +4,7 @@ import com.vrozsa.crowframework.shared.api.game.Component;
 import com.vrozsa.crowframework.game.component.Position;
 import com.vrozsa.crowframework.game.component.StaticRenderer;
 import com.vrozsa.crowframework.shared.api.game.GameObject;
+import com.vrozsa.crowframework.shared.api.game.PositionComponent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +40,7 @@ public final class ComposableGameObject implements GameObject {
         position.getChildren().forEach(p -> p.getGameObject().lateUpdate());
     }
 
-    public Position getPosition() {
+    public PositionComponent getPosition() {
         return position;
     }
 
@@ -77,8 +78,8 @@ public final class ComposableGameObject implements GameObject {
     }
 
     public <T extends Component> T getComponentFromChildren(Class<T> type) {
-        List<Position> children = position.getChildren();
-        for (Position pos : children) {
+        List<PositionComponent> children = position.getChildren();
+        for (PositionComponent pos : children) {
             T currComp = pos.getGameObject().getComponent(type);
             if (currComp != null) {
                 return currComp;
@@ -95,9 +96,9 @@ public final class ComposableGameObject implements GameObject {
 
     public <T extends Component> List<T> getComponentsFromChildren(Class<T> type) {
         List<T> components = new ArrayList<>();
-        List<Position> children = position.getChildren();
+        List<PositionComponent> children = position.getChildren();
 
-        for (Position pos : children) {
+        for (PositionComponent pos : children) {
             T currComp = pos.getGameObject().getComponent(type);
             if (currComp != null) {
                 components.add(currComp);
@@ -143,9 +144,9 @@ public final class ComposableGameObject implements GameObject {
 
     public <T> List<T> getServicesFromChildren(Class<T> kind) {
         List<T> components = new ArrayList<>();
-        List<Position> children = position.getChildren();
+        List<PositionComponent> children = position.getChildren();
 
-        for (Position pos : children) {
+        for (PositionComponent pos : children) {
             T currComp = pos.getGameObject().getService(kind);
             components.add(currComp);
 

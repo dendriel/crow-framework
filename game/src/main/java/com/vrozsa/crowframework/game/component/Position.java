@@ -11,7 +11,7 @@ import java.util.List;
 
 public class Position extends BaseComponent implements PositionComponent, PositionObserver {
     public static final String DEFAULT_POSITION = "_defaultPositionComponent";
-    private Position parent;
+    private PositionComponent parent;
     private final List<Position> children;
     private final List<PositionObserver> positionObservers;
     private final List<PositionOffsetObserver> offsetAddedObservers;
@@ -145,11 +145,11 @@ public class Position extends BaseComponent implements PositionComponent, Positi
         onPositionChanged();
     }
 
-    private int getAbsolutePosX() {
+    public int getAbsolutePosX() {
         return getParentPosX() + pos.getX();
     }
 
-    private int getAbsolutePosY() {
+    public int getAbsolutePosY() {
         return getParentPosY() + pos.getY();
     }
 
@@ -176,24 +176,24 @@ public class Position extends BaseComponent implements PositionComponent, Positi
         removePositionChangedListener(child);
     }
 
-    public void setParent(Position newParent) {
+    public void setParent(PositionComponent newParent) {
         if (parent != null) {
-            parent.removeChild(this);
+            ((Position)parent).removeChild(this);
         }
 
         parent = newParent;
         if (parent != null) {
-            parent.addChild(this);
+            ((Position)parent).addChild(this);
             onPositionChanged();
         }
     }
 
-    public Position getParent() {
+    public PositionComponent getParent() {
         return parent;
     }
 
-    public List<Position> getChildren() {
-        return children;
+    public List<PositionComponent> getChildren() {
+        return new ArrayList<>(children);
     }
 
     public Position getChildByName(String name) {

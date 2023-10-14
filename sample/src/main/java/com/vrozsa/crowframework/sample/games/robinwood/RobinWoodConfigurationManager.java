@@ -8,6 +8,7 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.Random;
 
 /**
  * A better way to do this is to load configurations from files (json, yml, etc).
@@ -24,13 +25,17 @@ public final class RobinWoodConfigurationManager {
     public static final String BACKGROUND_IMAGE_FILE = ASSETS_FOLDER + "grass_bg_1600x600.png";
     public static final String IRON_ARROW_IMAGE_FILE = ASSETS_FOLDER + "iron_arrow.png";
 
+    public static final List<String> TREE_IMAGE_FILES = List.of("maple_tree01.png", "maple_tree02.png", "maple_tree03.png", "pine_tree01.png", "pine_tree02.png", "pine_tree03.png") ;
+
     public static final Size SCREEN_SIZE = Size.of(800, 600);
     public static final Offset MIDDLE_SCREEN_OFFSET = Offset.of(SCREEN_SIZE.getWidth()/2, SCREEN_SIZE.getHeight()/2);
     public static final Offset HERO_STARTING_OFFSET = Offset.of(360, 260);
-    public static final int CHAR_IMAGE_WIDTH = 80;
-    public static final int CHAR_IMAGE_HEIGHT = 80;
+    public static final int SPRITE_WIDTH = 80;
+    public static final int SPRITE_HEIGHT = 80;
+    public static Size BOARD_SIZE = Size.of(1600, 600);
 
     public static final int BACKGROUND_SPRITE_LAYER = 0;
+    public static final int TREE_SPRITE_LAYER = 10;
     public static final int CHARACTER_SPRITE_LAYER = 100;
     public static final int PROJECTILE_SPRITE_LAYER = 200;
     public static final int MOVEMENT_AXIS_SPEED = 5;
@@ -42,9 +47,11 @@ public final class RobinWoodConfigurationManager {
 
     public static final String PROJECTILE_IRON_ARROW = "iron_arrow";
 
+    private static Random randomizer = new Random();
+
     public static Offset getCharScreenCenter() {
-        int halfCharWidth = CHAR_IMAGE_WIDTH / 2;
-        int halfCharHeight = CHAR_IMAGE_HEIGHT / 2;
+        int halfCharWidth = SPRITE_WIDTH / 2;
+        int halfCharHeight = SPRITE_HEIGHT / 2;
 
         return MIDDLE_SCREEN_OFFSET.sub(Offset.of(halfCharWidth, halfCharHeight));
     }
@@ -91,5 +98,10 @@ public final class RobinWoodConfigurationManager {
                 .build();
 
         return List.of(idle, walk, attack);
+    }
+
+    public static String getRandomTreeImageFile() {
+        int treeIdx = randomizer.nextInt(TREE_IMAGE_FILES.size());
+        return ASSETS_FOLDER + TREE_IMAGE_FILES.get(treeIdx);
     }
 }

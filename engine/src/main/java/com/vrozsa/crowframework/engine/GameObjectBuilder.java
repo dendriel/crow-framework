@@ -262,6 +262,13 @@ public final class GameObjectBuilder  {
         return this;
     }
 
+    public GameObjectBuilder addChildren(List<GameObject> children) {
+        children.stream()
+                .map(GameObject::getPosition)
+                .forEach(c -> c.setParent(position));
+        return this;
+    }
+
     public GameObjectBuilder addChildren(Iterable<Position> children) {
         children.forEach(c -> c.setParent(position));
         return this;

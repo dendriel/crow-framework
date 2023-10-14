@@ -2,6 +2,8 @@ package com.vrozsa.crowframework.shared.api.game;
 
 import com.vrozsa.crowframework.shared.attributes.Offset;
 
+import java.util.List;
+
 /**
  * Represents the position of a Game Object in the game scenario.
  * All positions contain X,Y,Z axis. X is horizontal axis; Y is vertical axis; Z is depth axis (used to decide what
@@ -27,6 +29,24 @@ public interface PositionComponent {
     int getZ();
 
     /**
+     * Gets the absolute X position. If this position is attached to a parent, this will be the sum of the parent absolute
+     * position with the current relative position of the object.
+     *
+     * For instance, if the current object position is X=50 and Y=45, but its parent has a absolute position of X=300 and Y=500,
+     * the absolute position of the child will be X=350 and Y=545.
+     *
+     * @return the absolute X position.
+     */
+    int getAbsolutePosX();
+
+    /**
+     * Gets the absolute Y position. If this position is attached to a parent, this will be the sum of the parent absolute
+     * position with the current relative position of the object.
+     * @return the absolute Y position.
+     */
+    int getAbsolutePosY();
+
+    /**
      * Sets the horizontal and vertical position.
      * @param x the new horizontal position.
      * @param y the new vertical position.
@@ -38,4 +58,22 @@ public interface PositionComponent {
      * @param offset offset to be added.
      */
     void addOffset(Offset offset);
+
+    /**
+     * Set the parent position component. The child position will be attached to the parent.
+     * @param parent the new parent position.
+     */
+    void setParent(PositionComponent parent);
+
+    /**
+     * Get a list of children positions attached to this position.
+     * @return the list of children positions.
+     */
+    List<PositionComponent> getChildren();
+
+    /**
+     * Gets the game object in which this position is attached.
+     * @return the game object that owns this position.
+     */
+    GameObject getGameObject();
 }

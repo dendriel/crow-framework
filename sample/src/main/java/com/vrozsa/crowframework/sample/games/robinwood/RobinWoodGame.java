@@ -11,14 +11,10 @@ public class RobinWoodGame {
         var crowEngine = CrowEngine.create();
         var factory = new GameObjectFactory(crowEngine);
 
-        var bgGOA = factory.createBackground();
-        crowEngine.addGameObject(bgGOA);
+        var gameBoard = factory.createGameBoard();
+        crowEngine.addGameObject(gameBoard);
 
         var heroGO = factory.createHero(HERO_STARTING_OFFSET);
         crowEngine.addGameObject(heroGO);
-
-
-
-//        var animator = heroGO.getComponent(AnimatedRenderer.class);
     }
 }

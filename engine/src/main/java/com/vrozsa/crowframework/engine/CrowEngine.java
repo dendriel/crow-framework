@@ -42,7 +42,7 @@ public interface CrowEngine {
     }
 
     /**
-     * Adds a new game object into the game.
+     * Adds a game object into the game. Also, adds any related children game object.
      * @param go the game object to be added.
      */
     void addGameObject(final GameObject go);
