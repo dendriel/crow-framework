@@ -211,7 +211,7 @@ public class MultipleCommandsPerFrame {
         }
 
         public void setPosition(final Offset pos) {
-            getPosition().setPosition(Vector.of(pos));
+            getPosition().setOffset(pos);
         }
     }
 }

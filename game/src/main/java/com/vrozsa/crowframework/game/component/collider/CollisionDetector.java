@@ -90,9 +90,18 @@ public class CollisionDetector {
             return;
         }
 
-        var totalWeight = source.getWeight() + target.getWeight();
-        var sourceProp = (float)source.getWeight() / totalWeight;
-        var targetProp = (float)target.getWeight() / totalWeight;
+        var totalWeight = source.getWeight() + (long)target.getWeight();
+        var sourceProp = (double)sourceWeight / totalWeight;
+        var targetProp = (double)targetWeight / totalWeight;
+
+        if ( sourceWeight > targetWeight && (sourceWeight / targetWeight) >= 10) {
+            sourceProp = 1;
+            targetProp = 0;
+        }
+        else if (targetWeight > sourceWeight && (targetWeight / sourceWeight) >= 10) {
+            sourceProp = 0;
+            targetProp = 1;
+        }
 
         if (source.isMoving() && !target.isMoving()) {
             var offset = source.getLastOffsetAdded();
@@ -113,8 +122,8 @@ public class CollisionDetector {
     }
 
     private static void applyMovement(final Offset offset,
-                                      final PositionComponent posA, final float proportionA,
-                                      final PositionComponent posB, final float proportionB
+                                      final PositionComponent posA, final double proportionA,
+                                      final PositionComponent posB, final double proportionB
     ) {
         var offsetA = calcProportionalOffset(offset, proportionA, 1);
         posB.addOffset(offsetA);
@@ -123,7 +132,7 @@ public class CollisionDetector {
         posA.addOffset(offsetB);
     }
 
-    private static Offset calcProportionalOffset(final Offset offset, final float proportion, final int inverter) {
+    private static Offset calcProportionalOffset(final Offset offset, final double proportion, final int inverter) {
         int x;
         if (offset.getX() > 0) {
             x = (int)Math.ceil(offset.getX() * proportion * inverter);

@@ -29,6 +29,18 @@ public interface PositionComponent {
     int getZ();
 
     /**
+     * Gets the offset of this position (x and y).
+     * @return the position offset.
+     */
+    Offset getOffset();
+
+    /**
+     * Sets the offset part of this position.
+     * @param offset the new position offset.
+     */
+    void setOffset(Offset offset);
+
+    /**
      * Gets the absolute X position. If this position is attached to a parent, this will be the sum of the parent absolute
      * position with the current relative position of the object.
      *
@@ -58,6 +70,12 @@ public interface PositionComponent {
      * @param offset offset to be added.
      */
     void addOffset(Offset offset);
+
+    /**
+     * Add an observer for changes in the offset.
+     * @param observer the observer callback.
+     */
+    void addPositionOffsetAddedListener(PositionOffsetObserver observer);
 
     /**
      * Set the parent position component. The child position will be attached to the parent.

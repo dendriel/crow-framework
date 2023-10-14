@@ -55,6 +55,10 @@ public class Position extends AbstractComponent implements PositionComponent, Po
         return pos.getOffset().clone();
     }
 
+    public void setOffset(final Offset offset) {
+        pos.setOffset(offset);
+    }
+
     public Vector getVector() {
         return pos.clone();
     }
@@ -100,10 +104,6 @@ public class Position extends AbstractComponent implements PositionComponent, Po
     public void setPosition(final Vector pos) {
         this.pos = pos;
         onPositionChanged();
-    }
-
-    public void setOffset(final Offset offset) {
-        this.pos.setOffset(offset);
     }
 
     public void addOffset(final Offset offset) {

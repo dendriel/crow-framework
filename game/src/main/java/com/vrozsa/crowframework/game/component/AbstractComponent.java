@@ -2,6 +2,7 @@ package com.vrozsa.crowframework.game.component;
 
 import com.vrozsa.crowframework.shared.api.game.Component;
 import com.vrozsa.crowframework.shared.api.game.GameObject;
+import com.vrozsa.crowframework.shared.api.game.PositionComponent;
 
 public abstract class AbstractComponent implements Component {
     // this should be final....
@@ -56,7 +57,7 @@ public abstract class AbstractComponent implements Component {
 
     // was a method from Component API, but it is not used outside game.
 //    @Override
-    public Position getPosition() {
+    public PositionComponent getPosition() {
         return gameObject.getComponent(Position.class);
     }
 

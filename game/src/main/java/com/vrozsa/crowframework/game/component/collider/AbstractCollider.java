@@ -3,6 +3,7 @@ package com.vrozsa.crowframework.game.component.collider;
 import com.vrozsa.crowframework.game.component.AbstractComponent;
 import com.vrozsa.crowframework.shared.api.game.ColliderComponent;
 import com.vrozsa.crowframework.shared.api.game.ColliderType;
+import com.vrozsa.crowframework.shared.api.game.PositionComponent;
 import com.vrozsa.crowframework.shared.api.screen.Renderer;
 import com.vrozsa.crowframework.shared.attributes.Offset;
 import com.vrozsa.crowframework.shared.attributes.Rect;
@@ -28,6 +29,7 @@ abstract class AbstractCollider extends AbstractComponent implements ColliderCom
      * the collider size will override the renderer size.
      */
     protected Rect rect;
+    private PositionComponent position;
 
     protected boolean isActive;
     protected int weight;
@@ -54,13 +56,17 @@ abstract class AbstractCollider extends AbstractComponent implements ColliderCom
         this.collidesWith = new HashSet<>(collidesWith);
         this.cooldown = cooldown;
         this.rect = rect;
+        lastOffsetAdded = Offset.origin();
     }
 
     @Override
     public void wrapUp() {
         super.wrapUp();
 
-        getPosition().addPositionOffsetAddedListener(this::onOffsetAdded);
+        position = getPosition();
+        assert position != null : "AbstractCollider requires a PositionComponent";
+
+        position.addPositionOffsetAddedListener(this::onOffsetAdded);
     }
 
     @Override
@@ -72,7 +78,7 @@ abstract class AbstractCollider extends AbstractComponent implements ColliderCom
     }
 
     private void onOffsetAdded(int offsetX, int offsetY) {
-        lastOffsetAdded = Offset.of(offsetX, offsetY);
+        lastOffsetAdded = lastOffsetAdded.sum(Offset.of(offsetX, offsetY));
 
         // the offset may be added in the game object update phase, and it is to be consumed by the collision handling
         // before the next go update phase.
@@ -150,16 +156,16 @@ abstract class AbstractCollider extends AbstractComponent implements ColliderCom
 
     public int getX() {
         if (Objects.isNull(rect)) {
-            return getPosition().getX();
+            return position.getAbsolutePosX();
         }
-        return getPosition().getX() + rect.getX();
+        return position.getAbsolutePosX() + rect.getX();
     }
 
     public int getY() {
         if (Objects.isNull(rect)) {
-            return getPosition().getY();
+            return position.getAbsolutePosY();
         }
-        return getPosition().getY() + rect.getY();
+        return position.getAbsolutePosY() + rect.getY();
     }
 
     public int getWidth() {

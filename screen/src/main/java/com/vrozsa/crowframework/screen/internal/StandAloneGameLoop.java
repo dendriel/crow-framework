@@ -54,6 +54,16 @@ public class StandAloneGameLoop implements GameLoop, Runnable {
     public void removeLateUpdateListener(UpdateListener listener) {}
 
     @Override
+    public void addEarlyUpdateListener(UpdateListener listener) {
+
+    }
+
+    @Override
+    public void removeEarlyUpdateListener(UpdateListener listener) {
+
+    }
+
+    @Override
     public void setCollisionUpdateListener(UpdateListener listener) {}
 
     @Override

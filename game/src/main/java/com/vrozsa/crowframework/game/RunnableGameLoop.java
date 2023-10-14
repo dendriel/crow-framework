@@ -19,6 +19,7 @@ public class RunnableGameLoop implements GameLoop {
     private long frameTime;
     private final HashSet<UpdateListener> onUpdateListeners;
     private final HashSet<UpdateListener> onLateUpdateListeners;
+    private final HashSet<UpdateListener> onEarlyUpdateListeners;
     private UpdateListener screenUpdateListener;
     private UpdateListener collisionUpdateListener;
 
@@ -29,6 +30,7 @@ public class RunnableGameLoop implements GameLoop {
         frameTime = (long)(1000 / (float)gameLoopFPS);
         onUpdateListeners = new HashSet<>();
         onLateUpdateListeners = new HashSet<>();
+        onEarlyUpdateListeners = new HashSet<>();
         screenUpdateListener = () -> {};
         collisionUpdateListener = () -> {};
     }
@@ -105,6 +107,16 @@ public class RunnableGameLoop implements GameLoop {
         onLateUpdateListeners.remove(listener);
     }
 
+    @Override
+    public void addEarlyUpdateListener(UpdateListener listener) {
+        onEarlyUpdateListeners.add(listener);
+    }
+
+    @Override
+    public void removeEarlyUpdateListener(UpdateListener listener) {
+        onEarlyUpdateListeners.remove(listener);
+    }
+
     private void updateLoop() {
         while(keepRunning) {
 //            logger.debug("Frame {0} has started.", frame);
@@ -112,6 +124,7 @@ public class RunnableGameLoop implements GameLoop {
 
             collisionUpdateListener.onUpdate();
 
+            onEarlyUpdateListeners.forEach(UpdateListener::onUpdate);
             onUpdateListeners.forEach(UpdateListener::onUpdate);
             onLateUpdateListeners.forEach(UpdateListener::onUpdate);
 

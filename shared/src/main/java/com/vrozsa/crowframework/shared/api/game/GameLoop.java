@@ -41,6 +41,18 @@ public interface GameLoop {
     void removeLateUpdateListener(final UpdateListener listener);
 
     /**
+     * Add an early update listener to the game loop. Early updates occurs before the update phase.
+     * @param listener the listener to be added.
+     */
+    void addEarlyUpdateListener(final UpdateListener listener);
+
+    /**
+     * Remove an early update listener from the game loop.
+     * @param listener the listener to be removed.
+     */
+    void removeEarlyUpdateListener(final UpdateListener listener);
+
+    /**
      * Setup explicitly the screen update listener, so it can be executed in the correct order. Screen updates occurs
      * after the late updates.
      * @param listener screen's update listener.

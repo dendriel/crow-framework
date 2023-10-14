@@ -19,6 +19,10 @@ class CrowGameManager implements GameManager {
         collisionDetector = new CollisionDetector();
     }
 
+    void earlyUpdate() {
+        gos.forEach(GameObject::earlyUpdate);
+    }
+
     void update() {
         gos.forEach(GameObject::update);
     }

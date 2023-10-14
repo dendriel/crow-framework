@@ -25,6 +25,7 @@ class Engine implements CrowEngine {
         gameLoop = RunnableGameLoop.get();
         gameLoop.setScreenUpdateListener(screenManager::update);
         gameLoop.setCollisionUpdateListener(gameManager::handleCollision);
+        gameLoop.addEarlyUpdateListener(gameManager::earlyUpdate);
         gameLoop.addUpdateListener(gameManager::update);
         gameLoop.addLateUpdateListener(gameManager::lateUpdate);
 
