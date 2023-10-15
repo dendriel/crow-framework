@@ -29,11 +29,12 @@ public class CollisionDetector {
         var handlesCount = new AtomicInteger();
         var collisionDetected = false;
 
-        var context = colliders.stream()
-                .map(CollisionContext::new)
-                .toList();
 
         do {
+            var context = colliders.stream()
+                    .map(CollisionContext::new)
+                    .toList();
+
             logger.debug(() -> handlesCount.get() > 0,"\nRedetecting collision. Round: {0}", handlesCount);
             collisionDetected = checkAndHandleCollision(context);
         } while (collisionDetected && handlesCount.incrementAndGet() <= maxHandles);
@@ -61,6 +62,7 @@ public class CollisionDetector {
                 }
             }
         }
+
         return isCollisionDetected;
     }
 
@@ -135,7 +137,7 @@ public class CollisionDetector {
                 sourceStatus.clearOffsetAddedLastFrame();
                 // if stopped element overweight moving object, invert the movement.
                 applyReverseMovement(offset, source.getGameObject().getPosition(), 1, sourceStatus); // this was 0, why?
-                logger.info("applied inverse movement on srouce {0} from target {1}", source, target);
+                logger.info("applied inverse movement on source {0} from target {1} - source offset: {2}", source, target, offset);
                 // Don't clear isMoving flag. Now it is moving in the opposite direction.
                 return;
             }
@@ -151,9 +153,10 @@ public class CollisionDetector {
             var offset = targetStatus.getOffsetAddedLastFrame();
             if (source.weight() > target.weight() && (source.weight() / target.weight()) >= 10) {
                 targetStatus.clearOffsetAddedLastFrame();
+                target.collider.clearOffsetAddedLastFrame();
                 // if stopped element overweight moving object, invert the movement.
                 applyReverseMovement(offset, target.getGameObject().getPosition(), 1, targetStatus);
-                logger.info("applied inverse movement on target {0} from source {1}", target, source);
+                logger.info("applied inverse movement on target {0} from source {1} - target offset: {2}", target, source, offset);
                 // Don't clear isMoving flag. Now it is moving in the opposite direction.
                 return;
             }
@@ -177,7 +180,7 @@ public class CollisionDetector {
             var sourceOffset = sourceStatus.getOffsetAddedLastFrame();
             var targetOffset = targetStatus.getOffsetAddedLastFrame();
 
-            logger.info("target {0} both source {1}: {2}/{3} - offset: s={4} t={5}", target, source, targetProp, sourceProp, sourceOffset, targetOffset);
+            logger.info("source {0} both target {1} : {2}/{3} - offset: s={4} t={5}", source, target, sourceProp, targetProp, sourceOffset, targetOffset);
 
             // Clear the offset because it was applied and we don't wan't to reapply if redetecting collisions in this frame.
             sourceStatus.clearOffsetAddedLastFrame();
@@ -190,7 +193,7 @@ public class CollisionDetector {
             targetStatus.clearIsMoving();
         }
         else {
-            logger.warn("SOURCE {0} AND TARGET {1} DID'NT MOVED BUT ARE IN COLLISION!", source, target);
+            logger.warn("SOURCE {0} AND TARGET {1} DID'NT MOVE BUT ARE IN COLLISION!", source, target);
         }
     }
 
@@ -270,6 +273,21 @@ public class CollisionDetector {
             }
 
             return new CollisionStatus(collider);
+        }
+
+        boolean startedMoving() {
+            if (collider.isMoving()) {
+                // already moving.
+                return false;
+            }
+
+            for (var entry : collisionStatus.values()) {
+                if (entry.isMoving) {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         Offset offset() {
