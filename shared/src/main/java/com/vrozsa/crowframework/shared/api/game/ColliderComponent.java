@@ -104,5 +104,16 @@ public interface ColliderComponent {
      * Gets the offset added when moving last frame (reset every frame).
      * @return offset added last frame.
      */
-    Offset getLastOffsetAdded();
+    Offset getOffsetAddedLastFrame();
+
+    /**
+     * Clears the offset added last frame. Used by the collision engine to avoid applying the same offset if redetecting
+     * collision in the same frame.
+     */
+    void clearOffsetAddedLastFrame();
+
+    /**
+     * Clear only the moving flag, but keep the offset added last frame.
+     */
+    void clearIsMoving();
 }

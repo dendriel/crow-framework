@@ -111,7 +111,7 @@ public class Rect {
 
     @Override
     public String toString() {
-        return String.format("%s - %s", offset, size);
+        return String.format("[%s, %s]", offset, size);
     }
 
     @Override

@@ -9,10 +9,14 @@ import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigura
 public class RobinWoodGame {
 
     public static void main(String[] args) {
+        var robinWoodGame = new RobinWoodGame();
+        robinWoodGame.start();
+    }
 
+    public void start() {
         var config = CrowEngineConfig.builder()
                 .color(BG_SCREEN_COLOR)
-                .showGizmos(false).build();
+                .showGizmos(true).build();
         var crowEngine = CrowEngine.create(config);
 
         var factory = new GameObjectFactory(crowEngine);
@@ -22,5 +26,16 @@ public class RobinWoodGame {
 
         var heroGO = factory.createHero(HERO_STARTING_OFFSET);
         crowEngine.addGameObject(heroGO);
+
+        var skeletonWarriorGO = factory.createSkeletonWarrior(300, 60);
+        crowEngine.addGameObject(skeletonWarriorGO);
+
+
+        crowEngine.addGameObject(factory.createSkeletonWarrior(200, 200));
+        crowEngine.addGameObject(factory.createSkeletonWarrior(500, 300));
+        crowEngine.addGameObject(factory.createSkeletonWarrior(450, 300));
+
+        crowEngine.addGameObject(factory.createSkeletonWarrior(300, 500));
+
     }
 }

@@ -21,6 +21,9 @@ public final class RobinWoodConfigurationManager {
     private static final String HERO_IDLE_SPRITESHEET = SPRITESHEETS_FOLDER + "hero_idle.png";
     private static final String HERO_WALK_SPRITESHEET = SPRITESHEETS_FOLDER + "hero_walk.png";
     private static final String HERO_ATTACK_SPRITESHEET = SPRITESHEETS_FOLDER + "hero_attack.png";
+    private static final String SKELETON_WARRIOR_IDLE_SPRITESHEET = SPRITESHEETS_FOLDER + "skeleton_warrior_idle.png";
+    private static final String SKELETON_WARRIOR_WALK_SPRITESHEET = SPRITESHEETS_FOLDER + "skeleton_warrior_walk.png";
+    private static final String SKELETON_WARRIOR_ATTACK_SPRITESHEET = SPRITESHEETS_FOLDER + "skeleton_warrior_attack.png";
 
 
     public static final String BACKGROUND_IMAGE_FILE = ASSETS_FOLDER + "grass_bg_1600x600.png";
@@ -40,7 +43,7 @@ public final class RobinWoodConfigurationManager {
     public static final int TOP_TREE_SPRITE_LAYER = 10;
     public static final int BOTTOM_TREE_SPRITE_LAYER = 1000;
     public static final int CHARACTER_SPRITE_LAYER = 100;
-    public static final int PROJECTILE_SPRITE_LAYER = 200;
+    public static final int PROJECTILE_SPRITE_LAYER = 900;
     public static final int MOVEMENT_AXIS_SPEED = 5;
     public static final int MOVEMENT_DIAGONAL_SPEED = 3;
     public static final int PROJECTILE_SPEED = 10;
@@ -55,6 +58,11 @@ public final class RobinWoodConfigurationManager {
     public static final String HERO_COLLISION_LAYER = "hero";
     public static final String ENEMIES_COLLISION_LAYER = "enemies";
     public static final String HERO_PROJECTILE_COLLISION_LAYER = "hero_projectile";
+
+    public static final int HERO_WEIGHT = 1;
+    public static final int ENEMY_WEIGHT = 9;
+    public static final int TREE_WEIGHT = 1000;
+
 
     public static final Rect HERO_COLLISION_RECT = Rect.of(22, -20, 35 ,70);
     public static final Rect TOP_TREE_COLLISION_RECT = Rect.of(0, 0, 80 ,40);
@@ -103,6 +111,47 @@ public final class RobinWoodConfigurationManager {
                 .rect(Rect.of(-20, -60, 720, 120))
                 .frameRect(Rect.atOrigin(120, 120))
                 .spritesheets(List.of(HERO_ATTACK_SPRITESHEET))
+                .timeBetweenFrames(20)
+                .firstFrame(0)
+                .repeat(false)
+                .intervalBeforeRepeating(0)
+                .isActive(false)
+                .build();
+
+        return List.of(idle, walk, attack);
+    }
+
+
+    public static List<AnimationTemplate> getSkeletonWarriorAnimationTemplates() {
+        var idle = AnimationTemplate.builder()
+                .name("idle")
+                .rect(Rect.of(-20, -60, 720, 120))
+                .frameRect(Rect.atOrigin(120, 120))
+                .spritesheets(List.of(SKELETON_WARRIOR_IDLE_SPRITESHEET))
+                .timeBetweenFrames(60)
+                .firstFrame(0)
+                .repeat(true)
+                .intervalBeforeRepeating(60)
+                .isActive(true)
+                .build();
+
+        var walk = AnimationTemplate.builder()
+                .name("walk")
+                .rect(Rect.of(-20, -60, 720, 120))
+                .frameRect(Rect.atOrigin(120, 120))
+                .spritesheets(List.of(SKELETON_WARRIOR_WALK_SPRITESHEET))
+                .timeBetweenFrames(60)
+                .firstFrame(0)
+                .repeat(true)
+                .intervalBeforeRepeating(0)
+                .isActive(false)
+                .build();
+
+        var attack = AnimationTemplate.builder()
+                .name("attack")
+                .rect(Rect.of(-20, -60, 720, 120))
+                .frameRect(Rect.atOrigin(120, 120))
+                .spritesheets(List.of(SKELETON_WARRIOR_ATTACK_SPRITESHEET))
                 .timeBetweenFrames(20)
                 .firstFrame(0)
                 .repeat(false)

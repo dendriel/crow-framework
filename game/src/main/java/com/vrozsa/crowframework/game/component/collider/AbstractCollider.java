@@ -37,8 +37,8 @@ abstract class AbstractCollider extends AbstractComponent implements ColliderCom
     protected final Set<String> collidesWith;
     protected final ColliderType type;
     protected final Cooldown cooldown;
-    protected Offset lastOffsetAdded;
-    protected boolean offsetAddedLastFrame;
+    protected Offset offsetAddedLastFrame;
+    protected boolean isOffsetAddedLastFrame;
 
     protected AbstractCollider(
             final ColliderType type,
@@ -56,7 +56,7 @@ abstract class AbstractCollider extends AbstractComponent implements ColliderCom
         this.collidesWith = new HashSet<>(collidesWith);
         this.cooldown = cooldown;
         this.rect = rect;
-        lastOffsetAdded = Offset.origin();
+        offsetAddedLastFrame = Offset.origin();
     }
 
     @Override
@@ -73,24 +73,33 @@ abstract class AbstractCollider extends AbstractComponent implements ColliderCom
     public void earlyUpdate() {
         super.earlyUpdate();
         // reset this every update, before the GO handling phase in which it can be set again.
-        offsetAddedLastFrame = false;
-        lastOffsetAdded = Offset.origin();
+        isOffsetAddedLastFrame = false;
+        offsetAddedLastFrame = Offset.origin();
     }
 
     private void onOffsetAdded(int offsetX, int offsetY) {
-        lastOffsetAdded = lastOffsetAdded.sum(Offset.of(offsetX, offsetY));
+        offsetAddedLastFrame = offsetAddedLastFrame.sum(Offset.of(offsetX, offsetY));
 
         // the offset may be added in the game object update phase, and it is to be consumed by the collision handling
         // before the next go update phase.
-        offsetAddedLastFrame = true;
+        isOffsetAddedLastFrame = true;
     }
 
     public boolean isMoving() {
+        return isOffsetAddedLastFrame;
+    }
+
+    public Offset getOffsetAddedLastFrame() {
         return offsetAddedLastFrame;
     }
 
-    public Offset getLastOffsetAdded() {
-        return lastOffsetAdded;
+    public void clearOffsetAddedLastFrame() {
+        isOffsetAddedLastFrame = false;
+        offsetAddedLastFrame = Offset.origin();
+    }
+
+    public void clearIsMoving() {
+        isOffsetAddedLastFrame = false;
     }
 
     public void setActive(final boolean isActive) {
@@ -191,5 +200,10 @@ abstract class AbstractCollider extends AbstractComponent implements ColliderCom
         }
 
         return renderer.getSize();
+    }
+
+    @Override
+    public String toString() {
+        return String.format("[layer=%s rect=%s]", layer, rect);
     }
 }

@@ -4,19 +4,36 @@ import com.vrozsa.crowframework.shared.api.game.ColliderComponent;
 import com.vrozsa.crowframework.shared.api.game.ColliderType;
 import com.vrozsa.crowframework.shared.api.game.PositionComponent;
 import com.vrozsa.crowframework.shared.attributes.Offset;
+import com.vrozsa.crowframework.shared.logger.LoggerService;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Handles collision between game objects.
  */
 public class CollisionDetector {
+    private static final LoggerService logger = LoggerService.of(CollisionDetector.class);
+
     /**
      * Checks which objects collides between themselves and call the appropriate collider callbacks.
      * @param colliders colliders to be checked. *Filtering of inactive or invalid objects must take place beforehand.
      */
     public void handle(final List<ColliderComponent> colliders) {
+        final int maxHandles = 10;
+        var handlesCount = new AtomicInteger();
+        var collisionDetected = false;
+
+        do {
+            logger.debug(() -> handlesCount.get() > 0,"\nRedetecting collision. Round: {0}", handlesCount);
+            collisionDetected = checkAndHandleCollision(colliders);
+        } while (collisionDetected && handlesCount.incrementAndGet() <= maxHandles);
+    }
+
+    public boolean checkAndHandleCollision(final List<ColliderComponent> colliders) {
+        boolean isCollisionDetected = false;
+
         // Test each collider at beginning of the list with the next colliders of the list. Avoid retesting the same
         // collider combination.
         for (var i = 0; i < colliders.size(); i++) {
@@ -25,12 +42,25 @@ public class CollisionDetector {
             for (var j = i+1; j < colliders.size(); j++) {
                 var target = colliders.get(j);
 
+                var sourceOffset = source.getGameObject().getPosition().getOffset();
+                var targetOffset = target.getGameObject().getPosition().getOffset();
+
                 handleCollisionBetween(source, target);
+
+                if (!sourceOffset.equals(source.getGameObject().getPosition().getOffset()) ||
+                        !targetOffset.equals(target.getGameObject().getPosition().getOffset())) {
+                    isCollisionDetected = true;
+                }
             }
         }
+        return isCollisionDetected;
     }
 
-    // this may not scale, but will do for now.
+    /**
+     * Handle collision between source and target colliders.
+     * @param source source collider.
+     * @param target target collider.
+     */
     private static void handleCollisionBetween(final ColliderComponent source, final ColliderComponent target) {
         var hasCollision = false;
         if (source.getType() == ColliderType.SQUARE && source.getType() == target.getType()) {
@@ -94,30 +124,79 @@ public class CollisionDetector {
         var sourceProp = (double)sourceWeight / totalWeight;
         var targetProp = (double)targetWeight / totalWeight;
 
-        if ( sourceWeight > targetWeight && (sourceWeight / targetWeight) >= 10) {
-            sourceProp = 1;
-            targetProp = 0;
-        }
-        else if (targetWeight > sourceWeight && (targetWeight / sourceWeight) >= 10) {
-            sourceProp = 0;
-            targetProp = 1;
-        }
+//        if ( sourceWeight > targetWeight && (sourceWeight / targetWeight) >= 10) {
+//            sourceProp = 1;
+//            targetProp = 0;
+//        }
+//        else if (targetWeight > sourceWeight && (targetWeight / sourceWeight) >= 10) {
+//            sourceProp = 0;
+//            targetProp = 1;
+//        }
 
         if (source.isMoving() && !target.isMoving()) {
-            var offset = source.getLastOffsetAdded();
+            var offset = source.getOffsetAddedLastFrame();
+            if (targetWeight > sourceWeight && (targetWeight / sourceWeight) >= 10) {
+                source.clearOffsetAddedLastFrame();
+                // if stopped element overweight moving object, invert the movement.
+                applyMovement(offset, source.getGameObject().getPosition(), 0, -1);
+                logger.info("applied inverse movement on srouce {0} from target {1}", source, target);
+//                source.clearIsMoving();
+                // Now it is moving in the opposite direction.
+                return;
+            }
+
+            logger.info("source {0} vs target {1} - prop: {2}/{3} - offset: {4}", source, target, sourceProp, targetProp, offset);
+
+            // Clear the offset because it was applied and we don't wan't to reapply if redetecting collisions in this frame.
+            source.clearOffsetAddedLastFrame();
             applyMovement(offset, source.getGameObject().getPosition(), sourceProp, target.getGameObject().getPosition(), targetProp);
+            source.clearIsMoving();
         }
         else if (target.isMoving() && !source.isMoving()) {
-            var offset = target.getLastOffsetAdded();
+            var offset = target.getOffsetAddedLastFrame();
+            if (sourceWeight > targetWeight && (sourceWeight / targetWeight) >= 10) {
+                target.clearOffsetAddedLastFrame();
+                // if stopped element overweight moving object, invert the movement.
+                applyMovement(offset, target.getGameObject().getPosition(), 1, -1);
+                logger.info("applied inverse movement on target {0} from source {1}", target, source);
+//                target.clearIsMoving();
+                // Now it is moving in the opposite direction.
+                return;
+            }
+
+            logger.info("target {0} vs source {1} - prop: {2}/{3} - offset: {4}", target, source, targetProp, sourceProp, offset);
+
+            // Clear the offset because it was applied and we don't wan't to reapply if redetecting collisions in this frame.
+            target.clearOffsetAddedLastFrame();
             applyMovement(offset, target.getGameObject().getPosition(), targetProp, source.getGameObject().getPosition(), sourceProp);
+            target.clearIsMoving();
         }
         else if (source.isMoving() && target.isMoving()) {
+            if ( sourceWeight > targetWeight && (sourceWeight / targetWeight) >= 10) {
+                sourceProp = 1;
+                targetProp = 0;
+            }
+            else if (targetWeight > sourceWeight && (targetWeight / sourceWeight) >= 10) {
+                sourceProp = 0;
+                targetProp = 1;
+            }
+            var sourceOffset = source.getOffsetAddedLastFrame();
+            var targetOffset = target.getOffsetAddedLastFrame();
 
-            var offsetA = source.getLastOffsetAdded();
-            var offsetB = target.getLastOffsetAdded();
+            logger.info("target {0} both source {1}: {2}/{3} - offset: s={4} t={5}", target, source, targetProp, sourceProp, sourceOffset, targetOffset);
 
-            applyMovement(offsetA, source.getGameObject().getPosition(), sourceProp, target.getGameObject().getPosition(), targetProp);
-            applyMovement(offsetB, target.getGameObject().getPosition(), targetProp, source.getGameObject().getPosition(), sourceProp);
+            // Clear the offset because it was applied and we don't wan't to reapply if redetecting collisions in this frame.
+            source.clearOffsetAddedLastFrame();
+            target.clearOffsetAddedLastFrame();
+
+            applyMovement(sourceOffset, source.getGameObject().getPosition(), sourceProp, target.getGameObject().getPosition(), targetProp);
+            applyMovement(targetOffset, target.getGameObject().getPosition(), targetProp, source.getGameObject().getPosition(), sourceProp);
+
+            source.clearIsMoving();
+            target.clearIsMoving();
+        }
+        else {
+            logger.warn("SOURCE {0} AND TARGET {1} DID'NT MOVED BUT ARE IN COLLISION!", source, target);
         }
     }
 
@@ -130,6 +209,11 @@ public class CollisionDetector {
 
         var offsetB = calcProportionalOffset(offset, proportionB, -1);
         posA.addOffset(offsetB);
+    }
+
+    private static void applyMovement(final Offset offset, final PositionComponent pos, final double proportion, final int inverter) {
+        var propOffset = calcProportionalOffset(offset, proportion, inverter);
+        pos.addOffset(propOffset);
     }
 
     private static Offset calcProportionalOffset(final Offset offset, final double proportion, final int inverter) {

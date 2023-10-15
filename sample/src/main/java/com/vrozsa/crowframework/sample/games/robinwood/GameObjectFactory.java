@@ -31,7 +31,6 @@ public class GameObjectFactory {
     private final CrowEngine crowEngine;
 
     public GameObject createHero(Offset startingPos) {
-
         Offsetable renderer = crowEngine.getScreenManager().getRendererView();
 
         var heroGO = GameObjectBuilder.of(startingPos.getX(), startingPos.getY(), 0)
@@ -42,7 +41,7 @@ public class GameObjectFactory {
                 .addComponent(new ProjectileHandler(getProjectileSupplier()))
                 .addCameraFollower(renderer, getCharScreenCenter(), getCameraFollowBox())
                 .addComponent(new MovementAreaUpdater(renderer))
-                .addSquareCollider(HERO_COLLISION_COOLDOWN, HERO_COLLISION_LAYER, 1, Set.of(TREE_COLLISION_LAYER, ENEMIES_COLLISION_LAYER), HERO_COLLISION_RECT)
+                .addSquareCollider(HERO_COLLISION_COOLDOWN, HERO_COLLISION_LAYER, HERO_WEIGHT, Set.of(TREE_COLLISION_LAYER, ENEMIES_COLLISION_LAYER), HERO_COLLISION_RECT)
                 .addCollisionGizmos(Color.blue())
                 .build();
 
@@ -84,7 +83,7 @@ public class GameObjectFactory {
         return GameObjectBuilder.of(x, y, 0)
                 .setActive(active)
                 .addStaticRenderer(spriteLayer, getRandomTreeImageFile(), SPRITE_WIDTH, SPRITE_HEIGHT)
-                .addSquareCollider(0, TREE_COLLISION_LAYER, Integer.MAX_VALUE, Set.of(), collisionRect)
+                .addSquareCollider(0, TREE_COLLISION_LAYER, TREE_WEIGHT, Set.of(), collisionRect)
                 .addCollisionGizmos()
                 .build();
     }
@@ -107,5 +106,19 @@ public class GameObjectFactory {
         return Map.of(
                 PROJECTILE_IRON_ARROW, this::createIronArrow
         );
+    }
+
+    public GameObject createSkeletonWarrior(int x, int y) {
+        var heroGO = GameObjectBuilder.of(x, y, 0)
+                .addAnimatedRenderer(CHARACTER_SPRITE_LAYER, getSkeletonWarriorAnimationTemplates())
+                .addComponent(new CharacterDriver(
+                        true, MOVEMENT_AXIS_SPEED, MOVEMENT_DIAGONAL_SPEED, PROJECTILE_IRON_ARROW, SHOOT_COOLDOWN, PROJECTILE_SPAWN_OFFSET))
+//                .addComponent(new PlayerController(crowEngine.getInputManager()))
+                .addComponent(new ProjectileHandler(getProjectileSupplier()))
+                .addSquareCollider(HERO_COLLISION_COOLDOWN, ENEMIES_COLLISION_LAYER, ENEMY_WEIGHT, Set.of(ENEMIES_COLLISION_LAYER, TREE_COLLISION_LAYER, HERO_COLLISION_LAYER), HERO_COLLISION_RECT)
+                .addCollisionGizmos(Color.red())
+                .build();
+
+        return heroGO;
     }
 }

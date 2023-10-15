@@ -2,12 +2,8 @@ package com.vrozsa.crowframework.shared.logger;
 
 import com.vrozsa.crowframework.shared.time.TimeUtils;
 
-import java.text.DateFormat;
 import java.text.MessageFormat;
-import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * Gives visibility of what is happening in the system.
@@ -26,6 +22,12 @@ public final class LoggerService {
 
     public static LoggerService of(final String loggerName) {
         return new LoggerService(loggerName);
+    }
+
+    public void debug(Supplier<Boolean> condition, final String template, final Object...args) {
+        if (condition.get()) {
+            print("DEBUG", template, args);
+        }
     }
 
     public void debug(final String template, final Object...args) {
