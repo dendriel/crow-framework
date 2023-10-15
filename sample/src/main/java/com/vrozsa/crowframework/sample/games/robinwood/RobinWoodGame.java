@@ -16,6 +16,7 @@ public class RobinWoodGame {
     public void start() {
         var config = CrowEngineConfig.builder()
                 .color(BG_SCREEN_COLOR)
+                .title("Robin Wood")
                 .showGizmos(false).build();
         var crowEngine = CrowEngine.create(config);
 

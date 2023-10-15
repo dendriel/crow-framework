@@ -8,7 +8,8 @@ public record CrowEngineConfig(
         int screenWidth,
         int screenHeight,
         boolean showGizmos,
-        Color color
+        Color color,
+        String title
 ) {
     private static final int DEFAULT_SCREEN_WIDTH = 800;
     private static final int DEFAULT_SCREEN_HEIGHT = 600;
