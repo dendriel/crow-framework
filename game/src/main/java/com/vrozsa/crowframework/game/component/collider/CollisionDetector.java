@@ -2,8 +2,10 @@ package com.vrozsa.crowframework.game.component.collider;
 
 import com.vrozsa.crowframework.shared.api.game.ColliderComponent;
 import com.vrozsa.crowframework.shared.api.game.ColliderType;
+import com.vrozsa.crowframework.shared.api.game.GameObject;
 import com.vrozsa.crowframework.shared.api.game.PositionComponent;
 import com.vrozsa.crowframework.shared.attributes.Offset;
+import com.vrozsa.crowframework.shared.attributes.Rect;
 import com.vrozsa.crowframework.shared.logger.LoggerService;
 
 import java.util.List;
@@ -21,18 +23,22 @@ public class CollisionDetector {
      * @param colliders colliders to be checked. *Filtering of inactive or invalid objects must take place beforehand.
      */
     public void handle(final List<ColliderComponent> colliders) {
+        var context = colliders.stream()
+                .map(CollisionContext::new)
+                .toList();
+
         final int maxHandles = 10;
         var handlesCount = new AtomicInteger();
         var collisionDetected = false;
 
         do {
             logger.debug(() -> handlesCount.get() > 0,"\nRedetecting collision. Round: {0}", handlesCount);
-            collisionDetected = checkAndHandleCollision(colliders);
+            collisionDetected = checkAndHandleCollision(context);
         } while (collisionDetected && handlesCount.incrementAndGet() <= maxHandles);
     }
 
-    public boolean checkAndHandleCollision(final List<ColliderComponent> colliders) {
-        boolean isCollisionDetected = false;
+    public boolean checkAndHandleCollision(final List<CollisionContext> colliders) {
+        var isCollisionDetected = false;
 
         // Test each collider at beginning of the list with the next colliders of the list. Avoid retesting the same
         // collider combination.
@@ -42,13 +48,13 @@ public class CollisionDetector {
             for (var j = i+1; j < colliders.size(); j++) {
                 var target = colliders.get(j);
 
-                var sourceOffset = source.getGameObject().getPosition().getOffset();
-                var targetOffset = target.getGameObject().getPosition().getOffset();
+                var sourceOffset = source.offset();
+                var targetOffset = target.offset();
 
                 handleCollisionBetween(source, target);
 
-                if (!sourceOffset.equals(source.getGameObject().getPosition().getOffset()) ||
-                        !targetOffset.equals(target.getGameObject().getPosition().getOffset())) {
+                if (!sourceOffset.equals(source.offset()) ||
+                        !targetOffset.equals(target.offset())) {
                     isCollisionDetected = true;
                 }
             }
@@ -61,9 +67,9 @@ public class CollisionDetector {
      * @param source source collider.
      * @param target target collider.
      */
-    private static void handleCollisionBetween(final ColliderComponent source, final ColliderComponent target) {
+    private static void handleCollisionBetween(final CollisionContext source, final CollisionContext target) {
         var hasCollision = false;
-        if (source.getType() == ColliderType.SQUARE && source.getType() == target.getType()) {
+        if (source.type() == ColliderType.SQUARE && source.type() == target.type()) {
             hasCollision = checkCollision(source, target);
         }
 
@@ -74,18 +80,14 @@ public class CollisionDetector {
         var sourceGo = source.getGameObject();
         var targetGo = target.getGameObject();
 
-        var sourceCollisionHandler = sourceGo.getComponent(AbstractCollisionHandler.class);
-        if (!Objects.isNull(sourceCollisionHandler) &&
-                source.canTriggerCollision() &&
-                source.canCollideWith(target)) {
+        var sourceCollisionHandler = source.getCollisionHandler();
+        if (!Objects.isNull(sourceCollisionHandler) && source.canTriggerCollision() && source.canCollideWith(target)) {
             sourceCollisionHandler.handle(sourceGo, targetGo);
             source.signCollision();
         }
 
-        var targetCollisionHandler = targetGo.getComponent(AbstractCollisionHandler.class);
-        if (!Objects.isNull(targetCollisionHandler) &&
-                target.canTriggerCollision() &&
-                target.canCollideWith(source)) {
+        var targetCollisionHandler = target.getCollisionHandler();
+        if (!Objects.isNull(targetCollisionHandler) && target.canTriggerCollision() && target.canCollideWith(source)) {
             targetCollisionHandler.handle(targetGo, sourceGo);
             target.signCollision();
         }
@@ -95,24 +97,22 @@ public class CollisionDetector {
         }
     }
 
-    private static boolean checkCollision(final ColliderComponent sourceCollider, final ColliderComponent targetCollider) {
-        if (!sourceCollider.canCollideWith(targetCollider) && !targetCollider.canCollideWith(sourceCollider)) {
+    private static boolean checkCollision(final CollisionContext source, final CollisionContext target) {
+        if (!source.canCollideWith(target) && !target.canCollideWith(source)) {
             return false;
         }
 
-        var source = sourceCollider.getCollisionRect();
-        var target = targetCollider.getCollisionRect();
+        var sourceRect = source.rect();
+        var targetRect = target.rect();
 
-        return source.getX() < target.getX() + target.getWidth() &&
-            source.getX() + source.getWidth() > target.getX() &&
-            source.getY() < target.getY() + target.getHeight() &&
-            source.getY() + source.getHeight() > target.getY();
+        return sourceRect.getX() < targetRect.getX() + targetRect.getWidth() &&
+            sourceRect.getX() + sourceRect.getWidth() > targetRect.getX() &&
+            sourceRect.getY() < targetRect.getY() + targetRect.getHeight() &&
+            sourceRect.getY() + sourceRect.getHeight() > targetRect.getY();
     }
 
-    private static void handleInteraction(final ColliderComponent source, final ColliderComponent target) {
-        int sourceWeight = source.getWeight();
-        int targetWeight = target.getWeight();
-        if (sourceWeight == 0 || targetWeight == 0) {
+    private static void handleInteraction(final CollisionContext source, final CollisionContext target) {
+        if (source.weight() == 0 || target.weight() == 0) {
             return;
         }
 
@@ -120,28 +120,18 @@ public class CollisionDetector {
             return;
         }
 
-        var totalWeight = source.getWeight() + (long)target.getWeight();
-        var sourceProp = (double)sourceWeight / totalWeight;
-        var targetProp = (double)targetWeight / totalWeight;
-
-//        if ( sourceWeight > targetWeight && (sourceWeight / targetWeight) >= 10) {
-//            sourceProp = 1;
-//            targetProp = 0;
-//        }
-//        else if (targetWeight > sourceWeight && (targetWeight / sourceWeight) >= 10) {
-//            sourceProp = 0;
-//            targetProp = 1;
-//        }
+        var totalWeight = source.weight() + (long)target.weight();
+        var sourceProp = (double)source.weight() / totalWeight;
+        var targetProp = (double)target.weight() / totalWeight;
 
         if (source.isMoving() && !target.isMoving()) {
             var offset = source.getOffsetAddedLastFrame();
-            if (targetWeight > sourceWeight && (targetWeight / sourceWeight) >= 10) {
+            if (target.weight() > source.weight() && (target.weight() / source.weight()) >= 10) {
                 source.clearOffsetAddedLastFrame();
                 // if stopped element overweight moving object, invert the movement.
                 applyMovement(offset, source.getGameObject().getPosition(), 0, -1);
                 logger.info("applied inverse movement on srouce {0} from target {1}", source, target);
-//                source.clearIsMoving();
-                // Now it is moving in the opposite direction.
+                // Don't clear isMoving flag. Now it is moving in the opposite direction.
                 return;
             }
 
@@ -154,13 +144,12 @@ public class CollisionDetector {
         }
         else if (target.isMoving() && !source.isMoving()) {
             var offset = target.getOffsetAddedLastFrame();
-            if (sourceWeight > targetWeight && (sourceWeight / targetWeight) >= 10) {
+            if (source.weight() > target.weight() && (source.weight() / target.weight()) >= 10) {
                 target.clearOffsetAddedLastFrame();
                 // if stopped element overweight moving object, invert the movement.
                 applyMovement(offset, target.getGameObject().getPosition(), 1, -1);
                 logger.info("applied inverse movement on target {0} from source {1}", target, source);
-//                target.clearIsMoving();
-                // Now it is moving in the opposite direction.
+                // Don't clear isMoving flag. Now it is moving in the opposite direction.
                 return;
             }
 
@@ -172,11 +161,11 @@ public class CollisionDetector {
             target.clearIsMoving();
         }
         else if (source.isMoving() && target.isMoving()) {
-            if ( sourceWeight > targetWeight && (sourceWeight / targetWeight) >= 10) {
+            if ( source.weight() > target.weight() && (source.weight() / target.weight()) >= 10) {
                 sourceProp = 1;
                 targetProp = 0;
             }
-            else if (targetWeight > sourceWeight && (targetWeight / sourceWeight) >= 10) {
+            else if (target.weight() > source.weight() && (target.weight() / source.weight()) >= 10) {
                 sourceProp = 0;
                 targetProp = 1;
             }
@@ -234,5 +223,74 @@ public class CollisionDetector {
         }
 
         return Offset.of(x, y);
+    }
+
+    /**
+     * Keeps information about detected collisions from the collider.
+     */
+    private static class CollisionContext {
+        private final ColliderComponent collider;
+        private final PositionComponent position;
+
+        CollisionContext(ColliderComponent collider) {
+            this.collider = collider;
+            this.position = collider.getGameObject().getPosition();
+        }
+
+        Offset offset() {
+            return position.getOffset();
+        }
+
+        ColliderType type() {
+            return collider.getType();
+        }
+
+        int weight() {
+            return collider.getWeight();
+        }
+
+        boolean canCollideWith(CollisionContext target) {
+            return collider.canCollideWith(target.collider);
+        }
+
+        boolean cantCollideWith(CollisionContext target) {
+            return collider.cantCollideWith(target.collider);
+        }
+
+        Rect rect() {
+            return collider.getCollisionRect();
+        }
+
+        AbstractCollisionHandler getCollisionHandler() {
+            return collider.getGameObject().getComponent(AbstractCollisionHandler.class);
+        }
+
+        GameObject getGameObject() {
+            return collider.getGameObject();
+        }
+
+        boolean canTriggerCollision() {
+            return collider.canTriggerCollision();
+        }
+
+        void signCollision() {
+            collider.signCollision();
+        }
+
+        boolean isMoving() {
+            return collider.isMoving();
+        }
+
+        void clearIsMoving() {
+            collider.clearIsMoving();;
+        }
+
+        Offset getOffsetAddedLastFrame() {
+            return collider.getOffsetAddedLastFrame();
+        }
+
+        void clearOffsetAddedLastFrame() {
+            collider.clearOffsetAddedLastFrame();
+        }
     }
 }

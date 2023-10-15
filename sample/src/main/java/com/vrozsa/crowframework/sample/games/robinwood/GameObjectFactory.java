@@ -115,7 +115,7 @@ public class GameObjectFactory {
                         true, MOVEMENT_AXIS_SPEED, MOVEMENT_DIAGONAL_SPEED, PROJECTILE_IRON_ARROW, SHOOT_COOLDOWN, PROJECTILE_SPAWN_OFFSET))
 //                .addComponent(new PlayerController(crowEngine.getInputManager()))
                 .addComponent(new ProjectileHandler(getProjectileSupplier()))
-                .addSquareCollider(HERO_COLLISION_COOLDOWN, ENEMIES_COLLISION_LAYER, ENEMY_WEIGHT, Set.of(ENEMIES_COLLISION_LAYER, TREE_COLLISION_LAYER, HERO_COLLISION_LAYER), HERO_COLLISION_RECT)
+                .addSquareCollider(HERO_COLLISION_COOLDOWN, ENEMIES_COLLISION_LAYER, ENEMY_WEIGHT, Set.of(TREE_COLLISION_LAYER, HERO_COLLISION_LAYER), HERO_COLLISION_RECT)
                 .addCollisionGizmos(Color.red())
                 .build();
 
