@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.TreeMap;
 
 /**
@@ -178,7 +179,10 @@ public class RendererView extends BaseView implements RendererObserver, Offsetab
 
             sprites.computeIfAbsent(r.getLayer(), l -> new ArrayList<>());
 
-            sprites.get(r.getLayer()).addAll(r.getDrawings(true));
+            List<Drawable> drawings = r.getDrawings(true);
+            if (!Objects.isNull(drawings)) {
+                sprites.get(r.getLayer()).addAll(drawings);
+            }
         }
 
         return sprites;
