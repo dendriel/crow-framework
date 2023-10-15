@@ -114,6 +114,14 @@ public class CharacterDriver extends AbstractComponent {
         facingRight = !facingRight;
     }
 
+    public boolean isFacingRight() {
+        return facingRight;
+    }
+
+    public boolean isFacingLeft() {
+        return !facingRight;
+    }
+
     public void shoot() {
         if (shootCooldown.isWaiting()) {
             return;

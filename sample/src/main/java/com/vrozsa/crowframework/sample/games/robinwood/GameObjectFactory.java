@@ -3,6 +3,7 @@ package com.vrozsa.crowframework.sample.games.robinwood;
 import com.vrozsa.crowframework.engine.CrowEngine;
 import com.vrozsa.crowframework.engine.GameObjectBuilder;
 import com.vrozsa.crowframework.sample.games.robinwood.components.CharacterDriver;
+import com.vrozsa.crowframework.sample.games.robinwood.components.EnemyWarriorController;
 import com.vrozsa.crowframework.sample.games.robinwood.components.GameBoardController;
 import com.vrozsa.crowframework.sample.games.robinwood.components.MovementAreaUpdater;
 import com.vrozsa.crowframework.sample.games.robinwood.components.PlayerController;
@@ -22,7 +23,42 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.Supplier;
 
-import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.*;
+import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.BACKGROUND_IMAGE_FILE;
+import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.BACKGROUND_SPRITE_LAYER;
+import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.BOARD_SIZE;
+import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.BOTTOM_TREE_COLLISION_RECT;
+import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.BOTTOM_TREE_SPRITE_LAYER;
+import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.CHARACTER_SPRITE_LAYER;
+import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.ENEMIES_COLLISION_LAYER;
+import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.ENEMY_AXIS_SPEED;
+import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.ENEMY_DIAGONAL_SPEED;
+import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.ENEMY_ALIGN_OFFSET;
+import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.ENEMY_WEIGHT;
+import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.HERO_COLLISION_COOLDOWN;
+import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.HERO_COLLISION_LAYER;
+import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.HERO_COLLISION_RECT;
+import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.HERO_WEIGHT;
+import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.IRON_ARROW_IMAGE_FILE;
+import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.HERO_AXIS_SPEED;
+import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.HERO_DIAGONAL_SPEED;
+import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.PROJECTILE_IRON_ARROW;
+import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.PROJECTILE_LIFETIME;
+import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.PROJECTILE_SPAWN_OFFSET;
+import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.PROJECTILE_SPEED;
+import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.PROJECTILE_SPRITE_LAYER;
+import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.SCREEN_SIZE;
+import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.SHOOT_COOLDOWN;
+import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.SPRITE_HEIGHT;
+import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.SPRITE_WIDTH;
+import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.TOP_TREE_COLLISION_RECT;
+import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.TOP_TREE_SPRITE_LAYER;
+import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.TREE_COLLISION_LAYER;
+import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.TREE_WEIGHT;
+import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.getCameraFollowBox;
+import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.getCharScreenCenter;
+import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.getHeroAnimationTemplates;
+import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.getRandomTreeImageFile;
+import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.getSkeletonWarriorAnimationTemplates;
 
 @RequiredArgsConstructor
 public class GameObjectFactory {
@@ -36,12 +72,12 @@ public class GameObjectFactory {
         var heroGO = GameObjectBuilder.of(startingPos.getX(), startingPos.getY(), 0)
                 .addAnimatedRenderer(CHARACTER_SPRITE_LAYER, getHeroAnimationTemplates())
                 .addComponent(new CharacterDriver(
-                        true, MOVEMENT_AXIS_SPEED, MOVEMENT_DIAGONAL_SPEED, PROJECTILE_IRON_ARROW, SHOOT_COOLDOWN, PROJECTILE_SPAWN_OFFSET))
+                        true, HERO_AXIS_SPEED, HERO_DIAGONAL_SPEED, PROJECTILE_IRON_ARROW, SHOOT_COOLDOWN, PROJECTILE_SPAWN_OFFSET))
                 .addComponent(new PlayerController(crowEngine.getInputManager()))
                 .addComponent(new ProjectileHandler(getProjectileSupplier()))
                 .addCameraFollower(renderer, getCharScreenCenter(), getCameraFollowBox())
                 .addComponent(new MovementAreaUpdater(renderer))
-                .addSquareCollider(HERO_COLLISION_COOLDOWN, HERO_COLLISION_LAYER, HERO_WEIGHT, Set.of(TREE_COLLISION_LAYER, ENEMIES_COLLISION_LAYER), HERO_COLLISION_RECT)
+                .addSquareCollider(HERO_COLLISION_COOLDOWN, HERO_COLLISION_LAYER, HERO_WEIGHT, Set.of(TREE_COLLISION_LAYER), HERO_COLLISION_RECT)
                 .addCollisionGizmos(Color.blue())
                 .build();
 
@@ -108,17 +144,17 @@ public class GameObjectFactory {
         );
     }
 
-    public GameObject createSkeletonWarrior(int x, int y) {
-        var heroGO = GameObjectBuilder.of(x, y, 0)
+    public GameObject createSkeletonWarrior(int x, int y, GameObject target) {
+        var enemyGO = GameObjectBuilder.of(x, y, 0)
                 .addAnimatedRenderer(CHARACTER_SPRITE_LAYER, getSkeletonWarriorAnimationTemplates())
                 .addComponent(new CharacterDriver(
-                        true, MOVEMENT_AXIS_SPEED, MOVEMENT_DIAGONAL_SPEED, PROJECTILE_IRON_ARROW, SHOOT_COOLDOWN, PROJECTILE_SPAWN_OFFSET))
-//                .addComponent(new PlayerController(crowEngine.getInputManager()))
+                        true, ENEMY_AXIS_SPEED, ENEMY_DIAGONAL_SPEED, PROJECTILE_IRON_ARROW, SHOOT_COOLDOWN, PROJECTILE_SPAWN_OFFSET))
+                .addComponent(new EnemyWarriorController(target.getPosition(), ENEMY_ALIGN_OFFSET))
                 .addComponent(new ProjectileHandler(getProjectileSupplier()))
-                .addSquareCollider(HERO_COLLISION_COOLDOWN, ENEMIES_COLLISION_LAYER, ENEMY_WEIGHT, Set.of(ENEMIES_COLLISION_LAYER, TREE_COLLISION_LAYER, HERO_COLLISION_LAYER), HERO_COLLISION_RECT)
+                .addSquareCollider(HERO_COLLISION_COOLDOWN, ENEMIES_COLLISION_LAYER, ENEMY_WEIGHT, Set.of(TREE_COLLISION_LAYER), HERO_COLLISION_RECT)
                 .addCollisionGizmos(Color.red())
                 .build();
 
-        return heroGO;
+        return enemyGO;
     }
 }

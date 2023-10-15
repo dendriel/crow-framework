@@ -52,7 +52,7 @@ public class Position extends AbstractComponent implements PositionComponent, Po
     }
 
     public Offset getOffset() {
-        return pos.getOffset().clone();
+        return pos.getOffset();
     }
 
     public void setOffset(final Offset offset) {

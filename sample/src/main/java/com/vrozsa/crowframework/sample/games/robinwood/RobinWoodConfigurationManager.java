@@ -44,8 +44,11 @@ public final class RobinWoodConfigurationManager {
     public static final int BOTTOM_TREE_SPRITE_LAYER = 1000;
     public static final int CHARACTER_SPRITE_LAYER = 100;
     public static final int PROJECTILE_SPRITE_LAYER = 900;
-    public static final int MOVEMENT_AXIS_SPEED = 5;
-    public static final int MOVEMENT_DIAGONAL_SPEED = 3;
+    public static final int HERO_AXIS_SPEED = 4;
+    public static final int HERO_DIAGONAL_SPEED = 3;
+    public static final int ENEMY_AXIS_SPEED = 1;
+    public static final int ENEMY_DIAGONAL_SPEED = 1;
+    public static final Offset ENEMY_ALIGN_OFFSET = Offset.of(40, 0);
     public static final int PROJECTILE_SPEED = 10;
     public static final int PROJECTILE_LIFETIME = 1000;
     public static final Offset PROJECTILE_SPAWN_OFFSET = Offset.of(30, 25);

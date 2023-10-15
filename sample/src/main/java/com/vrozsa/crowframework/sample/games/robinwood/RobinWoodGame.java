@@ -16,7 +16,7 @@ public class RobinWoodGame {
     public void start() {
         var config = CrowEngineConfig.builder()
                 .color(BG_SCREEN_COLOR)
-                .showGizmos(true).build();
+                .showGizmos(false).build();
         var crowEngine = CrowEngine.create(config);
 
         var factory = new GameObjectFactory(crowEngine);
@@ -27,15 +27,16 @@ public class RobinWoodGame {
         var heroGO = factory.createHero(HERO_STARTING_OFFSET);
         crowEngine.addGameObject(heroGO);
 
-        var skeletonWarriorGO = factory.createSkeletonWarrior(300, 60);
+        var skeletonWarriorGO = factory.createSkeletonWarrior(700, 100, heroGO);
         crowEngine.addGameObject(skeletonWarriorGO);
 
 
-        crowEngine.addGameObject(factory.createSkeletonWarrior(200, 200));
-        crowEngine.addGameObject(factory.createSkeletonWarrior(500, 300));
-        crowEngine.addGameObject(factory.createSkeletonWarrior(450, 300));
+        crowEngine.addGameObject(factory.createSkeletonWarrior(200, 200, heroGO));
+        crowEngine.addGameObject(factory.createSkeletonWarrior(500, 300, heroGO));
+        crowEngine.addGameObject(factory.createSkeletonWarrior(450, 300, heroGO));
+        crowEngine.addGameObject(factory.createSkeletonWarrior(300, 500, heroGO));
 
-        crowEngine.addGameObject(factory.createSkeletonWarrior(300, 500));
+        // TODO: improve sprite layering.
 
     }
 }

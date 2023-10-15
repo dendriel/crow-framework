@@ -79,6 +79,15 @@ public class Offset {
         return new Offset(x / target.getX(), y / target.getY());
     }
 
+    /**
+     * Multiplies this offset with the target offset (idempotent). The base offset won't be changed.
+     * @param target the offset to be used in the multiplication.
+     * @return the new offset generated.
+     */
+    public Offset multiply(Offset target) {
+        return new Offset(x * target.getX(), y * target.getY());
+    }
+
 
     public boolean atOrigin() {
         return x == 0 && y == 0;
