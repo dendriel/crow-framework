@@ -16,7 +16,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 /**
- * Allow to display game-play objects in the screen (in addition to UI components).
+ * Display game-play objects in the screen.
  */
 public class RendererView extends BaseView implements RendererObserver, Offsetable {
     public static final String NAME = "RENDERER_VIEW";
@@ -176,9 +176,7 @@ public class RendererView extends BaseView implements RendererObserver, Offsetab
                 continue;
             }
 
-            if (!sprites.containsKey(r.getLayer())) {
-                sprites.put(r.getLayer(), new ArrayList<>());
-            }
+            sprites.computeIfAbsent(r.getLayer(), l -> new ArrayList<>());
 
             sprites.get(r.getLayer()).addAll(r.getDrawings(true));
         }

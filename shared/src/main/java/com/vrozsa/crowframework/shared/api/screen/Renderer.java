@@ -26,7 +26,17 @@ public interface Renderer {
 
     GameObject getGameObject();
 
+    /**
+     * Get the rendering layer.
+     * @return the rendering layer.
+     */
     int getLayer();
+
+    /**
+     * Set the rendering layer.
+     * @param layer layer to be set.
+     */
+    void setLayer(int layer);
 
     Size getSize();
 

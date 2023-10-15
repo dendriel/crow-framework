@@ -2,6 +2,7 @@ package com.vrozsa.crowframework.sample.games.robinwood.components;
 
 import com.vrozsa.crowframework.game.component.AbstractComponent;
 import com.vrozsa.crowframework.game.component.animation.AnimatedRenderer;
+import com.vrozsa.crowframework.shared.api.game.PositionComponent;
 import com.vrozsa.crowframework.shared.api.screen.Renderer;
 import com.vrozsa.crowframework.shared.attributes.Offset;
 import com.vrozsa.crowframework.shared.time.Cooldown;
@@ -29,8 +30,10 @@ public class CharacterDriver extends AbstractComponent {
 
     private int leftLimitX = 0;
 
+    private PositionComponent position;
     private AnimatedRenderer animatedRenderer;
     private ProjectileHandler projectileHandler;
+    private int baseRenderingLayer;
 
     public CharacterDriver(
             boolean facingRight, int axisSpeed, int diagonalSpeed, String projectileType, int shootCooldown, Offset projectileSpawnOffset) {
@@ -47,8 +50,11 @@ public class CharacterDriver extends AbstractComponent {
     public void wrapUp() {
         super.wrapUp();
 
+        position = getPosition();
+
         animatedRenderer = getComponent(AnimatedRenderer.class);
         assert animatedRenderer != null : "CharacterDriver requires a AnimatedRenderer!";
+        baseRenderingLayer = animatedRenderer.getLayer();
 
         var attackAnim = animatedRenderer.getAnimation(ANIM_ATTACK_KEY);
         assert attackAnim != null : "AnimatedRenderer requires an 'attack' animation!";
@@ -88,7 +94,7 @@ public class CharacterDriver extends AbstractComponent {
             offsetToAdd.setX(0);
         }
 
-        getPosition().addOffset(offsetToAdd);
+        position.addOffset(offsetToAdd);
 
         if (!isAttacking) {
             setWalking();
@@ -96,7 +102,7 @@ public class CharacterDriver extends AbstractComponent {
     }
 
     private boolean isInvalidLeftMovement(int offsetX) {
-        var currPos = getPosition().getOffset();
+        var currPos = position.getOffset();
         return (currPos.getX() + offsetX) < leftLimitX;
     }
 
@@ -128,7 +134,7 @@ public class CharacterDriver extends AbstractComponent {
         }
 
         var direction = facingRight ? RIGHT : LEFT;
-        var pos = getPosition();
+        var pos = position;
 
         var spawnOffsetY = projectileSpawnOffset.getY();
         var spawnOffsetX = projectileSpawnOffset.getX();
@@ -165,6 +171,12 @@ public class CharacterDriver extends AbstractComponent {
          * may happen after the driver update() is called, thus we have to control this in lateUpdate().
          */
         super.lateUpdate();
+
+        // Keep setting adding the current Y position to the rendering layer so characters close to the bottom appears
+        // in front of characters more close to the top of the screen.
+        int newRenderingLayer = baseRenderingLayer + position.getAbsolutePosY();
+        animatedRenderer.setLayer(newRenderingLayer);
+
         if (isMoving) {
             isMoving = false;
             return;
