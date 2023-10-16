@@ -68,6 +68,7 @@ public final class RobinWoodConfigurationManager {
 
 
     public static final Rect HERO_COLLISION_RECT = Rect.of(22, -20, 35 ,70);
+    public static final Rect PROJECTILE_COLLISION_RECT = Rect.of(5, 30, 60, 20);
     public static final Rect TOP_TREE_COLLISION_RECT = Rect.of(0, 0, 80 ,40);
     public static final Rect BOTTOM_TREE_COLLISION_RECT = Rect.of(0, 40, 80 ,40);
 

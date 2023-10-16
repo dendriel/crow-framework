@@ -2,10 +2,14 @@ package com.vrozsa.crowframework.sample.games.robinwood.components;
 
 import com.vrozsa.crowframework.game.component.AbstractComponent;
 import com.vrozsa.crowframework.game.component.animation.AnimatedRenderer;
+import com.vrozsa.crowframework.shared.api.game.CollisionHandler;
+import com.vrozsa.crowframework.shared.api.game.GameObject;
 import com.vrozsa.crowframework.shared.api.game.PositionComponent;
 import com.vrozsa.crowframework.shared.api.screen.Renderer;
 import com.vrozsa.crowframework.shared.attributes.Offset;
 import com.vrozsa.crowframework.shared.time.Cooldown;
+
+import java.util.Objects;
 
 import static com.vrozsa.crowframework.shared.api.game.Direction.LEFT;
 import static com.vrozsa.crowframework.shared.api.game.Direction.RIGHT;
@@ -14,7 +18,7 @@ import static com.vrozsa.crowframework.shared.api.game.Direction.RIGHT;
  * The character driver controls the character game object. This way, we can just issue commands to the driver
  * and let it handle the character state by itself.
  */
-public class CharacterDriver extends AbstractComponent {
+public class CharacterDriver extends AbstractComponent implements CollisionHandler {
     private static final String ANIM_WALK_KEY = "walk";
     private static final String ANIM_IDLE_KEY = "idle";
     private static final String ANIM_ATTACK_KEY = "attack";
@@ -172,6 +176,10 @@ public class CharacterDriver extends AbstractComponent {
          */
         super.lateUpdate();
 
+        if (gameObject.isInactive()) {
+            return;
+        }
+
         // Keep setting adding the current Y position to the rendering layer so characters close to the bottom appears
         // in front of characters more close to the top of the screen.
         int newRenderingLayer = baseRenderingLayer + position.getAbsolutePosY();
@@ -187,5 +195,19 @@ public class CharacterDriver extends AbstractComponent {
         }
 
         setIdle();
+    }
+
+    @Override
+    public void handleCollision(GameObject source, GameObject target) {
+        var projectile = target.getComponent(ProjectileController.class);
+        if (Objects.isNull(projectile)) {
+            // Collided with something not a projectile.
+            return;
+        }
+
+        // Collided with a projectile
+
+        projectile.deactivate();
+        gameObject.setActive(false);
     }
 }

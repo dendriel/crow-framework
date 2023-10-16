@@ -10,5 +10,5 @@ public interface CollisionHandler {
      * @param source source game object.
      * @param target target object in which the source has collided.
      */
-    void handle(final GameObject source, final GameObject target);
+    void handleCollision(final GameObject source, final GameObject target);
 }

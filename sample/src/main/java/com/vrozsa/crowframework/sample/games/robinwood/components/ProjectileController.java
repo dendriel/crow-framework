@@ -51,6 +51,10 @@ public class ProjectileController extends AbstractComponent {
         gameObject.setActive(true);
     }
 
+    public void deactivate() {
+        gameObject.setActive(false);
+    }
+
     private void setDirection(final Direction direction) {
         this.direction = direction;
 

@@ -30,17 +30,19 @@ import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigura
 import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.BOTTOM_TREE_SPRITE_LAYER;
 import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.CHARACTER_SPRITE_LAYER;
 import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.ENEMIES_COLLISION_LAYER;
+import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.ENEMY_ALIGN_OFFSET;
 import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.ENEMY_AXIS_SPEED;
 import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.ENEMY_DIAGONAL_SPEED;
-import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.ENEMY_ALIGN_OFFSET;
 import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.ENEMY_WEIGHT;
+import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.HERO_AXIS_SPEED;
 import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.HERO_COLLISION_COOLDOWN;
 import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.HERO_COLLISION_LAYER;
 import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.HERO_COLLISION_RECT;
+import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.HERO_DIAGONAL_SPEED;
+import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.HERO_PROJECTILE_COLLISION_LAYER;
 import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.HERO_WEIGHT;
 import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.IRON_ARROW_IMAGE_FILE;
-import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.HERO_AXIS_SPEED;
-import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.HERO_DIAGONAL_SPEED;
+import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.PROJECTILE_COLLISION_RECT;
 import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.PROJECTILE_IRON_ARROW;
 import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.PROJECTILE_LIFETIME;
 import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.PROJECTILE_SPAWN_OFFSET;
@@ -129,6 +131,8 @@ public class GameObjectFactory {
                 .setActive(false)
                 .addStaticRenderer(PROJECTILE_SPRITE_LAYER, IRON_ARROW_IMAGE_FILE, SPRITE_WIDTH, SPRITE_HEIGHT)
                 .addComponent(new ProjectileController(PROJECTILE_SPEED, PROJECTILE_LIFETIME))
+                .addSquareCollider(100, HERO_PROJECTILE_COLLISION_LAYER, Set.of(ENEMIES_COLLISION_LAYER), PROJECTILE_COLLISION_RECT)
+                .addCollisionGizmos(Color.blue())
                 .build();
 
         crowEngine.addGameObject(projectile);
@@ -145,13 +149,15 @@ public class GameObjectFactory {
     }
 
     public GameObject createSkeletonWarrior(int x, int y, GameObject target) {
+        var driver = new CharacterDriver(
+                true, ENEMY_AXIS_SPEED, ENEMY_DIAGONAL_SPEED, PROJECTILE_IRON_ARROW, SHOOT_COOLDOWN, PROJECTILE_SPAWN_OFFSET);
         var enemyGO = GameObjectBuilder.of(x, y, 0)
                 .addAnimatedRenderer(CHARACTER_SPRITE_LAYER, getSkeletonWarriorAnimationTemplates())
-                .addComponent(new CharacterDriver(
-                        true, ENEMY_AXIS_SPEED, ENEMY_DIAGONAL_SPEED, PROJECTILE_IRON_ARROW, SHOOT_COOLDOWN, PROJECTILE_SPAWN_OFFSET))
+                .addComponent(driver)
                 .addComponent(new EnemyWarriorController(target.getPosition(), ENEMY_ALIGN_OFFSET))
                 .addComponent(new ProjectileHandler(getProjectileSupplier()))
-                .addSquareCollider(HERO_COLLISION_COOLDOWN, ENEMIES_COLLISION_LAYER, ENEMY_WEIGHT, Set.of(TREE_COLLISION_LAYER), HERO_COLLISION_RECT)
+                .addSquareCollider(1000, ENEMIES_COLLISION_LAYER, ENEMY_WEIGHT, Set.of(TREE_COLLISION_LAYER, HERO_PROJECTILE_COLLISION_LAYER), HERO_COLLISION_RECT)
+                .addCollisionHandler(driver)
                 .addCollisionGizmos(Color.red())
                 .build();
 

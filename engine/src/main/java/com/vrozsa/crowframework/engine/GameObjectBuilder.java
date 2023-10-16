@@ -207,7 +207,7 @@ public final class GameObjectBuilder  {
         var collisionHandler = new AbstractCollisionHandler() {
             @Override
             protected void handle(GameObject source, GameObject target) {
-                handler.handle(source, target);
+                handler.handleCollision(source, target);
             }
         };
 

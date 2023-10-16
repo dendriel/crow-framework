@@ -59,6 +59,10 @@ public class EnemyWarriorController extends AbstractComponent {
     public void update() {
         super.update();
 
+        if (gameObject.isInactive()) {
+            return;
+        }
+
         if (targetCalculationCooldown.isFinished()) {
             calculateTargetOffset();
         }
