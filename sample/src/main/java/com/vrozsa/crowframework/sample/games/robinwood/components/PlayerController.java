@@ -53,7 +53,7 @@ public class PlayerController extends AbstractComponent {
         }
 
         if (commands.contains(ACTION)) {
-            driver.shoot();
+            driver.attack();
         }
 
 

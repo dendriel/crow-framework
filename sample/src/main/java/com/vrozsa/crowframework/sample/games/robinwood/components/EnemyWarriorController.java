@@ -18,6 +18,7 @@ import static com.vrozsa.crowframework.shared.api.game.GameCommand.MOVE_UP;
 public class EnemyWarriorController extends AbstractComponent {
     private static final int TARGET_CALC_MIN_COOLDOWN = 500;
     private static final int TARGET_CALC_MAX_COOLDOWN = 1000;
+    private static final Offset MIN_ATTACK_DIST_OFFSET = Offset.of(5, 5);
     private final PositionComponent target;
     private final Offset alignOffset;
     private final Random random;
@@ -59,12 +60,18 @@ public class EnemyWarriorController extends AbstractComponent {
     public void update() {
         super.update();
 
-        if (gameObject.isInactive()) {
+        if (gameObject.isInactive() || driver.isAttacking()) {
             return;
         }
 
         if (targetCalculationCooldown.isFinished()) {
             calculateTargetOffset();
+        }
+
+        if (driver.canAttack() && isCloseEnoughToAttack()) {
+            lookAtTheTarget();
+            driver.attack();
+            return;
         }
 
         var commands = findCharacterMovements();
@@ -110,6 +117,13 @@ public class EnemyWarriorController extends AbstractComponent {
         }
 
         return commands;
+    }
+
+    private boolean isCloseEnoughToAttack() {
+        int distX = Math.abs(position.getX() - targetOffset.getX());
+        int distY = Math.abs(position.getY() - targetOffset.getY());
+
+        return distX <= MIN_ATTACK_DIST_OFFSET.getX() && distY <= MIN_ATTACK_DIST_OFFSET.getY();
     }
 
     /**

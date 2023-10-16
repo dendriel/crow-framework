@@ -32,12 +32,9 @@ public class RobinWoodGame {
         crowEngine.addGameObject(skeletonWarriorGO);
 
 
-        crowEngine.addGameObject(factory.createSkeletonWarrior(200, 200, heroGO));
-        crowEngine.addGameObject(factory.createSkeletonWarrior(500, 300, heroGO));
-        crowEngine.addGameObject(factory.createSkeletonWarrior(450, 300, heroGO));
-        crowEngine.addGameObject(factory.createSkeletonWarrior(300, 500, heroGO));
-
-        // TODO: improve sprite layering.
-
+//        crowEngine.addGameObject(factory.createSkeletonWarrior(200, 200, heroGO));
+//        crowEngine.addGameObject(factory.createSkeletonWarrior(500, 300, heroGO));
+//        crowEngine.addGameObject(factory.createSkeletonWarrior(450, 300, heroGO));
+//        crowEngine.addGameObject(factory.createSkeletonWarrior(300, 500, heroGO));
     }
 }

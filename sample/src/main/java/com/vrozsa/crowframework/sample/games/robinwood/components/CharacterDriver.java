@@ -132,7 +132,15 @@ public class CharacterDriver extends AbstractComponent implements CollisionHandl
         return !facingRight;
     }
 
-    public void shoot() {
+    public boolean isAttacking() {
+        return isAttacking;
+    }
+
+    public boolean canAttack() {
+        return shootCooldown.isFinished();
+    }
+
+    public void attack() {
         if (shootCooldown.isWaiting()) {
             return;
         }

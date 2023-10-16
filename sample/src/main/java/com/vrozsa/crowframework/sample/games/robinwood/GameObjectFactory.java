@@ -33,6 +33,7 @@ import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigura
 import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.ENEMY_ALIGN_OFFSET;
 import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.ENEMY_AXIS_SPEED;
 import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.ENEMY_DIAGONAL_SPEED;
+import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.ENEMY_PROJECTILE_COLLISION_LAYER;
 import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.ENEMY_WEIGHT;
 import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.HERO_AXIS_SPEED;
 import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.HERO_COLLISION_COOLDOWN;
@@ -42,9 +43,12 @@ import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigura
 import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.HERO_PROJECTILE_COLLISION_LAYER;
 import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.HERO_WEIGHT;
 import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.IRON_ARROW_IMAGE_FILE;
+import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.MELEE_PROJECTILE_SPAWN_OFFSET;
 import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.PROJECTILE_COLLISION_RECT;
 import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.PROJECTILE_IRON_ARROW;
 import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.PROJECTILE_LIFETIME;
+import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.PROJECTILE_MELEE_ATTACK;
+import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.PROJECTILE_MELEE_COLLISION_RECT;
 import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.PROJECTILE_SPAWN_OFFSET;
 import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.PROJECTILE_SPEED;
 import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.PROJECTILE_SPRITE_LAYER;
@@ -142,15 +146,31 @@ public class GameObjectFactory {
         return projectile;
     }
 
+    public GameObject createMeleeAttack() {
+        var projectile = GameObjectBuilder.of(0, 0, 0)
+                .setActive(false)
+                .addComponent(new ProjectileController(0, PROJECTILE_LIFETIME))
+                .addSquareCollider(100, ENEMY_PROJECTILE_COLLISION_LAYER, Set.of(HERO_COLLISION_LAYER), PROJECTILE_MELEE_COLLISION_RECT)
+                .addCollisionGizmos(Color.red())
+                .build();
+
+        crowEngine.addGameObject(projectile);
+
+        logger.debug("Created new Melee Attack GO");
+
+        return projectile;
+    }
+
     private Map<String, Supplier<GameObject>> getProjectileSupplier() {
         return Map.of(
-                PROJECTILE_IRON_ARROW, this::createIronArrow
+                PROJECTILE_IRON_ARROW, this::createIronArrow,
+                PROJECTILE_MELEE_ATTACK, this::createMeleeAttack
         );
     }
 
     public GameObject createSkeletonWarrior(int x, int y, GameObject target) {
         var driver = new CharacterDriver(
-                true, ENEMY_AXIS_SPEED, ENEMY_DIAGONAL_SPEED, PROJECTILE_IRON_ARROW, SHOOT_COOLDOWN, PROJECTILE_SPAWN_OFFSET);
+                true, ENEMY_AXIS_SPEED, ENEMY_DIAGONAL_SPEED, PROJECTILE_MELEE_ATTACK, SHOOT_COOLDOWN, MELEE_PROJECTILE_SPAWN_OFFSET);
         var enemyGO = GameObjectBuilder.of(x, y, 0)
                 .addAnimatedRenderer(CHARACTER_SPRITE_LAYER, getSkeletonWarriorAnimationTemplates())
                 .addComponent(driver)

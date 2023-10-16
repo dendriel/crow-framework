@@ -48,19 +48,22 @@ public final class RobinWoodConfigurationManager {
     public static final int HERO_DIAGONAL_SPEED = 3;
     public static final int ENEMY_AXIS_SPEED = 1;
     public static final int ENEMY_DIAGONAL_SPEED = 1;
-    public static final Offset ENEMY_ALIGN_OFFSET = Offset.of(40, 0);
+    public static final Offset ENEMY_ALIGN_OFFSET = Offset.of(30, 0);
     public static final int PROJECTILE_SPEED = 10;
     public static final int PROJECTILE_LIFETIME = 1000;
     public static final Offset PROJECTILE_SPAWN_OFFSET = Offset.of(30, 25);
+    public static final Offset MELEE_PROJECTILE_SPAWN_OFFSET = Offset.of(40, 25);
     public static final int SHOOT_COOLDOWN = 1000;
     public static final int HERO_COLLISION_COOLDOWN = 1000;
 
     public static final String PROJECTILE_IRON_ARROW = "iron_arrow";
+    public static final String PROJECTILE_MELEE_ATTACK = "melee_attack";
 
     public static final String TREE_COLLISION_LAYER = "tree";
     public static final String HERO_COLLISION_LAYER = "hero";
     public static final String ENEMIES_COLLISION_LAYER = "enemies";
     public static final String HERO_PROJECTILE_COLLISION_LAYER = "hero_projectile";
+    public static final String ENEMY_PROJECTILE_COLLISION_LAYER = "enemy_projectile";
 
     public static final int HERO_WEIGHT = 1;
     public static final int ENEMY_WEIGHT = 9;
@@ -69,6 +72,7 @@ public final class RobinWoodConfigurationManager {
 
     public static final Rect HERO_COLLISION_RECT = Rect.of(22, -20, 35 ,70);
     public static final Rect PROJECTILE_COLLISION_RECT = Rect.of(5, 30, 60, 20);
+    public static final Rect PROJECTILE_MELEE_COLLISION_RECT = Rect.of(10, 10, 60, 60);
     public static final Rect TOP_TREE_COLLISION_RECT = Rect.of(0, 0, 80 ,40);
     public static final Rect BOTTOM_TREE_COLLISION_RECT = Rect.of(0, 40, 80 ,40);
 
