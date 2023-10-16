@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
+import java.util.Optional;
 import java.util.TreeMap;
 
 /**
@@ -111,6 +111,9 @@ public class RendererView extends BaseView implements RendererObserver, Offsetab
         draw();
     }
 
+    /**
+     * RUNS ASYNCHRONOUSLY.
+     */
     @Override
     protected void paintComponent(Graphics g) {
         List<Renderer> tempRenderers = new ArrayList<>(renderers);
@@ -177,12 +180,11 @@ public class RendererView extends BaseView implements RendererObserver, Offsetab
                 continue;
             }
 
-            sprites.computeIfAbsent(r.getLayer(), l -> new ArrayList<>());
-
-            List<Drawable> drawings = r.getDrawings(true);
-            if (!Objects.isNull(drawings)) {
-                sprites.get(r.getLayer()).addAll(drawings);
-            }
+            // This method may run concurrently with the game loop, so values may change while executing instructions.
+            // for instance, the r.getLayer() may return different values if called twice in a row.
+            var drawables = sprites.computeIfAbsent(r.getLayer(), l -> new ArrayList<>());
+            var drawings = Optional.ofNullable(r.getDrawings(true)).orElse(List.of());
+            drawables.addAll(drawings);
         }
 
         return sprites;
