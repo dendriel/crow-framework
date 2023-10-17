@@ -68,7 +68,7 @@ public class EnemyWarriorController extends AbstractComponent {
             calculateTargetOffset();
         }
 
-        if (driver.canAttack() && isCloseEnoughToAttack()) {
+        if (driver.canAttack() && isCloseEnoughToAttack() && target.getGameObject().isActive()) {
             lookAtTheTarget();
             driver.attack();
             return;

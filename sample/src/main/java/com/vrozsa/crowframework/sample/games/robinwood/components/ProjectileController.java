@@ -1,19 +1,25 @@
 package com.vrozsa.crowframework.sample.games.robinwood.components;
 
 import com.vrozsa.crowframework.game.component.AbstractComponent;
+import com.vrozsa.crowframework.shared.api.game.CollisionHandler;
 import com.vrozsa.crowframework.shared.api.game.Direction;
+import com.vrozsa.crowframework.shared.api.game.GameObject;
 import com.vrozsa.crowframework.shared.api.screen.Renderer;
 import com.vrozsa.crowframework.shared.attributes.Offset;
 import com.vrozsa.crowframework.shared.time.Cooldown;
 
-public class ProjectileController extends AbstractComponent {
+import java.util.Objects;
+
+public class ProjectileController extends AbstractComponent implements CollisionHandler {
     private final int speed;
     private final Cooldown lifetimeCooldown;
     private Direction direction = Direction.NONE;
     private boolean facingRight = true;
+    private int damage;
 
-    public ProjectileController(int speed, int lifetime) {
+    public ProjectileController(int speed, int lifetime, int damage) {
         this.speed = speed;
+        this.damage = damage;
         lifetimeCooldown = Cooldown.create(lifetime);
     }
 
@@ -69,5 +75,16 @@ public class ProjectileController extends AbstractComponent {
             var renderer = getComponent(Renderer.class);
             renderer.setFlipX(true);
         }
+    }
+    @Override
+    public void handleCollision(GameObject source, GameObject target) {
+        var charDriver = target.getComponent(CharacterDriver.class);
+        if (Objects.isNull(charDriver)) {
+            // Collided with something not a character.
+            return;
+        }
+
+        charDriver.takeDamage(damage);
+        this.deactivate();
     }
 }

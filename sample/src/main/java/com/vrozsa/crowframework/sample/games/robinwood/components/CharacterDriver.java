@@ -2,8 +2,6 @@ package com.vrozsa.crowframework.sample.games.robinwood.components;
 
 import com.vrozsa.crowframework.game.component.AbstractComponent;
 import com.vrozsa.crowframework.game.component.animation.AnimatedRenderer;
-import com.vrozsa.crowframework.shared.api.game.CollisionHandler;
-import com.vrozsa.crowframework.shared.api.game.GameObject;
 import com.vrozsa.crowframework.shared.api.game.PositionComponent;
 import com.vrozsa.crowframework.shared.api.screen.Renderer;
 import com.vrozsa.crowframework.shared.attributes.Offset;
@@ -18,7 +16,7 @@ import static com.vrozsa.crowframework.shared.api.game.Direction.RIGHT;
  * The character driver controls the character game object. This way, we can just issue commands to the driver
  * and let it handle the character state by itself.
  */
-public class CharacterDriver extends AbstractComponent implements CollisionHandler {
+public class CharacterDriver extends AbstractComponent {
     private static final String ANIM_WALK_KEY = "walk";
     private static final String ANIM_IDLE_KEY = "idle";
     private static final String ANIM_ATTACK_KEY = "attack";
@@ -37,6 +35,7 @@ public class CharacterDriver extends AbstractComponent implements CollisionHandl
     private PositionComponent position;
     private AnimatedRenderer animatedRenderer;
     private ProjectileHandler projectileHandler;
+    private CharacterStatus characterStatus;
     private int baseRenderingLayer;
 
     public CharacterDriver(
@@ -66,6 +65,8 @@ public class CharacterDriver extends AbstractComponent implements CollisionHandl
 
         projectileHandler = getComponent(ProjectileHandler.class);
         assert projectileHandler != null : "CharacterDriver requires a ProjectileHandler!";
+
+        characterStatus = getComponent(CharacterStatus.class);
     }
 
     public void moveRight(boolean diagonalMovement) {
@@ -176,6 +177,14 @@ public class CharacterDriver extends AbstractComponent implements CollisionHandl
         animatedRenderer.trigger(ANIM_ATTACK_KEY);
     }
 
+    public void takeDamage(int value) {
+        if (Objects.isNull(characterStatus)) {
+            return;
+        }
+
+        characterStatus.removeLife(value);
+    }
+
     @Override
     public void lateUpdate() {
         /*
@@ -203,19 +212,5 @@ public class CharacterDriver extends AbstractComponent implements CollisionHandl
         }
 
         setIdle();
-    }
-
-    @Override
-    public void handleCollision(GameObject source, GameObject target) {
-        var projectile = target.getComponent(ProjectileController.class);
-        if (Objects.isNull(projectile)) {
-            // Collided with something not a projectile.
-            return;
-        }
-
-        // Collided with a projectile
-
-        projectile.deactivate();
-        gameObject.setActive(false);
     }
 }
