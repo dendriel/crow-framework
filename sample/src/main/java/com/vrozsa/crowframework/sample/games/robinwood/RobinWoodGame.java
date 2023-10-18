@@ -17,7 +17,9 @@ public class RobinWoodGame {
         var config = CrowEngineConfig.builder()
                 .color(BG_SCREEN_COLOR)
                 .title("Robin Wood")
-                .showGizmos(true).build();
+                .showGizmos(false)
+                .build();
+
         var crowEngine = CrowEngine.create(config);
 
         var factory = new GameObjectFactory(crowEngine);
@@ -28,8 +30,11 @@ public class RobinWoodGame {
         var heroGO = factory.createHero(HERO_STARTING_OFFSET);
         crowEngine.addGameObject(heroGO);
 
-        var skeletonWarriorGO = factory.createSkeletonWarrior(700, 100, heroGO);
-        crowEngine.addGameObject(skeletonWarriorGO);
+        var enemySpawner = factory.createEnemySpawner(heroGO);
+        crowEngine.addGameObject(enemySpawner);
+
+//        var skeletonWarriorGO = factory.createSkeletonWarrior(700, 100, heroGO);
+//        crowEngine.addGameObject(skeletonWarriorGO);
 
 
 //        crowEngine.addGameObject(factory.createSkeletonWarrior(200, 200, heroGO));

@@ -48,8 +48,16 @@ public final class GameObjectBuilder  {
         addPosition(pos, positionCompName);
     }
 
+    public static GameObjectBuilder atOrigin() {
+        return new GameObjectBuilder(Vector.origin());
+    }
+
     public static GameObjectBuilder of(final int x, final int y, final int z) {
         return new GameObjectBuilder(Vector.of(x, y, z));
+    }
+
+    public static GameObjectBuilder of(final int x, final int y) {
+        return new GameObjectBuilder(Vector.of(x, y, 0));
     }
 
     public static GameObjectBuilder of(final Vector pos) {
