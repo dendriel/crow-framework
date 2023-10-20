@@ -22,10 +22,13 @@ public class EnemyWarriorController extends AbstractComponent {
     private static final int SPEED_BOOST_TARGET_DISTANCE = 400;
     private static final int AXIS_SPEED_B0OST = 5;
     private static final int DIAGONAL_SPEED_B0OST = 4;
+    private static final int MIN_BOOSTING_TIME = 200;
     private static final Offset MIN_ATTACK_DIST_OFFSET = Offset.of(5, 5);
     private final Offset alignOffset;
     private final Random random;
     private final Cooldown targetCalculationCooldown;
+
+    private final Cooldown minBoostingTime;
 
     private PositionComponent position;
     private CharacterDriver driver;
@@ -40,6 +43,7 @@ public class EnemyWarriorController extends AbstractComponent {
 
         random = new Random();
         targetCalculationCooldown = Cooldown.create(random.nextInt(TARGET_CALC_MIN_COOLDOWN, TARGET_CALC_MAX_COOLDOWN));
+        minBoostingTime = Cooldown.create(MIN_BOOSTING_TIME);
     }
 
     @Override
@@ -95,10 +99,11 @@ public class EnemyWarriorController extends AbstractComponent {
             return;
         }
 
-        if (isLaggingBehind()) {
+        if (isLaggingBehind() && minBoostingTime.isFinished()) {
+            minBoostingTime.start();
             setBoostSpeed();
         }
-        else {
+        else if (minBoostingTime.isFinished()) {
             setBaseSpeed();
         }
 
@@ -128,7 +133,7 @@ public class EnemyWarriorController extends AbstractComponent {
     }
 
     private boolean isLaggingBehind() {
-        // If enemy is to the right, is not lagging behind
+        // If target is to the left, is not lagging behind
         if (target.getX() < position.getX()) {
             return false;
         }
@@ -149,17 +154,21 @@ public class EnemyWarriorController extends AbstractComponent {
     private Set<GameCommand> findCharacterMovements() {
         var commands = EnumSet.noneOf(GameCommand.class);
 
-        if (targetOffset.getX() < position.getX()) {
+        // Avoid flickering if can't get in the exact 'target pixel'
+        var notCloseEnoughAxisX = !isCloseEnoughAxisX();
+        var notCloseEnoughAxisY = !isCloseEnoughAxisY();
+
+        if (notCloseEnoughAxisX && targetOffset.getX() < position.getX()) {
             commands.add(MOVE_LEFT);
         }
-        else if (targetOffset.getX() > position.getX()) {
+        else if (notCloseEnoughAxisX && targetOffset.getX() > position.getX()) {
             commands.add(MOVE_RIGHT);
         }
 
-        if (targetOffset.getY() < position.getY()) {
+        if (notCloseEnoughAxisY && targetOffset.getY() < position.getY()) {
             commands.add(MOVE_UP);
         }
-        else if (targetOffset.getY() > position.getY()) {
+        else if (notCloseEnoughAxisY && targetOffset.getY() > position.getY()) {
             commands.add(MOVE_DOWN);
         }
 
@@ -167,10 +176,17 @@ public class EnemyWarriorController extends AbstractComponent {
     }
 
     private boolean isCloseEnoughToAttack() {
-        int distX = Math.abs(position.getX() - targetOffset.getX());
-        int distY = Math.abs(position.getY() - targetOffset.getY());
+        return isCloseEnoughAxisX() && isCloseEnoughAxisY();
+    }
 
-        return distX <= MIN_ATTACK_DIST_OFFSET.getX() && distY <= MIN_ATTACK_DIST_OFFSET.getY();
+    private boolean isCloseEnoughAxisX() {
+        int distX = Math.abs(position.getX() - targetOffset.getX());
+        return distX <= MIN_ATTACK_DIST_OFFSET.getX();
+    }
+
+    private boolean isCloseEnoughAxisY() {
+        int distY = Math.abs(position.getY() - targetOffset.getY());
+        return distY <= MIN_ATTACK_DIST_OFFSET.getY();
     }
 
     /**
@@ -194,6 +210,7 @@ public class EnemyWarriorController extends AbstractComponent {
 
 
     private void lookAtTheTarget() {
+        System.out.println("lookAtTheTarget");
         if (target.getX() < position.getX() && driver.isFacingRight()) {
             driver.flipDirection();
         }

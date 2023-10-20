@@ -59,8 +59,6 @@ public class EnemySpawner extends AbstractComponent {
             return enemiesByDistance[enemiesByDistance.length - 1];
         }
 
-        System.out.println("Amount of enemies: " + enemiesByDistance[distanceTravelled]);
-
         return enemiesByDistance[distanceTravelled];
     }
 
