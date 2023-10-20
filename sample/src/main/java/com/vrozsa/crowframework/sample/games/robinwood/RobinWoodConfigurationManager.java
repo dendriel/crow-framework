@@ -60,7 +60,7 @@ public final class RobinWoodConfigurationManager {
     public static final String PROJECTILE_IRON_ARROW = "iron_arrow";
     public static final String PROJECTILE_MELEE_ATTACK = "melee_attack";
 
-    public static final int IRON_ARROW_DAMAGE = 1;
+    public static final int IRON_ARROW_DAMAGE = 10;
     public static final int MELEE_ATTACK_DAMAGE = 1;
 
     public static final String TREE_COLLISION_LAYER = "tree";

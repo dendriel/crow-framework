@@ -178,6 +178,14 @@ public final class ComposableGameObject implements GameObject {
         this.isActive = isActive;
     }
 
+    public void activate() {
+        this.isActive = true;
+    }
+
+    public void deactivate() {
+        this.isActive = false;
+    }
+
     public boolean isInactive() {
         return !isActive;
     }

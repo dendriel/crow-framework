@@ -14,27 +14,28 @@ import static com.vrozsa.crowframework.shared.api.game.GameCommand.MOVE_DOWN;
 import static com.vrozsa.crowframework.shared.api.game.GameCommand.MOVE_LEFT;
 import static com.vrozsa.crowframework.shared.api.game.GameCommand.MOVE_RIGHT;
 import static com.vrozsa.crowframework.shared.api.game.GameCommand.MOVE_UP;
+import static java.util.Objects.isNull;
 
 public class EnemyWarriorController extends AbstractComponent {
     private static final int TARGET_CALC_MIN_COOLDOWN = 500;
     private static final int TARGET_CALC_MAX_COOLDOWN = 1000;
+    private static final int SPEED_BOOST_TARGET_DISTANCE = 400;
+    private static final int AXIS_SPEED_B0OST = 5;
+    private static final int DIAGONAL_SPEED_B0OST = 4;
     private static final Offset MIN_ATTACK_DIST_OFFSET = Offset.of(5, 5);
-    private final PositionComponent target;
     private final Offset alignOffset;
     private final Random random;
     private final Cooldown targetCalculationCooldown;
 
     private PositionComponent position;
     private CharacterDriver driver;
-
+    private PositionComponent target;
     private Offset targetOffset;
 
     /**
-     * @param target the target position the enemy will try to attack.
      * @param alignOffset the offset is used to align the enemy in front of the target.
      */
-    public EnemyWarriorController(PositionComponent target, Offset alignOffset) {
-        this.target = target;
+    public EnemyWarriorController(Offset alignOffset) {
         this.alignOffset = alignOffset;
 
         random = new Random();
@@ -52,15 +53,35 @@ public class EnemyWarriorController extends AbstractComponent {
     }
 
     private void calculateTargetOffset() {
+        // TODO: is target is inactive (dead), calculate a random point inside the screen.
         targetOffset = getTargetOffset();
         targetCalculationCooldown.start();
+    }
+
+    /**
+     * Activates the enemy.
+     * @param x horizontal offset of the enemy.
+     * @param y vorizontal offset of the enemy.
+     * @param target the target position the enemy will try to attack.
+     */
+    public void activate(int x, int y, PositionComponent target) {
+        getPosition().setPosition(x, y);
+        this.target = target;
+        calculateTargetOffset();
+    }
+
+    /**
+     * Resets the enemy status.
+     */
+    public void resetStatus() {
+        driver.resetStatus();
     }
 
     @Override
     public void update() {
         super.update();
 
-        if (gameObject.isInactive() || driver.isAttacking()) {
+        if (gameObject.isInactive() || driver.isAttacking() || isNull(target)) {
             return;
         }
 
@@ -72,6 +93,13 @@ public class EnemyWarriorController extends AbstractComponent {
             lookAtTheTarget();
             driver.attack();
             return;
+        }
+
+        if (isLaggingBehind()) {
+            setBoostSpeed();
+        }
+        else {
+            setBaseSpeed();
         }
 
         var commands = findCharacterMovements();
@@ -97,6 +125,25 @@ public class EnemyWarriorController extends AbstractComponent {
             // Force looking at the target only if not moving horizontally, so it won't move backwards.
             lookAtTheTarget();
         }
+    }
+
+    private boolean isLaggingBehind() {
+        // If enemy is to the right, is not lagging behind
+        if (target.getX() < position.getX()) {
+            return false;
+        }
+
+        var distance = Math.abs(target.getX() - position.getX());
+
+        return distance >= SPEED_BOOST_TARGET_DISTANCE;
+    }
+
+    private void setBoostSpeed() {
+        driver.setSpeed(AXIS_SPEED_B0OST, DIAGONAL_SPEED_B0OST);
+    }
+
+    private void setBaseSpeed() {
+        driver.resetSpeed();
     }
 
     private Set<GameCommand> findCharacterMovements() {
@@ -152,6 +199,7 @@ public class EnemyWarriorController extends AbstractComponent {
         }
         else if (target.getX() > position.getX() && driver.isFacingLeft()) {
             driver.flipDirection();
+
         }
     }
 }

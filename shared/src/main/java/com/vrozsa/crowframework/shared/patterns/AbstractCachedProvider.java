@@ -5,6 +5,8 @@ import com.vrozsa.crowframework.shared.api.game.Component;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.util.Objects.isNull;
+
 /**
  * The cached factory is typed component provider that generates new components or reuse inactive components when
  * available.
@@ -42,7 +44,7 @@ public abstract class AbstractCachedProvider<T extends Component> {
      * @return the instance of T.
      */
     public T get() {
-        return elements.stream()
+        var elem = elements.stream()
                 .filter(c -> c.getGameObject().isInactive())
                 .findFirst()
                 .orElseGet(() -> {
@@ -51,9 +53,15 @@ public abstract class AbstractCachedProvider<T extends Component> {
                     }
                     var newComponent = create();
                     elements.add(newComponent);
-                    newComponent.getGameObject().setActive(true);
                     return newComponent;
                 });
+
+        if(!isNull(elem)) {
+            elem.getGameObject().activate();
+        }
+
+        return elem;
+
     }
 
     /**

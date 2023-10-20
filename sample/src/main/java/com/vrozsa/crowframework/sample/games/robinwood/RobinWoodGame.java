@@ -30,16 +30,7 @@ public class RobinWoodGame {
         var heroGO = factory.createHero(HERO_STARTING_OFFSET);
         crowEngine.addGameObject(heroGO);
 
-        var enemySpawner = factory.createEnemySpawner(heroGO);
+        var enemySpawner = factory.createEnemySpawner(heroGO.getPosition());
         crowEngine.addGameObject(enemySpawner);
-
-//        var skeletonWarriorGO = factory.createSkeletonWarrior(700, 100, heroGO);
-//        crowEngine.addGameObject(skeletonWarriorGO);
-
-
-//        crowEngine.addGameObject(factory.createSkeletonWarrior(200, 200, heroGO));
-//        crowEngine.addGameObject(factory.createSkeletonWarrior(500, 300, heroGO));
-//        crowEngine.addGameObject(factory.createSkeletonWarrior(450, 300, heroGO));
-//        crowEngine.addGameObject(factory.createSkeletonWarrior(300, 500, heroGO));
     }
 }

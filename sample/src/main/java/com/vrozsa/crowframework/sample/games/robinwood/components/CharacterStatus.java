@@ -12,6 +12,7 @@ public class CharacterStatus extends AbstractComponent {
     private int currLife;
 
     public CharacterStatus(int maxLife) {
+        this.maxLife = maxLife;
         this.currLife = maxLife;
     }
 

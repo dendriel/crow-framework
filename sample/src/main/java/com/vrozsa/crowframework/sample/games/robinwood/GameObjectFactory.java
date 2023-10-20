@@ -12,6 +12,7 @@ import com.vrozsa.crowframework.sample.games.robinwood.components.PlayerControll
 import com.vrozsa.crowframework.sample.games.robinwood.components.ProjectileController;
 import com.vrozsa.crowframework.sample.games.robinwood.components.ProjectileHandler;
 import com.vrozsa.crowframework.shared.api.game.GameObject;
+import com.vrozsa.crowframework.shared.api.game.PositionComponent;
 import com.vrozsa.crowframework.shared.api.screen.Offsetable;
 import com.vrozsa.crowframework.shared.attributes.Color;
 import com.vrozsa.crowframework.shared.attributes.Offset;
@@ -181,22 +182,24 @@ public class GameObjectFactory {
         );
     }
 
-    public EnemyWarriorController createSkeletonWarrior(int x, int y, GameObject target) {
+    public EnemyWarriorController createSkeletonWarrior(int x, int y) {
         var enemyGO = GameObjectBuilder.of(x, y)
+                .setActive(false)
                 .addAnimatedRenderer(CHARACTER_SPRITE_LAYER, getSkeletonWarriorAnimationTemplates())
                 .addComponent(new CharacterDriver(
                         true, ENEMY_AXIS_SPEED, ENEMY_DIAGONAL_SPEED, PROJECTILE_MELEE_ATTACK, SHOOT_COOLDOWN, MELEE_PROJECTILE_SPAWN_OFFSET))
                 .addComponent(new CharacterStatus(WARRIOR_MAX_LIFE))
-                .addComponent(new EnemyWarriorController(target.getPosition(), ENEMY_ALIGN_OFFSET))
+                .addComponent(new EnemyWarriorController(ENEMY_ALIGN_OFFSET))
                 .addComponent(new ProjectileHandler(getProjectileSupplier()))
-                .addSquareCollider(1000, ENEMIES_COLLISION_LAYER, ENEMY_WEIGHT, Set.of(TREE_COLLISION_LAYER, HERO_PROJECTILE_COLLISION_LAYER), HERO_COLLISION_RECT)
+                // Do not collide with tree to avoid getting stuck
+                .addSquareCollider(1000, ENEMIES_COLLISION_LAYER, ENEMY_WEIGHT, Set.of(HERO_PROJECTILE_COLLISION_LAYER), HERO_COLLISION_RECT)
                 .addCollisionGizmos(Color.red())
                 .build();
 
         return enemyGO.getComponent(EnemyWarriorController.class);
     }
 
-    public GameObject createEnemySpawner(GameObject target) {
+    public GameObject createEnemySpawner(PositionComponent target) {
         return GameObjectBuilder.atOrigin()
                 .addComponent(new EnemySpawner(this, crowEngine.getGameManager(), target))
                 .build();

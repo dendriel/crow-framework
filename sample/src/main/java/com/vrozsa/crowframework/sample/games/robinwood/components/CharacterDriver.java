@@ -21,6 +21,8 @@ public class CharacterDriver extends AbstractComponent {
     private static final String ANIM_IDLE_KEY = "idle";
     private static final String ANIM_ATTACK_KEY = "attack";
 
+    private final int startingAxisSpeed;
+    private final int startingDiagonalSpeed;
     private int axisSpeed;
     private int diagonalSpeed;
     private boolean facingRight;
@@ -40,6 +42,8 @@ public class CharacterDriver extends AbstractComponent {
 
     public CharacterDriver(
             boolean facingRight, int axisSpeed, int diagonalSpeed, String projectileType, int shootCooldown, Offset projectileSpawnOffset) {
+        this.startingAxisSpeed = axisSpeed;
+        this.startingDiagonalSpeed = diagonalSpeed;
         this.axisSpeed = axisSpeed;
         this.diagonalSpeed = diagonalSpeed;
         this.projectileType = projectileType;
@@ -119,6 +123,33 @@ public class CharacterDriver extends AbstractComponent {
         this.leftLimitX = leftLimitX;
     }
 
+    /**
+     * Sets the character speed.
+     * @param axisSpeed X and Y speed.
+     * @param diagonalSpeed diagonal speed, used when moving diagonally. Should be less than axisSpeed because diagonal
+     *                      movement is the character moving in two axis at the same time.
+     */
+    public void setSpeed(int axisSpeed, int diagonalSpeed) {
+        this.axisSpeed = axisSpeed;
+        this.diagonalSpeed = diagonalSpeed;
+    }
+
+    /**
+     * Resets speed to is starting values.
+     */
+    public void resetSpeed() {
+        this.axisSpeed = startingAxisSpeed;
+        this.diagonalSpeed = startingDiagonalSpeed;
+    }
+
+    public int getAxisSpeed() {
+        return axisSpeed;
+    }
+
+    public int getDiagonalSpeed() {
+        return diagonalSpeed;
+    }
+
     public void flipDirection() {
         var renderer = getComponent(Renderer.class);
         renderer.setFlipX(facingRight);
@@ -183,6 +214,13 @@ public class CharacterDriver extends AbstractComponent {
         }
 
         characterStatus.removeLife(value);
+    }
+
+    /**
+     * Reset the status to its initial state.
+     */
+    public void resetStatus() {
+        characterStatus.reset();
     }
 
     @Override
