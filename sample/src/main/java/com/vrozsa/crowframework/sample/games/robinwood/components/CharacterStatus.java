@@ -31,4 +31,8 @@ public class CharacterStatus extends AbstractComponent {
     public void addLife(final int value) {
         currLife = Math.min(maxLife, currLife + value);
     }
+
+    public int getLife() {
+        return currLife;
+    }
 }

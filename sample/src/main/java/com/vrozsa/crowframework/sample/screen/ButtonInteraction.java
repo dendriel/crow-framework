@@ -34,7 +34,7 @@ public class ButtonInteraction {
         labelData.setHorizontalAlignment(0);
         labelData.setRect(Rect.of(screenRect.centerX() - 200, screenRect.centerY() -100, 400, 50));
         labelData.setReferenceSize(screenRect.getSize());
-        UILabel label = new UILabel(labelData);
+        UILabel label = UILabel.from(labelData);
 
         UILabelTemplate labelTemplate = labelData.clone();
         labelTemplate.getFont().setSize(24);

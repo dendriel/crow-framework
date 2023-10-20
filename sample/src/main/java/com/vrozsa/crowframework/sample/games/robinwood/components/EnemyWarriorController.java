@@ -210,13 +210,11 @@ public class EnemyWarriorController extends AbstractComponent {
 
 
     private void lookAtTheTarget() {
-        System.out.println("lookAtTheTarget");
         if (target.getX() < position.getX() && driver.isFacingRight()) {
             driver.flipDirection();
         }
         else if (target.getX() > position.getX() && driver.isFacingLeft()) {
             driver.flipDirection();
-
         }
     }
 }

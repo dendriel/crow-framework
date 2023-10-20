@@ -37,7 +37,7 @@ class UIComponentFactory {
 
     static {
         typeToCreatorMapper = new EnumMap<>(UIComponentType.class);
-        typeToCreatorMapper.put(UIComponentType.LABEL, template -> new UILabel((UILabelTemplate) template));
+        typeToCreatorMapper.put(UIComponentType.LABEL, template -> UILabel.from((UILabelTemplate) template));
         typeToCreatorMapper.put(UIComponentType.ICON, template -> UIIcon.from((UIIconTemplate) template));
         typeToCreatorMapper.put(UIComponentType.INPUT_FIELD, template -> new UIInputField((UIInputFieldTemplate) template));
         typeToCreatorMapper.put(UIComponentType.BUTTON, template -> new UIButton((UIButtonTemplate) template));

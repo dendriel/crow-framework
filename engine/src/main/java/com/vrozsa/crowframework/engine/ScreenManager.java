@@ -2,6 +2,7 @@ package com.vrozsa.crowframework.engine;
 
 import com.vrozsa.crowframework.screen.internal.RendererView;
 import com.vrozsa.crowframework.screen.ui.UIIcon;
+import com.vrozsa.crowframework.screen.ui.UILabel;
 import com.vrozsa.crowframework.shared.api.game.GameObject;
 import com.vrozsa.crowframework.shared.attributes.Rect;
 
@@ -35,6 +36,14 @@ public interface ScreenManager {
      */
     UIIcon addIcon(final String imageFile, final int x, final int y, final int width, final int height);
 
+
+    /**
+     * Adds a new Label component to the default screen and view.
+     * @param text label initial text.
+     * @param rect label rect (defines offset and length).
+     * @return the new label component.
+     */
+    UILabel addLabel(final String text, final Rect rect);
     /**
      * Gets the renderer view from the screen (the view which render game objects).
      * @return the renderer view, if any.

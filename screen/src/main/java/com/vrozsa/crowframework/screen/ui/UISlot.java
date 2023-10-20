@@ -128,7 +128,7 @@ public class UISlot extends UIAbstractComponent<UISlotTemplate> implements UIHan
     public void wrapUp(Container container) {
         UILabelTemplate countLabelData = data.getCountLabel();
         if (countLabelData != null) {
-            countLabel = new UILabel(countLabelData, data.getRect().getOffset().sum(parentOffset));
+            countLabel = UILabel.from(countLabelData, data.getRect().getOffset().sum(parentOffset));
             countLabel.setCustomOffset(customOffset);
             countLabel.wrapUp(container);
         }

@@ -13,16 +13,24 @@ public class UILabel extends UIAbstractComponent<UILabelTemplate> {
     private JLabel label;
     private Offset customOffset;
 
-    public UILabel(UILabelTemplate data) {
+    private UILabel(UILabelTemplate data) {
         this(data, Offset.origin());
     }
 
-    public UILabel(UILabelTemplate data, Offset parentOffset) {
+    private UILabel(UILabelTemplate data, Offset parentOffset) {
         super(data);
         this.data = data;
         this.parentOffset = parentOffset;
         customOffset = Offset.origin();
         setup();
+    }
+
+    public static UILabel from(final UILabelTemplate data) {
+        return new UILabel(data);
+    }
+
+    public static UILabel from(final UILabelTemplate data, final Offset parentOffset) {
+        return new UILabel(data, parentOffset);
     }
 
     private void setup() {

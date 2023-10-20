@@ -9,10 +9,13 @@ import com.vrozsa.crowframework.screen.internal.ScreenHandler;
 import com.vrozsa.crowframework.screen.internal.ScreenHandlerConfig;
 import com.vrozsa.crowframework.screen.ui.UIIcon;
 import com.vrozsa.crowframework.screen.ui.UIIconTemplate;
+import com.vrozsa.crowframework.screen.ui.UILabel;
+import com.vrozsa.crowframework.screen.ui.UILabelTemplate;
 import com.vrozsa.crowframework.shared.api.game.GameObject;
 import com.vrozsa.crowframework.shared.api.input.InputHandler;
 import com.vrozsa.crowframework.shared.api.screen.Renderer;
 import com.vrozsa.crowframework.shared.api.screen.Screen;
+import com.vrozsa.crowframework.shared.api.screen.View;
 import com.vrozsa.crowframework.shared.attributes.Color;
 import com.vrozsa.crowframework.shared.attributes.Offset;
 import com.vrozsa.crowframework.shared.attributes.Rect;
@@ -43,7 +46,7 @@ class CrowScreenManager implements ScreenManager, OffsetGetter {
         var rendererView = new RendererView(RENDERER_VIEW, Rect.atOrigin(screenSize));
         simpleScreen.addView(rendererView);
 
-        simpleScreen.addViewGroup(BASE_VIEW_GROUP, RENDERER_VIEW, UI_VIEW);
+        simpleScreen.addViewGroup(BASE_VIEW_GROUP, UI_VIEW, RENDERER_VIEW);
         simpleScreen.displayViewGroup(BASE_VIEW_GROUP);
 
         addScreen(simpleScreen);
@@ -103,12 +106,24 @@ class CrowScreenManager implements ScreenManager, OffsetGetter {
                 .build();
 
         var icon = UIIcon.from(iconTemplate);
-        var view = screenHandler.getScreen(DEFAULT_SCREEN)
-                .getView(UI_VIEW);
-
-        view.addComponent(icon);
+        getUIView().addComponent(icon);
 
         return icon;
+    }
+
+    public UILabel addLabel(final String text, final Rect rect) {
+        var template = new UILabelTemplate();
+        template.setText(text);
+        template.setRect(rect);
+        var label = UILabel.from(template);
+        getUIView().addComponent(label);
+
+        return label;
+    }
+
+    private View getUIView() {
+        return screenHandler.getScreen(DEFAULT_SCREEN)
+                .getView(UI_VIEW);
     }
 
     @Override

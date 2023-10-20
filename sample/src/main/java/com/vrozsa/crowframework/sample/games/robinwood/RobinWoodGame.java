@@ -2,6 +2,7 @@ package com.vrozsa.crowframework.sample.games.robinwood;
 
 import com.vrozsa.crowframework.engine.CrowEngine;
 import com.vrozsa.crowframework.engine.CrowEngineConfig;
+import com.vrozsa.crowframework.shared.attributes.Rect;
 
 import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.BG_SCREEN_COLOR;
 import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.HERO_STARTING_OFFSET;
@@ -32,5 +33,10 @@ public class RobinWoodGame {
 
         var enemySpawner = factory.createEnemySpawner(heroGO.getPosition());
         crowEngine.addGameObject(enemySpawner);
+
+
+
+
+
     }
 }

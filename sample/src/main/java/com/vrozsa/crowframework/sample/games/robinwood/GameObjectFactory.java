@@ -2,15 +2,8 @@ package com.vrozsa.crowframework.sample.games.robinwood;
 
 import com.vrozsa.crowframework.engine.CrowEngine;
 import com.vrozsa.crowframework.engine.GameObjectBuilder;
-import com.vrozsa.crowframework.sample.games.robinwood.components.CharacterDriver;
-import com.vrozsa.crowframework.sample.games.robinwood.components.CharacterStatus;
-import com.vrozsa.crowframework.sample.games.robinwood.components.EnemySpawner;
-import com.vrozsa.crowframework.sample.games.robinwood.components.EnemyWarriorController;
-import com.vrozsa.crowframework.sample.games.robinwood.components.GameBoardController;
-import com.vrozsa.crowframework.sample.games.robinwood.components.MovementAreaUpdater;
-import com.vrozsa.crowframework.sample.games.robinwood.components.PlayerController;
-import com.vrozsa.crowframework.sample.games.robinwood.components.ProjectileController;
-import com.vrozsa.crowframework.sample.games.robinwood.components.ProjectileHandler;
+import com.vrozsa.crowframework.sample.games.robinwood.components.*;
+import com.vrozsa.crowframework.screen.ui.UILabel;
 import com.vrozsa.crowframework.shared.api.game.GameObject;
 import com.vrozsa.crowframework.shared.api.game.PositionComponent;
 import com.vrozsa.crowframework.shared.api.screen.Offsetable;
@@ -94,9 +87,14 @@ public class GameObjectFactory {
                 .addComponent(new MovementAreaUpdater(renderer))
                 .addSquareCollider(HERO_COLLISION_COOLDOWN, HERO_COLLISION_LAYER, HERO_WEIGHT, Set.of(TREE_COLLISION_LAYER), HERO_COLLISION_RECT)
                 .addCollisionGizmos(Color.blue())
+                .addComponent(new PlayerHUD(createLifeLabel()))
                 .build();
 
         return heroGO;
+    }
+
+    private UILabel createLifeLabel() {
+        return crowEngine.getScreenManager().addLabel("Lifes:", Rect.of(0, 550, 100, 50));
     }
 
     public GameObject createGameBoard() {

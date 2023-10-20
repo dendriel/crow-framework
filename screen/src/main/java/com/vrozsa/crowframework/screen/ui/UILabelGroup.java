@@ -89,7 +89,7 @@ public class UILabelGroup extends UIAbstractComponent<UILabelGroupTemplate> {
 
         newData.setRect(rect);
 
-        return new UILabel(newData);
+        return UILabel.from(newData);
     }
 
     public void updateScreenSize(Size parentSize) {
