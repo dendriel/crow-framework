@@ -1,7 +1,7 @@
 package com.vrozsa.crowframework.engine;
 
 import com.vrozsa.crowframework.audio.SfxData;
-import com.vrozsa.crowframework.audio.api.SfxPlayer;
+import com.vrozsa.crowframework.shared.api.sound.SfxPlayer;
 
 import java.util.Collection;
 

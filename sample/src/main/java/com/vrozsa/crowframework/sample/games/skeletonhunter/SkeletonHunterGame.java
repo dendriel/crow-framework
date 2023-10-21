@@ -5,6 +5,7 @@ import com.vrozsa.crowframework.engine.CrowEngineConfig;
 
 import static com.vrozsa.crowframework.sample.games.skeletonhunter.ConfigurationManager.BG_SCREEN_COLOR;
 import static com.vrozsa.crowframework.sample.games.skeletonhunter.ConfigurationManager.HERO_STARTING_OFFSET;
+import static com.vrozsa.crowframework.sample.games.skeletonhunter.ConfigurationManager.getAudioData;
 
 public class SkeletonHunterGame {
 
@@ -17,10 +18,12 @@ public class SkeletonHunterGame {
         var config = CrowEngineConfig.builder()
                 .color(BG_SCREEN_COLOR)
                 .title("Skeleton Hunter")
+                .assetsPath("/assets/skeletonhunter")
                 .showGizmos(false)
                 .build();
 
         var crowEngine = CrowEngine.create(config);
+        crowEngine.getAudioManager().addAudio(getAudioData());
 
         var factory = new GameObjectFactory(crowEngine);
 

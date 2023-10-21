@@ -1,7 +1,7 @@
 package com.vrozsa.crowframework.audio;
 
 import com.vrozsa.crowframework.audio.api.SfxDataGetter;
-import com.vrozsa.crowframework.audio.api.SfxPlayer;
+import com.vrozsa.crowframework.shared.api.sound.SfxPlayer;
 import com.vrozsa.crowframework.shared.logger.LoggerService;
 
 import javax.sound.sampled.LineUnavailableException;
@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
+
+import static java.util.Objects.isNull;
 
 public final class SfxHandler implements SfxPlayer {
     private static final LoggerService logger = LoggerService.of(SfxHandler.class);
@@ -61,6 +63,9 @@ public final class SfxHandler implements SfxPlayer {
 
         var soundPath = formatFilePath(sfxData.get());
         var soundUrl = SfxHandler.class.getResource(soundPath);
+        if (isNull(soundUrl)) {
+            logger.error("Sound ''{0}'' could not be found in resources.", soundPath);
+        }
 
         try {
             return Optional.of(Sfx.of(sfxData.get(), soundUrl));

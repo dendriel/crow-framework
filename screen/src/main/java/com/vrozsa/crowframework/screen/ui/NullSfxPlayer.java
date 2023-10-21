@@ -4,17 +4,12 @@ import com.vrozsa.crowframework.shared.api.sound.SfxPlayer;
 
 public class NullSfxPlayer implements SfxPlayer {
     @Override
-    public void play(String sfxName) {
-        // skip.
-    }
-
-    @Override
-    public void play(String name, boolean playSfx) {
+    public void play(String name) {
 
     }
 
     @Override
-    public void playAsync(String name) {
+    public void playSync(String name) {
 
     }
 }

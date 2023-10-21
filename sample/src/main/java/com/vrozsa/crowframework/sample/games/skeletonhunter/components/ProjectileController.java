@@ -1,6 +1,7 @@
 package com.vrozsa.crowframework.sample.games.skeletonhunter.components;
 
 import com.vrozsa.crowframework.game.component.AbstractComponent;
+import com.vrozsa.crowframework.game.component.audio.AudioPlayer;
 import com.vrozsa.crowframework.shared.api.game.CollisionHandler;
 import com.vrozsa.crowframework.shared.api.game.Direction;
 import com.vrozsa.crowframework.shared.api.game.GameObject;
@@ -17,12 +18,22 @@ public class ProjectileController extends AbstractComponent implements Collision
     private boolean facingRight = true;
     private int damage;
 
+    private AudioPlayer audioPlayer;
+
     private GameObject owner;
 
     public ProjectileController(int speed, int lifetime, int damage) {
         this.speed = speed;
         this.damage = damage;
         lifetimeCooldown = Cooldown.create(lifetime);
+    }
+
+    @Override
+    public void wrapUp() {
+        super.wrapUp();
+
+        audioPlayer = getComponent(AudioPlayer.class);
+        assert audioPlayer != null : "ProjectileController requires an AudioPlayer component.";
     }
 
     private void setOwner(GameObject owner) {
@@ -96,8 +107,11 @@ public class ProjectileController extends AbstractComponent implements Collision
 
         boolean isDead = charDriver.takeDamage(damage);
         if (!isDead) {
+            audioPlayer.play("hit");
             return;
         }
+
+        audioPlayer.play("kill");
 
         var ownerStatus = owner.getComponent(CharacterStatus.class);
         var targetStatus = target.getComponent(CharacterStatus.class);

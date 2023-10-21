@@ -25,3 +25,7 @@ $env:NEXUS_PASSWORD
 # Publish
 gradlew :engine:publish
 ```
+
+## Enable assertions while developing
+
+Add this VM flag: `-ea`

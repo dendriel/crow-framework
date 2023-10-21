@@ -1,6 +1,6 @@
 package com.vrozsa.crowframework.audio;
 
-import com.vrozsa.crowframework.audio.api.SfxPlayer;
+import com.vrozsa.crowframework.shared.api.sound.SfxPlayer;
 
 public class NullSfxPlayer implements SfxPlayer {
     @Override

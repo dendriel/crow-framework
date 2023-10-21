@@ -151,6 +151,7 @@ public class GameObjectFactory {
                 .addCollisionHandler(projectileController)
                 .addSquareCollider(100, HERO_PROJECTILE_COLLISION_LAYER, Set.of(ENEMIES_COLLISION_LAYER), PROJECTILE_COLLISION_RECT)
                 .addCollisionGizmos(Color.blue())
+                .addAudioPlayer(crowEngine.getAudioManager().getPlayer())
                 .build();
 
         crowEngine.addGameObject(projectile);
@@ -168,6 +169,7 @@ public class GameObjectFactory {
                 .addCollisionHandler(projectileController)
                 .addSquareCollider(100, ENEMY_PROJECTILE_COLLISION_LAYER, Set.of(HERO_COLLISION_LAYER), PROJECTILE_MELEE_COLLISION_RECT)
                 .addCollisionGizmos(Color.red())
+                .addAudioPlayer(crowEngine.getAudioManager().getPlayer())
                 .build();
 
         crowEngine.addGameObject(projectile);

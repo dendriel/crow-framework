@@ -7,6 +7,7 @@ import com.vrozsa.crowframework.game.component.StaticRenderer;
 import com.vrozsa.crowframework.game.component.animation.AnimatedRenderer;
 import com.vrozsa.crowframework.game.component.animation.Animation;
 import com.vrozsa.crowframework.game.component.animation.AnimationTemplate;
+import com.vrozsa.crowframework.game.component.audio.AudioPlayer;
 import com.vrozsa.crowframework.game.component.camera.CameraFollower;
 import com.vrozsa.crowframework.game.component.collider.AbstractCollisionHandler;
 import com.vrozsa.crowframework.game.component.collider.ColliderGizmos;
@@ -16,6 +17,7 @@ import com.vrozsa.crowframework.shared.api.game.Component;
 import com.vrozsa.crowframework.shared.api.game.GameObject;
 import com.vrozsa.crowframework.shared.api.screen.Offsetable;
 import com.vrozsa.crowframework.shared.api.screen.Sprite;
+import com.vrozsa.crowframework.shared.api.sound.SfxPlayer;
 import com.vrozsa.crowframework.shared.attributes.Color;
 import com.vrozsa.crowframework.shared.attributes.Offset;
 import com.vrozsa.crowframework.shared.attributes.Rect;
@@ -250,6 +252,7 @@ public final class GameObjectBuilder  {
      * @param offset offset added to the current object position (can be used to center the position in the screen).
      * @param followBox (optional) the boundaries in which the camera can follow the character. If out of the follow box
      *                  the camera will stop following.
+     * @return the builder object.
      */
     public GameObjectBuilder addCameraFollower(final Offsetable camera, final Offset offset, final Rect followBox) {
         var cameraFollower = new CameraFollower(position, camera, offset, followBox);
@@ -261,9 +264,21 @@ public final class GameObjectBuilder  {
      * Add a camera follower component.
      * @param camera offsetable component of the renderer view.
      * @param offset offset added to the current object position (can be used to center the position in the screen).
+     * @return the builder object.
      */
     public GameObjectBuilder addCameraFollower(final Offsetable camera, final Offset offset) {
         return addCameraFollower(camera, offset, null);
+    }
+
+    /**
+     * Adds the capability of playing audio in the game.
+     * @param sfxPlayer the sound effects player provided by the enfine.
+     * @return the builder object.
+     */
+    public GameObjectBuilder addAudioPlayer(final SfxPlayer sfxPlayer) {
+        var audioPlayer = new AudioPlayer(sfxPlayer);
+        components.add(audioPlayer);
+        return this;
     }
 
     public GameObjectBuilder addComponent(Component component) {

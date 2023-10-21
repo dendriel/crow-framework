@@ -1,5 +1,6 @@
 package com.vrozsa.crowframework.sample.games.skeletonhunter;
 
+import com.vrozsa.crowframework.audio.SfxData;
 import com.vrozsa.crowframework.game.component.animation.AnimationTemplate;
 import com.vrozsa.crowframework.shared.attributes.Color;
 import com.vrozsa.crowframework.shared.attributes.Offset;
@@ -82,6 +83,9 @@ public final class ConfigurationManager {
     public static final Rect PROJECTILE_MELEE_COLLISION_RECT = Rect.of(10, 10, 60, 60);
     public static final Rect TOP_TREE_COLLISION_RECT = Rect.of(0, 0, 80 ,40);
     public static final Rect BOTTOM_TREE_COLLISION_RECT = Rect.of(0, 40, 80 ,40);
+
+    public static final String AUDIO_HIT = "hit";
+    public static final String AUDIO_KILL = "kill";
 
     private static final Random randomizer = new Random();
 
@@ -180,5 +184,22 @@ public final class ConfigurationManager {
     public static String getRandomTreeImageFile() {
         int treeIdx = randomizer.nextInt(TREE_IMAGE_FILES.size());
         return ASSETS_FOLDER + TREE_IMAGE_FILES.get(treeIdx);
+    }
+
+    public static List<SfxData> getAudioData() {
+        return List.of(
+                SfxData.builder()
+                        .id(0)
+                        .name(AUDIO_HIT)
+                        .soundFile("melee_hit.wav")
+                        .length(100)
+                        .build(),
+                SfxData.builder()
+                        .id(1)
+                        .name(AUDIO_KILL)
+                        .soundFile("kill.wav")
+                        .length(100)
+                        .build()
+        );
     }
 }

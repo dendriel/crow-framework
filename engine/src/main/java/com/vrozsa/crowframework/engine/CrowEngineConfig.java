@@ -9,7 +9,8 @@ public record CrowEngineConfig(
         int screenHeight,
         boolean showGizmos,
         Color color,
-        String title
+        String title,
+        String assetsPath
 ) {
     private static final int DEFAULT_SCREEN_WIDTH = 800;
     private static final int DEFAULT_SCREEN_HEIGHT = 600;
@@ -19,5 +20,7 @@ public record CrowEngineConfig(
         private int screenWidth = DEFAULT_SCREEN_WIDTH;
         private int screenHeight = DEFAULT_SCREEN_HEIGHT;
         private Color color = Color.blue();
+
+        private String assetsPath = "/assets";
     }
 }

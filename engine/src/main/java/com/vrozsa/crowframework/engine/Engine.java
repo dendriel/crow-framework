@@ -22,7 +22,7 @@ class Engine implements CrowEngine {
         inputManager = new CrowInputManager();
         screenManager = setupScreenManager();
         gameManager = new CrowGameManager(screenManager);
-        audioManager = new CrowAudioManager();
+        audioManager = new CrowAudioManager(config.assetsPath());
 
         gameLoop = RunnableGameLoop.get();
         gameLoop.setScreenUpdateListener(screenManager::update);
