@@ -24,10 +24,11 @@ public class MovingGameObject {
 
         var crow = CrowEngine.create(SCREEN_WIDTH, SCREEN_HEIGHT, Color.gray());
 
-        var screenManager = crow.getScreenManager();
-        screenManager.addIcon(BACKGROUND_IMAGE_FILE, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-
         var gameManager = crow.getGameManager();
+
+        gameManager.addGameObject(GameObjectBuilder.atOrigin()
+                .addStaticRenderer(0,BACKGROUND_IMAGE_FILE, SCREEN_WIDTH, SCREEN_HEIGHT)
+                .build());
 
         GameObject heroGO = GameObjectBuilder.of(Vector.of(screenMiddleX-40, screenMiddleY-40, 0))
                 .addStaticRenderer(HERO_IMAGE_FILE, 80, 80)

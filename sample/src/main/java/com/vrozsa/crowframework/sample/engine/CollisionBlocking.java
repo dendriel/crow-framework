@@ -46,10 +46,11 @@ public class CollisionBlocking {
 
         var crow = CrowEngine.create(crowConfig);
 
-        var screenManager = crow.getScreenManager();
-        screenManager.addIcon(BACKGROUND_IMAGE_FILE, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-
         var gameManager = crow.getGameManager();
+
+        gameManager.addGameObject(GameObjectBuilder.atOrigin()
+                .addStaticRenderer(0,BACKGROUND_IMAGE_FILE, SCREEN_WIDTH, SCREEN_HEIGHT)
+                .build());
 
         var arrowGO = GameObjectBuilder.of(Vector.origin())
                 .setActive(false)
