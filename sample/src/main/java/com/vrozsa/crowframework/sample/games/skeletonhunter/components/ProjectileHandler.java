@@ -1,4 +1,4 @@
-package com.vrozsa.crowframework.sample.games.robinwood.components;
+package com.vrozsa.crowframework.sample.games.skeletonhunter.components;
 
 import com.vrozsa.crowframework.game.component.AbstractComponent;
 import com.vrozsa.crowframework.shared.api.game.Direction;

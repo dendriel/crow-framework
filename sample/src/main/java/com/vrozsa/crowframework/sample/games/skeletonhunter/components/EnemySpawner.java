@@ -1,7 +1,7 @@
-package com.vrozsa.crowframework.sample.games.robinwood.components;
+package com.vrozsa.crowframework.sample.games.skeletonhunter.components;
 
 import com.vrozsa.crowframework.game.component.AbstractComponent;
-import com.vrozsa.crowframework.sample.games.robinwood.GameObjectFactory;
+import com.vrozsa.crowframework.sample.games.skeletonhunter.GameObjectFactory;
 import com.vrozsa.crowframework.shared.api.game.GameLoopAdder;
 import com.vrozsa.crowframework.shared.api.game.PositionComponent;
 import com.vrozsa.crowframework.shared.logger.LoggerService;
@@ -9,8 +9,8 @@ import com.vrozsa.crowframework.shared.patterns.AbstractCachedProvider;
 
 import java.util.Random;
 
-import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.SCREEN_SIZE;
-import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.SPRITE_HEIGHT;
+import static com.vrozsa.crowframework.sample.games.skeletonhunter.ConfigurationManager.SCREEN_SIZE;
+import static com.vrozsa.crowframework.sample.games.skeletonhunter.ConfigurationManager.SPRITE_HEIGHT;
 
 public class EnemySpawner extends AbstractComponent {
     private final EnemiesFactory enemiesFactory;

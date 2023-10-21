@@ -1,23 +1,22 @@
-package com.vrozsa.crowframework.sample.games.robinwood;
+package com.vrozsa.crowframework.sample.games.skeletonhunter;
 
 import com.vrozsa.crowframework.engine.CrowEngine;
 import com.vrozsa.crowframework.engine.CrowEngineConfig;
-import com.vrozsa.crowframework.shared.attributes.Rect;
 
-import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.BG_SCREEN_COLOR;
-import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.HERO_STARTING_OFFSET;
+import static com.vrozsa.crowframework.sample.games.skeletonhunter.ConfigurationManager.BG_SCREEN_COLOR;
+import static com.vrozsa.crowframework.sample.games.skeletonhunter.ConfigurationManager.HERO_STARTING_OFFSET;
 
-public class RobinWoodGame {
+public class SkeletonHunterGame {
 
     public static void main(String[] args) {
-        var robinWoodGame = new RobinWoodGame();
-        robinWoodGame.start();
+        var game = new SkeletonHunterGame();
+        game.start();
     }
 
     public void start() {
         var config = CrowEngineConfig.builder()
                 .color(BG_SCREEN_COLOR)
-                .title("Robin Wood")
+                .title("Skeleton Hunter")
                 .showGizmos(false)
                 .build();
 

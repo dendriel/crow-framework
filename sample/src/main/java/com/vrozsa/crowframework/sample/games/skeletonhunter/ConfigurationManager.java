@@ -1,4 +1,4 @@
-package com.vrozsa.crowframework.sample.games.robinwood;
+package com.vrozsa.crowframework.sample.games.skeletonhunter;
 
 import com.vrozsa.crowframework.game.component.animation.AnimationTemplate;
 import com.vrozsa.crowframework.shared.attributes.Color;
@@ -15,8 +15,8 @@ import java.util.Random;
  * A better way to do this is to load configurations from files (json, yml, etc).
  */
 @NoArgsConstructor(access =  AccessLevel.PRIVATE)
-public final class RobinWoodConfigurationManager {
-    private static final String ASSETS_FOLDER = "/assets/robinwood/";
+public final class ConfigurationManager {
+    private static final String ASSETS_FOLDER = "/assets/skeletonhunter/";
     private static final String SPRITESHEETS_FOLDER = ASSETS_FOLDER + "spritesheets/";
     private static final String HERO_IDLE_SPRITESHEET = SPRITESHEETS_FOLDER + "hero_idle.png";
     private static final String HERO_WALK_SPRITESHEET = SPRITESHEETS_FOLDER + "hero_walk.png";
