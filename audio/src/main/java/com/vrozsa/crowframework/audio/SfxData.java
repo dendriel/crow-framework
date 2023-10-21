@@ -1,6 +1,5 @@
 package com.vrozsa.crowframework.audio;
 
-
 import com.vrozsa.crowframework.shared.api.game.Identifiable;
 import lombok.Builder;
 import lombok.Getter;

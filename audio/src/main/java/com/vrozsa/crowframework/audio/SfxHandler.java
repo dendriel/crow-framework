@@ -7,73 +7,71 @@ import com.vrozsa.crowframework.shared.logger.LoggerService;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
-import java.net.URL;
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
 
 public final class SfxHandler implements SfxPlayer {
     private static final LoggerService logger = LoggerService.of(SfxHandler.class);
-
     private final SfxDataGetter sfxDataGetter;
-//    private final Set<Sfx> cachedSfx;
+    private final String assetsPath;
+    private final Set<Sfx> cachedSfx; // TODO: make a hashMap
 
-    public SfxHandler(final SfxDataGetter sfxDataGetter) {
+    public SfxHandler(SfxDataGetter sfxDataGetter, String assetsPath) {
         this.sfxDataGetter = sfxDataGetter;
-//        cachedSfx = new HashSet<>();
+        cachedSfx = new HashSet<>();
+        this.assetsPath = assetsPath;
+    }
+
+    public void playSync(String name) {
+        var optSfx = getOrCreateVfx(name);
+        optSfx.ifPresent(sfx -> sfx.play(true));
     }
 
     public void play(String name) {
-        Sfx vfx = getOrCreateVfx(name);
-        play(vfx, true);
+        var optSfx = getOrCreateVfx(name);
+        optSfx.ifPresent(sfx -> sfx.play(false));
     }
 
-    @Override
-    public void play(String name, boolean playSfx) {
-        if (playSfx) {
-            play(name);
-        }
-    }
-
-    public void playAsync(String name) {
-        Sfx vfx = getOrCreateVfx(name);
-        play(vfx, false);
-    }
-
-    private void play(Sfx sfx, boolean wait) {
-        if (sfx == null) {
-            return;
-        }
-
-        sfx.play(wait);
-    }
-
-    private Sfx getOrCreateVfx(String name) {
-        // TODO: replaying clips doesn't work on ubuntu right now. Must find a workaround.
+    private Optional<Sfx> getOrCreateVfx(String name) {
+        // TODO: retest this problem
+        // replaying clips doesn't work on ubuntu right now. Must find a workaround.
         // If we get this code to work again, we must check if the sfx is playing.
-//        Sfx sfx = cachedSfx.stream()
-//                .filter(s -> s.getName().equals(name))
-//                .findFirst()
-//                .orElse(null);
+        var sfx = cachedSfx.stream()
+                .filter(s -> s.getName().equals(name))
+                .findFirst()
+                .orElse(null);
 
-        Sfx sfx = null;
-        if (sfx == null) {
-            sfx = createSfx(name);
+        if (sfx != null) {
+            return Optional.of(sfx);
         }
 
-//        cachedSfx.add(sfx);
+        var optSfx = createSfx(name);
+        optSfx.ifPresent(cachedSfx::add);
 
-        return sfx;
+        return optSfx;
     }
 
-    private Sfx createSfx(String name) {
-        SfxData data = sfxDataGetter.getSfxData(name);
-        String soundPath = sfxDataGetter.getSfxPath(data.getSoundFile());
-        URL soundUrl = SfxHandler.class.getResource(soundPath);
+    private Optional<Sfx> createSfx(String name) {
+        var sfxData = sfxDataGetter.get(name);
+        if (sfxData.isEmpty()) {
+            logger.error("Sound named ''{0}'' doesn't exist!", name);
+            return Optional.empty();
+        }
+
+        var soundPath = formatFilePath(sfxData.get());
+        var soundUrl = SfxHandler.class.getResource(soundPath);
 
         try {
-            return new Sfx(data, soundUrl);
+            return Optional.of(Sfx.of(sfxData.get(), soundUrl));
         }
         catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             logger.error("Failed to create SFX from file [%s]. Ex.: %s", name, e);
-            return null;
+            return Optional.empty();
         }
+    }
+
+    private String formatFilePath(SfxData data) {
+        return String.format("%s/%s", assetsPath, data.getSoundFile());
     }
 }

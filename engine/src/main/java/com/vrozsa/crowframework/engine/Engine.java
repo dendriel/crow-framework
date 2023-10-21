@@ -14,6 +14,7 @@ class Engine implements CrowEngine {
     private final CrowInputManager inputManager;
     private final CrowScreenManager screenManager;
     private final CrowGameManager gameManager;
+    private final CrowAudioManager audioManager;
     private final GameLoop gameLoop;
 
     Engine(final CrowEngineConfig config) {
@@ -21,6 +22,7 @@ class Engine implements CrowEngine {
         inputManager = new CrowInputManager();
         screenManager = setupScreenManager();
         gameManager = new CrowGameManager(screenManager);
+        audioManager = new CrowAudioManager();
 
         gameLoop = RunnableGameLoop.get();
         gameLoop.setScreenUpdateListener(screenManager::update);
@@ -53,6 +55,11 @@ class Engine implements CrowEngine {
     @Override
     public GameManager getGameManager() {
         return gameManager;
+    }
+
+    @Override
+    public AudioManager getAudioManager() {
+        return audioManager;
     }
 
     @Override

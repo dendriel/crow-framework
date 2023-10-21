@@ -64,4 +64,10 @@ public interface CrowEngine {
      * @return the game manager.
      */
     GameManager getGameManager();
+
+    /**
+     * Gets the AudioManager instance.
+     * @return the audio manager.
+     */
+    AudioManager getAudioManager();
 }

@@ -1,12 +1,18 @@
 package com.vrozsa.crowframework.audio.api;
 
+/**
+ * Allows to play sound effects.
+ */
 public interface SfxPlayer {
-    void play(String sfxName);
-
-    /*
-     * Conditional sfx play.
+    /**
+     * Plays a sound effect.
+     * @param name the sound effect to be played.
      */
-    void play(String name, boolean playSfx);
+    void play(String name);
 
-    void playAsync(String name);
+    /**
+     * Plays a sound effect and wait until it has finished (will block).
+     * @param name the sound effect to be played.
+     */
+    void playSync(String name);
 }

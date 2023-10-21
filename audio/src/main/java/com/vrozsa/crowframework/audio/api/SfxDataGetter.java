@@ -2,8 +2,17 @@ package com.vrozsa.crowframework.audio.api;
 
 import com.vrozsa.crowframework.audio.SfxData;
 
-public interface SfxDataGetter {
-    SfxData getSfxData(String fileName);
+import java.util.Optional;
 
-    String getSfxPath(String fileName);
+/**
+ * Retrieves metadata about sound effects.
+ */
+@FunctionalInterface
+public interface SfxDataGetter {
+    /**
+     * Gets SFX data by its name.
+     * @param name SFX name.
+     * @return the SFX data if found; empty if not found.
+     */
+    Optional<SfxData> get(String name);
 }
