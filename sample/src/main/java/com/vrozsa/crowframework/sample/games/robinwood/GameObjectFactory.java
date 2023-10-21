@@ -61,6 +61,7 @@ import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigura
 import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.TREE_COLLISION_LAYER;
 import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.TREE_WEIGHT;
 import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.WARRIOR_MAX_LIFE;
+import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.WARRIOR_SCORE_VALUE;
 import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.getCameraFollowBox;
 import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.getCharScreenCenter;
 import static com.vrozsa.crowframework.sample.games.robinwood.RobinWoodConfigurationManager.getHeroAnimationTemplates;
@@ -87,14 +88,18 @@ public class GameObjectFactory {
                 .addComponent(new MovementAreaUpdater(renderer))
                 .addSquareCollider(HERO_COLLISION_COOLDOWN, HERO_COLLISION_LAYER, HERO_WEIGHT, Set.of(TREE_COLLISION_LAYER), HERO_COLLISION_RECT)
                 .addCollisionGizmos(Color.blue())
-                .addComponent(new PlayerHUD(createLifeLabel()))
+                .addComponent(new PlayerHUD(createLifeLabel(), createScoreLabel()))
                 .build();
 
         return heroGO;
     }
 
     private UILabel createLifeLabel() {
-        return crowEngine.getScreenManager().addLabel("Lifes:", Rect.of(0, 550, 100, 50));
+        return crowEngine.getScreenManager().addLabel("Lifes:", 32, Rect.of(10, 540, 100, 50));
+    }
+
+    private UILabel createScoreLabel() {
+        return crowEngine.getScreenManager().addLabel("Score:", 32, Rect.of(180, 540, 300, 50));
     }
 
     public GameObject createGameBoard() {
@@ -186,7 +191,7 @@ public class GameObjectFactory {
                 .addAnimatedRenderer(CHARACTER_SPRITE_LAYER, getSkeletonWarriorAnimationTemplates())
                 .addComponent(new CharacterDriver(
                         true, ENEMY_AXIS_SPEED, ENEMY_DIAGONAL_SPEED, PROJECTILE_MELEE_ATTACK, SHOOT_COOLDOWN, MELEE_PROJECTILE_SPAWN_OFFSET))
-                .addComponent(new CharacterStatus(WARRIOR_MAX_LIFE))
+                .addComponent(new CharacterStatus(WARRIOR_MAX_LIFE, WARRIOR_SCORE_VALUE))
                 .addComponent(new EnemyWarriorController(ENEMY_ALIGN_OFFSET))
                 .addComponent(new ProjectileHandler(getProjectileSupplier()))
                 // Do not collide with tree to avoid getting stuck

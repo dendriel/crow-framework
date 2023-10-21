@@ -8,7 +8,7 @@ import com.vrozsa.crowframework.shared.api.screen.Renderer;
 import com.vrozsa.crowframework.shared.attributes.Offset;
 import com.vrozsa.crowframework.shared.time.Cooldown;
 
-import java.util.Objects;
+import static java.util.Objects.isNull;
 
 public class ProjectileController extends AbstractComponent implements CollisionHandler {
     private final int speed;
@@ -17,10 +17,16 @@ public class ProjectileController extends AbstractComponent implements Collision
     private boolean facingRight = true;
     private int damage;
 
+    private GameObject owner;
+
     public ProjectileController(int speed, int lifetime, int damage) {
         this.speed = speed;
         this.damage = damage;
         lifetimeCooldown = Cooldown.create(lifetime);
+    }
+
+    private void setOwner(GameObject owner) {
+        this.owner = owner;
     }
 
     @Override
@@ -46,11 +52,12 @@ public class ProjectileController extends AbstractComponent implements Collision
         }
     }
 
-    public void activate(final int x, final int y, final Direction direction) {
+    public void activate(final int x, final int y, final Direction direction, final GameObject owner) {
         if (lifetimeCooldown.isWaiting()) {
             return;
         }
 
+        this.owner = owner;
         getPosition().setPosition(x, y);
         setDirection(direction);
         lifetimeCooldown.start();
@@ -79,12 +86,25 @@ public class ProjectileController extends AbstractComponent implements Collision
     @Override
     public void handleCollision(GameObject source, GameObject target) {
         var charDriver = target.getComponent(CharacterDriver.class);
-        if (Objects.isNull(charDriver)) {
+        if (isNull(charDriver)) {
             // Collided with something not a character.
             return;
         }
 
-        charDriver.takeDamage(damage);
+        // Not the best semantic to deactivate it first, but it doesn't matter.
         this.deactivate();
+
+        boolean isDead = charDriver.takeDamage(damage);
+        if (!isDead) {
+            return;
+        }
+
+        var ownerStatus = owner.getComponent(CharacterStatus.class);
+        var targetStatus = target.getComponent(CharacterStatus.class);
+        if (isNull(ownerStatus) || isNull(targetStatus)) {
+            return;
+        }
+
+        ownerStatus.addScore(targetStatus.getScoreValue());
     }
 }

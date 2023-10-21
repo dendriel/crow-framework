@@ -33,10 +33,5 @@ public class RobinWoodGame {
 
         var enemySpawner = factory.createEnemySpawner(heroGO.getPosition());
         crowEngine.addGameObject(enemySpawner);
-
-
-
-
-
     }
 }

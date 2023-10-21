@@ -7,12 +7,13 @@ import com.vrozsa.crowframework.screen.ui.UILabel;
  * Keeps the player status in sync with the HUD elements.
  */
 public class PlayerHUD extends AbstractComponent {
-
     private final UILabel lifesLabel;
+    private final UILabel scoreLabel;
     private CharacterStatus status;
 
-    public PlayerHUD(UILabel lifesLabel) {
+    public PlayerHUD(UILabel lifesLabel, UILabel scoreLabel) {
         this.lifesLabel = lifesLabel;
+        this.scoreLabel = scoreLabel;
     }
 
     @Override
@@ -28,5 +29,7 @@ public class PlayerHUD extends AbstractComponent {
         super.update();
 
         lifesLabel.setText(String.format("Lifes: %d", status.getLife()));
+
+        scoreLabel.setText(String.format("Score: %d", status.getScore()));
     }
 }

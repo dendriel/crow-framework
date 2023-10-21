@@ -75,7 +75,7 @@ public final class RobinWoodConfigurationManager {
 
     public static final int WARRIOR_MAX_LIFE = 3;
     public static final int HERO_MAX_LIFE = 3;
-
+    public static final int WARRIOR_SCORE_VALUE = 100;
 
     public static final Rect HERO_COLLISION_RECT = Rect.of(22, -20, 35 ,70);
     public static final Rect PROJECTILE_COLLISION_RECT = Rect.of(5, 30, 60, 20);

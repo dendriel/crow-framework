@@ -40,10 +40,11 @@ public interface ScreenManager {
     /**
      * Adds a new Label component to the default screen and view.
      * @param text label initial text.
+     * @param size font size.
      * @param rect label rect (defines offset and length).
      * @return the new label component.
      */
-    UILabel addLabel(final String text, final Rect rect);
+    UILabel addLabel(final String text, final int size, final Rect rect);
     /**
      * Gets the renderer view from the screen (the view which render game objects).
      * @return the renderer view, if any.

@@ -184,7 +184,7 @@ public class CharacterDriver extends AbstractComponent {
         var spawnOffsetX = projectileSpawnOffset.getX();
         spawnOffsetX *= facingRight ? 1 : -1;
 
-        projectileHandler.spawnProjectile(projectileType, pos.getX() + spawnOffsetX, pos.getY() - spawnOffsetY, direction);
+        projectileHandler.spawnProjectile(projectileType, pos.getX() + spawnOffsetX, pos.getY() - spawnOffsetY, direction, getGameObject());
         shootCooldown.start();
         setAttacking();
     }
@@ -208,12 +208,12 @@ public class CharacterDriver extends AbstractComponent {
         animatedRenderer.trigger(ANIM_ATTACK_KEY);
     }
 
-    public void takeDamage(int value) {
+    public boolean takeDamage(int value) {
         if (Objects.isNull(characterStatus)) {
-            return;
+            return false;
         }
 
-        characterStatus.removeLife(value);
+        return characterStatus.removeLife(value);
     }
 
     /**

@@ -7,6 +7,7 @@ import com.vrozsa.crowframework.screen.internal.BaseView;
 import com.vrozsa.crowframework.screen.internal.RendererView;
 import com.vrozsa.crowframework.screen.internal.ScreenHandler;
 import com.vrozsa.crowframework.screen.internal.ScreenHandlerConfig;
+import com.vrozsa.crowframework.screen.ui.UIFontTemplate;
 import com.vrozsa.crowframework.screen.ui.UIIcon;
 import com.vrozsa.crowframework.screen.ui.UIIconTemplate;
 import com.vrozsa.crowframework.screen.ui.UILabel;
@@ -111,11 +112,15 @@ class CrowScreenManager implements ScreenManager, OffsetGetter {
         return icon;
     }
 
-    public UILabel addLabel(final String text, final Rect rect) {
-        var template = new UILabelTemplate();
-        template.setText(text);
-        template.setRect(rect);
-        var label = UILabel.from(template);
+    public UILabel addLabel(final String text, final int size, final Rect rect) {
+        var uiFontTemplate = new UIFontTemplate();
+        uiFontTemplate.setSize(size);
+
+        var labelTemplate = new UILabelTemplate();
+        labelTemplate.setText(text);
+        labelTemplate.setRect(rect);
+        labelTemplate.setFont(uiFontTemplate);
+        var label = UILabel.from(labelTemplate);
         getUIView().addComponent(label);
 
         return label;

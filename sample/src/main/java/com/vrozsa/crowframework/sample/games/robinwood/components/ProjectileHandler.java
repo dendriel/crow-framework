@@ -23,13 +23,13 @@ public class ProjectileHandler extends AbstractComponent {
         projectiles = new HashMap<>();
     }
 
-    public void spawnProjectile(final String type, final int x, final int y, final Direction direction) {
+    public void spawnProjectile(final String type, final int x, final int y, final Direction direction, final GameObject owner) {
         var projectile = getProjectile(type);
 
         var projectileController = projectile.getComponent(ProjectileController.class);
         assert projectileController != null : "Projectile has no controller!";
 
-        projectileController.activate(x, y, direction);
+        projectileController.activate(x, y, direction, owner);
     }
 
     private GameObject getProjectile(final String type) {
