@@ -1,11 +1,8 @@
 plugins {
-    id 'java-library'
     id 'maven-publish'
 }
 
-group = 'com.vrozsa.crowframework'
-version = '1.0.0'
-description = 'Crow Game Engine'
+//description = 'Crow Game Engine'
 
 repositories {
     mavenCentral()
@@ -13,49 +10,74 @@ repositories {
 
 dependencies {
     implementation project(path: ':screen')
-    implementation project(path: ':shared')
+    api project(path: ':shared')
     implementation project(path: ':input')
     implementation project(path: ':game')
     testImplementation platform('org.junit:junit-bom:5.9.1')
     testImplementation 'org.junit.jupiter:junit-jupiter'
 }
 
-java {
-    withJavadocJar()
-    withSourcesJar()
-}
-
 test {
     useJUnitPlatform()
 }
 
-
-
 java {
     withJavadocJar()
     withSourcesJar()
 }
 
-publishing {
-//    repositories {
-//        maven {
-//            name = 'nexus'
-//            url = 'http://localhost:8010/repository/maven-releases/'
-//            allowInsecureProtocol = true
-//            credentials {
-//                username = System.getenv("NEXUS_USER")
-//                password = System.getenv("NEXUS_PASS")
-//            }
-//        }
-//    }
+tasks.named('jar') {
+    enabled = true
+    // avoid the "-plain" suffix that may cause compatibilities issues with maven
+    archiveClassifier = ''
 
-    repositories {
-        mavenLocal()
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
+    dependsOn 'javadoc'
+
+    manifest {
+        attributes('Implementation-Title': project.name,
+                'Implementation-Version': project.version)
     }
+}
 
+tasks.register('fatJar', Jar) {
+    dependsOn(':shared:jar', ':screen:jar', ':game:jar', ':audio:jar', ':input:jar')
+
+    manifest.from jar.manifest
+    // TODO: Review this. It is including third-part files and maybe replacing ours.
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    } {
+        exclude "META-INF/*.SF"
+        exclude "META-INF/*.DSA"
+        exclude "META-INF/*.RSA"
+    }
+    with jar
+}
+
+artifacts {
+    archives fatJar
+}
+
+publishing {
+    repositories {
+        maven {
+            name = 'nexus'
+            url = 'http://localhost:8010/repository/maven-releases/'
+            allowInsecureProtocol = true
+            credentials {
+                username = System.getenv("NEXUS_USER")
+                password = System.getenv("NEXUS_PASS")
+            }
+        }
+    }
     publications {
         mavenJava(MavenPublication) {
-            from components.java
+            artifactId = 'crow-engine'
+//            from components.java
+            artifact fatJar
 
             versionMapping {
                 usage('java-api') {
@@ -91,40 +113,4 @@ publishing {
             }
         }
     }
-}
-
-//tasks.named('bootJar') {
-//    enabled = false
-//}
-
-tasks.named('jar') {
-    enabled = true
-    // avoid the "-plain" suffix that may cause compatibilities issues with maven
-    archiveClassifier = ''
-
-    dependsOn 'javadoc'
-
-    manifest {
-        attributes('Implementation-Title': project.name,
-                'Implementation-Version': project.version)
-    }
-}
-
-tasks.register('fatJar', Jar) {
-    manifest.from jar.manifest
-    // TODO: Review this. It is including third-part files and maybe replacing ours.
-    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-//    classifier = 'all'
-    from {
-        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
-    } {
-        exclude "META-INF/*.SF"
-        exclude "META-INF/*.DSA"
-        exclude "META-INF/*.RSA"
-    }
-    with jar
-}
-
-artifacts {
-    archives fatJar
 }

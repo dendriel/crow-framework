@@ -1,4 +1,4 @@
-package com.vrozsa.crowframework;
+package com.vrozsa.crowframework.input;
 
 import com.vrozsa.crowframework.shared.api.input.InputHandler;
 import com.vrozsa.crowframework.shared.api.input.InputKey;
