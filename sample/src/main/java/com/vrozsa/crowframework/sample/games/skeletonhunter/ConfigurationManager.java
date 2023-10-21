@@ -77,13 +77,13 @@ public final class ConfigurationManager {
     public static final int HERO_MAX_LIFE = 3;
     public static final int WARRIOR_SCORE_VALUE = 100;
 
-    public static final Rect HERO_COLLISION_RECT = Rect.of(22, -20, 35 ,70);
-    public static final Rect PROJECTILE_COLLISION_RECT = Rect.of(5, 30, 60, 20);
+    public static final Rect HERO_COLLISION_RECT = Rect.of(28, -20, 20 ,70);
+    public static final Rect PROJECTILE_COLLISION_RECT = Rect.of(10, 30, 55, 20);
     public static final Rect PROJECTILE_MELEE_COLLISION_RECT = Rect.of(10, 10, 60, 60);
     public static final Rect TOP_TREE_COLLISION_RECT = Rect.of(0, 0, 80 ,40);
     public static final Rect BOTTOM_TREE_COLLISION_RECT = Rect.of(0, 40, 80 ,40);
 
-    private static Random randomizer = new Random();
+    private static final Random randomizer = new Random();
 
     public static Offset getCharScreenCenter() {
         int halfCharWidth = SPRITE_WIDTH / 2;
