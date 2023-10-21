@@ -1,9 +1,11 @@
 plugins {
-    id 'java'
+    id 'java-library'
+    id 'maven-publish'
 }
 
 group = 'com.vrozsa.crowframework'
-version = '0.0.1-SNAPSHOT'
+version = '1.0.0'
+description = 'Crow Game Engine'
 
 repositories {
     mavenCentral()
@@ -18,6 +20,111 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter'
 }
 
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
 test {
     useJUnitPlatform()
+}
+
+
+
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
+publishing {
+//    repositories {
+//        maven {
+//            name = 'nexus'
+//            url = 'http://localhost:8010/repository/maven-releases/'
+//            allowInsecureProtocol = true
+//            credentials {
+//                username = System.getenv("NEXUS_USER")
+//                password = System.getenv("NEXUS_PASS")
+//            }
+//        }
+//    }
+
+    repositories {
+        mavenLocal()
+    }
+
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+
+            versionMapping {
+                usage('java-api') {
+                    fromResolutionOf('runtimeClasspath')
+                }
+                usage('java-runtime') {
+                    fromResolutionResult()
+                }
+            }
+
+            pom {
+                name = 'Crow Engine'
+                description = 'A game 2D engine for java game development.'
+                url = 'https://github.com/dendriel/crow-framework'
+                licenses {
+                    license {
+                        name = 'MIT License'
+                        url = 'https://opensource.org/license/mit/'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'dendriel'
+                        name = 'Vitor Rozsa'
+                        email = 'vitor.rozsa@hotmail.com'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:git@github.com:dendriel/crow-framework.git'
+                    developerConnection = 'scm:git:git@github.com:dendriel/crow-framework.git'
+                    url = 'https://github.com/dendriel/crow-framework'
+                }
+            }
+        }
+    }
+}
+
+//tasks.named('bootJar') {
+//    enabled = false
+//}
+
+tasks.named('jar') {
+    enabled = true
+    // avoid the "-plain" suffix that may cause compatibilities issues with maven
+    archiveClassifier = ''
+
+    dependsOn 'javadoc'
+
+    manifest {
+        attributes('Implementation-Title': project.name,
+                'Implementation-Version': project.version)
+    }
+}
+
+tasks.register('fatJar', Jar) {
+    manifest.from jar.manifest
+    // TODO: Review this. It is including third-part files and maybe replacing ours.
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+//    classifier = 'all'
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    } {
+        exclude "META-INF/*.SF"
+        exclude "META-INF/*.DSA"
+        exclude "META-INF/*.RSA"
+    }
+    with jar
+}
+
+artifacts {
+    archives fatJar
 }
