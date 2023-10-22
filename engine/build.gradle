@@ -76,7 +76,7 @@ publishing {
     }
     publications {
         mavenJava(MavenPublication) {
-            artifactId = 'crow-engine'
+            artifactId = 'crow-framework'
 //            from components.java
             artifact fatJar
 
