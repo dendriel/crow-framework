@@ -1,14 +1,23 @@
-
 subprojects {
-    apply plugin: 'java'
     apply plugin: 'java-library'
 
     repositories {
         mavenCentral()
     }
 
+    ext {
+        lombokVersion = '1.18.30'
+        jacksonDatabindVersion = '2.15.2'
+    }
+
     dependencies {
-        implementation 'com.fasterxml.jackson.core:jackson-databind:2.10.0.pr2'
+        implementation "com.fasterxml.jackson.core:jackson-databind:${jacksonDatabindVersion}"
+
+        compileOnly "org.projectlombok:lombok:${lombokVersion}"
+        annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+
+        testCompileOnly "org.projectlombok:lombok:${lombokVersion}"
+        testAnnotationProcessor "org.projectlombok:lombok:${lombokVersion}"
     }
 
     test {
@@ -17,7 +26,9 @@ subprojects {
 
     java {
         toolchain {
-            languageVersion = JavaLanguageVersion.of(11)
+            languageVersion = JavaLanguageVersion.of(21)
         }
     }
 }
+
+//project(':engine').tasks.jar.dependsOn project(':screen').tasks.jar

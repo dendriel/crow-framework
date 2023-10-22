@@ -1,0 +1,5 @@
+description('Crow Framework Screen Resources')
+
+dependencies {
+    implementation project(path: ':shared')
+}

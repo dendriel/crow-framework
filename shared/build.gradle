@@ -1,0 +1,6 @@
+description('Crow Framework Screen Resources')
+
+dependencies {
+    // Affected by CVE-2020-15250. https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-15250
+    implementation 'org.imgscalr:imgscalr-lib:4.2'
+}
