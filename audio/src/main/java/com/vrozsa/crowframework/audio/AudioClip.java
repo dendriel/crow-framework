@@ -19,24 +19,24 @@ import static com.vrozsa.crowframework.shared.time.TimeUtils.microToMilli;
 final class AudioClip {
     private static final LoggerService logger = LoggerService.of(AudioClip.class);
     private final AudioClipMetadata data;
-    private final URL soundUrl;
+    private final URL audioUrl;
     private AudioInputStream audioStream;
     private Clip clip;
     private long length;
 
-    private AudioClip(AudioClipMetadata data, URL soundUrl) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+    private AudioClip(AudioClipMetadata data, URL audioUrl) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         this.data = data;
-        this.soundUrl = soundUrl;
+        this.audioUrl = audioUrl;
         load();
     }
 
-    public static AudioClip of(AudioClipMetadata data, URL soundUrl)
+    public static AudioClip of(AudioClipMetadata data, URL audioUrl)
             throws UnsupportedAudioFileException, LineUnavailableException, IOException {
-        return new AudioClip(data, soundUrl);
+        return new AudioClip(data, audioUrl);
     }
 
     private void load() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
-        audioStream = AudioSystem.getAudioInputStream(soundUrl);
+        audioStream = AudioSystem.getAudioInputStream(audioUrl);
         var info = new DataLine.Info(Clip.class, audioStream.getFormat());
         clip = (Clip)AudioSystem.getLine(info);
         length = microToMilli(clip.getMicrosecondLength());
@@ -44,6 +44,12 @@ final class AudioClip {
 
     public String getKey() {
         return data.key();
+    }
+
+    public void stop() {
+        if (clip.isRunning()) {
+            clip.stop();
+        }
     }
 
     public void play(boolean wait) {

@@ -17,7 +17,7 @@ import com.vrozsa.crowframework.shared.api.game.Component;
 import com.vrozsa.crowframework.shared.api.game.GameObject;
 import com.vrozsa.crowframework.shared.api.screen.Offsetable;
 import com.vrozsa.crowframework.shared.api.screen.Sprite;
-import com.vrozsa.crowframework.shared.api.sound.AudioClipPlayer;
+import com.vrozsa.crowframework.shared.api.audio.AudioClipPlayer;
 import com.vrozsa.crowframework.shared.attributes.Color;
 import com.vrozsa.crowframework.shared.attributes.Offset;
 import com.vrozsa.crowframework.shared.attributes.Rect;
@@ -271,8 +271,8 @@ public final class GameObjectBuilder  {
     }
 
     /**
-     * Adds the capability of playing audio in the game.
-     * @param audioClipPlayer the sound effects player provided by the enfine.
+     * Adds the capability of playing audio clips in the game.
+     * @param audioClipPlayer the audio clips player provided by the engine.
      * @return the builder object.
      */
     public GameObjectBuilder addAudioPlayer(final AudioClipPlayer audioClipPlayer) {

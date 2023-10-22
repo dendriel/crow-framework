@@ -1,4 +1,4 @@
-package com.vrozsa.crowframework.shared.api.sound;
+package com.vrozsa.crowframework.shared.api.audio;
 
 /**
  * Allows to play audio clips.
@@ -11,9 +11,15 @@ public interface AudioClipPlayer {
     void play(String key);
 
     /**
+     * Stops an ongoing audio clip playback.
+     * @param key the audio clip to be stopped.
+     */
+    void stop(String key);
+
+    /**
      * Plays an audio clip and wait until it has finished (will block).
      * <p>
-     *     WARNING: if used to play an audio clip set to loop, will block forever.
+     *     WARNING: should not be combined with a audio clip set to loop.
      * </p>
      * @param key the key from the audio clip to be played.
      */

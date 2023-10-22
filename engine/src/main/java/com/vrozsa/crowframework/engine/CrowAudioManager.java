@@ -2,7 +2,7 @@ package com.vrozsa.crowframework.engine;
 
 import com.vrozsa.crowframework.audio.AudioClipMetadata;
 import com.vrozsa.crowframework.audio.AudioHandler;
-import com.vrozsa.crowframework.shared.api.sound.AudioClipPlayer;
+import com.vrozsa.crowframework.shared.api.audio.AudioClipPlayer;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -15,36 +15,32 @@ import static java.util.Objects.requireNonNull;
  */
 class CrowAudioManager implements AudioManager {
     private static final String DEFAULT_AUDIO_FILEPATH = "/audio";
-    private final AudioHandler sfxHandler;
-    private final HashMap<String, AudioClipMetadata> sfxData;
+    private final AudioHandler audioHandler;
+    private final HashMap<String, AudioClipMetadata> clipMetadata;
 
     public CrowAudioManager() {
         this(DEFAULT_AUDIO_FILEPATH);
     }
 
     /**
-     * @param assetsPath path in which sound files can be found.
+     * @param assetsPath path in which audio files can be found.
      */
     public CrowAudioManager(final String assetsPath) {
-        this.sfxHandler = AudioHandler.create(this::get, String.format("%s/%s", assetsPath, DEFAULT_AUDIO_FILEPATH));
-        sfxData = new HashMap<>();
+        this.audioHandler = AudioHandler.create(this::get, String.format("%s/%s", assetsPath, DEFAULT_AUDIO_FILEPATH));
+        clipMetadata = new HashMap<>();
     }
 
     public Optional<AudioClipMetadata> get(String name) {
-        return Optional.of(sfxData.get(name));
+        return Optional.of(clipMetadata.get(name));
     }
 
     @Override
     public void addAudioClipMetadata(Collection<AudioClipMetadata> metadata) {
         requireNonNull(metadata);
-        metadata.forEach(data ->  sfxData.put(data.key(), data));
+        metadata.forEach(data ->  clipMetadata.put(data.key(), data));
     }
 
-    /**
-     * Gets the sound effect player.
-     * @return the sound effect player instance.
-     */
     public AudioClipPlayer getPlayer() {
-        return sfxHandler;
+        return audioHandler;
     }
 }

@@ -3,7 +3,7 @@ package com.vrozsa.crowframework.audio;
 import static java.util.Objects.isNull;
 
 /**
- * Null implementation of AudioPlayer that plays no sounds and can be used to replace the real implementation in certain
+ * Null implementation of AudioPlayer that plays no audio and can be used to replace the real implementation in certain
  * situations.
  * <p>
  *     See 'Null Object' behavioral pattern.
@@ -29,6 +29,11 @@ final class NullAudioHandler implements AudioHandler {
 
     @Override
     public void play(String key) {
+        // Null object implementation.
+    }
+
+    @Override
+    public void stop(String key) {
         // Null object implementation.
     }
 

@@ -15,7 +15,7 @@ public class PlayAudioClipLoop {
                 .key("teleport")
                 .file("teleport.wav")
                 .loop(true)
-                .build()),"/assets/sounds/");
+                .build()), "/assets/audio/");
 
         audioHandler.play("teleport");
 

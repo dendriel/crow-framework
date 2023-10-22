@@ -9,12 +9,12 @@ import java.util.Optional;
 /**
  * Simple audio clip playing sample.
  */
-public class PlayAudioClip {
+public class PlaySyncAudioClip {
     public static void main(String[] args) {
         var audioHandler = AudioHandler.create(fileName -> Optional.of(AudioClipMetadata.builder()
                 .key("teleport")
                 .file("teleport.wav")
-                .build()),"/assets/sounds/");
+                .build()),"/assets/audio/");
 
         audioHandler.playSync("teleport");
     }

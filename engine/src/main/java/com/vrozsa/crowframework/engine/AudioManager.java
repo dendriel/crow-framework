@@ -1,7 +1,7 @@
 package com.vrozsa.crowframework.engine;
 
 import com.vrozsa.crowframework.audio.AudioClipMetadata;
-import com.vrozsa.crowframework.shared.api.sound.AudioClipPlayer;
+import com.vrozsa.crowframework.shared.api.audio.AudioClipPlayer;
 
 import java.util.Collection;
 
@@ -11,13 +11,13 @@ import java.util.Collection;
 public interface AudioManager {
     /**
      * Add audio metadata to be played later in the game.
-     * @param newSfxData sfx data to be added.
+     * @param metadata audio clip medata to be added.
      */
-    void addAudioClipMetadata(Collection<AudioClipMetadata> newSfxData);
+    void addAudioClipMetadata(Collection<AudioClipMetadata> metadata);
 
     /**
-     * Gets the sound effect player.
-     * @return the sound effect player instance.
+     * Gets the audio clips player.
+     * @return the audio clips player instance.
      */
     AudioClipPlayer getPlayer();
 }
