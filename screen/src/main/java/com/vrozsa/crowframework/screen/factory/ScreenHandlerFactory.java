@@ -1,16 +1,11 @@
 package com.vrozsa.crowframework.screen.factory;
 
-import com.vrozsa.crowframework.screen.api.ScreenType;
-import com.vrozsa.crowframework.screen.internal.ScreenHandler;
-import com.vrozsa.crowframework.screen.internal.ScreenHandlerConfig;
-import com.vrozsa.crowframework.shared.api.input.InputHandler;
-import com.vrozsa.crowframework.shared.attributes.Size;
-import com.vrozsa.crowframework.shared.logger.LoggerService;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ScreenHandlerFactory {
+    /*
     private static final LoggerService logger = LoggerService.of(ScreenHandlerFactory.class);
 
     public static ScreenHandler createWithSimpleScreen(final String backgroundImageFile, final InputHandler inputHandler) {
@@ -62,4 +57,5 @@ public class ScreenHandlerFactory {
 
         return screenHandler;
     }
+     */
 }

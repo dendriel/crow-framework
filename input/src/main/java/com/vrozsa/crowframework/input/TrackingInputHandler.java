@@ -1,9 +1,8 @@
 package com.vrozsa.crowframework.input;
 
-import com.vrozsa.crowframework.shared.api.input.InputHandler;
 import com.vrozsa.crowframework.shared.api.input.InputKey;
+import com.vrozsa.crowframework.shared.api.input.KeysListener;
 
-import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.HashSet;
@@ -15,7 +14,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * Keep tracks of pressed keys.
  * WARNING: Must be attached to a screen component.
  */
-public class TrackingInputHandler implements InputHandler {
+public class TrackingInputHandler implements InputHandler, KeysListener {
     private final ReentrantLock keysLock;
     private final EnumMap<InputKey, Boolean> keys;
     private final Set<InputKey> pressedKeys;
@@ -50,12 +49,13 @@ public class TrackingInputHandler implements InputHandler {
     }
 
     @Override
-    public void keyPressed(KeyEvent e) {
-        int keyCode = e.getKeyCode();
+    public KeysListener asKeysListener() {
+        return this;
+    }
 
-        InputKey input = InputKey.from(keyCode);
+    @Override
+    public void onKeyPressed(InputKey input) {
         if (input == InputKey.UNKNOWN) {
-            System.out.println("Unmapped Keycode pressed: " + keyCode);
             return;
         }
 
@@ -69,12 +69,8 @@ public class TrackingInputHandler implements InputHandler {
     }
 
     @Override
-    public void keyReleased(KeyEvent e) {
-        int keyCode = e.getKeyCode();
-
-        InputKey input = InputKey.from(keyCode);
+    public void onKeyReleased(InputKey input) {
         if (input == InputKey.UNKNOWN) {
-            System.out.println("Unmapped Keycode released: " + keyCode);
             return;
         }
 
@@ -88,7 +84,8 @@ public class TrackingInputHandler implements InputHandler {
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {
+    public void onKeyTyped(InputKey input) {
+        // Skip.
     }
 
     @Override

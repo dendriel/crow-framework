@@ -2,7 +2,7 @@ package com.vrozsa.crowframework.screen.ui;
 
 import com.vrozsa.crowframework.shared.api.game.GameCommand;
 import com.vrozsa.crowframework.shared.api.game.BaseComponent;
-import com.vrozsa.crowframework.shared.api.input.InputHandler;
+import com.vrozsa.crowframework.shared.api.input.KeysReader;
 import com.vrozsa.crowframework.shared.api.input.InputKey;
 import com.vrozsa.crowframework.screen.ui.api.ISlotGroupControllerCommand;
 
@@ -12,12 +12,12 @@ import java.util.Map;
 
 public abstract class AbstractSlotGroupController implements BaseComponent {
     protected final Map<GameCommand, ISlotGroupControllerCommand> inputToCommandMapper;
-    private final InputHandler input;
+    private final KeysReader keysReader;
     protected GameCommand lastCommand;
     protected boolean isInterrupt;
 
-    public AbstractSlotGroupController(InputHandler input) {
-        this.input = input;
+    public AbstractSlotGroupController(KeysReader keysReader) {
+        this.keysReader = keysReader;
         inputToCommandMapper = new HashMap<>();
 
         mapInputToControllerCommands();
@@ -34,7 +34,7 @@ public abstract class AbstractSlotGroupController implements BaseComponent {
     protected abstract void hideView();
 
     public void handle() {
-        input.clear();
+        keysReader.clear();
         isInterrupt = false;
         showView();
 
@@ -44,7 +44,7 @@ public abstract class AbstractSlotGroupController implements BaseComponent {
         } while (keepGoing);
 
         hideView();
-        input.clear();
+        keysReader.clear();
     }
 
     private boolean handleSlotGroupInteraction() {
@@ -52,7 +52,7 @@ public abstract class AbstractSlotGroupController implements BaseComponent {
             return false;
         }
 
-        InputKey inputKey = input.getNext();
+        InputKey inputKey = keysReader.getNext();
         lastCommand = GameCommand.from(inputKey);
 
         if (isCloseCommand(lastCommand)) {

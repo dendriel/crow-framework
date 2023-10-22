@@ -1,10 +1,12 @@
 package com.vrozsa.crowframework.screen.internal;
 
 import com.vrozsa.crowframework.screen.api.WindowCloseRequestListener;
-import com.vrozsa.crowframework.shared.api.input.InputHandler;
+import com.vrozsa.crowframework.shared.api.input.InputKey;
+import com.vrozsa.crowframework.shared.api.input.KeysListener;
 import com.vrozsa.crowframework.shared.api.screen.Screen;
 import com.vrozsa.crowframework.shared.attributes.Offset;
 import com.vrozsa.crowframework.shared.attributes.Size;
+import com.vrozsa.crowframework.shared.logger.LoggerService;
 import lombok.AllArgsConstructor;
 
 import javax.swing.ActionMap;
@@ -13,6 +15,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.WindowEvent;
 import java.util.HashSet;
 import java.util.concurrent.ConcurrentHashMap;
@@ -20,6 +24,8 @@ import java.util.concurrent.ConcurrentMap;
 
 @AllArgsConstructor
 public class ScreenHandler {
+    private static final LoggerService logger = LoggerService.of(ScreenHandler.class);
+
     private final ScreenHandlerConfig config;
     private final JFrame frame;
     private final ConcurrentMap<String, Screen> screens;
@@ -29,19 +35,19 @@ public class ScreenHandler {
         this(config, null);
     }
 
-    public ScreenHandler(final ScreenHandlerConfig config, final InputHandler inputHandler) {
+    public ScreenHandler(final ScreenHandlerConfig config, final KeysListener keysListener) {
         this.config = config;
         frame = new JFrame();
         screens = new ConcurrentHashMap<>();
         onWindowCloseRequestListeners = new HashSet<>();
-        setup(inputHandler);
+        setup(keysListener);
     }
 
-    private void setup(InputHandler inputHandler) {
+    private void setup(KeysListener keysListener) {
         setupWindow();
 
-        if (inputHandler != null) {
-            setupInputHandler(inputHandler);
+        if (keysListener != null) {
+            setupKeysListener(keysListener);
         }
 
         setVisible(config.isVisible());
@@ -78,8 +84,8 @@ public class ScreenHandler {
 
     public Offset getPosition() {
         var insets = frame.getInsets();
-        int insetWidth = insets.left;// + insets.right;
-        int insetHeight = insets.top;// + insets.bottom;
+        var insetWidth = insets.left;// + insets.right;
+        var insetHeight = insets.top;// + insets.bottom;
 
         java.awt.Point point = frame.getLocation();
 
@@ -124,17 +130,6 @@ public class ScreenHandler {
 
         var newSize = new Size(newWidth, newHeight);
         screens.values().forEach(s -> s.resize(newSize));
-    }
-
-    private void setupInputHandler(InputHandler inputListener) {
-        var textField = new JTextField();
-        textField.addKeyListener(inputListener);
-        textField.setBorder(null);
-        // Allow tab key to be noticed.
-        textField.setFocusTraversalKeysEnabled(false);
-        // Clear ActionMap so we won't run on special text actions errors (e.g.: shift + letter; ctrl + a; ctrl + c, etc).
-        textField.setActionMap(new ActionMap());
-        frame.add(textField);
     }
 
     private void compensateInsets(Size size) {
@@ -219,5 +214,32 @@ public class ScreenHandler {
 
     public Size getWindowSize() {
         return new Size(frame.getWidth(), frame.getHeight());
+    }
+
+    private void setupKeysListener(KeysListener keysListener) {
+        var textField = new JTextField();
+        textField.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                int keyCode = e.getKeyCode();
+                keysListener.onKeyTyped(InputKey.from(keyCode));
+            }
+            @Override
+            public void keyPressed(KeyEvent e) {
+                int keyCode = e.getKeyCode();
+                keysListener.onKeyPressed(InputKey.from(keyCode));
+            }
+            @Override
+            public void keyReleased(KeyEvent e) {
+                int keyCode = e.getKeyCode();
+                keysListener.onKeyReleased(InputKey.from(keyCode));
+            }
+        });
+        textField.setBorder(null);
+        // Allow tab key to be noticed.
+        textField.setFocusTraversalKeysEnabled(false);
+        // Clear ActionMap so we won't run on special text actions errors (e.g.: shift + letter; ctrl + a; ctrl + c, etc).
+        textField.setActionMap(new ActionMap());
+        frame.add(textField);
     }
 }

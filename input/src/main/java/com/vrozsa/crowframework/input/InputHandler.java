@@ -1,12 +1,15 @@
-package com.vrozsa.crowframework.shared.api.input;
+package com.vrozsa.crowframework.input;
 
-import java.awt.event.KeyListener;
+import com.vrozsa.crowframework.shared.api.input.InputKey;
+import com.vrozsa.crowframework.shared.api.input.KeysListener;
+
 import java.util.List;
 
 /**
  * Handles user keyboard input.
  */
-public interface InputHandler extends KeyListener {
+public interface InputHandler {
+
     /**
      * Get the next key typed by the user available. If there is no key in the cache, will wait until a key is typed.
      * @return the key typed.
@@ -29,4 +32,12 @@ public interface InputHandler extends KeyListener {
      * @param keys target keys to be read.
      */
     void readUntil(final InputKey...keys);
+
+    /**
+     * Gets the keys listener component of the input handler.
+     * <p>
+     *     Used internally to link the input handler with the input channels.
+     * </p>
+     */
+    KeysListener asKeysListener();
 }

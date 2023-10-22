@@ -1,7 +1,7 @@
 # Crow Framework
 ## Audio Module
 
-> Handles in-game music and sound effects.
+> Handles music and sound effects.
 
 Built over the `javax.sound.sampled.*` package.
 

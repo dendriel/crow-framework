@@ -1,10 +1,10 @@
 package com.vrozsa.crowframework.input;
 
-import com.vrozsa.crowframework.shared.api.input.InputHandler;
 import com.vrozsa.crowframework.shared.api.input.InputKey;
+import com.vrozsa.crowframework.shared.api.input.KeysListener;
+import com.vrozsa.crowframework.shared.api.input.KeysReader;
 import com.vrozsa.crowframework.shared.logger.LoggerService;
 
-import java.awt.event.KeyEvent;
 import java.util.List;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -14,13 +14,16 @@ import java.util.concurrent.LinkedBlockingQueue;
  * action after another (so the player types the commands and sees the result progressively).
  * WARNING: Must be attached to a screen component.
  */
-public class BufferedInputHandler implements InputHandler {
+public class BufferedInputHandler implements InputHandler, KeysListener, KeysReader {
     private static final LoggerService logger = LoggerService.of(BufferedInputHandler.class);
+    private static final int MAX_CACHED_INPUTS = 5;
+
+    // Uses a concurrent-able version because both the game-loop and input-thread will be accessing this list.
     private final LinkedBlockingQueue<InputKey> inputs;
     private boolean isKeyReleased = true;
 
     public BufferedInputHandler() {
-        inputs = new LinkedBlockingQueue<>(5);
+        inputs = new LinkedBlockingQueue<>(MAX_CACHED_INPUTS);
     }
 
     public BufferedInputHandler(int inputsBufferSize) {
@@ -50,6 +53,11 @@ public class BufferedInputHandler implements InputHandler {
         } while (!targetKeys.contains(nextInput));
     }
 
+    @Override
+    public KeysListener asKeysListener() {
+        return this;
+    }
+
     public InputKey getNext() {
         try {
             return inputs.take();
@@ -75,21 +83,16 @@ public class BufferedInputHandler implements InputHandler {
 
     /**
      * This keyPressed and keyReleased mechanism allows to add keys into the list only one typed key at a time.
-     * @param e the event to be processed
+     * @param input input key to be processed
      */
     @Override
-    public void keyPressed(KeyEvent e) {
+    public void onKeyPressed(InputKey input) {
         if (!isKeyReleased) {
             return;
         }
 
         isKeyReleased = false;
-
-        int keyCode = e.getKeyCode();
-//        System.out.println("Keycode: " + keyCode);
-        var input = InputKey.from(keyCode);
         if (input == InputKey.UNKNOWN) {
-            logger.warn("Unmapped Keycode: %s", keyCode);
             return;
         }
 
@@ -102,11 +105,12 @@ public class BufferedInputHandler implements InputHandler {
     }
 
     @Override
-    public void keyReleased(KeyEvent e) {
+    public void onKeyReleased(InputKey input) {
         isKeyReleased = true;
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {
+    public void onKeyTyped(InputKey input) {
+        // Skip.
     }
 }

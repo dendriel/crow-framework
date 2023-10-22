@@ -1,9 +1,9 @@
 package com.vrozsa.crowframework.engine;
 
 
+import com.vrozsa.crowframework.input.InputHandler;
 import com.vrozsa.crowframework.input.TrackingInputHandler;
 import com.vrozsa.crowframework.shared.api.game.GameCommand;
-import com.vrozsa.crowframework.shared.api.input.InputHandler;
 import com.vrozsa.crowframework.shared.api.input.InputKey;
 
 import java.util.List;

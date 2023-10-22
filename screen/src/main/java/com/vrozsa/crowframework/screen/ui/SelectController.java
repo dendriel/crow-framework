@@ -1,7 +1,7 @@
 package com.vrozsa.crowframework.screen.ui;
 
 import com.vrozsa.crowframework.shared.api.game.GameCommand;
-import com.vrozsa.crowframework.shared.api.input.InputHandler;
+import com.vrozsa.crowframework.shared.api.input.KeysReader;
 import com.vrozsa.crowframework.screen.ui.api.UISelectOption;
 import com.vrozsa.crowframework.shared.api.audio.AudioClipPlayer;
 
@@ -16,12 +16,12 @@ public class SelectController extends AbstractSlotGroupController implements UIS
 
     private int selectedOptionIndex;
 
-    public SelectController(InputHandler input, UISelect select) {
-        this(input, select, new NullAudioClipPlayer(), null, null);
+    public SelectController(KeysReader keysReader, UISelect select) {
+        this(keysReader, select, new NullAudioClipPlayer(), null, null);
     }
 
-    public SelectController(InputHandler input, UISelect select, AudioClipPlayer audioClipPlayer, String moveClip, String selectClip) {
-        super(input);
+    public SelectController(KeysReader keysReader, UISelect select, AudioClipPlayer audioClipPlayer, String moveClip, String selectClip) {
+        super(keysReader);
         this.select = select;
         this.audioClipPlayer = audioClipPlayer;
         this.moveClip = moveClip;
