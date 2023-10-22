@@ -11,37 +11,39 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
 import java.net.URL;
 
+import static com.vrozsa.crowframework.shared.time.TimeUtils.microToMilli;
+
 /**
- * Handles a sound effect.
+ * Handles audio playback.
  */
-public class Sfx {
-    private static final LoggerService logger = LoggerService.of(Sfx.class);
-    private final SfxData data;
-
+final class AudioClip {
+    private static final LoggerService logger = LoggerService.of(AudioClip.class);
+    private final AudioClipMetadata data;
     private final URL soundUrl;
-
     private AudioInputStream audioStream;
-
     private Clip clip;
+    private long length;
 
-    private Sfx(SfxData data, URL soundUrl) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+    private AudioClip(AudioClipMetadata data, URL soundUrl) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         this.data = data;
         this.soundUrl = soundUrl;
         load();
     }
 
-    public static Sfx of(SfxData data, URL soundUrl) throws UnsupportedAudioFileException, LineUnavailableException, IOException {
-        return new Sfx(data, soundUrl);
+    public static AudioClip of(AudioClipMetadata data, URL soundUrl)
+            throws UnsupportedAudioFileException, LineUnavailableException, IOException {
+        return new AudioClip(data, soundUrl);
     }
 
     private void load() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         audioStream = AudioSystem.getAudioInputStream(soundUrl);
         var info = new DataLine.Info(Clip.class, audioStream.getFormat());
         clip = (Clip)AudioSystem.getLine(info);
+        length = microToMilli(clip.getMicrosecondLength());
     }
 
-    public String getName() {
-        return data.getName();
+    public String getKey() {
+        return data.key();
     }
 
     public void play(boolean wait) {
@@ -50,10 +52,15 @@ public class Sfx {
                 clip.open(audioStream);
             }
             clip.setMicrosecondPosition(0);
+
+            if (data.loop()) {
+                clip.loop(Clip.LOOP_CONTINUOUSLY);
+            }
+
             clip.start();
         }
-        catch (Exception e) {
-           logger.error("Could not play audio clip! [%s]. Ex.: %s\n", data.getName(), e);
+        catch (LineUnavailableException|IOException e) {
+            logger.error("Could not play audio clip! [%s]. Ex.: %s\n", data.key(), e);
         }
 
         if (!wait) {
@@ -61,10 +68,10 @@ public class Sfx {
         }
 
         try {
-            Thread.sleep(data.getLength());
+            Thread.sleep(length);
         }
         catch (InterruptedException e) {
-            logger.warn("Failed to wait for audio clip to play! [%s]. Ex.:", data.getName(), e);
+            logger.warn("Failed to wait for audio clip to play! [%s]. Ex.:", data.key(), e);
         }
 
         // closing the clip takes too long!

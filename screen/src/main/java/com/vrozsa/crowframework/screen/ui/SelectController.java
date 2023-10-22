@@ -3,11 +3,11 @@ package com.vrozsa.crowframework.screen.ui;
 import com.vrozsa.crowframework.shared.api.game.GameCommand;
 import com.vrozsa.crowframework.shared.api.input.InputHandler;
 import com.vrozsa.crowframework.screen.ui.api.UISelectOption;
-import com.vrozsa.crowframework.shared.api.sound.SfxPlayer;
+import com.vrozsa.crowframework.shared.api.sound.AudioClipPlayer;
 
 public class SelectController extends AbstractSlotGroupController implements UISelect.SelectOptionListener {
     private final UISelect select;
-    private final SfxPlayer sfxPlayer;
+    private final AudioClipPlayer audioClipPlayer;
     private final String moveSfx;
     private final String selectSfx;
     private GameCommand closeCommand;
@@ -17,13 +17,13 @@ public class SelectController extends AbstractSlotGroupController implements UIS
     private int selectedOptionIndex;
 
     public SelectController(InputHandler input, UISelect select) {
-        this(input, select, new NullSfxPlayer(), null, null);
+        this(input, select, new NullAudioClipPlayer(), null, null);
     }
 
-    public SelectController(InputHandler input, UISelect select, SfxPlayer sfxPlayer, String moveSfx, String selectSfx) {
+    public SelectController(InputHandler input, UISelect select, AudioClipPlayer audioClipPlayer, String moveSfx, String selectSfx) {
         super(input);
         this.select = select;
-        this.sfxPlayer = sfxPlayer;
+        this.audioClipPlayer = audioClipPlayer;
         this.moveSfx = moveSfx;
         this.selectSfx = selectSfx;
         select.registerListener(this);
@@ -44,17 +44,17 @@ public class SelectController extends AbstractSlotGroupController implements UIS
 
     private void moveHandlerDown() {
         select.moveHandlerDown();
-        sfxPlayer.play(moveSfx);
+        audioClipPlayer.play(moveSfx);
     }
 
     private void moveHandlerUp() {
         select.moveHandlerUp();
-        sfxPlayer.play(moveSfx);
+        audioClipPlayer.play(moveSfx);
     }
 
     private void select() {
         select.select();
-        sfxPlayer.play(selectSfx);
+        audioClipPlayer.play(selectSfx);
     }
 
     public UISelectOption getOption() {

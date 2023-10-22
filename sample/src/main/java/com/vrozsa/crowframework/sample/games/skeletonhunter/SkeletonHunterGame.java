@@ -23,7 +23,7 @@ public class SkeletonHunterGame {
                 .build();
 
         var crowEngine = CrowEngine.create(config);
-        crowEngine.getAudioManager().addAudio(getAudioData());
+        crowEngine.getAudioManager().addAudioClipMetadata(getAudioData());
 
         var factory = new GameObjectFactory(crowEngine);
 

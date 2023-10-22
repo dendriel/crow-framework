@@ -1,30 +1,30 @@
 package com.vrozsa.crowframework.game.component.audio;
 
 import com.vrozsa.crowframework.game.component.AbstractComponent;
-import com.vrozsa.crowframework.shared.api.sound.SfxPlayer;
+import com.vrozsa.crowframework.shared.api.sound.AudioClipPlayer;
 
 /**
  * Component to represent the audio-engine.
  * <p>The idea is that every component/game-object that needs audio capability can include requires this component via
  * getComponent (provided it was added to the GO) and play audio files.</p>
  */
-public class AudioPlayer extends AbstractComponent implements SfxPlayer {
-    private final SfxPlayer sfxPlayer;
+public class AudioPlayer extends AbstractComponent implements AudioClipPlayer {
+    private final AudioClipPlayer audioClipPlayer;
 
     /**
-     * @param sfxPlayer the engine capable sound effects player.
+     * @param audioClipPlayer the engine capable sound effects player.
      */
-    public AudioPlayer(final SfxPlayer sfxPlayer) {
-        this.sfxPlayer = sfxPlayer;
+    public AudioPlayer(final AudioClipPlayer audioClipPlayer) {
+        this.audioClipPlayer = audioClipPlayer;
     }
 
     @Override
-    public void play(String name) {
-        sfxPlayer.play(name);
+    public void play(String key) {
+        audioClipPlayer.play(key);
     }
 
     @Override
-    public void playSync(String name) {
-        sfxPlayer.playSync(name);
+    public void playSync(String key) {
+        audioClipPlayer.playSync(key);
     }
 }
