@@ -2,7 +2,6 @@ package com.vrozsa.crowframework.engine;
 
 
 import com.vrozsa.crowframework.input.InputHandler;
-import com.vrozsa.crowframework.input.TrackingInputHandler;
 import com.vrozsa.crowframework.shared.api.game.GameCommand;
 import com.vrozsa.crowframework.shared.api.input.InputKey;
 
@@ -12,7 +11,7 @@ class CrowInputManager implements InputManager {
     private final InputHandler inputHandler;
 
     CrowInputManager() {
-        this.inputHandler = new TrackingInputHandler();
+        this.inputHandler = InputHandler.createTracking();
     }
 
     InputHandler getInputHandler() {

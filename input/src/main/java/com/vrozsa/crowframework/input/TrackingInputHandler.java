@@ -12,24 +12,31 @@ import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * Keep tracks of pressed keys.
- * WARNING: Must be attached to a screen component.
+ * <p>
+ *     WARNING: Must be attached to a screen component.
+ * </p>
  */
-public class TrackingInputHandler implements InputHandler, KeysListener {
+final class TrackingInputHandler implements InputHandler, KeysListener {
     private final ReentrantLock keysLock;
     private final EnumMap<InputKey, Boolean> keys;
     private final Set<InputKey> pressedKeys;
 
-    public TrackingInputHandler() {
+    private TrackingInputHandler() {
         keysLock = new ReentrantLock();
         keys = new EnumMap<>(InputKey.class);
         pressedKeys = new HashSet<>();
+    }
+
+    public static TrackingInputHandler create() {
+        return new TrackingInputHandler();
     }
 
     public boolean isKeyPressed(InputKey key) {
         keysLock.lock();
         try {
             return keys.getOrDefault(key, false);
-        } finally {
+        }
+        finally {
             keysLock.unlock();
         }
     }
@@ -38,7 +45,8 @@ public class TrackingInputHandler implements InputHandler, KeysListener {
         keysLock.lock();
         try {
             return new ArrayList<>(pressedKeys);
-        } finally {
+        }
+        finally {
             keysLock.unlock();
         }
     }
@@ -63,7 +71,8 @@ public class TrackingInputHandler implements InputHandler, KeysListener {
         try {
             keys.put(input, true);
             pressedKeys.add(input);
-        } finally {
+        }
+        finally {
             keysLock.unlock();
         }
     }
@@ -78,7 +87,8 @@ public class TrackingInputHandler implements InputHandler, KeysListener {
         try {
             keys.put(input, false);
             pressedKeys.remove(input);
-        } finally {
+        }
+        finally {
             keysLock.unlock();
         }
     }

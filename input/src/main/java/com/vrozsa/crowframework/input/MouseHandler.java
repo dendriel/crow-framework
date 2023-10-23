@@ -4,14 +4,19 @@ import com.vrozsa.crowframework.shared.attributes.Offset;
 
 import java.awt.MouseInfo;
 
-public class MouseHandler {
+/**
+ * Provides mouse actions information.
+ */
+final class MouseHandler implements PointerHandler {
 
-    public static Offset getRelativePosition(Offset windowPosition) {
-        var point = MouseInfo.getPointerInfo().getLocation();
-        return new Offset((int)point.getX(), (int)point.getY()).sub(windowPosition);
+    private MouseHandler() {}
+
+    public static MouseHandler create() {
+        return new MouseHandler();
     }
 
-    public static Offset getAbsolutePosition() {
+    @Override
+    public Offset getPointerPosition() {
         var point = MouseInfo.getPointerInfo().getLocation();
         return new Offset((int)point.getX(), (int)point.getY());
     }

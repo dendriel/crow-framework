@@ -10,11 +10,15 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * Reads and buffers typed keys until read.
- * This kind of input handler may be useful if we want to track all player commands and reproduce it sequentially one
- * action after another (so the player types the commands and sees the result progressively).
- * WARNING: Must be attached to a screen component.
+ * <p>
+ *     This kind of input handler may be useful if we want to track all player commands and reproduce it sequentially one
+ *     action after another (so the player types the commands and sees the result progressively).
+ * </p>
+ * <p>
+ *     WARNING: Must be attached to a screen component as a KeysListener.
+ * </p>
  */
-public class BufferedInputHandler implements InputHandler, KeysListener, KeysReader {
+final class BufferedInputHandler implements InputHandler, KeysListener, KeysReader {
     private static final LoggerService logger = LoggerService.of(BufferedInputHandler.class);
     private static final int MAX_CACHED_INPUTS = 5;
 
@@ -22,12 +26,20 @@ public class BufferedInputHandler implements InputHandler, KeysListener, KeysRea
     private final LinkedBlockingQueue<InputKey> inputs;
     private boolean isKeyReleased = true;
 
-    public BufferedInputHandler() {
+    private BufferedInputHandler() {
         inputs = new LinkedBlockingQueue<>(MAX_CACHED_INPUTS);
     }
 
-    public BufferedInputHandler(int inputsBufferSize) {
-        inputs = new LinkedBlockingQueue<>(inputsBufferSize);
+    private BufferedInputHandler(int bufferSize) {
+        inputs = new LinkedBlockingQueue<>(bufferSize);
+    }
+
+    public static BufferedInputHandler create() {
+        return new BufferedInputHandler();
+    }
+
+    public static BufferedInputHandler create(int bufferSize) {
+        return new BufferedInputHandler(bufferSize);
     }
 
     public List<InputKey> getPressedKeys() {
