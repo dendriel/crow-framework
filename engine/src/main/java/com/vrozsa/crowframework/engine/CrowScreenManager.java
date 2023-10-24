@@ -1,7 +1,6 @@
 package com.vrozsa.crowframework.engine;
 
 import com.vrozsa.crowframework.game.component.collider.ColliderGizmos;
-import com.vrozsa.crowframework.input.InputHandler;
 import com.vrozsa.crowframework.screen.api.SimpleScreen;
 import com.vrozsa.crowframework.screen.api.WindowCloseRequestListener;
 import com.vrozsa.crowframework.screen.internal.BaseView;
@@ -14,6 +13,8 @@ import com.vrozsa.crowframework.screen.ui.UIIconTemplate;
 import com.vrozsa.crowframework.screen.ui.UILabel;
 import com.vrozsa.crowframework.screen.ui.UILabelTemplate;
 import com.vrozsa.crowframework.shared.api.game.GameObject;
+import com.vrozsa.crowframework.shared.api.input.KeysListener;
+import com.vrozsa.crowframework.shared.api.screen.OffsetGetter;
 import com.vrozsa.crowframework.shared.api.screen.Renderer;
 import com.vrozsa.crowframework.shared.api.screen.Screen;
 import com.vrozsa.crowframework.shared.api.screen.View;
@@ -29,9 +30,8 @@ class CrowScreenManager implements ScreenManager, OffsetGetter {
     private final ScreenHandler screenHandler;
     private final boolean showGizmos;
 
-    CrowScreenManager(
-            final Color bgColor, final boolean showGizmos, final ScreenHandlerConfig screenHandlerConfig, final InputHandler inputHandler) {
-        screenHandler = new ScreenHandler(screenHandlerConfig, inputHandler.asKeysListener());
+    CrowScreenManager(final Color bgColor, final boolean showGizmos, final ScreenHandlerConfig screenHandlerConfig) {
+        screenHandler = new ScreenHandler(screenHandlerConfig);
         this.showGizmos = showGizmos;
         setup(bgColor);
     }
@@ -52,6 +52,10 @@ class CrowScreenManager implements ScreenManager, OffsetGetter {
 
         addScreen(simpleScreen);
         setOnlyScreenVisible(simpleScreen.name(), true);
+    }
+
+    public void setupKeysListener(KeysListener keysListener) {
+        screenHandler.setupKeysListener(keysListener);
     }
 
     @Override

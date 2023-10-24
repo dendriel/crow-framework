@@ -32,24 +32,16 @@ public class ScreenHandler {
     private final HashSet<WindowCloseRequestListener> onWindowCloseRequestListeners;
 
     public ScreenHandler(final ScreenHandlerConfig config) {
-        this(config, null);
-    }
-
-    public ScreenHandler(final ScreenHandlerConfig config, final KeysListener keysListener) {
         this.config = config;
         frame = new JFrame();
         screens = new ConcurrentHashMap<>();
         onWindowCloseRequestListeners = new HashSet<>();
-        setup(keysListener);
+
+        setup();
     }
 
-    private void setup(KeysListener keysListener) {
+    private void setup() {
         setupWindow();
-
-        if (keysListener != null) {
-            setupKeysListener(keysListener);
-        }
-
         setVisible(config.isVisible());
     }
 
@@ -216,7 +208,11 @@ public class ScreenHandler {
         return new Size(frame.getWidth(), frame.getHeight());
     }
 
-    private void setupKeysListener(KeysListener keysListener) {
+    /**
+     * Setup a key listener to listen for keyboard inputs.
+     * @param keysListener the key listener callbacks.
+     */
+    public void setupKeysListener(KeysListener keysListener) {
         var textField = new JTextField();
         textField.addKeyListener(new KeyListener() {
             @Override

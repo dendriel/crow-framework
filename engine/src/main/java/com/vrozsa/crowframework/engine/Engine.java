@@ -19,10 +19,12 @@ class Engine implements CrowEngine {
 
     Engine(final CrowEngineConfig config) {
         this.config = config;
-        inputManager = new CrowInputManager();
         screenManager = setupScreenManager();
+        inputManager = new CrowInputManager(screenManager);
         gameManager = new CrowGameManager(screenManager);
         audioManager = new CrowAudioManager(config.assetsPath());
+
+        screenManager.setupKeysListener(inputManager.getInputHandler().asKeysListener());
 
         gameLoop = RunnableGameLoop.get();
         gameLoop.setScreenUpdateListener(screenManager::update);
@@ -39,7 +41,7 @@ class Engine implements CrowEngine {
                 .title(config.title())
                 .size(Size.of(config.screenWidth(), config.screenHeight()))
                 .build();
-        return new CrowScreenManager(config.color(), config.showGizmos(), screenHandlerConfig, inputManager.getInputHandler());
+        return new CrowScreenManager(config.color(), config.showGizmos(), screenHandlerConfig);
     }
 
     @Override
