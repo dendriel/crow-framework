@@ -14,6 +14,7 @@ import com.vrozsa.crowframework.screen.ui.UILabel;
 import com.vrozsa.crowframework.screen.ui.UILabelTemplate;
 import com.vrozsa.crowframework.shared.api.game.GameObject;
 import com.vrozsa.crowframework.shared.api.input.KeysListener;
+import com.vrozsa.crowframework.shared.api.input.PointerListener;
 import com.vrozsa.crowframework.shared.api.screen.OffsetGetter;
 import com.vrozsa.crowframework.shared.api.screen.Renderer;
 import com.vrozsa.crowframework.shared.api.screen.Screen;
@@ -54,8 +55,9 @@ class CrowScreenManager implements ScreenManager, OffsetGetter {
         setOnlyScreenVisible(simpleScreen.name(), true);
     }
 
-    public void setupKeysListener(KeysListener keysListener) {
+    public void setupInputListeners(KeysListener keysListener, PointerListener pointerListener) {
         screenHandler.setupKeysListener(keysListener);
+        screenHandler.setupPointerListener(pointerListener);
     }
 
     @Override

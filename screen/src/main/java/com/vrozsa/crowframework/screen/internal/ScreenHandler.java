@@ -3,6 +3,7 @@ package com.vrozsa.crowframework.screen.internal;
 import com.vrozsa.crowframework.screen.api.WindowCloseRequestListener;
 import com.vrozsa.crowframework.shared.api.input.InputKey;
 import com.vrozsa.crowframework.shared.api.input.KeysListener;
+import com.vrozsa.crowframework.shared.api.input.PointerListener;
 import com.vrozsa.crowframework.shared.api.screen.Screen;
 import com.vrozsa.crowframework.shared.attributes.Offset;
 import com.vrozsa.crowframework.shared.attributes.Size;
@@ -17,6 +18,8 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.util.HashSet;
 import java.util.concurrent.ConcurrentHashMap;
@@ -237,5 +240,41 @@ public class ScreenHandler {
         // Clear ActionMap so we won't run on special text actions errors (e.g.: shift + letter; ctrl + a; ctrl + c, etc).
         textField.setActionMap(new ActionMap());
         frame.add(textField);
+    }
+
+    /**
+     * Setup a pointer listener to listen for mouse inputs.
+     * @param pointerListener the pointer listener callbacks.
+     */
+    public void setupPointerListener(PointerListener pointerListener) {
+        frame.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                var pos = Offset.of(e.getX(), e.getY());
+                pointerListener.onPointerClicked(pos);
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                var pos = Offset.of(e.getX(), e.getY());
+                pointerListener.onPointerPressed(pos);
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                var pos = Offset.of(e.getX(), e.getY());
+                pointerListener.onPointerReleased(pos);
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                // skip.
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                // skip.
+            }
+        });
     }
 }
