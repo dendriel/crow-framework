@@ -1,7 +1,6 @@
 package com.vrozsa.crowframework.input;
 
 import com.vrozsa.crowframework.shared.api.input.InputKey;
-import com.vrozsa.crowframework.shared.api.input.KeysListener;
 
 import java.util.List;
 
@@ -72,12 +71,4 @@ public interface InputHandler {
      * @param keys target keys to be read.
      */
     void readUntil(final InputKey...keys);
-
-    /**
-     * Gets the keys listener component of the input handler.
-     * <p>
-     *     Used internally to link the input handler with the input channels.
-     * </p>
-     */
-    KeysListener asKeysListener();
 }

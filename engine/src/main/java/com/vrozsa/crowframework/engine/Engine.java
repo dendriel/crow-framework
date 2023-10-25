@@ -1,11 +1,11 @@
 package com.vrozsa.crowframework.engine;
 
 import com.vrozsa.crowframework.game.RunnableGameLoop;
-import com.vrozsa.crowframework.input.InputHandler;
-import com.vrozsa.crowframework.input.PointerHandler;
 import com.vrozsa.crowframework.screen.internal.ScreenHandlerConfig;
 import com.vrozsa.crowframework.shared.api.game.GameLoop;
 import com.vrozsa.crowframework.shared.api.game.GameObject;
+import com.vrozsa.crowframework.shared.api.input.KeysListener;
+import com.vrozsa.crowframework.shared.api.input.PointerListener;
 import com.vrozsa.crowframework.shared.attributes.Size;
 
 /**
@@ -28,7 +28,7 @@ class Engine implements CrowEngine {
 
         var inputHandler = inputManager.getInputHandler();
         var pointerHandler = inputManager.getPointerHandler();
-        screenManager.setupInputListeners(inputHandler.asKeysListener(), pointerHandler.asPointerListener());
+        screenManager.setupInputListeners((KeysListener)inputHandler, (PointerListener)pointerHandler);
 
         gameLoop = RunnableGameLoop.get();
         gameLoop.setScreenUpdateListener(screenManager::update);

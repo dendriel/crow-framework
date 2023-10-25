@@ -65,11 +65,6 @@ final class BufferedInputHandler implements InputHandler, KeysListener, KeysRead
         } while (!targetKeys.contains(nextInput));
     }
 
-    @Override
-    public KeysListener asKeysListener() {
-        return this;
-    }
-
     public InputKey getNext() {
         try {
             return inputs.take();

@@ -1,6 +1,5 @@
 package com.vrozsa.crowframework.input;
 
-import com.vrozsa.crowframework.shared.api.input.PointerListener;
 import com.vrozsa.crowframework.shared.api.input.PointerObserver;
 import com.vrozsa.crowframework.shared.api.screen.OffsetGetter;
 import com.vrozsa.crowframework.shared.attributes.Offset;
@@ -37,14 +36,6 @@ public interface PointerHandler {
      * @return the current pointer position.
      */
     Offset getPointerAbsolutePosition();
-
-    /**
-     * Gets the pointer listener component of the pointer handler.
-     * <p>
-     *     Used internally to link the pointer handler with the input channels.
-     * </p>
-     */
-    PointerListener asPointerListener();
 
     /**
      * Register an observer to receive pointer click events.

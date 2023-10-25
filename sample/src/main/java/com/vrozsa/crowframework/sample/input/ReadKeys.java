@@ -6,19 +6,20 @@ public class ReadKeys {
 
     private static final LoggerService logger = LoggerService.of("ReadKeys Sample");
 
-    public static void main(String[] args) {
-//        BufferedInputHandler inputHandler = new BufferedInputHandler();
-//
-//        ScreenHandler screenHandler = ScreenHandlerFactory.createWithSimpleScreen(BACKGROUND_IMAGE_FILE, inputHandler);
-//
+    public static void main(String[] args) throws InterruptedException {
+
+        // TODO: remake example
+//        var crowEngine = CrowEngine.create();
+//        var inputManager = crowEngine.getInputManager();
 //        logger.debug("Reading keys..");
 //
-//        InputKey next;
+//        GameCommand command;
 //        do {
-//            next = inputHandler.getNext();
-//            logger.debug("Key pressed is.. %s", next);
-//        } while (next != InputKey.ESCAPE);
+////            command = inputManager.getAllCommands();
+//            logger.debug("Key pressed is.. {0}", command);
+//            Thread.sleep(1000);
+//        } while (command != GameCommand.CLOSE);
 //
-//        screenHandler.exit();
+////        screenHandler.exit();
     }
 }

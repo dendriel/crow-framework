@@ -47,11 +47,6 @@ final class MouseHandler implements PointerHandler, PointerListener {
     }
 
     @Override
-    public PointerListener asPointerListener() {
-        return this;
-    }
-
-    @Override
     public void onPointerClicked(Offset pos) {
         clickObservers.forEach(o -> o.onPointerEvent(pos));
     }

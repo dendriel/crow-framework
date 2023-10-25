@@ -57,11 +57,6 @@ final class TrackingInputHandler implements InputHandler, KeysListener {
     }
 
     @Override
-    public KeysListener asKeysListener() {
-        return this;
-    }
-
-    @Override
     public void onKeyPressed(InputKey input) {
         if (input == InputKey.UNKNOWN) {
             return;
