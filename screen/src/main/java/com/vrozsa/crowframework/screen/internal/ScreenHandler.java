@@ -40,10 +40,10 @@ public class ScreenHandler {
         screens = new ConcurrentHashMap<>();
         onWindowCloseRequestListeners = new HashSet<>();
 
-        setup();
+//        setup();
     }
 
-    private void setup() {
+    public void setup() {
         setupWindow();
         setVisible(config.isVisible());
     }
@@ -213,6 +213,9 @@ public class ScreenHandler {
 
     /**
      * Setup a key listener to listen for keyboard inputs.
+     * <p>
+     *     WARNING: must be called before setup().
+     * </p>
      * @param keysListener the key listener callbacks.
      */
     public void setupKeysListener(KeysListener keysListener) {

@@ -31,13 +31,17 @@ class CrowScreenManager implements ScreenManager, OffsetGetter {
     private final ScreenHandler screenHandler;
     private final boolean showGizmos;
 
-    CrowScreenManager(final Color bgColor, final boolean showGizmos, final ScreenHandlerConfig screenHandlerConfig) {
+    CrowScreenManager(final boolean showGizmos, final ScreenHandlerConfig screenHandlerConfig) {
         screenHandler = new ScreenHandler(screenHandlerConfig);
         this.showGizmos = showGizmos;
-        setup(bgColor);
     }
 
-    private void setup(final Color bgColor) {
+    /**
+     * Setup the screens.
+     * @param bgColor frame background color.
+     */
+    public void setup(final Color bgColor) {
+        screenHandler.setup();
         var screenSize = screenHandler.getSize();
 
         var simpleScreen = new SimpleScreen(DEFAULT_SCREEN, screenSize.clone(), bgColor);
