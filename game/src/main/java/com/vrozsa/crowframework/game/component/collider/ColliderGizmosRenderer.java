@@ -12,18 +12,18 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.Objects;
 
-public class ColliderGizmos extends StaticRenderer {
+public class ColliderGizmosRenderer extends StaticRenderer {
     private static final int GIZMOS_LAYER = Integer.MAX_VALUE;
     private static final String GIZMOS_NAME = "COLLISION_GIZMOS";
     private static final int GIZMOS_ALPHA = 35;
     private static final Color GIZMOS_COLOR = Color.green();
     private final java.awt.Color color;
 
-    public ColliderGizmos(final Position position) {
+    public ColliderGizmosRenderer(final Position position) {
         this(position, GIZMOS_COLOR);
     }
 
-    public ColliderGizmos(final Position position, final Color color) {
+    public ColliderGizmosRenderer(final Position position, final Color color) {
         super(position, GIZMOS_LAYER, GIZMOS_NAME, false, false);
 
         this.color = new java.awt.Color(color.getR(), color.getG(), color.getB(), GIZMOS_ALPHA);

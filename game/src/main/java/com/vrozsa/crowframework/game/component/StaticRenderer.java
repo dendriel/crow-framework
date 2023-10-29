@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Set;
 
 public class StaticRenderer extends AbstractComponent implements Renderer, PositionObserver {
-    public static String DEFAULT_STATIC_RENDERER = "_defaultRendererComponent";
+    public static final String DEFAULT_STATIC_RENDERER = "_defaultRendererComponent";
     protected List<Drawable> drawings;
     protected int layer;
     protected Offset pos;
@@ -115,8 +115,8 @@ public class StaticRenderer extends AbstractComponent implements Renderer, Posit
     }
 
     public Size getSize() {
-        int largestW = 0;
-        int largestH = 0;
+        var largestW = 0;
+        var largestH = 0;
 
         for (Drawable d : drawings) {
             Size size = d.getSize();
@@ -185,6 +185,11 @@ public class StaticRenderer extends AbstractComponent implements Renderer, Posit
     public void setEnabled(boolean enabled) {
         super.setEnabled(enabled);
         onRendererChanged();
+    }
+
+    @Override
+    public void update() {
+        // no op.
     }
 
     @Override

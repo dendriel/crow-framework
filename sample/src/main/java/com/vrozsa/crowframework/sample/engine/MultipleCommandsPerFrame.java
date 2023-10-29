@@ -86,7 +86,6 @@ public class MultipleCommandsPerFrame {
 
                     @Override
                     public void update() {
-                        super.update();
                         var commands = inputManager.getAllCommands();
                         var pos = getPosition();
                         int newX = pos.getX();
@@ -171,7 +170,6 @@ public class MultipleCommandsPerFrame {
 
         @Override
         public void update() {
-            super.update();
 
             if (getGameObject().isInactive()) {
                 return;

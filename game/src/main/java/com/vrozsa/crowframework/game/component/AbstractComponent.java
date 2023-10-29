@@ -4,6 +4,13 @@ import com.vrozsa.crowframework.shared.api.game.Component;
 import com.vrozsa.crowframework.shared.api.game.GameObject;
 import com.vrozsa.crowframework.shared.api.game.PositionComponent;
 
+/**
+ * This is the base class for components and can be extended to create custom components.
+ * <p>
+ *     Most of the time, when this class is extended, the only method that will be implemented is the update() method
+ *     which contains the component's script.
+ * </p>
+ */
 public abstract class AbstractComponent implements Component {
     // this should be final....
     protected GameObject gameObject;
@@ -37,10 +44,10 @@ public abstract class AbstractComponent implements Component {
     }
 
     @Override
-    public void earlyUpdate() {}
+    public void wrapUp() {}
 
     @Override
-    public void update() {}
+    public void earlyUpdate() {}
 
     @Override
     public void lateUpdate() {}
@@ -74,11 +81,6 @@ public abstract class AbstractComponent implements Component {
     @Override
     public boolean isDisabled() {
         return !isEnabled;
-    }
-
-    @Override
-    public void wrapUp() {
-        // TODO Auto-generated method stub
     }
 
     @Override

@@ -26,8 +26,6 @@ public class PlayerHUD extends AbstractComponent {
 
     @Override
     public void update() {
-        super.update();
-
         lifesLabel.setText(String.format("Lifes: %d", status.getLife()));
 
         scoreLabel.setText(String.format("Score: %d", status.getScore()));

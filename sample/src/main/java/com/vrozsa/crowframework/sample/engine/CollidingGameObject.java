@@ -56,7 +56,6 @@ public class CollidingGameObject {
 
             @Override
             public void update() {
-                super.update();
                 var command = inputManager.getCommand();
                 var pos = heroGO.getPosition();
                 int newX = pos.getX();

@@ -10,7 +10,7 @@ import com.vrozsa.crowframework.game.component.animation.AnimationTemplate;
 import com.vrozsa.crowframework.game.component.audio.AudioPlayer;
 import com.vrozsa.crowframework.game.component.camera.CameraFollower;
 import com.vrozsa.crowframework.game.component.collider.AbstractCollisionHandler;
-import com.vrozsa.crowframework.game.component.collider.ColliderGizmos;
+import com.vrozsa.crowframework.game.component.collider.ColliderGizmosRenderer;
 import com.vrozsa.crowframework.game.component.collider.SquareCollider;
 import com.vrozsa.crowframework.shared.api.game.CollisionHandler;
 import com.vrozsa.crowframework.shared.api.game.Component;
@@ -123,7 +123,7 @@ public final class GameObjectBuilder  {
      * @return the builder.
      */
     public GameObjectBuilder addAnimatedRenderer(int layer, AnimationTemplate...templates) {
-        var renderer = new AnimatedRenderer(this.position, layer, AnimatedRenderer.DEFAULT_ANIMATED_RENDERER, false, false);
+        var renderer = AnimatedRenderer.create(this.position, layer, AnimatedRenderer.DEFAULT_ANIMATED_RENDERER, false, false);
 
         for (var template : templates) {
             var animation = Animation.of(template);
@@ -216,6 +216,11 @@ public final class GameObjectBuilder  {
     public GameObjectBuilder addCollisionHandler(final CollisionHandler handler) {
         var collisionHandler = new AbstractCollisionHandler() {
             @Override
+            public void update() {
+                // no op.
+            }
+
+            @Override
             protected void handle(GameObject source, GameObject target) {
                 handler.handleCollision(source, target);
             }
@@ -230,7 +235,7 @@ public final class GameObjectBuilder  {
      * @return the builder object.
      */
     public GameObjectBuilder addCollisionGizmos() {
-        var colliderGizmos = new ColliderGizmos(position);
+        var colliderGizmos = new ColliderGizmosRenderer(position);
         components.add(colliderGizmos);
         return this;
     }
@@ -241,7 +246,7 @@ public final class GameObjectBuilder  {
      * @return the builder object.
      */
     public GameObjectBuilder addCollisionGizmos(final Color color) {
-        var colliderGizmos = new ColliderGizmos(position, color);
+        var colliderGizmos = new ColliderGizmosRenderer(position, color);
         components.add(colliderGizmos);
         return this;
     }
@@ -310,6 +315,6 @@ public final class GameObjectBuilder  {
     }
 
     public GameObject build() {
-        return new ComposableGameObject(components, isActive);
+        return ComposableGameObject.create(components, isActive);
     }
 }

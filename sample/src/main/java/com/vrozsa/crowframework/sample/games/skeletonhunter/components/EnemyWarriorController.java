@@ -83,8 +83,6 @@ public class EnemyWarriorController extends AbstractComponent {
 
     @Override
     public void update() {
-        super.update();
-
         if (gameObject.isInactive() || driver.isAttacking() || isNull(target)) {
             return;
         }

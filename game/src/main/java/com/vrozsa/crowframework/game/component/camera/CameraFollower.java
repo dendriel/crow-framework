@@ -42,6 +42,11 @@ public class CameraFollower extends AbstractComponent {
         this.followBox = followBox;
     }
 
+    @Override
+    public void update() {
+        // no op.
+    }
+
     /**
      * Do on late update so the game object had a chance to move.
      */

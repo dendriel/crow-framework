@@ -97,7 +97,6 @@ public class CollisionBlocking {
 
                     @Override
                     public void update() {
-                        super.update();
                         var commands = inputManager.getAllCommands();
                         var pos = getPosition();
 //                        int newX = pos.getX();
@@ -173,8 +172,6 @@ public class CollisionBlocking {
                     final int speed = 5;
                     @Override
                     public void update() {
-                        super.update();
-
                         getPosition().addOffset(Offset.of(speed, 0));
                     }
                 })
@@ -196,8 +193,6 @@ public class CollisionBlocking {
 
         @Override
         public void update() {
-            super.update();
-
             if (getGameObject().isInactive()) {
                 return;
             }

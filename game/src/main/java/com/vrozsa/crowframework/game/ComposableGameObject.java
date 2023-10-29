@@ -10,13 +10,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Game Object representation and container of components.
+ */
 public final class ComposableGameObject implements GameObject {
     public final Position position;
     private final List<Component> components;
-
     private boolean isActive;
 
-    public ComposableGameObject(final List<Component> components, final boolean isActive) {
+    private ComposableGameObject(final List<Component> components, final boolean isActive) {
         this.isActive = isActive;
         this.components = new ArrayList<>(components);
         position = (Position) components.stream()
@@ -28,6 +30,10 @@ public final class ComposableGameObject implements GameObject {
 
         this.components.forEach(c -> c.setGameObject(this));
         this.components.forEach(Component::wrapUp);
+    }
+
+    public static ComposableGameObject create(final List<Component> components, final boolean isActive) {
+        return new ComposableGameObject(components, isActive);
     }
 
     public void earlyUpdate() {

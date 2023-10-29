@@ -12,7 +12,7 @@ import java.util.Objects;
  * Game loop created to use the screen without in stand-alone mode (i.e.: without a real game loop).
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public final class StandAloneGameLoop implements GameLoop, Runnable {
+final class StandAloneGameLoop implements GameLoop, Runnable {
     private static final int DEFAULT_FPS = 60;
     private static final LoggerService logger = LoggerService.of(StandAloneGameLoop.class);
     private static final int gameLoopFPS;

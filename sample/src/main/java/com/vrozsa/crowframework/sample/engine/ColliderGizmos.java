@@ -92,7 +92,6 @@ public class ColliderGizmos {
 
                     @Override
                     public void update() {
-                        super.update();
                         var command = inputManager.getCommand();
                         var pos = getPosition();
                         int newX = pos.getX();
@@ -162,8 +161,6 @@ public class ColliderGizmos {
 
         @Override
         public void update() {
-            super.update();
-
             if (getGameObject().isInactive()) {
                 return;
             }

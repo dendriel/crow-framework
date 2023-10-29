@@ -5,4 +5,9 @@ public class Identifier extends AbstractComponent {
         this.id = id;
         this.name = name;
     }
+
+    @Override
+    public void update() {
+        // no op.
+    }
 }

@@ -39,6 +39,11 @@ public class Position extends AbstractComponent implements PositionComponent, Po
         super.wrapUp();
     }
 
+    @Override
+    public void update() {
+        // no op.
+    }
+
     public int getX() {
         return pos.getX();
     }

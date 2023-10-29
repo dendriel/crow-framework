@@ -223,6 +223,12 @@ public class CharacterDriver extends AbstractComponent {
         characterStatus.reset();
     }
 
+
+    @Override
+    public void update() {
+        // no op.
+    }
+
     @Override
     public void lateUpdate() {
         /*

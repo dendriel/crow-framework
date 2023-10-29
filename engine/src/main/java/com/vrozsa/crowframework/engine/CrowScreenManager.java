@@ -1,6 +1,6 @@
 package com.vrozsa.crowframework.engine;
 
-import com.vrozsa.crowframework.game.component.collider.ColliderGizmos;
+import com.vrozsa.crowframework.game.component.collider.ColliderGizmosRenderer;
 import com.vrozsa.crowframework.screen.api.SimpleScreen;
 import com.vrozsa.crowframework.screen.api.WindowCloseRequestListener;
 import com.vrozsa.crowframework.screen.internal.BaseView;
@@ -150,7 +150,7 @@ class CrowScreenManager implements ScreenManager, OffsetGetter {
 
         if (!showGizmos) {
             renderers = renderers.stream()
-                    .filter(r -> !(r instanceof ColliderGizmos))
+                    .filter(r -> !(r instanceof ColliderGizmosRenderer))
                     .toList();
         }
 

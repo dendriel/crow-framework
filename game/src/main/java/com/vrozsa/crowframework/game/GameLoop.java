@@ -18,6 +18,17 @@ public interface GameLoop {
     }
 
     /**
+     * Gets the instance of the stand-alone game-loop implementation.
+     * <p>
+     *     Game loop to be used by the screen in stand-alone mode (i.e.: without a real game loop).
+     * </p>
+     * @return the stand alone game-loop instance.
+     */
+    static GameLoop getStandAlone() {
+        return StandAloneGameLoop.get();
+    }
+
+    /**
      * Starts the game loop.
      */
     void start();

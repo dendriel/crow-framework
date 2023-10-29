@@ -77,6 +77,11 @@ abstract class AbstractCollider extends AbstractComponent implements ColliderCom
         offsetAddedLastFrame = Offset.origin();
     }
 
+    @Override
+    public void update() {
+        // no op.
+    }
+
     private void onOffsetAdded(int offsetX, int offsetY) {
         offsetAddedLastFrame = offsetAddedLastFrame.sum(Offset.of(offsetX, offsetY));
 

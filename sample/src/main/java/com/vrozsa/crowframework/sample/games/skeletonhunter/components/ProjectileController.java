@@ -42,8 +42,6 @@ public class ProjectileController extends AbstractComponent implements Collision
 
     @Override
     public void update() {
-        super.update();
-
         if (getGameObject().isInactive()) {
             return;
         }

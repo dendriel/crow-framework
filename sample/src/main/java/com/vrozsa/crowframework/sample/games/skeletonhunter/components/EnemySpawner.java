@@ -32,8 +32,6 @@ public class EnemySpawner extends AbstractComponent {
 
     @Override
     public void update() {
-        super.update();
-
         if (enemiesFactory.getActiveSize() >= getTargetAmountOfEnemies()) {
             return;
         }

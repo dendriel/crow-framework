@@ -54,4 +54,9 @@ public class ProjectileHandler extends AbstractComponent {
         assert supplier != null : String.format("Could not find a supplier for projectile type %s!", type);
         return supplier.get();
     }
+
+    @Override
+    public void update() {
+        // no op.
+    }
 }

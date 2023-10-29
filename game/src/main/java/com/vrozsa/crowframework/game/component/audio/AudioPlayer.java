@@ -35,4 +35,9 @@ public class AudioPlayer extends AbstractComponent implements AudioClipPlayer {
     public void playSync(String key) {
         audioClipPlayer.playSync(key);
     }
+
+    @Override
+    public void update() {
+        // no op.
+    }
 }
