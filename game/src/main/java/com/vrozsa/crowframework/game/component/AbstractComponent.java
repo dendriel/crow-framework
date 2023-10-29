@@ -16,7 +16,6 @@ public abstract class AbstractComponent implements Component {
     protected GameObject gameObject;
     private boolean isEnabled;
     protected String name;
-    protected long id;
 
     protected AbstractComponent() {
         this(true, "unnamed");
@@ -81,10 +80,5 @@ public abstract class AbstractComponent implements Component {
     @Override
     public String getName() {
         return name;
-    }
-
-    @Override
-    public long getId() {
-        return id;
     }
 }

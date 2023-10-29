@@ -289,8 +289,8 @@ public final class GameObjectBuilder  {
         return this;
     }
 
-    public GameObjectBuilder addIdentifier(final String name, final long id) {
-        var identifier = new Identifier(id, name);
+    public GameObjectBuilder addIdentifier(final String name) {
+        var identifier = Identifier.create(name);
         components.add(identifier);
         return this;
     }

@@ -54,7 +54,7 @@ public class ColliderGizmos {
 //                .addSquareCollider()
                 .addSquareCollider(100, "hero_projectile", Set.of("enemies"), Rect.of(5, 30, 70, 20))
                 .addCollisionGizmos()
-                .addIdentifier("Arrow", 2)
+                .addIdentifier("Arrow")
                 .addCollisionHandler((source, target) -> {
                     var targetID = target.getComponent(Identifier.class);
                     if (targetID.getName().equals("Bandit")) {
@@ -80,7 +80,7 @@ public class ColliderGizmos {
                 .addStaticRenderer(HERO_IMAGE_FILE, CHARS_SPRITE_SIZE.getWidth(), CHARS_SPRITE_SIZE.getHeight())
                 .addSquareCollider(1000, "hero", Set.of(), Rect.of(20, 5, 40, 70))
                 .addCollisionGizmos()
-                .addIdentifier("Hero", 1)
+                .addIdentifier("Hero")
                 .addCollisionHandler((source, target) -> {
                     var sourceID = source.getComponent(Identifier.class);
                     var targetID = target.getComponent(Identifier.class);
@@ -143,7 +143,7 @@ public class ColliderGizmos {
                 .addStaticRenderer(BANDIT_IMAGE_FILE, CHARS_SPRITE_SIZE.getWidth(), CHARS_SPRITE_SIZE.getHeight())
                 .addSquareCollider(0, "enemies", Set.of(), Rect.of(20, 5, 40, 70))
                 .addCollisionGizmos()
-                .addIdentifier("Bandit", 2)
+                .addIdentifier("Bandit")
                 .build();
 
         gameManager.addGameObject(banditGO);

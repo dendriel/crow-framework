@@ -47,7 +47,7 @@ public class MultipleCommandsPerFrame {
                 .setActive(false)
                 .addStaticRenderer(ARROW_IMAGE_FILE, CHARS_SPRITE_SIZE.getWidth(), CHARS_SPRITE_SIZE.getHeight())
                 .addSquareCollider(100, "hero_projectile", Set.of("enemies"))
-                .addIdentifier("Arrow", 2)
+                .addIdentifier("Arrow")
                 .addCollisionHandler((source, target) -> {
                     var targetID = target.getComponent(Identifier.class);
                     if (targetID.getName().equals("Bandit")) {
@@ -74,7 +74,7 @@ public class MultipleCommandsPerFrame {
         var heroGO = GameObjectBuilder.of(Vector.of(screenMiddleX-40, screenMiddleY-40, 0))
                 .addStaticRenderer(HERO_IMAGE_FILE, CHARS_SPRITE_SIZE.getWidth(), CHARS_SPRITE_SIZE.getHeight())
                 .addSquareCollider(1000, "hero", Set.of())
-                .addIdentifier("Hero", 1)
+                .addIdentifier("Hero")
                 .addCollisionHandler((source, target) -> {
                     var sourceID = source.getComponent(Identifier.class);
                     var targetID = target.getComponent(Identifier.class);
@@ -152,7 +152,7 @@ public class MultipleCommandsPerFrame {
         GameObject banditGO = GameObjectBuilder.of(Vector.of(screenMiddleX-240, screenMiddleY-40, 0))
                 .addStaticRenderer(BANDIT_IMAGE_FILE, CHARS_SPRITE_SIZE.getWidth(), CHARS_SPRITE_SIZE.getHeight())
                 .addSquareCollider(0, "enemies", Set.of())
-                .addIdentifier("Bandit", 2)
+                .addIdentifier("Bandit")
                 .build();
 
         gameManager.addGameObject(banditGO);
