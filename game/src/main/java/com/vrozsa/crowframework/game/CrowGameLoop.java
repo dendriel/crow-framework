@@ -1,16 +1,20 @@
 package com.vrozsa.crowframework.game;
 
-import com.vrozsa.crowframework.shared.api.game.GameLoop;
 import com.vrozsa.crowframework.shared.api.game.UpdateListener;
 import com.vrozsa.crowframework.shared.logger.LoggerService;
+import com.vrozsa.crowframework.shared.time.TimeUtils;
 
 import java.util.HashSet;
 import java.util.Objects;
 
-public class RunnableGameLoop implements GameLoop {
-    private static LoggerService logger = LoggerService.of(RunnableGameLoop.class);
+/**
+ * Implements the default game-loop.
+ */
+final class CrowGameLoop implements GameLoop {
+    private static final int DEFAULT_FPS = 60;
+    private static LoggerService logger = LoggerService.of(CrowGameLoop.class);
 
-    private static RunnableGameLoop INSTANCE;
+    private static CrowGameLoop INSTANCE;
 
     private Thread gameLoop;
     private boolean isStarted;
@@ -25,9 +29,9 @@ public class RunnableGameLoop implements GameLoop {
 
     private long frame;
 
-    private RunnableGameLoop() {
-        gameLoopFPS = 60;
-        frameTime = (long)(1000 / (float)gameLoopFPS);
+    private CrowGameLoop() {
+        gameLoopFPS = DEFAULT_FPS;
+        frameTime = TimeUtils.calculateFrameTime(gameLoopFPS);
         onUpdateListeners = new HashSet<>();
         onLateUpdateListeners = new HashSet<>();
         onEarlyUpdateListeners = new HashSet<>();
@@ -37,7 +41,7 @@ public class RunnableGameLoop implements GameLoop {
 
     public static GameLoop get() {
         if (Objects.isNull(INSTANCE)) {
-            INSTANCE = new RunnableGameLoop();
+            INSTANCE = new CrowGameLoop();
         }
         return INSTANCE;
     }
@@ -49,8 +53,7 @@ public class RunnableGameLoop implements GameLoop {
         }
         isStarted = true;
         keepRunning = true;
-        gameLoop = new Thread(this::updateLoop);
-        gameLoop.start();
+        gameLoop = Thread.ofPlatform().start(this::updateLoop);
     }
 
     @Override

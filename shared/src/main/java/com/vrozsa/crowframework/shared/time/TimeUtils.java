@@ -16,6 +16,10 @@ public final class TimeUtils {
         return System.currentTimeMillis();
     }
 
+    public static long calculateFrameTime(int fps) {
+        return (MILLISECOND / fps);
+    }
+
     public static long getCurrentTimeInNanos() {
         return System.nanoTime();
     }

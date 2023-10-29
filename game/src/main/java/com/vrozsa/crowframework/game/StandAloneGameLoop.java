@@ -1,8 +1,8 @@
-package com.vrozsa.crowframework.screen.internal;
+package com.vrozsa.crowframework.game;
 
-import com.vrozsa.crowframework.shared.api.game.GameLoop;
 import com.vrozsa.crowframework.shared.api.game.UpdateListener;
 import com.vrozsa.crowframework.shared.logger.LoggerService;
+import com.vrozsa.crowframework.shared.time.TimeUtils;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -12,22 +12,30 @@ import java.util.Objects;
  * Game loop created to use the screen without in stand-alone mode (i.e.: without a real game loop).
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class StandAloneGameLoop implements GameLoop, Runnable {
+public final class StandAloneGameLoop implements GameLoop, Runnable {
+    private static final int DEFAULT_FPS = 60;
     private static final LoggerService logger = LoggerService.of(StandAloneGameLoop.class);
     private static final int gameLoopFPS;
     private static final long frameTime;
+
+    // making the reference volatile is exactly what we want here.
     private volatile UpdateListener screenUpdateListener;
+    private boolean isStarted;
     private volatile boolean keepRunning;
-    private volatile Thread gameLoopThread;
+    private Thread gameLoop;
 
     private static StandAloneGameLoop INSTANCE;
 
     static {
-        gameLoopFPS = 60;
-        frameTime = (long)(1000 / (float)gameLoopFPS);
+        gameLoopFPS = DEFAULT_FPS;
+        frameTime = TimeUtils.calculateFrameTime(gameLoopFPS);
     }
 
-    public static StandAloneGameLoop getInstance() {
+    /**
+     * Get the stand-alone game loop instance.
+     * @return the game-loop instance.
+     */
+    public static GameLoop get() {
         if (Objects.isNull(INSTANCE)) {
             INSTANCE = new StandAloneGameLoop();
         }
@@ -36,10 +44,34 @@ public class StandAloneGameLoop implements GameLoop, Runnable {
     }
 
     @Override
-    public void start() {}
+    public void start() {
+        if (isStarted) {
+            return;
+        }
+        isStarted = true;
+        keepRunning = true;
+        gameLoop = Thread.ofPlatform().start(this);
+    }
 
     @Override
-    public void terminate(long timeToWait) {}
+    public void terminate(long timeToWait) {
+        logger.info("[run] loop is being interrupted...");
+        gameLoop.interrupt();
+
+        if (!isStarted) {
+            return;
+        }
+
+        keepRunning = false;
+        try {
+            gameLoop.join(timeToWait);
+        } catch (InterruptedException e) {
+            // should not get in here.
+            e.printStackTrace();
+        }
+
+        isStarted = false;
+    }
 
     @Override
     public void addUpdateListener(UpdateListener listener) {}
@@ -66,16 +98,13 @@ public class StandAloneGameLoop implements GameLoop, Runnable {
     @Override
     public void setCollisionUpdateListener(UpdateListener listener) {}
 
+    /**
+     * Sets the screen update listener.
+     * @param listener screen's update listener.
+     */
     @Override
     public void setScreenUpdateListener(final UpdateListener listener) {
         this.screenUpdateListener = listener;
-        keepRunning = true;
-        gameLoopThread = Thread.ofPlatform().start(this);
-    }
-
-    public void terminate() {
-        logger.info("[run] loop is being interrupted...");
-        gameLoopThread.interrupt();
     }
 
     @Override

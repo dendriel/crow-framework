@@ -46,3 +46,15 @@ click.
 
 Both ways will need a special implementation to observe pointer events and to check if the pointer event was over any
 valid game object (the components which have the handler or are clickable).
+
+
+### Allow to setup triggers in animation events
+
+This way, we have flexibility to trigger an event (like enabling a collider) in sync with an animation. For instance,
+if we trigger a sword attack collider before or after the swing of a sword, the de-sync will be perceptible by the
+player. It will try to dodge what he is seeing and will fail, generating frustration.
+
+### Merge Tracking and Buffered input handler
+
+.. so we won't have an inputHandler API that works half on some implementation and the other half in another
+implementation. 

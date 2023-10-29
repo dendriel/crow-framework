@@ -107,7 +107,7 @@ public enum InputKey {
      * @return the mapped InputKey; UNKNOWN if the input value doesn't map to an input.
      */
     public static InputKey from(int keyCode) {
-        InputKey input = keyCodeToPlayerInputMapper.get(keyCode);
+        var input = keyCodeToPlayerInputMapper.get(keyCode);
         if (input == null) {
             logger.warn("Unmapped Keycode: {0}", keyCode);
             return InputKey.UNKNOWN;

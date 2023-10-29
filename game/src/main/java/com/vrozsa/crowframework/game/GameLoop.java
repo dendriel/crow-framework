@@ -1,9 +1,21 @@
-package com.vrozsa.crowframework.shared.api.game;
+package com.vrozsa.crowframework.game;
+
+import com.vrozsa.crowframework.shared.api.game.UpdateListener;
 
 /**
  * Handlers the game loop.
  */
 public interface GameLoop {
+    /**
+     * Gets the instance of the default game-loop implementation.
+     * <p>
+     *     WARNING: the game-loop must be started via a call to start().
+     * </p>
+     * @return the game-loop instance.
+     */
+    static GameLoop get() {
+        return CrowGameLoop.get();
+    }
 
     /**
      * Starts the game loop.
