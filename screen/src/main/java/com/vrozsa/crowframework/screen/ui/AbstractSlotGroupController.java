@@ -16,7 +16,7 @@ public abstract class AbstractSlotGroupController implements BaseComponent {
     protected GameCommand lastCommand;
     protected boolean isInterrupt;
 
-    public AbstractSlotGroupController(KeysReader keysReader) {
+    protected AbstractSlotGroupController(KeysReader keysReader) {
         this.keysReader = keysReader;
         inputToCommandMapper = new HashMap<>();
 

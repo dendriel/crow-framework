@@ -30,6 +30,11 @@ gradlew :engine:publish
 
 Add this VM flag: `-ea`
 
+## TODO
+
+- Add a method to return the game object builder with the engine injected on it, this way allowing the builder to inject
+the crow components dependencies automatically.
+- Add background (looping) music to Skeleton Hunter game.
 
 ## Nice To Have
 

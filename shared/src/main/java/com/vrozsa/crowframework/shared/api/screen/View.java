@@ -1,6 +1,5 @@
 package com.vrozsa.crowframework.shared.api.screen;
 
-import com.vrozsa.crowframework.shared.api.screen.ui.UIComponent;
 import com.vrozsa.crowframework.shared.attributes.Size;
 
 /**
@@ -10,15 +9,9 @@ import com.vrozsa.crowframework.shared.attributes.Size;
 public interface View {
 
     /**
-     * Add a UI component into the view.
-     * @param component component to be added.
-     * @param <T> component template type.
-     */
-    <T> void addComponent(final UIComponent<T> component);
-
-    /**
      * Refresh the view visual elements.
-     * Allows to reflect visual changes in the screen. Generally, this method is called automatically.
+     * Allows reflecting visual changes on the screen.
+     * Generally, this method is called automatically.
      */
     void draw();
 
@@ -33,5 +26,5 @@ public interface View {
      * View name (unique identifier).
      * @return the view name.
      */
-    String name();
+    String getName();
 }

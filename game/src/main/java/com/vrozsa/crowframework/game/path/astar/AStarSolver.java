@@ -43,10 +43,10 @@ public abstract class AStarSolver {
     protected AStarNode currNode;
 
     /**
-     * Create a AStar solver.
+     * Create an AStar solver.
      * @param startingNode Starting node.
      */
-    public AStarSolver(AStarNode startingNode) {
+    protected AStarSolver(AStarNode startingNode) {
         this.startingNode = startingNode;
     }
 

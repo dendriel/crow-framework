@@ -21,7 +21,7 @@ public abstract class UIAbstractComponent<T extends UIBaseComponentTemplate> imp
     protected Offset parentOffset;
     protected boolean isEnabled;
 
-    public UIAbstractComponent(UIBaseComponentTemplate data) {
+    protected UIAbstractComponent(UIBaseComponentTemplate data) {
         this.data = data;
         type = data.getType();
         tag = data.getTag();

@@ -17,7 +17,7 @@ import java.util.List;
 
 // TODO: turn in a record
 @Data
-public class ViewTemplate {
+public class UIViewTemplate {
     private String name;
     private Rect rect;
     private List<UIBaseComponentTemplate> components;
@@ -30,7 +30,7 @@ public class ViewTemplate {
     private List<UISliderTemplate> sliders;
     private List<UIButtonGroupTemplate> buttonGroups;
 
-    public ViewTemplate() {
+    public UIViewTemplate() {
         labels = new ArrayList<>();
         icons = new ArrayList<>();
         buttons = new ArrayList<>();
@@ -41,7 +41,7 @@ public class ViewTemplate {
         buttonGroups = new ArrayList<>();
     }
 
-    public ViewTemplate(final String name, final Rect rect) {
+    public UIViewTemplate(final String name, final Rect rect) {
         this();
         this.name = name;
         this.rect = rect;

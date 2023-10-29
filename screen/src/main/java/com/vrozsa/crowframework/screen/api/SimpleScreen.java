@@ -16,7 +16,7 @@ public class SimpleScreen extends AbstractScreen {
 
     // In real scenarios the screen will know by itself what views to create/display.
     public void addView(final View view) {
-        super.addView(view.name(), view);
+        super.addView(view.getName(), view);
     }
 
 //    public void addView(final BaseView view, final String viewGroup) {

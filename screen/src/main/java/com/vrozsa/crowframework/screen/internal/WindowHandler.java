@@ -8,7 +8,6 @@ import com.vrozsa.crowframework.shared.api.screen.Screen;
 import com.vrozsa.crowframework.shared.attributes.Offset;
 import com.vrozsa.crowframework.shared.attributes.Size;
 import com.vrozsa.crowframework.shared.logger.LoggerService;
-import lombok.AllArgsConstructor;
 
 import javax.swing.ActionMap;
 import javax.swing.JFrame;
@@ -40,20 +39,27 @@ import java.util.concurrent.ConcurrentMap;
  *     - We also can add many of the UI components so we can render a HUD or other UI related elements.
  * </p>
  */
-@AllArgsConstructor
-public class WindowHandler {
+public final class WindowHandler {
     private static final LoggerService logger = LoggerService.of(WindowHandler.class);
-
     private final WindowHandlerConfig config;
     private final JFrame frame;
     private final ConcurrentMap<String, Screen> screens;
     private final HashSet<WindowCloseRequestListener> onWindowCloseRequestListeners;
 
-    public WindowHandler(final WindowHandlerConfig config) {
+    private WindowHandler(final WindowHandlerConfig config) {
         this.config = config;
         frame = new JFrame();
         screens = new ConcurrentHashMap<>();
         onWindowCloseRequestListeners = new HashSet<>();
+    }
+
+    /**
+     * Creates a new WindowHandler.
+     * @param config the window handler configuration.
+     * @return the new window handler.
+     */
+    public static WindowHandler create(final WindowHandlerConfig config) {
+        return new WindowHandler(config);
     }
 
     public void setup() {

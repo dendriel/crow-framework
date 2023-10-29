@@ -43,15 +43,6 @@ public class RendererView extends AbstractView implements RendererObserver, Offs
         offset = Offset.origin();
     }
 
-    /**
-     * @param template create the view from a template.
-     */
-    public RendererView(final ViewTemplate template) {
-        super(template);
-        renderers = new ArrayList<>();
-        persistentRenderers = new ArrayList<>();
-    }
-
     public void addRenderer(final Renderer... renderers) {
         Arrays.stream(renderers).forEach(this::addRenderer);
     }
