@@ -1,12 +1,15 @@
 package com.vrozsa.crowframework.game.component.animation;
 
-import com.vrozsa.crowframework.game.component.Position;
+import com.vrozsa.crowframework.game.component.PositionComponent;
 import com.vrozsa.crowframework.game.component.StaticRenderer;
+import com.vrozsa.crowframework.shared.api.game.AnimationTriggerEndedObserver;
 import com.vrozsa.crowframework.shared.api.screen.Drawable;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static java.util.Objects.isNull;
 
 /**
  * Provides animations for a game objects.
@@ -26,14 +29,24 @@ public final class AnimatedRenderer extends StaticRenderer {
     private final Map<Integer, Map<String, Animation>> animationsLayers;
     private Integer animationLayer;
 
-    private AnimatedRenderer(Position position, int layer, String name, boolean flipX, boolean flipY) {
+    private AnimatedRenderer(PositionComponent position, int layer, String name, boolean flipX, boolean flipY) {
         super(position, layer, name, flipX, flipY);
 
         animationsLayers = new HashMap<>();
         animationLayer = DEFAULT_ANIMATIONS_LAYER;
     }
 
-    public static AnimatedRenderer create(Position position, int layer, String name, boolean flipX, boolean flipY) {
+    /**
+     * Create a new AnimatedRenderer that can be used to display animations.
+     * @param position position component that will be tracked to display the animations in the expected place.
+     * @param layer the layer defines which animations will be drawn first (high layer values makes the animation be
+     *              drawn latter).
+     * @param name the name of the component. Useful if using multiple animated renderers in the same game-object.
+     * @param flipX flip the animation horizontally.
+     * @param flipY flip the animation vertically.
+     * @return the new AnimatedRenderer.
+     */
+    public static AnimatedRenderer create(PositionComponent position, int layer, String name, boolean flipX, boolean flipY) {
         return new AnimatedRenderer(position, layer, name, flipX, flipY);
     }
 
@@ -64,6 +77,21 @@ public final class AnimatedRenderer extends StaticRenderer {
 
     public Animation getAnimation(String key) {
         return getAnimation(key, animationLayer);
+    }
+
+    /**
+     * Adds a new trigger ended observer to the target animation.
+     * @param key key from target animation
+     * @param observer observer to be added
+     * @return true if the observer was added; false if the animation could not be found.
+     */
+    public boolean addTriggerEndedObserver(String key, final AnimationTriggerEndedObserver observer) {
+        var animation = getAnimation(key);
+        if (isNull(animation)) {
+            return false;
+        }
+        animation.addTriggerEndedObserver(observer);
+        return true;
     }
 
     private Animation getAnimation(String key, int layer) {
@@ -97,12 +125,15 @@ public final class AnimatedRenderer extends StaticRenderer {
         return animationLayer;
     }
 
-    public void add(String key, Animation animation) {
-        add(key, animation, animationLayer);
-    }
-
-    public void add(String key, Animation animation, int layer) {
-        getAnimations(layer).put(key, animation);
+    /**
+     * Adds a new animation into the target animation layer from this renderer. The new animation will be created from
+     * the input template.
+     * @param layer the target animation layer.
+     * @param template the animation template.
+     */
+    public void add(int layer, AnimationTemplate template) {
+        var animation = Animation.of(template);
+        getAnimations(layer).put(template.name(), animation);
     }
 
     /**

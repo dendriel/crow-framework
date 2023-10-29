@@ -3,7 +3,7 @@ package com.vrozsa.crowframework.game.component.collider;
 import com.vrozsa.crowframework.game.component.AbstractComponent;
 import com.vrozsa.crowframework.shared.api.game.ColliderComponent;
 import com.vrozsa.crowframework.shared.api.game.ColliderType;
-import com.vrozsa.crowframework.shared.api.game.PositionComponent;
+import com.vrozsa.crowframework.shared.api.game.Position;
 import com.vrozsa.crowframework.shared.api.screen.Renderer;
 import com.vrozsa.crowframework.shared.attributes.Offset;
 import com.vrozsa.crowframework.shared.attributes.Rect;
@@ -29,7 +29,7 @@ abstract class AbstractCollider extends AbstractComponent implements ColliderCom
      * the collider size will override the renderer size.
      */
     protected Rect rect;
-    private PositionComponent position;
+    private Position position;
 
     protected boolean isActive;
     protected int weight;

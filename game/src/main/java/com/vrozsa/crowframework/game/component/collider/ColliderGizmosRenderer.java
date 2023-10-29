@@ -1,6 +1,6 @@
 package com.vrozsa.crowframework.game.component.collider;
 
-import com.vrozsa.crowframework.game.component.Position;
+import com.vrozsa.crowframework.game.component.PositionComponent;
 import com.vrozsa.crowframework.game.component.StaticRenderer;
 import com.vrozsa.crowframework.shared.api.game.ColliderComponent;
 import com.vrozsa.crowframework.shared.api.screen.Sprite;
@@ -19,11 +19,11 @@ public class ColliderGizmosRenderer extends StaticRenderer {
     private static final Color GIZMOS_COLOR = Color.green();
     private final java.awt.Color color;
 
-    public ColliderGizmosRenderer(final Position position) {
+    public ColliderGizmosRenderer(final PositionComponent position) {
         this(position, GIZMOS_COLOR);
     }
 
-    public ColliderGizmosRenderer(final Position position, final Color color) {
+    public ColliderGizmosRenderer(final PositionComponent position, final Color color) {
         super(position, GIZMOS_LAYER, GIZMOS_NAME, false, false);
 
         this.color = new java.awt.Color(color.getR(), color.getG(), color.getB(), GIZMOS_ALPHA);

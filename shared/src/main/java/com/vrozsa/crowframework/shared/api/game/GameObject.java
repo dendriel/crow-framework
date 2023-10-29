@@ -7,7 +7,6 @@ import java.util.List;
  * (out-game elements would be menus, ui, HUD, etc)
  */
 public interface GameObject {
-
     /**
      * Updates the game object state.
      */
@@ -58,7 +57,7 @@ public interface GameObject {
      * Get this GameObject position. All objects have a position component.
      * @return the game object position component.
      */
-    PositionComponent getPosition();
+    Position getPosition();
 
     /**
      * Add a new component to this game object.
@@ -82,20 +81,35 @@ public interface GameObject {
     <T> T getComponent(Class<T> type);
 
     /**
-     * Get all children components by its type.
+     * Get a child component by its type and name
+     * @param type type of component to be retrieved.
+     * @param name name of the component.
+     * @return the component if found.
+     * @param <T> component type.
+     */
+    <T extends Component> T getComponent(Class<T> type, String name);
+
+    /**
+     * Get all components by its type.
      * @param type type of components to be retrieved.
      * @return the components if found.
      * @param <T> component type.
      */
     <T> List<T> getAllComponents(final Class<T> type);
 
-    <T extends Component> T getComponent(Class<T> kind, String name);
+    /**
+     * Get a component by its type and include components in children game-objects.
+     * @param type type of component to be retrieved.
+     * @return the component if found.
+     * @param <T> component type.
+     */
+    <T extends Component> T getComponentFromChildren(Class<T> type);
 
-    <T extends Component> T getComponentFromChildren(Class<T> kind);
-
-    <T extends Component> List<T> getComponentsFromChildren(Class<T> kind);
-
-    <T> List<T> getServicesFromChildren(Class<T> kind);
-
-    <T> T getService(Class<T> kind);
+    /**
+     * Gets all components by its type and include components in children game-objects.
+     * @param type type of component to be retrieved.
+     * @return the component if found.
+     * @param <T> component type.
+     */
+    <T extends Component> List<T> getComponentsFromChildren(Class<T> type);
 }

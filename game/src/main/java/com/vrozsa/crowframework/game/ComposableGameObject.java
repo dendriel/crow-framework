@@ -1,28 +1,29 @@
 package com.vrozsa.crowframework.game;
 
+import com.vrozsa.crowframework.game.component.PositionComponent;
 import com.vrozsa.crowframework.shared.api.game.Component;
-import com.vrozsa.crowframework.game.component.Position;
-import com.vrozsa.crowframework.game.component.StaticRenderer;
 import com.vrozsa.crowframework.shared.api.game.GameObject;
-import com.vrozsa.crowframework.shared.api.game.PositionComponent;
+import com.vrozsa.crowframework.shared.api.game.Position;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Game Object representation and container of components.
+ * <p>
+ *     It always have a base position component and a container to receive others components.
+ * </p>
  */
 public final class ComposableGameObject implements GameObject {
-    public final Position position;
+    public final PositionComponent position;
     private final List<Component> components;
     private boolean isActive;
 
     private ComposableGameObject(final List<Component> components, final boolean isActive) {
         this.isActive = isActive;
         this.components = new ArrayList<>(components);
-        position = (Position) components.stream()
-                .filter(Position.class::isInstance)
+        position = (PositionComponent) components.stream()
+                .filter(PositionComponent.class::isInstance)
                 .findFirst()
                 .orElse(null);
 
@@ -51,14 +52,17 @@ public final class ComposableGameObject implements GameObject {
         position.getChildren().forEach(p -> p.getGameObject().lateUpdate());
     }
 
-    public PositionComponent getPosition() {
+    public Position getPosition() {
         return position;
     }
 
-    public StaticRenderer getRenderer() {
-        return getComponent(StaticRenderer.class);
-    }
-
+    /**
+     * Adds a new component into the game-object components container.
+     * <p>
+     *     It also sets the parent game-object from the component and calls its wrapUp() method.
+     * </p>
+     * @param component the component to be added.
+     */
     public void addComponent(final Component component) {
         components.add(component);
         component.setGameObject(this);
@@ -66,12 +70,12 @@ public final class ComposableGameObject implements GameObject {
     }
 
     public <T extends Component> T getComponent(Class<T> type, String name) {
-        Component component = components.stream()
+        var targetComponent = components.stream()
                 .filter(c -> (c.getClass().equals(type) || type.isInstance(c)) && c.getName().equals(name))
                 .findFirst()
                 .orElse(null);
 
-        return component != null ? type.cast(component) : null;
+        return targetComponent != null ? type.cast(targetComponent) : null;
     }
 
     public <T> T getComponent(final Class<T> type) {
@@ -89,8 +93,8 @@ public final class ComposableGameObject implements GameObject {
     }
 
     public <T extends Component> T getComponentFromChildren(Class<T> type) {
-        List<PositionComponent> children = position.getChildren();
-        for (PositionComponent pos : children) {
+        List<Position> children = position.getChildren();
+        for (Position pos : children) {
             T currComp = pos.getGameObject().getComponent(type);
             if (currComp != null) {
                 return currComp;
@@ -106,78 +110,48 @@ public final class ComposableGameObject implements GameObject {
     }
 
     public <T extends Component> List<T> getComponentsFromChildren(Class<T> type) {
-        List<T> components = new ArrayList<>();
-        List<PositionComponent> children = position.getChildren();
+        var targetComponents = new ArrayList<T>();
+        List<Position> children = position.getChildren();
 
-        for (PositionComponent pos : children) {
+        for (Position pos : children) {
             T currComp = pos.getGameObject().getComponent(type);
             if (currComp != null) {
-                components.add(currComp);
+                targetComponents.add(currComp);
             }
 
             List<T> childrenComp = pos.getGameObject().getComponentsFromChildren(type);
-            components.addAll(childrenComp);
+            targetComponents.addAll(childrenComp);
         }
 
-        return components;
+        return targetComponents;
     }
 
     public <T> List<T> getAllComponents(final Class<T> type) {
-        List<Component> targetComponents = components.stream()
+        var targetComponents = components.stream()
                 .filter(c -> c.getClass().equals(type) || type.isInstance(c))
-                .collect(Collectors.toList());
+                .toList();
 
-        List<T> castedComponents = new ArrayList<>();
+        var castedComponents = new ArrayList<T>();
         targetComponents.forEach(c -> castedComponents.add(type.cast(c)));
 
         return castedComponents;
     }
 
-    public <T> T getService(Class<T> kind) {
-        Component component = components.stream()
-                .filter(c -> c.getClass().equals(kind) || kind.isInstance(c))
-                .findFirst()
-                .orElse(null);
-
-        return component != null ? kind.cast(component) : null;
-    }
-
-    public <T> List<T> getAllServices(Class<T> kind) {
-        List<Component> targetComponents = components.stream()
-                .filter(c -> c.getClass().equals(kind) || kind.isInstance(c))
-                .collect(Collectors.toList());
-
-        List<T> castedComponents = new ArrayList<>();
-        targetComponents.forEach(c -> castedComponents.add(kind.cast(c)));
-
-        return castedComponents;
-    }
-
-    public <T> List<T> getServicesFromChildren(Class<T> kind) {
-        List<T> components = new ArrayList<>();
-        List<PositionComponent> children = position.getChildren();
-
-        for (PositionComponent pos : children) {
-            T currComp = pos.getGameObject().getService(kind);
-            components.add(currComp);
-
-            List<T> childrenComp = pos.getGameObject().getServicesFromChildren(kind);
-            components.addAll(childrenComp);
-        }
-
-        return components;
-    }
-
-    public <T extends Component> boolean containsComponent(Class<T> kind) {
-        return getComponent(kind) != null;
+    public <T extends Component> boolean containsComponent(Class<T> type) {
+        return components.stream()
+                .anyMatch(c -> c.getClass().equals(type) || type.isInstance(c));
     }
 
     public void wrapUp() {
-        components.forEach(c -> c.wrapUp());
+        components.forEach(Component::wrapUp);
     }
 
     public boolean isActive() {
         return isActive;
+    }
+
+    public boolean isInactive() {
+        return !isActive;
     }
 
     public void setActive(boolean isActive) {
@@ -190,9 +164,5 @@ public final class ComposableGameObject implements GameObject {
 
     public void deactivate() {
         this.isActive = false;
-    }
-
-    public boolean isInactive() {
-        return !isActive;
     }
 }

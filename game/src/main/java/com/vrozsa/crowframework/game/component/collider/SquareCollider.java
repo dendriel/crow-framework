@@ -9,7 +9,7 @@ import java.util.Set;
 /**
  * Represents a square collider.
  */
-public class SquareCollider extends AbstractCollider {
+public final class SquareCollider extends AbstractCollider {
 
     public SquareCollider() {
         this(DEFAULT_COOLDOWN_MILLIS);

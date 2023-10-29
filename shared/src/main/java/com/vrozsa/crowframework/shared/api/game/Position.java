@@ -9,7 +9,7 @@ import java.util.List;
  * All positions contain X,Y,Z axis. X is horizontal axis; Y is vertical axis; Z is depth axis (used to decide what
  * is rendered first; what sprite is above).
  */
-public interface PositionComponent {
+public interface Position {
     /**
      * Gets the horizontal position value.
      * @return the horizontal position.
@@ -43,9 +43,10 @@ public interface PositionComponent {
     /**
      * Gets the absolute X position. If this position is attached to a parent, this will be the sum of the parent absolute
      * position with the current relative position of the object.
-     *
-     * For instance, if the current object position is X=50 and Y=45, but its parent has a absolute position of X=300 and Y=500,
-     * the absolute position of the child will be X=350 and Y=545.
+     * <p>
+     *     For instance, if the current object position is X=50 and Y=45, but its parent has a absolute position of
+     *     X=300 and Y=500, the absolute position of the child will be X=350 and Y=545.
+     * </p>
      *
      * @return the absolute X position.
      */
@@ -81,13 +82,13 @@ public interface PositionComponent {
      * Set the parent position component. The child position will be attached to the parent.
      * @param parent the new parent position.
      */
-    void setParent(PositionComponent parent);
+    void setParent(Position parent);
 
     /**
      * Get a list of children positions attached to this position.
      * @return the list of children positions.
      */
-    List<PositionComponent> getChildren();
+    List<Position> getChildren();
 
     /**
      * Gets the game object in which this position is attached.

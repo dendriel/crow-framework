@@ -1,6 +1,6 @@
 package com.vrozsa.crowframework.game.component;
 
-import com.vrozsa.crowframework.shared.api.game.PositionComponent;
+import com.vrozsa.crowframework.shared.api.game.Position;
 import com.vrozsa.crowframework.shared.api.game.PositionObserver;
 import com.vrozsa.crowframework.shared.api.game.PositionOffsetObserver;
 import com.vrozsa.crowframework.shared.attributes.Vector;
@@ -9,34 +9,32 @@ import com.vrozsa.crowframework.shared.attributes.Offset;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Position extends AbstractComponent implements PositionComponent, PositionObserver {
+/**
+ * Position locates the game object in the world. All game-objects have at least one mandatory position component.
+ */
+public final class PositionComponent extends AbstractComponent implements Position, PositionObserver {
     public static final String DEFAULT_POSITION = "_defaultPositionComponent";
-    private PositionComponent parent;
+    private Position parent;
     private final List<Position> children;
     private final List<PositionObserver> positionObservers;
     private final List<PositionOffsetObserver> offsetAddedObservers;
     private Vector pos;
 
-    public Position(Vector pos) {
+    public PositionComponent(Vector pos) {
         this(pos, DEFAULT_POSITION);
     }
 
-    public Position(final Vector pos, final String positionCompName) {
+    public PositionComponent(final Vector pos, final String name) {
         this.pos = pos;
+        this.name = name;
 
         children = new ArrayList<>();
         positionObservers = new ArrayList<>();
         offsetAddedObservers = new ArrayList<>();
-        name = positionCompName;
     }
 
-    public boolean isAt(Vector pos) {
+    public boolean isAt(final Vector pos) {
         return this.pos.equals(pos);
-    }
-
-    @Override
-    public void wrapUp() {
-        super.wrapUp();
     }
 
     @Override
@@ -130,7 +128,7 @@ public class Position extends AbstractComponent implements PositionComponent, Po
 
     private void onPositionChanged() {
         positionObservers.forEach(o -> o.positionChanged(getAbsolutePosX(), getAbsolutePosY()));
-        children.forEach(Position::parentPositionChanged);
+        children.forEach(p -> ((PositionComponent)p).parentPositionChanged());
     }
 
     public void addPositionOffsetAddedListener(PositionOffsetObserver observer) {
@@ -171,41 +169,33 @@ public class Position extends AbstractComponent implements PositionComponent, Po
         return pos.toString();
     }
 
-    private void addChild(Position child) {
+    private void addChild(final PositionComponent child) {
         children.add(child);
         addPositionChangedListener(child);
     }
 
-    private void removeChild(Position child) {
+    private void removeChild(final PositionComponent child) {
         children.remove(child);
         removePositionChangedListener(child);
     }
 
-    public void setParent(PositionComponent newParent) {
+    public void setParent(final Position newParent) {
         if (parent != null) {
-            ((Position)parent).removeChild(this);
+            ((PositionComponent)parent).removeChild(this);
         }
 
         parent = newParent;
         if (parent != null) {
-            ((Position)parent).addChild(this);
+            ((PositionComponent)parent).addChild(this);
             onPositionChanged();
         }
     }
 
-    public PositionComponent getParent() {
+    public Position getParent() {
         return parent;
     }
 
-    public List<PositionComponent> getChildren() {
+    public List<Position> getChildren() {
         return new ArrayList<>(children);
-    }
-
-    public Position getChildByName(String name) {
-        return children
-                .stream()
-                .filter(c -> c.getName().equals(name))
-                .findFirst()
-                .orElse(null);
     }
 }

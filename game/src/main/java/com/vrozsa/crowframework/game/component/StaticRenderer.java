@@ -23,16 +23,16 @@ public class StaticRenderer extends AbstractComponent implements Renderer, Posit
 
     private final Set<RendererObserver> observers;
 
-    public StaticRenderer(Position position, int layer, String name, boolean flipX, boolean flipY) {
+    public StaticRenderer(PositionComponent position, int layer, String name, boolean flipX, boolean flipY) {
         this(position, layer, true, name, flipX, flipY, false);
     }
 
-    public StaticRenderer(Position position, int layer, String name, boolean flipX, boolean flipY, Drawable... drawings) {
+    public StaticRenderer(PositionComponent position, int layer, String name, boolean flipX, boolean flipY, Drawable... drawings) {
         this(position, layer, true, name, flipX, flipY, false, drawings);
     }
 
     public StaticRenderer(
-            Position position, int layer, boolean isEnabled, String name, boolean flipX, boolean flipY,
+            PositionComponent position, int layer, boolean isEnabled, String name, boolean flipX, boolean flipY,
             boolean alwaysRender, Drawable... drawings
     ) {
         super(isEnabled, name);

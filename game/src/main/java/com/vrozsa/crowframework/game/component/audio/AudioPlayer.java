@@ -11,29 +11,33 @@ import com.vrozsa.crowframework.shared.api.audio.AudioClipPlayer;
  *
  * This is a proxy component.
  */
-public class AudioPlayer extends AbstractComponent implements AudioClipPlayer {
-    private final AudioClipPlayer audioClipPlayer;
+public final class AudioPlayer extends AbstractComponent implements AudioClipPlayer {
+    private final AudioClipPlayer clipPlayer;
 
     /**
-     * @param audioClipPlayer the engine provided audio clips player.
+     * @param clipPlayer the engine provided audio clips player.
      */
-    public AudioPlayer(final AudioClipPlayer audioClipPlayer) {
-        this.audioClipPlayer = audioClipPlayer;
+    private AudioPlayer(final AudioClipPlayer clipPlayer) {
+        this.clipPlayer = clipPlayer;
+    }
+
+    public static AudioPlayer create(final AudioClipPlayer clipPlayer) {
+        return new AudioPlayer(clipPlayer);
     }
 
     @Override
     public void play(String key) {
-        audioClipPlayer.play(key);
+        clipPlayer.play(key);
     }
 
     @Override
     public void stop(String key) {
-        audioClipPlayer.stop(key);
+        clipPlayer.stop(key);
     }
 
     @Override
     public void playSync(String key) {
-        audioClipPlayer.playSync(key);
+        clipPlayer.playSync(key);
     }
 
     @Override

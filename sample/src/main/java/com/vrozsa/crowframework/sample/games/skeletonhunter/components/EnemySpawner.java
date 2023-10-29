@@ -3,7 +3,7 @@ package com.vrozsa.crowframework.sample.games.skeletonhunter.components;
 import com.vrozsa.crowframework.game.component.AbstractComponent;
 import com.vrozsa.crowframework.sample.games.skeletonhunter.GameObjectFactory;
 import com.vrozsa.crowframework.shared.api.game.GameLoopAdder;
-import com.vrozsa.crowframework.shared.api.game.PositionComponent;
+import com.vrozsa.crowframework.shared.api.game.Position;
 import com.vrozsa.crowframework.shared.logger.LoggerService;
 import com.vrozsa.crowframework.shared.patterns.AbstractCachedProvider;
 
@@ -14,7 +14,7 @@ import static com.vrozsa.crowframework.sample.games.skeletonhunter.Configuration
 
 public class EnemySpawner extends AbstractComponent {
     private final EnemiesFactory enemiesFactory;
-    private final PositionComponent target;
+    private final Position target;
 
     private final Random random;
 
@@ -23,7 +23,7 @@ public class EnemySpawner extends AbstractComponent {
     // Dist 0 = 1 enemy; Dist 1 = 1 enemy; Dist 2 = 2 enemies; ...; Dist 5 = 4 enemies; until max dist/enemies
     private final int[] enemiesByDistance = new int[] {1, 1, 2, 2, 3, 3, 4, 4, 4, 5, 5, 6, 6, 8, 8, 8, 10};
 
-    public EnemySpawner(GameObjectFactory goFactory, GameLoopAdder gameLoopAdder, PositionComponent target) {
+    public EnemySpawner(GameObjectFactory goFactory, GameLoopAdder gameLoopAdder, Position target) {
         this.enemiesFactory = new EnemiesFactory(goFactory, gameLoopAdder);
         this.target = target;
 

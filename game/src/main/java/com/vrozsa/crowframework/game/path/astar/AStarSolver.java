@@ -9,6 +9,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
 
+/**
+ * AStart algorithm abstract implementation.
+ * <p>
+ *     Based on the Method Template pattern.
+ * </p>
+ */
 public abstract class AStarSolver {
     /**
      * First node to visit when solving a maze.
@@ -36,19 +42,19 @@ public abstract class AStarSolver {
      */
     protected AStarNode currNode;
 
-    /// <summary>
-    /// Create a AStar solver.
-    /// </summary>
-    /// <param name="_startingNode">Starting node.</param>
+    /**
+     * Create a AStar solver.
+     * @param startingNode Starting node.
+     */
     public AStarSolver(AStarNode startingNode) {
         this.startingNode = startingNode;
     }
 
-    /// <summary>
-    /// Find a solution for a maze. (Template Method Design Pattern).
-    /// </summary>
-    /// <returns>An ordered list (first to last) of nodes to be visited to reach a solution;
-    /// if interrupted, returns an empty list.</returns>
+    /**
+     * Find a solution for a problem. (Template Method Design Pattern).
+     * @return An ordered list (first to last) of nodes to be visited to reach a solution; if interrupted,
+     * returns an empty list.
+     */
     public List<AStarNode> findSolution() {
         elapsedTimeInMs = 0;
 

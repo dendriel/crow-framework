@@ -23,6 +23,13 @@ public record AnimationTemplate(
    long intervalBeforeRepeating,
    boolean isActive
 ) {
+    /**
+     * Copies this animation template.
+     * <p>
+     *     Useful if we want to reuse a template and change just a few fields.
+     * </p>
+     * @return the AnimationTemplate copy.
+     */
     public AnimationTemplate copy() {
         return new AnimationTemplate(
                 layer,
@@ -34,7 +41,7 @@ public record AnimationTemplate(
                 firstFrame,
                 repeat,
                 intervalBeforeRepeating,
-                false
+                isActive
         );
     }
 }

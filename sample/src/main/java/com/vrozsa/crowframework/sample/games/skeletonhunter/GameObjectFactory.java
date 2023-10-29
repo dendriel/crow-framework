@@ -5,7 +5,7 @@ import com.vrozsa.crowframework.engine.GameObjectBuilder;
 import com.vrozsa.crowframework.sample.games.skeletonhunter.components.*;
 import com.vrozsa.crowframework.screen.ui.UILabel;
 import com.vrozsa.crowframework.shared.api.game.GameObject;
-import com.vrozsa.crowframework.shared.api.game.PositionComponent;
+import com.vrozsa.crowframework.shared.api.game.Position;
 import com.vrozsa.crowframework.shared.api.screen.Offsetable;
 import com.vrozsa.crowframework.shared.attributes.Color;
 import com.vrozsa.crowframework.shared.attributes.Offset;
@@ -204,7 +204,7 @@ public class GameObjectFactory {
         return enemyGO.getComponent(EnemyWarriorController.class);
     }
 
-    public GameObject createEnemySpawner(PositionComponent target) {
+    public GameObject createEnemySpawner(Position target) {
         return GameObjectBuilder.atOrigin()
                 .addComponent(new EnemySpawner(this, crowEngine.getGameManager(), target))
                 .build();
