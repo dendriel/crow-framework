@@ -1,7 +1,7 @@
 package com.vrozsa.crowframework.engine;
 
 import com.vrozsa.crowframework.game.GameLoop;
-import com.vrozsa.crowframework.screen.internal.ScreenHandlerConfig;
+import com.vrozsa.crowframework.screen.internal.WindowHandlerConfig;
 import com.vrozsa.crowframework.shared.api.game.GameObject;
 import com.vrozsa.crowframework.shared.api.input.KeysListener;
 import com.vrozsa.crowframework.shared.api.input.PointerListener;
@@ -38,8 +38,8 @@ final class Engine implements CrowEngine {
         gameLoop.start();
     }
 
-    private static ScreenHandlerConfig mapScreenHandlerConfig(CrowEngineConfig config) {
-        return ScreenHandlerConfig.builder()
+    private static WindowHandlerConfig mapScreenHandlerConfig(CrowEngineConfig config) {
+        return WindowHandlerConfig.builder()
                 .title(config.title())
                 .size(Size.of(config.screenWidth(), config.screenHeight()))
                 .build();

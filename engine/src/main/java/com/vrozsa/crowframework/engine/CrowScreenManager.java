@@ -3,10 +3,10 @@ package com.vrozsa.crowframework.engine;
 import com.vrozsa.crowframework.game.component.collider.ColliderGizmosRenderer;
 import com.vrozsa.crowframework.screen.api.SimpleScreen;
 import com.vrozsa.crowframework.screen.api.WindowCloseRequestListener;
-import com.vrozsa.crowframework.screen.internal.BaseView;
 import com.vrozsa.crowframework.screen.internal.RendererView;
-import com.vrozsa.crowframework.screen.internal.ScreenHandler;
-import com.vrozsa.crowframework.screen.internal.ScreenHandlerConfig;
+import com.vrozsa.crowframework.screen.internal.UiView;
+import com.vrozsa.crowframework.screen.internal.WindowHandler;
+import com.vrozsa.crowframework.screen.internal.WindowHandlerConfig;
 import com.vrozsa.crowframework.screen.ui.UIFontTemplate;
 import com.vrozsa.crowframework.screen.ui.UIIcon;
 import com.vrozsa.crowframework.screen.ui.UIIconTemplate;
@@ -25,14 +25,13 @@ import com.vrozsa.crowframework.shared.attributes.Rect;
 
 class CrowScreenManager implements ScreenManager, OffsetGetter {
     private static final String DEFAULT_SCREEN = "DEFAULT_SCREEN";
-    private static final String UI_VIEW = "UI_VIEW";
     private static final String RENDERER_VIEW = "RENDERER_VIEW";
     private static final String BASE_VIEW_GROUP = "DEFAULT_VIEW_GROUP";
-    private final ScreenHandler screenHandler;
+    private final WindowHandler windowHandler;
     private final boolean showGizmos;
 
-    CrowScreenManager(final boolean showGizmos, final ScreenHandlerConfig screenHandlerConfig) {
-        screenHandler = new ScreenHandler(screenHandlerConfig);
+    CrowScreenManager(final boolean showGizmos, final WindowHandlerConfig windowHandlerConfig) {
+        windowHandler = new WindowHandler(windowHandlerConfig);
         this.showGizmos = showGizmos;
     }
 
@@ -41,18 +40,18 @@ class CrowScreenManager implements ScreenManager, OffsetGetter {
      * @param bgColor frame background color.
      */
     public void setup(final Color bgColor) {
-        screenHandler.setup();
-        var screenSize = screenHandler.getSize();
+        windowHandler.setup();
+        var screenSize = windowHandler.getSize();
 
         var simpleScreen = new SimpleScreen(DEFAULT_SCREEN, screenSize.clone(), bgColor);
 
-        var uiView = new BaseView(UI_VIEW, Rect.atOrigin(screenSize));
+        var uiView = new UiView(Rect.atOrigin(screenSize));
         simpleScreen.addView(uiView);
 
         var rendererView = new RendererView(RENDERER_VIEW, Rect.atOrigin(screenSize));
         simpleScreen.addView(rendererView);
 
-        simpleScreen.addViewGroup(BASE_VIEW_GROUP, UI_VIEW, RENDERER_VIEW);
+        simpleScreen.addViewGroup(BASE_VIEW_GROUP, UiView.DEFAULT_UI_VIEW, RENDERER_VIEW);
         simpleScreen.displayViewGroup(BASE_VIEW_GROUP);
 
         addScreen(simpleScreen);
@@ -60,45 +59,45 @@ class CrowScreenManager implements ScreenManager, OffsetGetter {
     }
 
     public void setupInputListeners(KeysListener keysListener, PointerListener pointerListener) {
-        screenHandler.setupKeysListener(keysListener);
-        screenHandler.setupPointerListener(pointerListener);
+        windowHandler.setupKeysListener(keysListener);
+        windowHandler.setupPointerListener(pointerListener);
     }
 
     @Override
     public Offset getOffset() {
-        return screenHandler.getPosition();
+        return windowHandler.getPosition();
     }
 
     void addWindowCloseRequestListener(WindowCloseRequestListener listener) {
-        screenHandler.addOnWindowCloseRequestListener(listener);
+        windowHandler.addOnWindowCloseRequestListener(listener);
     }
 
     void addScreen(final Screen screen) {
-        screenHandler.add(screen.name(), screen);
+        windowHandler.add(screen.name(), screen);
     }
 
     void setOnlyScreenVisible(final String name, final boolean isVisible) {
-        screenHandler.setOnlyScreenVisible(name, isVisible);
+        windowHandler.setOnlyScreenVisible(name, isVisible);
     }
 
     void update() {
-        screenHandler.update();
+        windowHandler.update();
     }
 
     void show() {
-        screenHandler.setVisible(true);
+        windowHandler.setVisible(true);
     }
 
     void hide() {
-        screenHandler.setVisible(false);
+        windowHandler.setVisible(false);
     }
 
     void close() {
-        screenHandler.exit();
+        windowHandler.exit();
     }
 
     public RendererView getRendererView() {
-        return (RendererView)screenHandler
+        return (RendererView) windowHandler
                 .getScreen(DEFAULT_SCREEN)
                 .getView(RENDERER_VIEW);
     }
@@ -137,13 +136,13 @@ class CrowScreenManager implements ScreenManager, OffsetGetter {
     }
 
     private View getUIView() {
-        return screenHandler.getScreen(DEFAULT_SCREEN)
-                .getView(UI_VIEW);
+        return windowHandler.getScreen(DEFAULT_SCREEN)
+                .getView(UiView.DEFAULT_UI_VIEW);
     }
 
     @Override
     public void renderGO(final GameObject go) {
-        var renderer = (RendererView)screenHandler.getScreen(DEFAULT_SCREEN)
+        var renderer = (RendererView) windowHandler.getScreen(DEFAULT_SCREEN)
                 .getView(RENDERER_VIEW);
 
         var renderers = go.getAllComponents(Renderer.class);

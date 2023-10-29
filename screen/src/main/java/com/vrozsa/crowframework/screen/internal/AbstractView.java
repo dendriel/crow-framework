@@ -24,20 +24,20 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Views are the frame where components are displayed. A view is contained in the screen.
+ * Views are the frame where components are displayed. Views composes screens.
  */
-public class BaseView extends JPanel implements View, UIComponentObserver {
-    private final ViewTemplate data;
+public abstract class AbstractView extends JPanel implements View, UIComponentObserver {
+    private final ViewTemplate template;
     protected final List<UIComponent<?>> components;
     protected final Rect rect;
 
-    public BaseView(final String name, final Rect rect) {
+    public AbstractView(final String name, final Rect rect) {
         this(new ViewTemplate(name, rect));
     }
 
-    public BaseView(final ViewTemplate data) {
-        this.data = data;
-        this.rect = data.getRect().clone();
+    public AbstractView(final ViewTemplate template) {
+        this.template = template;
+        this.rect = template.getRect().clone();
         components = new ArrayList<>();
 
         setup();
@@ -57,14 +57,14 @@ public class BaseView extends JPanel implements View, UIComponentObserver {
     }
 
     private void setupComponents() {
-        for (UIBaseComponentTemplate template : data.getComponents()) {
+        for (UIBaseComponentTemplate template : template.getComponents()) {
             var component = UIComponentFactory.create(template, rect.getSize());
             addComponent(component);
         }
     }
 
     public String name() {
-        return data.getName();
+        return template.getName();
     }
 
     public <T> void addComponent(final UIComponent<T> component) {
@@ -93,7 +93,7 @@ public class BaseView extends JPanel implements View, UIComponentObserver {
     }
 
     public void resize(final Size parentSize) {
-        var rect = data.getRect();
+        var rect = template.getRect();
         var refSize = rect.getSize();
 
         var newOffset = Offset.updateOffset(rect.getOffset(), refSize, parentSize);

@@ -1,12 +1,12 @@
 package com.vrozsa.crowframework.screen.api;
 
 
-import com.vrozsa.crowframework.screen.internal.BaseView;
+import com.vrozsa.crowframework.screen.internal.AbstractView;
 import com.vrozsa.crowframework.screen.ui.UIIcon;
 import com.vrozsa.crowframework.screen.ui.UIIconTemplate;
 import com.vrozsa.crowframework.shared.attributes.Rect;
 
-public class StaticView extends BaseView {
+public class StaticView extends AbstractView {
     public StaticView(final Rect rect, final String imageFile) {
         super("STATIC", rect);
 

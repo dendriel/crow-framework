@@ -4,14 +4,14 @@ import com.vrozsa.crowframework.shared.api.game.GameCommand;
 import com.vrozsa.crowframework.shared.api.game.BaseComponent;
 import com.vrozsa.crowframework.shared.api.input.KeysReader;
 import com.vrozsa.crowframework.shared.api.input.InputKey;
-import com.vrozsa.crowframework.screen.ui.api.ISlotGroupControllerCommand;
+import com.vrozsa.crowframework.screen.ui.api.SlotGroupControllerCommand;
 
 import java.util.HashMap;
 import java.util.Map;
 
 
 public abstract class AbstractSlotGroupController implements BaseComponent {
-    protected final Map<GameCommand, ISlotGroupControllerCommand> inputToCommandMapper;
+    protected final Map<GameCommand, SlotGroupControllerCommand> inputToCommandMapper;
     private final KeysReader keysReader;
     protected GameCommand lastCommand;
     protected boolean isInterrupt;
@@ -59,7 +59,7 @@ public abstract class AbstractSlotGroupController implements BaseComponent {
             return false;
         }
 
-        ISlotGroupControllerCommand command = inputToCommandMapper.get(lastCommand);
+        SlotGroupControllerCommand command = inputToCommandMapper.get(lastCommand);
         if (command == null) {
             System.out.printf("Skip command unknown to this controller [%s].\n", lastCommand);
             return true;

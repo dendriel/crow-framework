@@ -25,22 +25,35 @@ import java.util.HashSet;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
+/**
+ * The WindowHandler handles all available game screens.
+ * <p>
+ *     The hierarchy is as follows:
+ *     - WindowHandler manages the game 'window' and contains Screens
+ *     - A Screen represents a 'scene' from the game and is composed of one or more views
+ *     - Views allows to render in-game objects or UI components;
+ *       - In simpler games, a screen will be composed at least of a RendererView (to render game-objects) and a view
+ *       to render UI components. One could add more views in a single screen. One view to render the game map, another
+ *       to render the inventory (can be displayed/hidden as needed); and another one to display the character
+ *       attributes.
+ *     - We can add a Renderer component to a game object so a image or animation can be rendered each frame
+ *     - We also can add many of the UI components so we can render a HUD or other UI related elements.
+ * </p>
+ */
 @AllArgsConstructor
-public class ScreenHandler {
-    private static final LoggerService logger = LoggerService.of(ScreenHandler.class);
+public class WindowHandler {
+    private static final LoggerService logger = LoggerService.of(WindowHandler.class);
 
-    private final ScreenHandlerConfig config;
+    private final WindowHandlerConfig config;
     private final JFrame frame;
     private final ConcurrentMap<String, Screen> screens;
     private final HashSet<WindowCloseRequestListener> onWindowCloseRequestListeners;
 
-    public ScreenHandler(final ScreenHandlerConfig config) {
+    public WindowHandler(final WindowHandlerConfig config) {
         this.config = config;
         frame = new JFrame();
         screens = new ConcurrentHashMap<>();
         onWindowCloseRequestListeners = new HashSet<>();
-
-//        setup();
     }
 
     public void setup() {

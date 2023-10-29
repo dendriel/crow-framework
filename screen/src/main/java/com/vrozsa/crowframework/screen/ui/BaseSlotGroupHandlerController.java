@@ -1,13 +1,13 @@
 package com.vrozsa.crowframework.screen.ui;
 
-import com.vrozsa.crowframework.screen.api.IDisplayableElement;
-import com.vrozsa.crowframework.screen.api.IElementDisplayHandler;
+import com.vrozsa.crowframework.screen.api.DisplayableElement;
+import com.vrozsa.crowframework.screen.api.ElementDisplayHandler;
 import com.vrozsa.crowframework.screen.ui.api.UISlotGroupHandler;
 
 public class BaseSlotGroupHandlerController {
     protected final UISlotGroupHandler slotGroupHandler;
     protected final UISlotGroup slotGroup;
-    protected final IElementDisplayHandler elementDisplayHandler;
+    protected final ElementDisplayHandler elementDisplayHandler;
     protected int currHandlerIndex;
     protected int elementsCount;
 
@@ -15,7 +15,7 @@ public class BaseSlotGroupHandlerController {
         this(slotGroupHandler, null, currMaxItemsSize);
     }
 
-    public BaseSlotGroupHandlerController(UISlotGroupHandler slotGroupHandler, IElementDisplayHandler elementDisplayHandler, int currSlotsCount) {
+    public BaseSlotGroupHandlerController(UISlotGroupHandler slotGroupHandler, ElementDisplayHandler elementDisplayHandler, int currSlotsCount) {
         this.slotGroupHandler = slotGroupHandler;
         this.slotGroup = slotGroupHandler.getSlotGroup();
         this.elementsCount = currSlotsCount;
@@ -90,7 +90,7 @@ public class BaseSlotGroupHandlerController {
             return;
         }
         UISlot slot = getSlotAtHandler();
-        IDisplayableElement displayable = (IDisplayableElement)slot.getContent();
+        DisplayableElement displayable = (DisplayableElement)slot.getContent();
 
         elementDisplayHandler.displayElement(displayable);
     }

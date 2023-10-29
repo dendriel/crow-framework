@@ -19,16 +19,23 @@ import java.util.TreeMap;
 /**
  * Display game-play objects in the screen.
  */
-public class RendererView extends BaseView implements RendererObserver, Offsetable {
-    public static final String NAME = "RENDERER_VIEW";
+public class RendererView extends AbstractView implements RendererObserver, Offsetable {
+    public static final String DEFAULT_RENDERER_VIEW = "_defaultRendererView";
     private final List<Renderer> renderers;
     private final List<Renderer> persistentRenderers;
     protected Offset offset;
 
+    /**
+     * @param rect renderer rect in the screen.
+     */
     public RendererView(final Rect rect) {
-        this(NAME, rect);
+        this(DEFAULT_RENDERER_VIEW, rect);
     }
 
+    /**
+     * @param name view name so it can be referenced while accessing it from the screen.
+     * @param rect view rect in the screen.
+     */
     public RendererView(final String name, final Rect rect) {
         super(name, rect);
         renderers = new ArrayList<>();
@@ -36,8 +43,11 @@ public class RendererView extends BaseView implements RendererObserver, Offsetab
         offset = Offset.origin();
     }
 
-    public RendererView(final ViewTemplate viewTemplate) {
-        super(viewTemplate);
+    /**
+     * @param template create the view from a template.
+     */
+    public RendererView(final ViewTemplate template) {
+        super(template);
         renderers = new ArrayList<>();
         persistentRenderers = new ArrayList<>();
     }
@@ -112,7 +122,7 @@ public class RendererView extends BaseView implements RendererObserver, Offsetab
     }
 
     /**
-     * RUNS ASYNCHRONOUSLY.
+     * WARNING: this is invoked asynchronously from java.awt.
      */
     @Override
     protected void paintComponent(Graphics g) {
