@@ -29,6 +29,9 @@ import java.util.function.Function;
 
 /**
  * Creates UIComponents from data templates.
+ * <p>
+ *     Based on Dynamic Factory Pattern.
+ * </p>
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 class UIComponentFactory {

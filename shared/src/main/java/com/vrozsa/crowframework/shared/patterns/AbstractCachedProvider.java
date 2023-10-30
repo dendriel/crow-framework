@@ -8,7 +8,7 @@ import java.util.List;
 import static java.util.Objects.isNull;
 
 /**
- * The cached factory is typed component provider that generates new components or reuse inactive components when
+ * The cached factory is a typed component provider that generates new components or reuse inactive components when
  * available.
  * <p>
  *     As the components are always attached to GameObjects, the factory considers components available to reuse if their
@@ -19,7 +19,9 @@ import static java.util.Objects.isNull;
  * say, the instance will be returned active from the cache, will do what it have to do, and when inactivated by the
  * game, it will automatically be made available in the cache for reuse.</p>
  *
- * *Implements the Factory Method pattern.
+ * <p>
+ *     Implements the Factory Method pattern.
+ * </p>
  *
  * @param <T> the type of component to provide.
  */

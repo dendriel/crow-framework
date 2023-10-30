@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 /**
  * Base view for rendering UI components.
  */
-public class UIView extends AbstractView implements UIComponentObserver {
+public final class UIView extends AbstractView implements UIComponentObserver {
     /**
      * Default UI View name if no name is specified.
      */
