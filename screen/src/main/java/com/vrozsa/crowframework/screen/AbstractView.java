@@ -1,4 +1,4 @@
-package com.vrozsa.crowframework.screen.internal;
+package com.vrozsa.crowframework.screen;
 
 import com.vrozsa.crowframework.shared.api.screen.View;
 import com.vrozsa.crowframework.shared.attributes.Offset;

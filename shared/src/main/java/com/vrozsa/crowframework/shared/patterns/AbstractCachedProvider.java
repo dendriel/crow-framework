@@ -33,7 +33,7 @@ public abstract class AbstractCachedProvider<T extends Component> {
     private final int maxSize;
 
     /**
-     * @param maxSize the maximum amount of instances in the cache.
+     * @param maxSize the maximum number of instances in the cache.
      */
     protected AbstractCachedProvider(int maxSize) {
         this.maxSize = maxSize;
@@ -42,7 +42,7 @@ public abstract class AbstractCachedProvider<T extends Component> {
 
     /**
      * Gets an available instance of T. The underlying game-object will be activated before being returned. When the
-     * GameObject become inactive again, it will be automatically 'return' to the available pool in the cache.
+     * GameObject becomes inactive again, it will be automatically 'return' to the available pool in the cache.
      * @return the instance of T.
      */
     public T get() {
@@ -67,8 +67,8 @@ public abstract class AbstractCachedProvider<T extends Component> {
     }
 
     /**
-     * Counts the amount of active elements in the cache.
-     * @return the amount of active elements in the cache.
+     * Counts the number of active elements in the cache.
+     * @return the number of active elements in the cache.
      */
     public long getActiveSize() {
         return elements.stream()

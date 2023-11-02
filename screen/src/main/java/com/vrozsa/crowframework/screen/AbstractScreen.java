@@ -1,4 +1,4 @@
-package com.vrozsa.crowframework.screen.internal;
+package com.vrozsa.crowframework.screen;
 
 import com.vrozsa.crowframework.shared.api.screen.Screen;
 import com.vrozsa.crowframework.shared.api.screen.View;
@@ -12,7 +12,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
+/**
+ * Base class to be used to declare custom screens via an extension.
+ */
 public abstract class AbstractScreen extends JPanel implements Screen {
     private final String name;
     private final Map<String, View> views;
@@ -40,7 +42,9 @@ public abstract class AbstractScreen extends JPanel implements Screen {
         setIgnoreRepaint(true);
     }
 
-    public String name() {
+    // Overrides java.awt.Component.getName()
+    @Override
+    public String getName() {
         return name;
     }
 

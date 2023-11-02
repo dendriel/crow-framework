@@ -1,7 +1,7 @@
 package com.vrozsa.crowframework.engine;
 
 import com.vrozsa.crowframework.game.GameLoop;
-import com.vrozsa.crowframework.screen.internal.WindowHandlerConfig;
+import com.vrozsa.crowframework.screen.WindowHandlerConfig;
 import com.vrozsa.crowframework.shared.api.game.GameObject;
 import com.vrozsa.crowframework.shared.api.input.KeysListener;
 import com.vrozsa.crowframework.shared.api.input.PointerListener;

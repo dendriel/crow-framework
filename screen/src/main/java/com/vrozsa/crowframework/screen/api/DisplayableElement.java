@@ -7,11 +7,5 @@ public interface DisplayableElement<T> {
 
     String getName();
 
-    String getDescription();
-
     UISlotContent getSlotContent();
-
-    int getPrice();
-
-    int getLevel();
 }

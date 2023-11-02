@@ -15,7 +15,8 @@ public class BaseSlotGroupHandlerController {
         this(slotGroupHandler, null, currMaxItemsSize);
     }
 
-    public BaseSlotGroupHandlerController(UISlotGroupHandler slotGroupHandler, ElementDisplayHandler elementDisplayHandler, int currSlotsCount) {
+    public BaseSlotGroupHandlerController(
+            UISlotGroupHandler slotGroupHandler, ElementDisplayHandler elementDisplayHandler, int currSlotsCount) {
         this.slotGroupHandler = slotGroupHandler;
         this.slotGroup = slotGroupHandler.getSlotGroup();
         this.elementsCount = currSlotsCount;
@@ -89,8 +90,9 @@ public class BaseSlotGroupHandlerController {
         if (elementDisplayHandler == null) {
             return;
         }
-        UISlot slot = getSlotAtHandler();
-        DisplayableElement displayable = (DisplayableElement)slot.getContent();
+
+        var slot = getSlotAtHandler();
+        var displayable = (DisplayableElement<?>)slot.getContent();
 
         elementDisplayHandler.displayElement(displayable);
     }

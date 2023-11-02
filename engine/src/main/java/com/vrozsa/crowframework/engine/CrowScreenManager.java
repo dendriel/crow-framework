@@ -1,12 +1,11 @@
 package com.vrozsa.crowframework.engine;
 
 import com.vrozsa.crowframework.game.component.collider.ColliderGizmosRenderer;
-import com.vrozsa.crowframework.screen.api.SimpleScreen;
-import com.vrozsa.crowframework.screen.api.WindowCloseRequestListener;
-import com.vrozsa.crowframework.screen.internal.RendererView;
-import com.vrozsa.crowframework.screen.internal.UIView;
-import com.vrozsa.crowframework.screen.internal.WindowHandler;
-import com.vrozsa.crowframework.screen.internal.WindowHandlerConfig;
+import com.vrozsa.crowframework.screen.AbstractScreen;
+import com.vrozsa.crowframework.screen.RendererView;
+import com.vrozsa.crowframework.screen.UIView;
+import com.vrozsa.crowframework.screen.WindowHandler;
+import com.vrozsa.crowframework.screen.WindowHandlerConfig;
 import com.vrozsa.crowframework.screen.ui.UIFontTemplate;
 import com.vrozsa.crowframework.screen.ui.UIIcon;
 import com.vrozsa.crowframework.screen.ui.UIIconTemplate;
@@ -18,6 +17,7 @@ import com.vrozsa.crowframework.shared.api.input.PointerListener;
 import com.vrozsa.crowframework.shared.api.screen.OffsetGetter;
 import com.vrozsa.crowframework.shared.api.screen.Renderer;
 import com.vrozsa.crowframework.shared.api.screen.Screen;
+import com.vrozsa.crowframework.shared.api.screen.View;
 import com.vrozsa.crowframework.shared.attributes.Color;
 import com.vrozsa.crowframework.shared.attributes.Offset;
 import com.vrozsa.crowframework.shared.attributes.Rect;
@@ -34,26 +34,32 @@ class CrowScreenManager implements ScreenManager, OffsetGetter {
     }
 
     /**
-     * Setup the screens.
+     * Set up the screens.
      * @param bgColor frame background color.
      */
     public void setup(final Color bgColor) {
-        windowHandler.setup();
+        windowHandler.initialize();
         var screenSize = windowHandler.getSize();
 
-        var simpleScreen = new SimpleScreen(DEFAULT_SCREEN, screenSize.clone(), bgColor);
+        // As this is a generic engine, we allow views to be added from outside the screen.
+        // Otherwise, the AbstractScreen should be extended and add the views by itself.
+        var screen = new AbstractScreen(DEFAULT_SCREEN, screenSize.clone(), bgColor) {
+            public void addView(final View view) {
+                super.addView(view.getName(), view);
+            }
+        };
 
         var uiView = new UIView(Rect.atOrigin(screenSize));
-        simpleScreen.addView(uiView);
+        screen.addView(uiView);
 
         var rendererView = new RendererView(Rect.atOrigin(screenSize));
-        simpleScreen.addView(rendererView);
+        screen.addView(rendererView);
 
-        simpleScreen.addViewGroup(BASE_VIEW_GROUP, UIView.DEFAULT_UI_VIEW, RendererView.DEFAULT_RENDERER_VIEW);
-        simpleScreen.displayViewGroup(BASE_VIEW_GROUP);
+        screen.addViewGroup(BASE_VIEW_GROUP, UIView.DEFAULT_UI_VIEW, RendererView.DEFAULT_RENDERER_VIEW);
+        screen.displayViewGroup(BASE_VIEW_GROUP);
 
-        addScreen(simpleScreen);
-        setOnlyScreenVisible(simpleScreen.name(), true);
+        addScreen(screen);
+        setOnlyScreenVisible(screen.getName(), true);
     }
 
     public void setupInputListeners(KeysListener keysListener, PointerListener pointerListener) {
@@ -66,16 +72,12 @@ class CrowScreenManager implements ScreenManager, OffsetGetter {
         return windowHandler.getPosition();
     }
 
-    void addWindowCloseRequestListener(WindowCloseRequestListener listener) {
-        windowHandler.addOnWindowCloseRequestListener(listener);
-    }
-
     void addScreen(final Screen screen) {
-        windowHandler.add(screen.name(), screen);
+        windowHandler.addScreen(screen);
     }
 
     void setOnlyScreenVisible(final String name, final boolean isVisible) {
-        windowHandler.setOnlyScreenVisible(name, isVisible);
+        windowHandler.setScreenVisible(name, isVisible);
     }
 
     void update() {
@@ -91,7 +93,7 @@ class CrowScreenManager implements ScreenManager, OffsetGetter {
     }
 
     void close() {
-        windowHandler.exit();
+        windowHandler.terminate();
     }
 
     public RendererView getRendererView() {
