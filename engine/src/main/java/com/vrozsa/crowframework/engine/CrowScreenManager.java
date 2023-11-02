@@ -2,8 +2,8 @@ package com.vrozsa.crowframework.engine;
 
 import com.vrozsa.crowframework.game.component.collider.ColliderGizmosRenderer;
 import com.vrozsa.crowframework.screen.AbstractScreen;
-import com.vrozsa.crowframework.screen.RendererView;
-import com.vrozsa.crowframework.screen.UIView;
+import com.vrozsa.crowframework.screen.views.RendererView;
+import com.vrozsa.crowframework.screen.views.UIView;
 import com.vrozsa.crowframework.screen.WindowHandler;
 import com.vrozsa.crowframework.screen.WindowHandlerConfig;
 import com.vrozsa.crowframework.screen.ui.UIFontTemplate;

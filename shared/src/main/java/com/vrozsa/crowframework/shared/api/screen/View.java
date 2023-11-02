@@ -3,7 +3,7 @@ package com.vrozsa.crowframework.shared.api.screen;
 import com.vrozsa.crowframework.shared.attributes.Size;
 
 /**
- * Views are areas of display inside a Screen.
+ * Views are areas of display inside a {@link Screen Screen}.
  * A view can be used to render a whole game, or we can have multiple views for HUD, map rendering, menu, etc.
  */
 public interface View {

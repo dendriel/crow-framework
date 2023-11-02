@@ -1,4 +1,4 @@
-package com.vrozsa.crowframework.screen;
+package com.vrozsa.crowframework.screen.views;
 
 import com.vrozsa.crowframework.screen.ui.UIAnimation;
 import com.vrozsa.crowframework.screen.ui.UIAnimationTemplate;
@@ -34,7 +34,7 @@ import java.util.function.Function;
  * </p>
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-class UIComponentFactory {
+final class UIComponentFactory {
     private static final
         Map<UIComponentType, Function<UIBaseComponentTemplate, UIComponent<? extends UIBaseComponentTemplate>>> typeToCreatorMapper;
 

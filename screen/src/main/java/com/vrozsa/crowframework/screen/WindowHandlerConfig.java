@@ -10,7 +10,7 @@ import lombok.Builder;
  * @param isFullscreen the window will be launched in full-screen mode. (default: false)
  * @param isVisible window starts visible or hidden. (default: true)
  * @param isResizable the window is resizable or has a fixed size. (default: false)
- * @param terminateOnWindowCloseClick terminate the game the player click the exit (x) window button? (default: true)
+ * @param terminateOnWindowCloseClick terminate the game when the player click the exit (x) window button? (default: true)
  */
 @Builder
 public record WindowHandlerConfig(

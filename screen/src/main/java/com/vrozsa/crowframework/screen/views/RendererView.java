@@ -1,4 +1,4 @@
-package com.vrozsa.crowframework.screen;
+package com.vrozsa.crowframework.screen.views;
 
 import com.vrozsa.crowframework.shared.api.screen.Drawable;
 import com.vrozsa.crowframework.shared.api.screen.Offsetable;
@@ -19,11 +19,11 @@ import java.util.TreeMap;
 /**
  * Display game-play objects in the screen.
  */
-public class RendererView extends AbstractView implements RendererObserver, Offsetable {
+public final class RendererView extends AbstractView implements RendererObserver, Offsetable {
     public static final String DEFAULT_RENDERER_VIEW = "_defaultRendererView";
     private final List<Renderer> renderers;
     private final List<Renderer> persistentRenderers;
-    protected Offset offset;
+    private Offset offset;
 
     /**
      * @param rect renderer rect in the screen.

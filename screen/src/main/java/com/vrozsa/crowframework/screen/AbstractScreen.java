@@ -13,7 +13,11 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Base class to be used to declare custom screens via an extension.
+ * Base class to be used to declare custom screens via extension.
+ * <p>
+ *     Screens should be the place where views are created. That is, a Screen is composed of one or more views; then it
+ *     is fair that the screen itself knows how to set up its views.
+ * </p>
  */
 public abstract class AbstractScreen extends JPanel implements Screen {
     private final String name;

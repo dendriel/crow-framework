@@ -1,4 +1,4 @@
-package com.vrozsa.crowframework.screen;
+package com.vrozsa.crowframework.screen.views;
 
 import com.vrozsa.crowframework.shared.api.screen.View;
 import com.vrozsa.crowframework.shared.attributes.Offset;
@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 import java.awt.Color;
 
 /**
- * Views are the frame where components are displayed. Views compose screens.
+ * Views are the frame where components are displayed.
  */
 public abstract class AbstractView extends JPanel implements View {
     protected final String name;
