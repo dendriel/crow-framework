@@ -1,13 +1,13 @@
 package com.vrozsa.crowframework.screen.views;
 
-import com.vrozsa.crowframework.screen.ui.UIAnimation;
-import com.vrozsa.crowframework.screen.ui.UIIcon;
-import com.vrozsa.crowframework.screen.ui.UILabel;
-import com.vrozsa.crowframework.screen.ui.UILabelGroup;
-import com.vrozsa.crowframework.screen.ui.UISlider;
-import com.vrozsa.crowframework.screen.ui.button.UIButton;
-import com.vrozsa.crowframework.screen.ui.buttongroup.UIButtonGroup;
-import com.vrozsa.crowframework.screen.ui.input.UIInputField;
+import com.vrozsa.crowframework.screen.ui.components.UIAnimation;
+import com.vrozsa.crowframework.screen.ui.components.UIIcon;
+import com.vrozsa.crowframework.screen.ui.components.UILabel;
+import com.vrozsa.crowframework.screen.ui.components.UILabelGroup;
+import com.vrozsa.crowframework.screen.ui.components.UISlider;
+import com.vrozsa.crowframework.screen.ui.components.button.UIButton;
+import com.vrozsa.crowframework.screen.ui.components.button.UIButtonGroup;
+import com.vrozsa.crowframework.screen.ui.components.input.UIInputField;
 import com.vrozsa.crowframework.shared.api.screen.ui.UIComponent;
 import com.vrozsa.crowframework.shared.api.screen.ui.UIComponentObserver;
 import com.vrozsa.crowframework.shared.attributes.Rect;

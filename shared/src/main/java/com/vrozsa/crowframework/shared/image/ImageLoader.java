@@ -9,7 +9,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 
 /**
- * Helper class to load Images.
+ * Helper class to load Images from resources.
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class ImageLoader {
@@ -45,7 +45,7 @@ public final class ImageLoader {
             logger.error("Failed to load image [{0}].\n{1}", filePath, ex);
         }
 
-        // Pre image caching should not let this happen.
+        // Pre-image caching should not let this happen.
         return null;
     }
 }

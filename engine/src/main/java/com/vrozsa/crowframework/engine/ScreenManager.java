@@ -1,8 +1,8 @@
 package com.vrozsa.crowframework.engine;
 
 import com.vrozsa.crowframework.screen.views.RendererView;
-import com.vrozsa.crowframework.screen.ui.UIIcon;
-import com.vrozsa.crowframework.screen.ui.UILabel;
+import com.vrozsa.crowframework.screen.ui.components.UIIcon;
+import com.vrozsa.crowframework.screen.ui.components.UILabel;
 import com.vrozsa.crowframework.shared.api.game.GameObject;
 import com.vrozsa.crowframework.shared.attributes.Rect;
 

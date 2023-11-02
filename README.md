@@ -34,6 +34,7 @@ Add this VM flag: `-ea`
 
 - Add a method to return the game object builder with the engine injected on it, this way allowing the builder to inject
 the crow components dependencies automatically.
+- Make screen components do no inherit from java.awt components.
 - Add background (looping) music to Skeleton Hunter game.
 
 ## Nice To Have

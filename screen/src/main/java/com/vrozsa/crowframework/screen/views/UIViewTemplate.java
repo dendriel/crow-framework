@@ -1,15 +1,15 @@
 package com.vrozsa.crowframework.screen.views;
 
-import com.vrozsa.crowframework.screen.ui.UIAnimationTemplate;
-import com.vrozsa.crowframework.screen.ui.UIBaseComponentTemplate;
-import com.vrozsa.crowframework.screen.ui.UIIconTemplate;
-import com.vrozsa.crowframework.screen.ui.UILabelGroupTemplate;
-import com.vrozsa.crowframework.screen.ui.UILabelTemplate;
-import com.vrozsa.crowframework.screen.ui.UISliderTemplate;
+import com.vrozsa.crowframework.screen.ui.components.templates.UIAnimationTemplate;
+import com.vrozsa.crowframework.screen.ui.components.templates.UIBaseComponentTemplate;
+import com.vrozsa.crowframework.screen.ui.components.templates.UIIconTemplate;
+import com.vrozsa.crowframework.screen.ui.components.templates.UILabelGroupTemplate;
+import com.vrozsa.crowframework.screen.ui.components.templates.UILabelTemplate;
+import com.vrozsa.crowframework.screen.ui.components.templates.UISliderTemplate;
 import com.vrozsa.crowframework.shared.attributes.Rect;
-import com.vrozsa.crowframework.screen.ui.button.UIButtonTemplate;
-import com.vrozsa.crowframework.screen.ui.buttongroup.UIButtonGroupTemplate;
-import com.vrozsa.crowframework.screen.ui.input.UIInputFieldTemplate;
+import com.vrozsa.crowframework.screen.ui.components.templates.UIButtonTemplate;
+import com.vrozsa.crowframework.screen.ui.components.templates.UIButtonGroupTemplate;
+import com.vrozsa.crowframework.screen.ui.components.templates.UIInputFieldTemplate;
 import lombok.Data;
 
 import java.util.ArrayList;

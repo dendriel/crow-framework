@@ -1,7 +1,7 @@
 package com.vrozsa.crowframework.sample.games.skeletonhunter.components;
 
 import com.vrozsa.crowframework.game.component.AbstractComponent;
-import com.vrozsa.crowframework.screen.ui.UILabel;
+import com.vrozsa.crowframework.screen.ui.components.UILabel;
 
 /**
  * Keeps the player status in sync with the HUD elements.

@@ -1,6 +1,5 @@
 package com.vrozsa.crowframework.screen;
 
-import com.vrozsa.crowframework.screen.api.WindowCloseRequestListener;
 import com.vrozsa.crowframework.shared.api.game.Identifiable;
 import com.vrozsa.crowframework.shared.api.input.KeysListener;
 import com.vrozsa.crowframework.shared.api.input.PointerListener;

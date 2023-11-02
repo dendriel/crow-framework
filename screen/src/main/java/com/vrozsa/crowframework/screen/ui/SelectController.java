@@ -1,5 +1,6 @@
 package com.vrozsa.crowframework.screen.ui;
 
+import com.vrozsa.crowframework.screen.ui.components.UISelect;
 import com.vrozsa.crowframework.shared.api.game.GameCommand;
 import com.vrozsa.crowframework.shared.api.input.KeysReader;
 import com.vrozsa.crowframework.screen.ui.api.UISelectOption;

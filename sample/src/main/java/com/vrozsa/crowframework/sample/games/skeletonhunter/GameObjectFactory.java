@@ -3,7 +3,7 @@ package com.vrozsa.crowframework.sample.games.skeletonhunter;
 import com.vrozsa.crowframework.engine.CrowEngine;
 import com.vrozsa.crowframework.engine.GameObjectBuilder;
 import com.vrozsa.crowframework.sample.games.skeletonhunter.components.*;
-import com.vrozsa.crowframework.screen.ui.UILabel;
+import com.vrozsa.crowframework.screen.ui.components.UILabel;
 import com.vrozsa.crowframework.shared.api.game.GameObject;
 import com.vrozsa.crowframework.shared.api.game.Position;
 import com.vrozsa.crowframework.shared.api.screen.Offsetable;
