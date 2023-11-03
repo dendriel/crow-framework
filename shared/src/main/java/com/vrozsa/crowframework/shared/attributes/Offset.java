@@ -122,7 +122,6 @@ public class Offset {
         int offsetY = (int)(((double)offset.getY() / originSize.getHeight()) * targetSize.getHeight());
         offsetY  -= offset.getY();
 
-        System.out.println("New offset: " + offsetX + "," + offsetY);
         return new Offset(offsetX, offsetY);
     }
 }

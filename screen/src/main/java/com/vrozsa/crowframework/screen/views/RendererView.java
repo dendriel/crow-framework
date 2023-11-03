@@ -6,6 +6,7 @@ import com.vrozsa.crowframework.shared.api.screen.Renderer;
 import com.vrozsa.crowframework.shared.api.screen.RendererObserver;
 import com.vrozsa.crowframework.shared.attributes.Offset;
 import com.vrozsa.crowframework.shared.attributes.Rect;
+import com.vrozsa.crowframework.shared.attributes.Size;
 import com.vrozsa.crowframework.shared.image.DrawingsSorter;
 
 import java.awt.Graphics;
@@ -129,6 +130,30 @@ public final class RendererView extends AbstractView implements RendererObserver
         super.paintComponent(g);
     }
 
+    private Size prevSize = Size.zeroed();
+    private Size parentSize = Size.zeroed();
+    @Override
+    public void resize(Size parentSize) {
+        super.resize(parentSize);
+        System.out.println("SET PARENT SIZE: " + parentSize);
+//        components.forEach(c -> c.updateScreenSize(parentSize));
+
+        prevSize = this.parentSize;
+        this.parentSize = parentSize;
+
+        /*
+        var refSize = data.getReferenceSize();
+        var rect = data.getRect();
+        parentOffset = Offset.updateOffset(rect.getOffset(), refSize, parentSize);
+
+        if (UIExpandMode.FILL == expandMode) {
+            var newSize = Size.updateSize(rect.getSize(), refSize, parentSize);
+            this.rect.setWidth(newSize.getWidth());
+            this.rect.setHeight(newSize.getHeight());
+        }
+         */
+    }
+
     private void draw(Drawable drawing, Graphics g) {
         if (!drawing.isEnabled() || drawing.getImage() == null) {
             return;
@@ -157,11 +182,19 @@ public final class RendererView extends AbstractView implements RendererObserver
             screenPosY += flipTwice ? 0 : size.getHeight();
         }
 
+        var originSize = baseRect.getSize();
+        var resizedScreenPosX = (int)(((double)screenPosX / originSize.getWidth()) * parentSize.getWidth());
+        var resizedScreenPosY = (int)(((double)screenPosY / originSize.getHeight()) * parentSize.getHeight());
 
-        int absWidth = Math.abs(width);
-        int absHeight = Math.abs(height);
+        var resizedSize = Size.updateSize(Size.of(width, height), baseRect.getSize(), parentSize);
 
-        g.drawImage(drawing.getImage().getContent(absWidth, absHeight), screenPosX, screenPosY, width, height, this);
+        int absWidth = Math.abs(resizedSize.getWidth());
+        int absHeight = Math.abs(resizedSize.getHeight());
+
+        g.drawImage(drawing.getImage().getContent(absWidth, absHeight),
+                resizedScreenPosX, resizedScreenPosY,
+                resizedSize.getWidth(), resizedSize.getHeight(),
+                this);
     }
 
     /**

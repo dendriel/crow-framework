@@ -20,6 +20,7 @@ public class SkeletonHunterGame {
                 .title("Skeleton Hunter")
                 .assetsPath("/assets/skeletonhunter")
                 .showGizmos(false)
+                .windowResizable(true)
                 .build();
 
         var crowEngine = CrowEngine.create(config);

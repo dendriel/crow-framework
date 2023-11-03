@@ -36,6 +36,7 @@ Add this VM flag: `-ea`
 the crow components dependencies automatically.
 - Make screen components do no inherit from java.awt components.
 - Allows to pre-load image resources (similar to addAudioClipMetadata from audio)
+- Use Identifiable in UI components.
 - Add background (looping) music to Skeleton Hunter game.
 
 ## Nice To Have

@@ -35,6 +35,7 @@ public abstract class AbstractView extends JPanel implements View {
         setBounds(rect.getX(), rect.getY(), rect.getWidth(), rect.getHeight());
     }
 
+    @Override
     public String getName() {
         return name;
     }
