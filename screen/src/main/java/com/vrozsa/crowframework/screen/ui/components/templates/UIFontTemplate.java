@@ -58,7 +58,7 @@ public final class UIFontTemplate {
     }
 
     public static UIFontTemplate updateFontTemplate(UIFontTemplate font, int originWidth, int targetWidth) {
-        int newFontSize = (int)(((float)font.getSize() / originWidth) * targetWidth);
+        int newFontSize = (int)(((double)font.getSize() / originWidth) * targetWidth);
         font.setSize(newFontSize);
         return font;
     }

@@ -56,8 +56,8 @@ public class Size implements Comparable<Size> {
     }
 
     public static Size updateSize(Size size, Size originSize, Size newSize) {
-        int width = (int)(((float)size.getWidth() / originSize.getWidth()) * newSize.getWidth());
-        int height = (int)(((float)size.getHeight() / originSize.getHeight()) * newSize.getHeight());
+        var width = (int)(((double)size.getWidth() / originSize.getWidth()) * newSize.getWidth());
+        var height = (int)(((double)size.getHeight() / originSize.getHeight()) * newSize.getHeight());
 
         return new Size(width, height);
     }

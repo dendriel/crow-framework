@@ -49,7 +49,13 @@ public final class UILabelTemplate extends UIBaseComponentTemplate implements UI
             int verticalAlignment,
             int horizontalAlignment
     ) {
-        super(UIComponentType.LABEL, rect, tag, expandMode, referenceSize, isNull(isEnabled) || isEnabled);
+        super(UIComponentType.LABEL,
+                rect,
+                tag,
+                isNull(expandMode) ? UIExpandMode.FILL : expandMode,
+                referenceSize,
+                isNull(isEnabled) || isEnabled
+        );
         this.text = text;
         this.font = isNull(font) ? new UIFontTemplate() : font;
         this.color = isNull(color) ? Color.white() : color;

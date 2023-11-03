@@ -106,7 +106,7 @@ public class UIButton extends AbstractUIComponent<UIButtonTemplate> {
     }
 
     private void setupImages() {
-        var rect = data.getRect();
+//        var rect = data.getRect();
 
         if (data.getDefaultImage() != null) {
             var resizableImage = ImageLoader.load(data.getDefaultImage());
@@ -237,7 +237,6 @@ public class UIButton extends AbstractUIComponent<UIButtonTemplate> {
     }
 
     private void onMouseEntered(MouseEvent evt) {
-//        System.out.println("onMouseEntered");
         buttonMouseEnteredListeners.forEach(l -> l.listener().onEvent(l.state()));
     }
 
@@ -261,11 +260,13 @@ public class UIButton extends AbstractUIComponent<UIButtonTemplate> {
         buttonMouseExitedListeners.remove(new UIEventListenerTuple<>(listener, null));
     }
 
+    @Override
     public void updateScreenSize(Size parentSize) {
         super.updateScreenSize(parentSize);
-        if (expandMode.equals(UIExpandMode.FILL) && data.getLabel() != null) {
-            Size refSize = data.getReferenceSize();
-            UIFontTemplate font = UIFontTemplate.updateFontTemplate(data.getLabel().getFont(), refSize.getHeight(), parentSize.getHeight());
+
+        if (expandMode == UIExpandMode.FILL && data.getLabel() != null) {
+            var refSize = data.getReferenceSize();
+            var font = UIFontTemplate.updateFontTemplate(data.getLabel().getFont(), refSize.getHeight(), parentSize.getHeight());
             button.setFont(font.getJFont());
         }
 

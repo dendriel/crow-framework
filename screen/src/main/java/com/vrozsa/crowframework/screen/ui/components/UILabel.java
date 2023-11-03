@@ -56,10 +56,10 @@ public class UILabel extends AbstractUIComponent<UILabelTemplate> {
     }
 
     private void setupLabel() {
-        Font font = data.getFont().getJFont();
+        var font = data.getFont().getJFont();
         label.setFont(font);
 
-        Color color = data.getColor();
+        var color = data.getColor();
         label.setForeground(color);
 
         resetAlignment();
@@ -70,10 +70,11 @@ public class UILabel extends AbstractUIComponent<UILabelTemplate> {
         label.setVisible(isEnabled);
     }
 
+    @Override
     public void updateScreenSize(Size parentSize) {
         super.updateScreenSize(parentSize);
 
-        if (UIExpandMode.FILL.equals(expandMode)) {
+        if (UIExpandMode.FILL == expandMode) {
             var refSize = data.getReferenceSize();
             var fontTemplate = UIFontTemplate.updateFontTemplate(data.getFont(), refSize.getHeight(), parentSize.getHeight());
             label.setFont(fontTemplate.getJFont());
@@ -83,7 +84,7 @@ public class UILabel extends AbstractUIComponent<UILabelTemplate> {
     }
 
     private void setupBounds() {
-        Rect bounds = rect.clone();
+        var bounds = rect.clone();
         bounds.setX(bounds.getX() + customOffset.getX() + parentOffset.getX());
         bounds.setY(bounds.getY() + customOffset.getY() + parentOffset.getY());
         label.setBounds(bounds.getX(), bounds.getY(), bounds.getWidth(), bounds.getHeight());

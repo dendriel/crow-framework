@@ -70,7 +70,7 @@ public abstract class AbstractUIComponent<T extends UIBaseComponentTemplate> imp
         var rect = data.getRect();
         parentOffset = Offset.updateOffset(rect.getOffset(), refSize, parentSize);
 
-        if (UIExpandMode.FILL.equals(expandMode)) {
+        if (UIExpandMode.FILL == expandMode) {
             var newSize = Size.updateSize(rect.getSize(), refSize, parentSize);
             this.rect.setWidth(newSize.getWidth());
             this.rect.setHeight(newSize.getHeight());

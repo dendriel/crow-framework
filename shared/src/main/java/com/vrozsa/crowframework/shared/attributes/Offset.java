@@ -117,11 +117,12 @@ public class Offset {
     }
 
     public static Offset updateOffset(Offset offset, Size originSize, Size targetSize) {
-        int offsetX = (int)(((float)offset.getX() / originSize.getWidth()) * targetSize.getWidth());
+        int offsetX = (int)(((double)offset.getX() / originSize.getWidth()) * targetSize.getWidth());
         offsetX -= offset.getX();
-        int offsetY = (int)(((float)offset.getY() / originSize.getHeight()) * targetSize.getHeight());
+        int offsetY = (int)(((double)offset.getY() / originSize.getHeight()) * targetSize.getHeight());
         offsetY  -= offset.getY();
 
+        System.out.println("New offset: " + offsetX + "," + offsetY);
         return new Offset(offsetX, offsetY);
     }
 }
