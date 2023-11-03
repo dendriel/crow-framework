@@ -1,53 +1,115 @@
 package com.vrozsa.crowframework.sample.screen;
 
-public class ButtonInteraction {
+import com.vrozsa.crowframework.engine.CrowEngine;
+import com.vrozsa.crowframework.engine.CrowEngineConfig;
+import com.vrozsa.crowframework.screen.ui.UIExpandMode;
+import com.vrozsa.crowframework.screen.ui.components.button.UIButton;
+import com.vrozsa.crowframework.screen.ui.components.templates.UIButtonTemplate;
+import com.vrozsa.crowframework.screen.ui.components.templates.UIFontTemplate;
+import com.vrozsa.crowframework.screen.ui.components.templates.UIIconTemplate;
+import com.vrozsa.crowframework.screen.ui.components.templates.UILabelTemplate;
+import com.vrozsa.crowframework.screen.ui.listener.UIEventListener;
+import com.vrozsa.crowframework.shared.attributes.Rect;
 
+import static com.vrozsa.crowframework.sample.TestValues.BACKGROUND_IMAGE_FILE;
+import static com.vrozsa.crowframework.sample.TestValues.SCREEN_MIDDLE;
+
+public final class ButtonInteraction {
     public static void main(String[] args) {
 
-//        ScreenHandler screenHandler = ScreenHandlerFactory.createWithSimpleScreen(BACKGROUND_IMAGE_FILE);
-//
-//        SimpleScreen screen = (SimpleScreen)screenHandler.getScreen(ScreenType.SIMPLE.name());
-//        Rect screenRect = new Rect(0, 0, screen.getWidth(), screen.getHeight());
-//
-//        // Dynamic Label
-//        UILabelTemplate labelData = new UILabelTemplate();
-//        labelData.setText("Test text");
-//        labelData.setColor(new Color(255, 255, 255));
-//        labelData.setFont(new UIFontTemplate("Serif", 0, 36));
-//        labelData.setVerticalAlignment(0);
-//        labelData.setHorizontalAlignment(0);
-//        labelData.setRect(Rect.of(screenRect.centerX() - 200, screenRect.centerY() -100, 400, 50));
-//        labelData.setReferenceSize(screenRect.getSize());
-//        UILabel label = UILabel.from(labelData);
-//
-//        UILabelTemplate labelTemplate = labelData.clone();
-//        labelTemplate.getFont().setSize(24);
-//        labelTemplate.setText("Click ");
-//        labelTemplate.setReferenceSize(screenRect.getSize());
-//
-//        UIButtonTemplate buttonData = new UIButtonTemplate();
-//        buttonData.setRect(new Rect(screenRect.centerX() - 100, screenRect.centerY() - 25, 200, 50));
-//        buttonData.setLabel(labelTemplate);
-//        buttonData.setExpandMode(UIExpandMode.FILL);
-//        buttonData.setDefaultImage("/assets/ui/button.png");
-//        buttonData.setPressedImage("/assets/ui/button_pressed.png");
-//        buttonData.setReferenceSize(screenRect.getSize());
-//        buttonData.setDisabledImage("/assets/ui/button_pressed.png");
-//        buttonData.setDisabled(false);
-//
-//        int i = 3;
-//        UIButton button = new UIButton(buttonData);
-//        UIEventListener listener = (s) -> label.setText("Button " + s + " pressed!");
-//        button.addButtonPressedListener(listener, i);
-//
-//        UIEventListener heldListener = (s) -> label.setText("Button " + s + " held!");
-//        button.addButtonHeldListener(heldListener, i);
-//        UIEventListener releasedListener = (s) -> label.setText("Button " + s + " released!");
-//        button.addButtonReleasedListener(releasedListener, i);
-//
-//        UIEventListener onMouseEntered = (s) -> label.setText("Mouse entered " + s);
-//        button.addMouseEnteredListener(onMouseEntered, i);
-//        UIEventListener onMouseExited = (s) -> label.setText("Mouse exited " + s);
-//        button.addMouseExitedListener(onMouseExited, i);
+        var config = CrowEngineConfig.builder()
+                .title("Button Interaction Sample")
+                .windowResizable(true)
+                .build();
+        var crowEngine = CrowEngine.create(config);
+
+        addInteractableButton(crowEngine);
+        addDisabledButton(crowEngine);
+        addActionableButton(crowEngine);
+    }
+
+    private static void addInteractableButton(CrowEngine crowEngine) {
+        var screenManager = crowEngine.getScreenManager();
+
+        screenManager.createIcon(UIIconTemplate.builder()
+                .imageFile(BACKGROUND_IMAGE_FILE)
+                .rect(Rect.atOrigin(screenManager.getSize()))
+                .build());
+
+        var buttonLabelTemplate = UILabelTemplate.builder()
+                .text("Click")
+                .font(new UIFontTemplate("Serif", 0, 24))
+                .verticalAlignment(0)
+                .horizontalAlignment(0)
+                .rect(Rect.of(0, 0, 400, 50))
+                .build();
+
+        var button = screenManager.createButton(UIButtonTemplate.builder()
+                .rect(Rect.of(SCREEN_MIDDLE.getX() - 100, SCREEN_MIDDLE.getY() - 25, 200, 50))
+                .expandMode(UIExpandMode.FILL)
+                .defaultImage("/assets/ui/button.png")
+                .pressedImage("/assets/ui/button_pressed.png")
+                .label(buttonLabelTemplate)
+                .build());
+
+        var displayLabelTemplate = buttonLabelTemplate.clone();
+        displayLabelTemplate.setRect(Rect.of(SCREEN_MIDDLE.getX() - 200, SCREEN_MIDDLE.getY() -200, 400, 50));
+        displayLabelTemplate.setText("DISPLAYER");
+
+        var label = screenManager.createLabel(displayLabelTemplate);
+
+        UIEventListener heldListener = s -> label.setText("Button held!");
+        button.addButtonHeldListener(heldListener, null);
+        UIEventListener releasedListener = s -> label.setText("Button released!");
+        button.addButtonReleasedListener(releasedListener, null);
+
+        UIEventListener onMouseEntered = s -> label.setText("Mouse entered");
+        button.addMouseEnteredListener(onMouseEntered, null);
+        UIEventListener onMouseExited = s -> label.setText("Mouse exited");
+        button.addMouseExitedListener(onMouseExited, null);
+    }
+
+    private static void addDisabledButton(CrowEngine crowEngine) {
+        var screenManager = crowEngine.getScreenManager();
+
+        var buttonLabelTemplate = UILabelTemplate.builder()
+                .text("Disabled Button")
+                .font(new UIFontTemplate("Serif", 0, 24))
+                .verticalAlignment(0)
+                .horizontalAlignment(0)
+                .rect(Rect.of(0, 0, 400, 50))
+                .build();
+
+        screenManager.createButton(UIButtonTemplate.builder()
+                .rect(Rect.of(SCREEN_MIDDLE.getX() - 100, SCREEN_MIDDLE.getY() + 50, 200, 50))
+                .expandMode(UIExpandMode.FILL)
+                .defaultImage("/assets/ui/button.png")
+                .disabledImage("/assets/ui/button_disabled.png")
+                .label(buttonLabelTemplate)
+                .isDisabled(true)
+                .build());
+    }
+
+    private static void addActionableButton(CrowEngine crowEngine) {
+        var screenManager = crowEngine.getScreenManager();
+
+        var buttonLabelTemplate = UILabelTemplate.builder()
+                .text("Click to disable")
+                .font(new UIFontTemplate("Serif", 0, 24))
+                .verticalAlignment(0)
+                .horizontalAlignment(0)
+                .rect(Rect.of(0, 0, 400, 50))
+                .build();
+
+        var button = screenManager.createButton(UIButtonTemplate.builder()
+                .rect(Rect.of(SCREEN_MIDDLE.getX() - 100, SCREEN_MIDDLE.getY() + 125, 200, 50))
+                .expandMode(UIExpandMode.FILL)
+                .defaultImage("/assets/ui/button.png")
+                .pressedImage("/assets/ui/button_pressed.png")
+                .disabledImage("/assets/ui/button_disabled.png")
+                .label(buttonLabelTemplate)
+                .build());
+
+        button.addButtonPressedListener(b -> ((UIButton)b).setDisabled(true), button);
     }
 }

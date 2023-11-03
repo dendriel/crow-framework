@@ -3,7 +3,7 @@ package com.vrozsa.crowframework.shared.time;
 /**
  * Used to keep track of a passing amount time.
  */
-public class Cooldown {
+public final class Cooldown {
     private long waitingTime;
     private long startTime;
     private boolean isStarted;

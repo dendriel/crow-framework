@@ -1,7 +1,13 @@
 package com.vrozsa.crowframework.screen.ui.components.templates;
 
+import com.vrozsa.crowframework.screen.ui.UIExpandMode;
 import com.vrozsa.crowframework.shared.api.screen.ui.UIComponentType;
+import com.vrozsa.crowframework.shared.attributes.Rect;
+import com.vrozsa.crowframework.shared.attributes.Size;
+import lombok.Builder;
+import lombok.Data;
 
+@Data
 public final class UIButtonTemplate extends UIBaseComponentTemplate {
     private String defaultImage;
     private String pressedImage;
@@ -17,67 +23,35 @@ public final class UIButtonTemplate extends UIBaseComponentTemplate {
 //        toolTip = new UIToolTipTemplate();
     }
 
-    public UILabelTemplate getLabel() {
-        return label;
-    }
-
-    public void setLabel(UILabelTemplate label) {
-        this.label = label;
-    }
-
-    public String getDefaultImage() {
-        return defaultImage;
-    }
-
-    public void setDefaultImage(String defaultImage) {
+    @Builder
+    public UIButtonTemplate(
+            Rect rect,
+            String tag,
+            UIExpandMode expandMode,
+            Size referenceSize,
+            boolean isEnabled,
+            String defaultImage,
+            String pressedImage,
+            String rolloverImage,
+            String disabledImage,
+            boolean isDisabled,
+            boolean isFocusable,
+            UILabelTemplate label,
+            UIToolTipTemplate toolTip
+    ) {
+        super(UIComponentType.BUTTON, rect, tag, expandMode, referenceSize, isEnabled);
         this.defaultImage = defaultImage;
-    }
-
-    public String getPressedImage() {
-        return pressedImage;
-    }
-
-    public void setPressedImage(String pressedImage) {
         this.pressedImage = pressedImage;
-    }
-
-    public String getRolloverImage() {
-        return rolloverImage;
-    }
-
-    public void setRolloverImage(String rolloverImage) {
         this.rolloverImage = rolloverImage;
-    }
-
-    public String getDisabledImage() {
-        return disabledImage;
-    }
-
-    public void setDisabledImage(String disabledImage) {
         this.disabledImage = disabledImage;
-    }
-
-    public boolean isDisabled() {
-        return isDisabled;
-    }
-
-    public void setDisabled(boolean disabled) {
-        isDisabled = disabled;
-    }
-
-    public boolean isFocusable() {
-        return isFocusable;
-    }
-
-    public void setFocusable(boolean focusable) {
-        isFocusable = focusable;
-    }
-
-    public UIToolTipTemplate getToolTip() {
-        return toolTip;
-    }
-
-    public void setToolTip(UIToolTipTemplate toolTip) {
+        this.isDisabled = isDisabled;
+        this.isFocusable = isFocusable;
+        this.label = label;
         this.toolTip = toolTip;
+    }
+
+    public static class UIButtonTemplateBuilder {
+        private UIExpandMode expandMode = DEFAULT_EXPAND_MODE;
+        private boolean isEnabled = DEFAULT_IS_ENABLED;
     }
 }

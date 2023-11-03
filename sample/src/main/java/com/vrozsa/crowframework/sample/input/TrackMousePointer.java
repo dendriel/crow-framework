@@ -1,6 +1,8 @@
 package com.vrozsa.crowframework.sample.input;
 
 import com.vrozsa.crowframework.engine.CrowEngine;
+import com.vrozsa.crowframework.screen.ui.components.templates.UIFontTemplate;
+import com.vrozsa.crowframework.screen.ui.components.templates.UILabelTemplate;
 import com.vrozsa.crowframework.shared.attributes.Rect;
 
 public class TrackMousePointer {
@@ -9,8 +11,19 @@ public class TrackMousePointer {
 
         var pointerHandler = crowEngine.getInputManager().getPointerHandler();
 
-        var pointerAbs = crowEngine.getScreenManager().addLabel("", 32, Rect.of(0, 200, 800, 50));
-        var pointerRel = crowEngine.getScreenManager().addLabel("", 32, Rect.of(0, 300, 800, 50));
+        var pointerAbs = crowEngine.getScreenManager()
+                .createLabel(UILabelTemplate.builder()
+                .text(":")
+                .font(new UIFontTemplate(32))
+                .rect(Rect.of(0, 200, 800, 50))
+                .build());
+
+        var pointerRel = crowEngine.getScreenManager()
+                .createLabel(UILabelTemplate.builder()
+                        .text(":")
+                        .font(new UIFontTemplate(32))
+                        .rect(Rect.of(0, 300, 800, 50))
+                        .build());
 
         do {
             var relPos = pointerHandler.getPointerPosition();

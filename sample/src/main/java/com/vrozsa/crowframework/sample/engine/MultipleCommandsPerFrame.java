@@ -15,13 +15,7 @@ import com.vrozsa.crowframework.shared.logger.LoggerService;
 
 import java.util.Set;
 
-import static com.vrozsa.crowframework.sample.TestValues.ARROW_IMAGE_FILE;
-import static com.vrozsa.crowframework.sample.TestValues.BACKGROUND_IMAGE_FILE;
-import static com.vrozsa.crowframework.sample.TestValues.BANDIT_IMAGE_FILE;
-import static com.vrozsa.crowframework.sample.TestValues.CHARS_SPRITE_SIZE;
-import static com.vrozsa.crowframework.sample.TestValues.HERO_IMAGE_FILE;
-import static com.vrozsa.crowframework.sample.TestValues.SCREEN_HEIGHT;
-import static com.vrozsa.crowframework.sample.TestValues.SCREEN_WIDTH;
+import static com.vrozsa.crowframework.sample.TestValues.*;
 import static com.vrozsa.crowframework.shared.api.game.GameCommand.ACTION;
 import static com.vrozsa.crowframework.shared.api.game.GameCommand.MOVE_DOWN;
 import static com.vrozsa.crowframework.shared.api.game.GameCommand.MOVE_LEFT;
@@ -35,7 +29,7 @@ public class MultipleCommandsPerFrame {
         final int screenMiddleX = SCREEN_WIDTH / 2;
         final int screenMiddleY = SCREEN_HEIGHT / 2;
 
-        var crow = CrowEngine.create(SCREEN_WIDTH, SCREEN_HEIGHT, Color.gray());
+        var crow = CrowEngine.create(WINDOW_SIZE, Color.gray());
 
         var gameManager = crow.getGameManager();
 

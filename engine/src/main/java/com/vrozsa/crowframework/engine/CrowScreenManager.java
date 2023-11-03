@@ -2,16 +2,18 @@ package com.vrozsa.crowframework.engine;
 
 import com.vrozsa.crowframework.game.component.collider.ColliderGizmosRenderer;
 import com.vrozsa.crowframework.screen.AbstractScreen;
-import com.vrozsa.crowframework.screen.ui.UIExpandMode;
-import com.vrozsa.crowframework.screen.views.RendererView;
-import com.vrozsa.crowframework.screen.views.UIView;
 import com.vrozsa.crowframework.screen.WindowHandler;
 import com.vrozsa.crowframework.screen.WindowHandlerConfig;
-import com.vrozsa.crowframework.screen.ui.components.templates.UIFontTemplate;
+import com.vrozsa.crowframework.screen.ui.UIExpandMode;
 import com.vrozsa.crowframework.screen.ui.components.UIIcon;
-import com.vrozsa.crowframework.screen.ui.components.templates.UIIconTemplate;
 import com.vrozsa.crowframework.screen.ui.components.UILabel;
+import com.vrozsa.crowframework.screen.ui.components.button.UIButton;
+import com.vrozsa.crowframework.screen.ui.components.templates.UIButtonTemplate;
+import com.vrozsa.crowframework.screen.ui.components.templates.UIFontTemplate;
+import com.vrozsa.crowframework.screen.ui.components.templates.UIIconTemplate;
 import com.vrozsa.crowframework.screen.ui.components.templates.UILabelTemplate;
+import com.vrozsa.crowframework.screen.views.RendererView;
+import com.vrozsa.crowframework.screen.views.UIView;
 import com.vrozsa.crowframework.shared.api.game.GameObject;
 import com.vrozsa.crowframework.shared.api.input.KeysListener;
 import com.vrozsa.crowframework.shared.api.input.PointerListener;
@@ -22,7 +24,11 @@ import com.vrozsa.crowframework.shared.api.screen.View;
 import com.vrozsa.crowframework.shared.attributes.Color;
 import com.vrozsa.crowframework.shared.attributes.Offset;
 import com.vrozsa.crowframework.shared.attributes.Rect;
+import com.vrozsa.crowframework.shared.attributes.Size;
 
+/**
+ * Manager of screen-related components.
+ */
 class CrowScreenManager implements ScreenManager, OffsetGetter {
     private static final String DEFAULT_SCREEN = "DEFAULT_SCREEN";
     private static final String BASE_VIEW_GROUP = "DEFAULT_VIEW_GROUP";
@@ -93,8 +99,13 @@ class CrowScreenManager implements ScreenManager, OffsetGetter {
         windowHandler.setVisible(false);
     }
 
-    void close() {
+    void terminate() {
         windowHandler.terminate();
+    }
+
+    @Override
+    public Size getSize() {
+        return windowHandler.getSize();
     }
 
     public RendererView getRendererView() {
@@ -104,22 +115,18 @@ class CrowScreenManager implements ScreenManager, OffsetGetter {
     }
 
     @Override
-    public UIIcon addIcon(final String imageFile, final int x, final int y, final int width, final int height) {
-        return addIcon(imageFile, Rect.of(x, y, width, height));
+    public UIButton createButton(UIButtonTemplate template) {
+        return (UIButton) getUIView().createComponent(template);
     }
 
     @Override
-    public UIIcon addIcon(final String imageFile, final Rect rect) {
-        var iconTemplate = UIIconTemplate.builder()
-                .imageFile(imageFile)
-                .rect(rect)
-                .referenceSize(rect.getSize())
-                .build();
+    public UIIcon createIcon(UIIconTemplate template) {
+        return (UIIcon) getUIView().createComponent(template);
+    }
 
-        var icon = UIIcon.from(iconTemplate);
-        getUIView().addComponent(icon);
-
-        return icon;
+    @Override
+    public UILabel createLabel(UILabelTemplate template) {
+        return (UILabel) getUIView().createComponent(template);
     }
 
     public UILabel addLabel(final String text, final int size, final Rect rect) {

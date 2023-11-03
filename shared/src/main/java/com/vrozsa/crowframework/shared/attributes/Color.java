@@ -88,6 +88,10 @@ public class Color {
         return new Color(java.awt.Color.gray);
     }
 
+    public static Color white() {
+        return new Color(java.awt.Color.white);
+    }
+
 //    public static Color from(java.awt.Color color) {
 //        return new Color(color);
 //    }

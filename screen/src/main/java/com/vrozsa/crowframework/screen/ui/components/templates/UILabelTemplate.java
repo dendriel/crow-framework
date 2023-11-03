@@ -1,12 +1,19 @@
 package com.vrozsa.crowframework.screen.ui.components.templates;
 
+import com.vrozsa.crowframework.screen.ui.UIExpandMode;
 import com.vrozsa.crowframework.shared.api.screen.ui.UIComponentType;
 import com.vrozsa.crowframework.shared.attributes.Color;
 import com.vrozsa.crowframework.screen.ui.components.api.UIText;
+import com.vrozsa.crowframework.shared.attributes.Rect;
+import com.vrozsa.crowframework.shared.attributes.Size;
+import lombok.Builder;
 
 import java.util.Objects;
 
-public final class UILabelTemplate extends UIBaseComponentTemplate implements UIText { // TODO: this must not implement UIText
+import static java.util.Objects.isNull;
+
+public final class UILabelTemplate extends UIBaseComponentTemplate implements UIText {
+// TODO: this must not implement UIText
     private String text;
     private UIFontTemplate font;
     private Color color;
@@ -27,6 +34,27 @@ public final class UILabelTemplate extends UIBaseComponentTemplate implements UI
         this.rect = from.rect.clone();
         this.verticalAlignment = from.verticalAlignment;
         this.horizontalAlignment = from.horizontalAlignment;
+    }
+
+    @Builder
+    public UILabelTemplate(
+            Rect rect,
+            String tag,
+            UIExpandMode expandMode,
+            Size referenceSize,
+            Boolean isEnabled,
+            String text,
+            UIFontTemplate font,
+            Color color,
+            int verticalAlignment,
+            int horizontalAlignment
+    ) {
+        super(UIComponentType.LABEL, rect, tag, expandMode, referenceSize, isNull(isEnabled) || isEnabled);
+        this.text = text;
+        this.font = isNull(font) ? new UIFontTemplate() : font;
+        this.color = isNull(color) ? Color.white() : color;
+        this.verticalAlignment = verticalAlignment;
+        this.horizontalAlignment = horizontalAlignment;
     }
 
     public UILabelTemplate clone() {

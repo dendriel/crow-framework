@@ -8,6 +8,7 @@ import com.vrozsa.crowframework.screen.ui.components.UISlider;
 import com.vrozsa.crowframework.screen.ui.components.button.UIButton;
 import com.vrozsa.crowframework.screen.ui.components.button.UIButtonGroup;
 import com.vrozsa.crowframework.screen.ui.components.input.UIInputField;
+import com.vrozsa.crowframework.screen.ui.components.templates.UIBaseComponentTemplate;
 import com.vrozsa.crowframework.shared.api.screen.ui.UIComponent;
 import com.vrozsa.crowframework.shared.api.screen.ui.UIComponentObserver;
 import com.vrozsa.crowframework.shared.attributes.Rect;
@@ -66,6 +67,10 @@ public final class UIView extends AbstractView implements UIComponentObserver {
 
     /**
      * Add a UI component into the view.
+     * <p>
+     *     Use this method only if you know what you are doing.
+     *     Otherwise, you should be using: {@link #createComponent(UIBaseComponentTemplate)} instead.
+     * </p>
      * @param component component to be added.
      * @param <T> component template type.
      */
@@ -73,6 +78,20 @@ public final class UIView extends AbstractView implements UIComponentObserver {
         component.addUIComponentChangedListener(this);
         component.wrapUp(this);
         components.add(component);
+    }
+
+    /**
+     * Creates a new component from its template.
+     * <p>
+     *     This is the default way to add new components in the view.
+     * </p>
+     * @param template the component template.
+     * @return the created component.
+     */
+    public UIComponent<? extends UIBaseComponentTemplate> createComponent(final UIBaseComponentTemplate template) {
+        var component = UIComponentFactory.create(template, rect.getSize());
+        addComponent(component);
+        return component;
     }
 
     /**

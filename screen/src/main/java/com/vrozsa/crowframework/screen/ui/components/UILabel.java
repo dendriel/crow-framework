@@ -73,10 +73,10 @@ public class UILabel extends AbstractUIComponent<UILabelTemplate> {
     public void updateScreenSize(Size parentSize) {
         super.updateScreenSize(parentSize);
 
-        if (expandMode.equals(UIExpandMode.FILL)) {
-            Size refSize = data.getReferenceSize();
-            UIFontTemplate font = UIFontTemplate.updateFontTemplate(data.getFont(), refSize.getHeight(), parentSize.getHeight());
-            label.setFont(font.getJFont());
+        if (UIExpandMode.FILL.equals(expandMode)) {
+            var refSize = data.getReferenceSize();
+            var fontTemplate = UIFontTemplate.updateFontTemplate(data.getFont(), refSize.getHeight(), parentSize.getHeight());
+            label.setFont(fontTemplate.getJFont());
         }
 
         setupBounds();

@@ -6,7 +6,7 @@ import com.vrozsa.crowframework.shared.api.screen.ui.UIComponentType;
 import com.vrozsa.crowframework.shared.attributes.Rect;
 import com.vrozsa.crowframework.shared.attributes.Size;
 
-import java.util.Objects;
+import static java.util.Objects.isNull;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UIBaseComponentTemplate {
@@ -39,10 +39,10 @@ public class UIBaseComponentTemplate {
 
     protected UIBaseComponentTemplate(final UIBaseComponentTemplate from) {
         this.type = from.type;
-        this.rect = from.rect.clone();
+        this.rect = from.getRect();
         this.tag = from.tag;
         this.expandMode = from.expandMode;
-        this.referenceSize = from.referenceSize.clone();
+        this.referenceSize = from.getReferenceSize().clone();
         this.isEnabled = from.isEnabled;
     }
 
@@ -71,7 +71,7 @@ public class UIBaseComponentTemplate {
     }
 
     public Size getReferenceSize() {
-        if (Objects.isNull(referenceSize)) {
+        if (isNull(referenceSize)) {
             return Size.zeroed();
         }
         return referenceSize.clone();
@@ -82,7 +82,7 @@ public class UIBaseComponentTemplate {
     }
 
     public Rect getRect() {
-        return rect.clone();
+        return isNull(rect) ? Rect.zeroed() : rect.clone();
     }
 
     public void setRect(Rect rect) {

@@ -5,7 +5,6 @@ import com.vrozsa.crowframework.screen.WindowHandlerConfig;
 import com.vrozsa.crowframework.shared.api.game.GameObject;
 import com.vrozsa.crowframework.shared.api.input.KeysListener;
 import com.vrozsa.crowframework.shared.api.input.PointerListener;
-import com.vrozsa.crowframework.shared.attributes.Size;
 
 /**
  * Crow Engine aimed to be an out-of-box engine to easily build games using Crow Framework.
@@ -41,7 +40,8 @@ final class Engine implements CrowEngine {
     private static WindowHandlerConfig mapScreenHandlerConfig(CrowEngineConfig config) {
         return WindowHandlerConfig.builder()
                 .title(config.title())
-                .size(Size.of(config.screenWidth(), config.screenHeight()))
+                .size(config.windowSize())
+                .isResizable(config.windowResizable())
                 .build();
     }
 

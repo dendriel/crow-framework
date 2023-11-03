@@ -19,6 +19,10 @@ public final class UIFontTemplate {
         size = 24;
     }
 
+    public UIFontTemplate(int size) {
+        this("Serif", 0, size);
+    }
+
     public UIFontTemplate(String font, int style, int size) {
         this.font = font;
         this.style = style;

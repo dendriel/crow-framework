@@ -1,5 +1,6 @@
 package com.vrozsa.crowframework.sample;
 
+import com.vrozsa.crowframework.shared.attributes.Offset;
 import com.vrozsa.crowframework.shared.attributes.Size;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -15,4 +16,6 @@ class TestValues {
     public static final Size CHARS_SPRITE_SIZE = Size.of(80, 80);
     public static final int SCREEN_WIDTH = 800;
     public static final int SCREEN_HEIGHT = 600;
+    public static final Size WINDOW_SIZE = Size.of(SCREEN_WIDTH, SCREEN_HEIGHT);
+    public static final Offset SCREEN_MIDDLE = Offset.of(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 }

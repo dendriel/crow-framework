@@ -20,14 +20,13 @@ public class UIIconTemplate extends UIBaseComponentTemplate {
     @Builder
     public UIIconTemplate(
             String imageFile,
-            UIComponentType type,
             Rect rect,
             String tag,
             UIExpandMode expandMode,
             Size referenceSize,
             boolean isEnabled
     ) {
-        super(type, rect, tag, expandMode, referenceSize, isEnabled);
+        super(UIComponentType.ICON, rect, tag, expandMode, referenceSize, isEnabled);
         this.imageFile = imageFile;
     }
 
