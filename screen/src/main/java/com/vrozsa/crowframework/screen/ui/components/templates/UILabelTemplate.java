@@ -2,7 +2,7 @@ package com.vrozsa.crowframework.screen.ui.components.templates;
 
 import com.vrozsa.crowframework.shared.api.screen.ui.UIComponentType;
 import com.vrozsa.crowframework.shared.attributes.Color;
-import com.vrozsa.crowframework.screen.ui.api.UIText;
+import com.vrozsa.crowframework.screen.ui.components.api.UIText;
 
 import java.util.Objects;
 

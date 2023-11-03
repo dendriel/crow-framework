@@ -1,37 +1,42 @@
 package com.vrozsa.crowframework.screen.ui.components.button;
 
-import com.vrozsa.crowframework.screen.ui.components.templates.UIButtonTemplate;
-import com.vrozsa.crowframework.shared.image.ImageLoader;
 import com.vrozsa.crowframework.screen.ui.UIExpandMode;
+import com.vrozsa.crowframework.screen.ui.components.AbstractUIComponent;
+import com.vrozsa.crowframework.screen.ui.components.templates.UIButtonTemplate;
 import com.vrozsa.crowframework.screen.ui.components.templates.UIFontTemplate;
 import com.vrozsa.crowframework.screen.ui.components.templates.UILabelTemplate;
-import com.vrozsa.crowframework.shared.api.screen.Image;
-import com.vrozsa.crowframework.shared.attributes.Offset;
-import com.vrozsa.crowframework.shared.attributes.Rect;
-import com.vrozsa.crowframework.shared.attributes.Size;
-import com.vrozsa.crowframework.screen.ui.components.AbstractUIComponent;
 import com.vrozsa.crowframework.screen.ui.listener.UIEventListener;
 import com.vrozsa.crowframework.screen.ui.listener.UIEventListenerTuple;
+import com.vrozsa.crowframework.shared.attributes.Offset;
+import com.vrozsa.crowframework.shared.attributes.Size;
+import com.vrozsa.crowframework.shared.image.ImageLoader;
 
-import javax.swing.*;
+import javax.swing.ButtonModel;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.event.ChangeEvent;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.Graphics;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Provides UI button functionality.
+ */
 public class UIButton extends AbstractUIComponent<UIButtonTemplate> {
     private UIButtonTemplate data;
     private CustomJButton button;
-    private Set<UIEventListenerTuple<UIEventListener>> buttonPressedListeners;
-    private Set<UIEventListenerTuple<UIEventListener>> buttonHeldListeners;
-    private Set<UIEventListenerTuple<UIEventListener>> buttonReleasedListeners;
-    private Set<UIEventListenerTuple<UIEventListener>> buttonMouseEnteredListeners;
-    private Set<UIEventListenerTuple<UIEventListener>> buttonMouseExitedListeners;
+    private final Set<UIEventListenerTuple<UIEventListener>> buttonPressedListeners;
+    private final Set<UIEventListenerTuple<UIEventListener>> buttonHeldListeners;
+    private final Set<UIEventListenerTuple<UIEventListener>> buttonReleasedListeners;
+    private final Set<UIEventListenerTuple<UIEventListener>> buttonMouseEnteredListeners;
+    private final Set<UIEventListenerTuple<UIEventListener>> buttonMouseExitedListeners;
 
     private boolean isPressed;
 
@@ -101,23 +106,23 @@ public class UIButton extends AbstractUIComponent<UIButtonTemplate> {
     }
 
     private void setupImages() {
-        Rect rect = data.getRect();
+        var rect = data.getRect();
 
         if (data.getDefaultImage() != null) {
-            Image resizableImage = ImageLoader.load(data.getDefaultImage());
-            BufferedImage bufferedImage = resizableImage.getContent(rect.getWidth(), rect.getHeight());
+            var resizableImage = ImageLoader.load(data.getDefaultImage());
+            var bufferedImage = resizableImage.getContent(rect.getWidth(), rect.getHeight());
             button.setIcon(new ImageIcon(bufferedImage));
         }
 
         if (data.getPressedImage() != null) {
-            Image resizableImage = ImageLoader.load(data.getPressedImage());
-            BufferedImage bufferedImage = resizableImage.getContent(rect.getWidth(), rect.getHeight());
+            var resizableImage = ImageLoader.load(data.getPressedImage());
+            var bufferedImage = resizableImage.getContent(rect.getWidth(), rect.getHeight());
             button.setPressedIcon(new ImageIcon(bufferedImage));
         }
 
         if (data.getRolloverImage() != null) {
-            Image resizableImage = ImageLoader.load(data.getRolloverImage());
-            BufferedImage bufferedImage = resizableImage.getContent(rect.getWidth(), rect.getHeight());
+            var resizableImage = ImageLoader.load(data.getRolloverImage());
+            var bufferedImage = resizableImage.getContent(rect.getWidth(), rect.getHeight());
             button.setRolloverIcon(new ImageIcon(bufferedImage));
         }
         else {
@@ -125,8 +130,8 @@ public class UIButton extends AbstractUIComponent<UIButtonTemplate> {
         }
 
         if (data.getDisabledImage() != null) {
-            Image resizableImage = ImageLoader.load(data.getDisabledImage());
-            BufferedImage bufferedImage = resizableImage.getContent(rect.getWidth(), rect.getHeight());
+            var resizableImage = ImageLoader.load(data.getDisabledImage());
+            var bufferedImage = resizableImage.getContent(rect.getWidth(), rect.getHeight());
             button.setDisabledIcon(new ImageIcon(bufferedImage));
         }
     }
@@ -245,7 +250,6 @@ public class UIButton extends AbstractUIComponent<UIButtonTemplate> {
     }
 
     private void onMouseExited(MouseEvent evt) {
-//        System.out.println("onMouseExited");
         buttonMouseExitedListeners.forEach(l -> l.listener().onEvent(l.state()));
     }
 

@@ -5,7 +5,7 @@ import com.vrozsa.crowframework.screen.ui.components.templates.UILabelTemplate;
 import com.vrozsa.crowframework.shared.attributes.Offset;
 import com.vrozsa.crowframework.shared.attributes.Rect;
 import com.vrozsa.crowframework.shared.attributes.Size;
-import com.vrozsa.crowframework.screen.ui.api.UIText;
+import com.vrozsa.crowframework.screen.ui.components.api.UIText;
 
 import java.awt.*;
 import java.awt.image.ImageObserver;

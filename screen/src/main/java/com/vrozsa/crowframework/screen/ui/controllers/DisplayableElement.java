@@ -1,6 +1,6 @@
-package com.vrozsa.crowframework.screen.api;
+package com.vrozsa.crowframework.screen.ui.controllers;
 
-import com.vrozsa.crowframework.screen.ui.api.UISlotContent;
+import com.vrozsa.crowframework.screen.ui.components.api.UISlotContent;
 
 public interface DisplayableElement<T> {
     T getDisplayMode();

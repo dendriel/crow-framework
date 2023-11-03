@@ -1,4 +1,4 @@
-package com.vrozsa.crowframework.screen.ui.api;
+package com.vrozsa.crowframework.screen.ui.controllers;
 
 @FunctionalInterface
 public interface SlotGroupControllerCommand {

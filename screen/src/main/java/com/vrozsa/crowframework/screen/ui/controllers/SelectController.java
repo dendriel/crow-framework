@@ -1,9 +1,10 @@
-package com.vrozsa.crowframework.screen.ui;
+package com.vrozsa.crowframework.screen.ui.controllers;
 
+import com.vrozsa.crowframework.screen.ui.NullAudioClipPlayer;
 import com.vrozsa.crowframework.screen.ui.components.UISelect;
 import com.vrozsa.crowframework.shared.api.game.GameCommand;
 import com.vrozsa.crowframework.shared.api.input.KeysReader;
-import com.vrozsa.crowframework.screen.ui.api.UISelectOption;
+import com.vrozsa.crowframework.screen.ui.components.api.UISelectOption;
 import com.vrozsa.crowframework.shared.api.audio.AudioClipPlayer;
 
 public class SelectController extends AbstractSlotGroupController implements UISelect.SelectOptionListener {

@@ -2,6 +2,7 @@ package com.vrozsa.crowframework.engine;
 
 import com.vrozsa.crowframework.game.component.collider.ColliderGizmosRenderer;
 import com.vrozsa.crowframework.screen.AbstractScreen;
+import com.vrozsa.crowframework.screen.ui.UIExpandMode;
 import com.vrozsa.crowframework.screen.views.RendererView;
 import com.vrozsa.crowframework.screen.views.UIView;
 import com.vrozsa.crowframework.screen.WindowHandler;
@@ -129,6 +130,7 @@ class CrowScreenManager implements ScreenManager, OffsetGetter {
         labelTemplate.setText(text);
         labelTemplate.setRect(rect);
         labelTemplate.setFont(uiFontTemplate);
+        labelTemplate.setExpandMode(UIExpandMode.FILL);
         var label = UILabel.from(labelTemplate);
         getUIView().addComponent(label);
 

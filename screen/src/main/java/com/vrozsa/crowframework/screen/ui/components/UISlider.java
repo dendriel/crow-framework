@@ -6,7 +6,7 @@ import com.vrozsa.crowframework.shared.image.ImageLoader;
 import com.vrozsa.crowframework.shared.api.screen.Image;
 import com.vrozsa.crowframework.shared.attributes.Rect;
 import com.vrozsa.crowframework.shared.attributes.Size;
-import com.vrozsa.crowframework.screen.ui.api.UIFillBar;
+import com.vrozsa.crowframework.screen.ui.components.api.UIFillBar;
 
 import java.awt.Graphics;
 import java.awt.image.ImageObserver;

@@ -1,8 +1,6 @@
-package com.vrozsa.crowframework.screen.ui;
+package com.vrozsa.crowframework.screen.ui.controllers;
 
-import com.vrozsa.crowframework.screen.api.DisplayableElement;
-import com.vrozsa.crowframework.screen.api.ElementDisplayHandler;
-import com.vrozsa.crowframework.screen.ui.api.UISlotGroupHandler;
+import com.vrozsa.crowframework.screen.ui.components.api.UISlotGroupHandler;
 import com.vrozsa.crowframework.screen.ui.components.UISlot;
 import com.vrozsa.crowframework.screen.ui.components.UISlotGroup;
 

@@ -1,10 +1,9 @@
-package com.vrozsa.crowframework.screen.ui;
+package com.vrozsa.crowframework.screen.ui.controllers;
 
 import com.vrozsa.crowframework.shared.api.game.GameCommand;
 import com.vrozsa.crowframework.shared.api.game.BaseComponent;
 import com.vrozsa.crowframework.shared.api.input.KeysReader;
 import com.vrozsa.crowframework.shared.api.input.InputKey;
-import com.vrozsa.crowframework.screen.ui.api.SlotGroupControllerCommand;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package com.vrozsa.crowframework.screen.api;
+package com.vrozsa.crowframework.screen.ui.controllers;
 
 public interface ElementDisplayHandler {
     void displayElement(DisplayableElement item);

@@ -5,8 +5,8 @@ import com.vrozsa.crowframework.screen.ui.components.templates.UISlotTemplate;
 import com.vrozsa.crowframework.shared.attributes.Offset;
 import com.vrozsa.crowframework.shared.attributes.Rect;
 import com.vrozsa.crowframework.shared.attributes.Size;
-import com.vrozsa.crowframework.screen.ui.api.UIHandler;
-import com.vrozsa.crowframework.screen.ui.api.UISlotContent;
+import com.vrozsa.crowframework.screen.ui.components.api.UIHandler;
+import com.vrozsa.crowframework.screen.ui.components.api.UISlotContent;
 
 import java.awt.*;
 import java.awt.image.ImageObserver;

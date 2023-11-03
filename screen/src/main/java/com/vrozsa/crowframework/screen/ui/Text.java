@@ -1,6 +1,6 @@
 package com.vrozsa.crowframework.screen.ui;
 
-import com.vrozsa.crowframework.screen.ui.api.UIText;
+import com.vrozsa.crowframework.screen.ui.components.api.UIText;
 
 public class Text implements UIText {
     private String value;

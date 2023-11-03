@@ -1,14 +1,14 @@
 package com.vrozsa.crowframework.screen.ui.components;
 
-import com.vrozsa.crowframework.screen.ui.SelectHandlerController;
+import com.vrozsa.crowframework.screen.ui.controllers.SelectHandlerController;
 import com.vrozsa.crowframework.screen.ui.components.templates.UISelectTemplate;
 import com.vrozsa.crowframework.screen.ui.components.templates.UISlotGroupTemplate;
 import com.vrozsa.crowframework.shared.attributes.Offset;
 import com.vrozsa.crowframework.shared.attributes.Size;
 import com.vrozsa.crowframework.shared.api.screen.ui.UIComponentObserver;
-import com.vrozsa.crowframework.screen.ui.api.UIHandler;
-import com.vrozsa.crowframework.screen.ui.api.UISelectOption;
-import com.vrozsa.crowframework.screen.ui.api.UISlotGroupHandler;
+import com.vrozsa.crowframework.screen.ui.components.api.UIHandler;
+import com.vrozsa.crowframework.screen.ui.components.api.UISelectOption;
+import com.vrozsa.crowframework.screen.ui.components.api.UISlotGroupHandler;
 
 import java.awt.*;
 import java.awt.image.ImageObserver;
