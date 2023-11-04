@@ -8,11 +8,6 @@ public final class UIFontTemplate {
     private int style;
     private int size;
 
-    @Override
-    protected UIFontTemplate clone() {
-        return new UIFontTemplate(font, style, size);
-    }
-
     public UIFontTemplate() {
         font = "Serif";
         style = 0;
@@ -27,6 +22,11 @@ public final class UIFontTemplate {
         this.font = font;
         this.style = style;
         this.size = size;
+    }
+
+    @Override
+    public UIFontTemplate clone() {
+        return new UIFontTemplate(font, style, size);
     }
 
     public Font getJFont() {

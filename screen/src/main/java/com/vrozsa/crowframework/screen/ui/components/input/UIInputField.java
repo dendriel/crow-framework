@@ -88,12 +88,12 @@ public class UIInputField extends AbstractUIComponent<UIInputFieldTemplate> {
         textField.setEnabled(!isDisabled);
     }
 
+    @Override
     public void updateScreenSize(Size parentSize) {
         super.updateScreenSize(parentSize);
 
-        if (expandMode.equals(UIExpandMode.FILL)) {
-            Size refSize = data.getReferenceSize();
-            UIFontTemplate font = UIFontTemplate.updateFontTemplate(data.getFont(), refSize.getHeight(), parentSize.getHeight());
+        if (expandMode == UIExpandMode.FILL) {
+            var font = UIFontTemplate.updateFontTemplate(data.getFont().clone(), data.getRect().getHeight(), rect.getHeight());
             textField.setFont(font.getJFont());
         }
 
@@ -101,7 +101,6 @@ public class UIInputField extends AbstractUIComponent<UIInputFieldTemplate> {
     }
 
     private void onSubmitted(ActionEvent e) {
-        System.out.println("Input submit");
         inputFieldSubmittedListeners.forEach(l -> l.listener().onEvent(l.state()));
     }
 
