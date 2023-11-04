@@ -17,7 +17,7 @@ final class Engine implements CrowEngine {
     private final GameLoop gameLoop;
 
     Engine(final CrowEngineConfig config) {
-        screenManager = new CrowScreenManager(config.showGizmos(), mapScreenHandlerConfig(config));
+        screenManager = new CrowScreenManager(config.windowMode(), config.showGizmos(), mapScreenHandlerConfig(config));
         inputManager = new CrowInputManager(screenManager);
         gameManager = new CrowGameManager(screenManager);
         audioManager = new CrowAudioManager(config.assetsPath());

@@ -32,11 +32,12 @@ Add this VM flag: `-ea`
 
 ## TODO
 
+- Add a sample for loading a whole view from a template.
 - Add a method to return the game object builder with the engine injected on it, this way allowing the builder to inject
 the crow components dependencies automatically.
-- Make screen components do no inherit from java.awt components.
+- Make screen components do not inherit from java.awt components.
 - Allows to pre-load image resources (similar to addAudioClipMetadata from audio)
-- Use Identifiable in UI components.
+- Use Identifiable in UI components (instead of the 'tag' attribute).
 - Add background (looping) music to Skeleton Hunter game.
 
 ## Nice To Have
@@ -66,3 +67,9 @@ player. It will try to dodge what he is seeing and will fail, generating frustra
 
 .. so we won't have an inputHandler API that works half on some implementation and the other half in another
 implementation. 
+
+
+### Add resize capability to window
+
+Allows to resize the game-window inside the game. This way we can have a menu with available/valid resolutions the
+player can select.

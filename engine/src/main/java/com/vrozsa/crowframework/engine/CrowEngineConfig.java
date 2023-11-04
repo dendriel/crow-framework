@@ -12,6 +12,7 @@ import lombok.Builder;
  * @param title game title to be displayed in the game window.
  * @param assetsPath base assets path to be used when loading resources (audio clip; images).
  * @param windowResizable the game window can be resized?
+ * @param windowMode the starting window mode.
  */
 @Builder
 public record CrowEngineConfig(
@@ -20,17 +21,20 @@ public record CrowEngineConfig(
         Color color,
         String title,
         String assetsPath,
-        boolean windowResizable
+        boolean windowResizable,
+        WindowMode windowMode
 ) {
     private static final int DEFAULT_SCREEN_WIDTH = 800;
     private static final int DEFAULT_SCREEN_HEIGHT = 600;
 
-    // Defaults for lombok
+    /**
+     * Defaults for lombok
+     */
     public static class CrowEngineConfigBuilder {
         private Size windowSize = Size.of(DEFAULT_SCREEN_WIDTH, DEFAULT_SCREEN_HEIGHT);
         private boolean windowResizable = false;
+        private WindowMode windowMode = WindowMode.DEFAULT;
         private Color color = Color.blue();
-
         private String assetsPath = "/assets";
     }
 }

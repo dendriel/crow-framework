@@ -8,6 +8,8 @@ import com.vrozsa.crowframework.screen.ui.components.templates.UIIconTemplate;
 import com.vrozsa.crowframework.screen.ui.components.templates.UILabelTemplate;
 import com.vrozsa.crowframework.screen.views.RendererView;
 import com.vrozsa.crowframework.shared.api.game.GameObject;
+import com.vrozsa.crowframework.shared.api.screen.Screen;
+import com.vrozsa.crowframework.shared.api.screen.View;
 import com.vrozsa.crowframework.shared.attributes.Size;
 
 /**
@@ -47,6 +49,22 @@ public interface ScreenManager {
      * @return the renderer view, if any.
      */
     RendererView getRendererView();
+
+    /**
+     * Adds a view into the default screen.
+     * <p>
+     *     <b>WARNING</b>: requires the window to be initialized in {@link WindowMode#DEFAULT} mode, so the default
+     *     screen is present.
+     * </p>
+     * @param view the view to be added.
+     */
+    void addView(View view);
+
+    /**
+     * Adds a screen into the window.
+     * @param screen the screen to be added.
+     */
+    void addScreen(final Screen screen);
 
     /**
      * Gets the window size.

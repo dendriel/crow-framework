@@ -1,6 +1,5 @@
 package com.vrozsa.crowframework.screen.ui.components.templates;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.vrozsa.crowframework.screen.ui.UIExpandMode;
 import com.vrozsa.crowframework.shared.api.screen.ui.UIComponentType;
 import com.vrozsa.crowframework.shared.attributes.Rect;
@@ -8,7 +7,6 @@ import com.vrozsa.crowframework.shared.attributes.Size;
 
 import static java.util.Objects.isNull;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class UIBaseComponentTemplate {
     protected static final UIExpandMode DEFAULT_EXPAND_MODE = UIExpandMode.FILL;
     protected static final boolean DEFAULT_IS_ENABLED = true;

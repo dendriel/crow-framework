@@ -7,4 +7,7 @@ dependencies {
     implementation project(path: ':audio')
     implementation project(path: ':engine')
     implementation project(path: ':game')
+
+
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.3'
 }

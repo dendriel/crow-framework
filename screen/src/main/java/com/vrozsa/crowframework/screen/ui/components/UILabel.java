@@ -11,7 +11,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.ImageObserver;
 
-public class UILabel extends AbstractUIComponent<UILabelTemplate> {
+public final class UILabel extends AbstractUIComponent<UILabelTemplate> {
     private UILabelTemplate data;
     private JLabel label;
     private Offset customOffset;
