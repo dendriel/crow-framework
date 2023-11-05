@@ -65,6 +65,11 @@ public abstract class AbstractUIComponent<T extends UIBaseComponentTemplate> imp
         return tag;
     }
 
+    @Override
+    public String getName() {
+        return data.getName();
+    }
+
     public void updateScreenSize(Size parentSize) {
         var refSize = data.getReferenceSize();
         var rect = data.getRect();

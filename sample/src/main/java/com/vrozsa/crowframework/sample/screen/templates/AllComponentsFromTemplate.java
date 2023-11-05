@@ -1,4 +1,4 @@
-package com.vrozsa.crowframework.sample.screen;
+package com.vrozsa.crowframework.sample.screen.templates;
 
 import com.vrozsa.crowframework.engine.CrowEngine;
 import com.vrozsa.crowframework.engine.CrowEngineConfig;
@@ -11,7 +11,7 @@ import java.io.IOException;
 
 import static com.vrozsa.crowframework.sample.games.skeletonhunter.ConfigurationManager.BG_SCREEN_COLOR;
 
-public class UIComponentsFromTemplate {
+public class AllComponentsFromTemplate {
 
     public static void main(String[] args) throws IOException {
 

@@ -1,4 +1,4 @@
-package com.vrozsa.crowframework.sample.screen;
+package com.vrozsa.crowframework.sample.screen.templates;
 
 import com.vrozsa.crowframework.engine.CrowEngine;
 import com.vrozsa.crowframework.engine.CrowEngineConfig;

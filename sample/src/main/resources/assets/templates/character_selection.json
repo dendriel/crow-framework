@@ -1,0 +1,113 @@
+{
+  "rect": { "offset": { "x": 0, "y": 0}, "size": { "width": 1600, "height": 900}},
+  "labels": [
+    {
+      "tag": "titleLabel",
+      "rect": { "offset": { "x": 600, "y": 150}, "size": { "width": 400, "height": 70}},
+      "font": { "font": "Serif", "style": 1, "size": 60},
+      "text": "Characters"
+    },
+    {
+      "tag": "characterNameLabel",
+      "rect": { "offset": { "x": 600, "y": 250}, "size": { "width": 400, "height": 70}},
+      "font": { "font": "Serif", "style": 1, "size": 30},
+      "text": "Skeleton Warrior"
+    },
+    {
+      "tag": "newLabel",
+      "rect": { "offset": { "x": 600, "y": 670}, "size": { "width": 400, "height": 70}},
+      "font": { "font": "Serif", "style": 0, "size": 30, "underline":  true},
+      "text": ""
+    }
+  ],
+  "icons": [
+    {
+      "tag": "bgIcon",
+      "rect": { "offset": { "x": 600, "y": 150}, "size": { "width": 400, "height": 600} },
+      "imageFile": "/assets/ui/info_bg.png"
+    },
+    {
+      "tag": "charIcon",
+      "rect": { "offset": { "x": 700, "y": 350}, "size": { "width": 200, "height": 200} },
+      "imageFile": "/assets/ui/char_area.png"
+    }
+  ],
+  "buttons": [
+    {
+      "tag": "selectLeftButton",
+      "rect": { "offset": { "x": 630, "y": 420}, "size": { "width": 51, "height": 50}},
+      "defaultImage": "/assets/ui/button_left.png",
+      "pressedImage": "/assets/ui/button_left_pressed.png",
+      "rolloverImage": "/assets/ui/button_left_highlight.png"
+    },
+    {
+      "tag": "selectRightButton",
+      "rect": { "offset": { "x": 920, "y": 420}, "size": { "width": 51, "height": 50}},
+      "defaultImage": "/assets/ui/button_right.png",
+      "pressedImage": "/assets/ui/button_right_pressed.png",
+      "rolloverImage": "/assets/ui/button_right_highlight.png"
+    },
+    {
+      "tag": "newButton",
+      "rect": { "offset": { "x": 880, "y": 620}, "size": { "width": 99, "height": 50}},
+      "label": {
+        "text": "New",
+        "font": { "font": "Serif", "style": 1, "size": 30}
+      },
+      "defaultImage": "/assets/ui/small_button.png",
+      "pressedImage": "/assets/ui/small_button_pressed.png",
+      "rolloverImage": "/assets/ui/small_button_highlight.png",
+      "disabledImage": "/assets/ui/small_button_disabled.png"
+    },
+    {
+      "tag": "clearButton",
+      "rect": { "offset": { "x": 620, "y": 620}, "size": { "width": 99, "height": 50}},
+      "label": {
+        "text": "Clear",
+        "font": { "font": "Serif", "style": 1, "size": 30}
+      },
+      "defaultImage": "/assets/ui/small_button.png",
+      "pressedImage": "/assets/ui/small_button_pressed.png",
+      "rolloverImage": "/assets/ui/small_button_highlight.png",
+      "disabledImage": "/assets/ui/small_button_disabled.png"
+    }
+  ],
+  "animations": [
+    {
+      "tag": "characterAnimation",
+      "name": "skeletonMage",
+      "rect": { "offset": { "x": 720, "y": 370}, "size": { "width": 960, "height": 160} },
+      "frameRect": { "offset": { "x": 0, "y": 0}, "size": { "width": 160, "height": 160} },
+      "imageFile": "/assets/images/skel_mage_idle_960x160.png",
+      "timeBetweenFrames": 80,
+      "repeat": true,
+      "firstFrame": 0,
+      "isRunning": true,
+      "visible": false
+    },
+    {
+      "tag": "characterAnimation",
+      "name": "skeletonWarrior",
+      "rect": { "offset": { "x": 720, "y": 370}, "size": { "width": 960, "height": 160} },
+      "frameRect": { "offset": { "x": 0, "y": 0}, "size": { "width": 160, "height": 160} },
+      "imageFile": "/assets/images/skel_warrior_idle_960x160.png",
+      "timeBetweenFrames": 80,
+      "repeat": true,
+      "firstFrame": 0,
+      "isRunning": true,
+      "visible": false
+    },
+    {
+      "tag": "characterAnimation",
+      "name": "skeleton",
+      "rect": { "offset": { "x": 720, "y": 370}, "size": { "width": 960, "height": 160} },
+      "frameRect": { "offset": { "x": 0, "y": 0}, "size": { "width": 160, "height": 160} },
+      "imageFile": "/assets/images/skel_idle_960x160.png",
+      "timeBetweenFrames": 80,
+      "repeat": true,
+      "firstFrame": 0,
+      "isRunning": true,
+      "visible": true
+    }
+  ]
+}

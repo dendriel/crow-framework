@@ -124,18 +124,18 @@ public class UIView extends AbstractView implements UIComponentObserver {
         components.forEach(c -> c.updateScreenSize(parentSize));
     }
 
-    public <T extends UIComponent> T getComponent(String tag, Class<T> clazz) {
+    public <T extends UIComponent> T getComponent(String name, Class<T> clazz) {
         return clazz.cast(components
                 .stream()
-                .filter(c -> c.getTag().equals(tag))
+                .filter(c -> c.getTag().equals(name))
                 .findFirst()
                 .orElse(null));
     }
 
-    public <T extends UIComponent> List<T> getComponents(String tag, Class<T> clazz) {
+    public <T extends UIComponent> List<T> getComponents(String name, Class<T> clazz) {
         return components
                 .stream()
-                .filter(c -> c.getTag().equals(tag))
+                .filter(c -> c.getTag().equals(name))
                 .map(clazz::cast)
                 .collect(Collectors.toList());
     }
@@ -151,7 +151,6 @@ public class UIView extends AbstractView implements UIComponentObserver {
         components.forEach(c -> c.paint(g, this));
     }
 
-    // TODO: check if we are going to need all of these methods.
     public UIButton getButton(String tag) {
         return getComponent(tag, UIButton.class);
     }

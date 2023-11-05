@@ -13,7 +13,10 @@ public class UIBaseComponentTemplate {
 
     protected final UIComponentType type;
     protected Rect rect;
+    // The tag identifies the UI element function and may be used to get a list of components (which contains the same tag).
     protected String tag;
+    // The name identifies the UI element uniquely.
+    protected String name;
     protected UIExpandMode expandMode;
     // auto-set property
     protected Size referenceSize;
@@ -58,6 +61,14 @@ public class UIBaseComponentTemplate {
 
     public void setTag(String tag) {
         this.tag = tag;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public UIExpandMode getExpandMode() {
