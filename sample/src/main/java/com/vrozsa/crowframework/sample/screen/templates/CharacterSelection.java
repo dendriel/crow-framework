@@ -15,7 +15,7 @@ import java.util.Map;
 
 import static java.util.Objects.isNull;
 
-public class CharacterSelectionFromTemplate {
+public class CharacterSelection {
 
     public static void main(String[] args) throws IOException {
 
@@ -24,7 +24,7 @@ public class CharacterSelectionFromTemplate {
 
         var crowEngine = CrowEngine.create(CrowEngineConfig.builder()
                 .color(Color.from(60, 120, 194))
-                .title("UI Template Loading Sample")
+                .title("Character Selection")
                 .windowResizable(true)
                 .windowMode(WindowMode.DEFAULT_SCREEN)
                 .windowSize(rect.getSize())
@@ -85,7 +85,6 @@ public class CharacterSelectionFromTemplate {
             var charName = ANIM_NAMES.get(activeAnimation.getName());
             newLabel.setText(String.format("%s created!", charName));
         }
-
 
         private void clearInterface(Object state) {
             var view = (UIView)state;

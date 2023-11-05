@@ -5,7 +5,7 @@ package com.vrozsa.crowframework.screen.ui.components.api;
  */
 public interface UIHandler {
     /**
-     * Enable or disable the handler part of the componet.
+     * Enable or disable the handler part of the component.
      * @param enabled true=enabled; false=disabled.
      */
     void setHandlerEnabled(boolean enabled);

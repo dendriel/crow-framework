@@ -11,16 +11,16 @@ import java.io.IOException;
 
 import static com.vrozsa.crowframework.sample.games.skeletonhunter.ConfigurationManager.BG_SCREEN_COLOR;
 
-public class LoadUIFromTemplate {
+public class Slider {
 
     public static void main(String[] args) throws IOException {
 
-        var loginTemplate = JsonReader.read("/assets/templates/login_view.json", UIViewTemplate.class);
+        var loginTemplate = JsonReader.read("/assets/templates/slider.json", UIViewTemplate.class);
         var rect = loginTemplate.getRect();
 
         var crowEngine = CrowEngine.create(CrowEngineConfig.builder()
                         .color(BG_SCREEN_COLOR)
-                        .title("UI Template Loading Sample")
+                        .title("Slider Component")
                         .windowResizable(true)
                         .windowMode(WindowMode.DEFAULT_SCREEN)
                         .windowSize(rect.getSize())

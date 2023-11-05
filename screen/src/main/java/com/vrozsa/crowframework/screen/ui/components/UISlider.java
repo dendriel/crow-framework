@@ -60,11 +60,13 @@ public final class UISlider extends AbstractUIComponent<UISliderTemplate> implem
 
     @Override
     public void paint(Graphics g, ImageObserver observer) {
-        if (!isEnabled) return;
+        if (!isEnabled) {
+            return;
+        }
 
         int x = rect.getX() + parentOffset.getX();
         int y = rect.getY() + parentOffset.getY();
-        Rect newDynamicRect = getBackgroundRect(dynamicRect);
+        var newDynamicRect = getBackgroundRect(dynamicRect);
 
         if (data.isStaticImageAbove()) {
             g.drawImage(dynamicImage.getContent(dynamicRect.getWidth(), dynamicRect.getHeight()), newDynamicRect.getX() + x, newDynamicRect.getY() + y, newDynamicRect.getWidth(), newDynamicRect.getHeight(), observer);
@@ -94,28 +96,38 @@ public final class UISlider extends AbstractUIComponent<UISliderTemplate> implem
         }
     }
 
+    @Override
     public void updateScreenSize(Size parentSize) {
         super.updateScreenSize(parentSize);
 
-        Size refSize = data.getRect().getSize();
-        Size currSize = rect.getSize();
+        var refSize = data.getRect().getSize();
+        var currSize = rect.getSize();
 
-        Rect refDynamicRect = data.getDynamicRect();
-        Rect refStaticRect = data.getStaticRect();
+        var refDynamicRect = data.getDynamicRect();
+        var refStaticRect = data.getStaticRect();
 
-        if (expandMode.equals(UIExpandMode.FILL)) {
-            Size newDynamicSize = Size.updateSize(refDynamicRect.getSize(), refSize, currSize);
+        if (expandMode == UIExpandMode.FILL) {
+            var newDynamicSize = Size.updateSize(refDynamicRect.getSize(), refSize, currSize);
             dynamicRect.setSize(newDynamicSize);
 
-            Size newStaticSize = Size.updateSize(refStaticRect.getSize(), refSize, currSize);
+            var newStaticSize = Size.updateSize(refStaticRect.getSize(), refSize, currSize);
             staticRect.setSize(newStaticSize);
         }
 
         onComponentChanged();
     }
 
+    /**
+     * Type the slider.
+     */
     public enum Type {
+        /**
+         * Horizontally oriented slider.
+         */
         HORIZONTAL,
+        /**
+         * Vertically oriented slider.
+         */
         VERTICAL
     }
 }

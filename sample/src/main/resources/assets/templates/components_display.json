@@ -72,6 +72,11 @@
       "rect": { "offset": { "x": 420, "y": 30}, "size": { "width": 150, "height": 40}},
       "font": { "font": "Serif", "style": 0, "size": 32},
       "text": "InputField"
+    },
+    {
+      "rect": { "offset": { "x": 620, "y": 30}, "size": { "width": 180, "height": 40}},
+      "font": { "font": "Serif", "style": 0, "size": 32},
+      "text": "UI Animation"
     }
   ],
   "icons": [
@@ -101,5 +106,19 @@
       "font": { "font": "Serif", "style": 0, "size": 24 },
       "border": {"style": "LINE", "colorA": { "r": 53, "g": 67, "b": 87 }, "thickness": 2 }
     }
+  ],
+  "animations": [
+    {
+      "tag": "characterAnimation",
+      "name": "skeletonMage",
+      "rect": { "offset": { "x": 630, "y": 60}, "size": { "width": 960, "height": 160} },
+      "frameRect": { "offset": { "x": 0, "y": 0}, "size": { "width": 160, "height": 160} },
+      "imageFile": "/assets/images/skel_mage_idle_960x160.png",
+      "timeBetweenFrames": 80,
+      "repeat": true,
+      "firstFrame": 0,
+      "isRunning": true,
+      "visible": true
+    }
   ]
-}
+},

@@ -73,3 +73,7 @@ implementation.
 
 Allows to resize the game-window inside the game. This way we can have a menu with available/valid resolutions the
 player can select.
+
+### Add scale to UIAnimation
+
+Check if worth the trouble.
