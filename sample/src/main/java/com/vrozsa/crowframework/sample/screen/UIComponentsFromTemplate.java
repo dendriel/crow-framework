@@ -11,22 +11,23 @@ import java.io.IOException;
 
 import static com.vrozsa.crowframework.sample.games.skeletonhunter.ConfigurationManager.BG_SCREEN_COLOR;
 
-public class LoadUIFromTemplate {
+public class UIComponentsFromTemplate {
 
     public static void main(String[] args) throws IOException {
 
-        var loginTemplate = JsonReader.read("/assets/templates/login_view.json", UIViewTemplate.class);
+        var loginTemplate = JsonReader.read("/assets/templates/all_ui_components.json", UIViewTemplate.class);
         var rect = loginTemplate.getRect();
 
         var crowEngine = CrowEngine.create(CrowEngineConfig.builder()
-                        .color(BG_SCREEN_COLOR)
-                        .title("UI Template Loading Sample")
-                        .windowResizable(true)
-                        .windowMode(WindowMode.DEFAULT_SCREEN)
-                        .windowSize(rect.getSize())
-                        .build());
+                .color(BG_SCREEN_COLOR)
+                .title("UI Template Loading Sample")
+                .windowResizable(true)
+                .windowMode(WindowMode.DEFAULT_SCREEN)
+                .windowSize(rect.getSize())
+                .build());
 
 
+        // TODO: add default font types options to the view
         var loginView = new LoginView(loginTemplate);
         crowEngine.getScreenManager().addView(loginView);
     }

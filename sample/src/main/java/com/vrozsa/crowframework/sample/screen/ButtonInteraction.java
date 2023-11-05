@@ -38,7 +38,7 @@ public final class ButtonInteraction {
 
         var buttonLabelTemplate = UILabelTemplate.builder()
                 .text("Click")
-                .font(new UIFontTemplate("Serif", 0, 24))
+                .font(new UIFontTemplate(24))
                 .verticalAlignment(0)
                 .horizontalAlignment(0)
                 .rect(Rect.of(0, 0, 400, 50))
@@ -74,7 +74,7 @@ public final class ButtonInteraction {
 
         var buttonLabelTemplate = UILabelTemplate.builder()
                 .text("Disabled Button")
-                .font(new UIFontTemplate("Serif", 0, 24))
+                .font(new UIFontTemplate(24))
                 .verticalAlignment(0)
                 .horizontalAlignment(0)
                 .rect(Rect.of(0, 0, 400, 50))
@@ -95,7 +95,7 @@ public final class ButtonInteraction {
 
         var buttonLabelTemplate = UILabelTemplate.builder()
                 .text("Click to disable")
-                .font(new UIFontTemplate("Serif", 0, 24))
+                .font(new UIFontTemplate(24))
                 .verticalAlignment(0)
                 .horizontalAlignment(0)
                 .rect(Rect.of(0, 0, 400, 50))

@@ -99,7 +99,7 @@ public class GameObjectFactory {
     private UILabel createLifeLabel() {
         return crowEngine.getScreenManager().createLabel(UILabelTemplate.builder()
                 .text("Lifes:")
-                .font(new UIFontTemplate("Serif", 0, 32))
+                .font(new UIFontTemplate(32))
                 .rect(Rect.of(10, 540, 100, 50))
                 .build());
     }
@@ -107,7 +107,7 @@ public class GameObjectFactory {
     private UILabel createScoreLabel() {
         return crowEngine.getScreenManager().createLabel(UILabelTemplate.builder()
                 .text("Score:")
-                .font(new UIFontTemplate("Serif", 0, 32))
+                .font(new UIFontTemplate(32))
                 .rect(Rect.of(180, 540, 300, 50))
                 .build());
     }
