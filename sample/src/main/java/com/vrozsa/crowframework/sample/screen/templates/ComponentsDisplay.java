@@ -27,6 +27,7 @@ public class ComponentsDisplay {
                 .windowSize(rect.getSize())
                 .build());
 
+        // TODO: improve fill bar resizing.
 
         var loginView = new ComponentsDisplayView(loginTemplate);
         crowEngine.getScreenManager().addView(loginView);

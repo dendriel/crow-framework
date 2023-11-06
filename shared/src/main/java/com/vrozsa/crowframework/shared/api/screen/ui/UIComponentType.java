@@ -5,9 +5,13 @@ package com.vrozsa.crowframework.shared.api.screen.ui;
  */
 public enum UIComponentType {
     /**
-     * Label is a text that can be static or dynamic.
+     * Animations are dynamic images based on spritesheets.
      */
-    LABEL,
+    ANIMATION,
+    /**
+     * Buttons are used as an action input by mouse clicking.
+     */
+    BUTTON,
     /**
      * Icon is any kind of static image we want to display.
      */
@@ -17,21 +21,20 @@ public enum UIComponentType {
      */
     INPUT_FIELD,
     /**
-     * Buttons are used as an action input by mouse clicking.
+     * Fill bars allow to visually display 'how much' of something is done or is missing (e.g.: like a health-bar).
      */
-    BUTTON,
+    FILL_BAR,
     /**
-     * Animations are dynamic images based on spritesheets.
+     * Label is a text that can be static or dynamic.
      */
-    ANIMATION,
+    LABEL,
+    LABEL_GROUP,
+    SELECT,
+    SLOT,
     /**
      *
      */
     SLOT_GROUP,
-    LABEL_GROUP,
-    SELECT,
-    SLOT,
-    SLIDER,
     SCROLL_PANE,
     BUTTON_GROUP,
 }

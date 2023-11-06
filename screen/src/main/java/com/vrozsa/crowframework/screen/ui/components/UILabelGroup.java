@@ -1,17 +1,20 @@
 package com.vrozsa.crowframework.screen.ui.components;
 
-import com.vrozsa.crowframework.screen.ui.components.templates.UILabelGroupTemplate;
-import com.vrozsa.crowframework.screen.ui.components.templates.UILabelTemplate;
-import com.vrozsa.crowframework.shared.attributes.Offset;
-import com.vrozsa.crowframework.shared.attributes.Rect;
-import com.vrozsa.crowframework.shared.attributes.Size;
 import com.vrozsa.crowframework.screen.ui.components.api.UIText;
+import com.vrozsa.crowframework.screen.ui.components.templates.UILabelGroupTemplate;
+import com.vrozsa.crowframework.shared.attributes.Offset;
+import com.vrozsa.crowframework.shared.attributes.Size;
 
-import java.awt.*;
+import java.awt.Container;
+import java.awt.Graphics;
 import java.awt.image.ImageObserver;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Label Group allows laying and handling labels as a group, auto spacing the labels and allowing individual access by
+ * index.
+ */
 public class UILabelGroup extends AbstractUIComponent<UILabelGroupTemplate> {
     private final List<UILabel> labels;
     private final UILabelGroupTemplate data;
@@ -75,11 +78,11 @@ public class UILabelGroup extends AbstractUIComponent<UILabelGroupTemplate> {
     }
 
     private UILabel createLabel(int index) {
-        UILabelTemplate newData = data.copyLabelData();
-        Size spacing = data.getSpacing();
-        Offset pos = data.getPos();
+        var labelTemplate = data.copyLabelData();
+        var spacing = data.getSpacing();
+        var pos = data.getPos();
 
-        Rect rect = newData.getRect();
+        var rect = labelTemplate.getRect();
         int horSpacing = (data.getSize().getWidth() > 1) ? spacing.getWidth() + rect.getWidth() : 0;
         int verSpacing = (data.getSize().getHeight() > 1) ? spacing.getHeight() + rect.getHeight() : 0;
 
@@ -89,9 +92,9 @@ public class UILabelGroup extends AbstractUIComponent<UILabelGroupTemplate> {
         rect.setX(x);
         rect.setY(y);
 
-        newData.setRect(rect);
+        labelTemplate.setRect(rect);
 
-        return UILabel.from(newData);
+        return UILabel.from(labelTemplate);
     }
 
     public void updateScreenSize(Size parentSize) {

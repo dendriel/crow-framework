@@ -10,8 +10,8 @@ import com.vrozsa.crowframework.screen.ui.components.UILabel;
 import com.vrozsa.crowframework.screen.ui.components.UILabelGroup;
 import com.vrozsa.crowframework.screen.ui.components.templates.UILabelGroupTemplate;
 import com.vrozsa.crowframework.screen.ui.components.templates.UILabelTemplate;
-import com.vrozsa.crowframework.screen.ui.components.UISlider;
-import com.vrozsa.crowframework.screen.ui.components.templates.UISliderTemplate;
+import com.vrozsa.crowframework.screen.ui.components.UIFillBar;
+import com.vrozsa.crowframework.screen.ui.components.templates.UIFillBarTemplate;
 import com.vrozsa.crowframework.screen.ui.components.button.UIButton;
 import com.vrozsa.crowframework.shared.attributes.Size;
 import com.vrozsa.crowframework.shared.api.screen.ui.UIComponent;
@@ -46,7 +46,7 @@ final class UIComponentFactory {
         typeToCreatorMapper.put(UIComponentType.BUTTON, template -> new UIButton((UIButtonTemplate) template));
         typeToCreatorMapper.put(UIComponentType.ANIMATION, template -> new UIAnimation((UIAnimationTemplate) template));
         typeToCreatorMapper.put(UIComponentType.LABEL_GROUP, template -> new UILabelGroup((UILabelGroupTemplate) template));
-        typeToCreatorMapper.put(UIComponentType.SLIDER, template -> new UISlider((UISliderTemplate) template));
+        typeToCreatorMapper.put(UIComponentType.FILL_BAR, template -> new UIFillBar((UIFillBarTemplate) template));
         typeToCreatorMapper.put(UIComponentType.BUTTON_GROUP, template -> new UIButtonGroup((UIButtonGroupTemplate) template));
     }
 

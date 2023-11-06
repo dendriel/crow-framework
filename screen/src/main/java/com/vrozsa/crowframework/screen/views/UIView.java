@@ -4,7 +4,7 @@ import com.vrozsa.crowframework.screen.ui.components.UIAnimation;
 import com.vrozsa.crowframework.screen.ui.components.UIIcon;
 import com.vrozsa.crowframework.screen.ui.components.UILabel;
 import com.vrozsa.crowframework.screen.ui.components.UILabelGroup;
-import com.vrozsa.crowframework.screen.ui.components.UISlider;
+import com.vrozsa.crowframework.screen.ui.components.UIFillBar;
 import com.vrozsa.crowframework.screen.ui.components.button.UIButton;
 import com.vrozsa.crowframework.screen.ui.components.button.UIButtonGroup;
 import com.vrozsa.crowframework.screen.ui.components.input.UIInputField;
@@ -175,8 +175,8 @@ public class UIView extends AbstractView implements UIComponentObserver {
         return getComponent(tag, UILabelGroup.class);
     }
 
-    public UISlider getSlider(String tag) {
-        return getComponent(tag, UISlider.class);
+    public UIFillBar getFillBar(String tag) {
+        return getComponent(tag, UIFillBar.class);
     }
 
     public UIButtonGroup getButtonGroup(String tag) {

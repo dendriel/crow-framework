@@ -77,6 +77,21 @@
       "rect": { "offset": { "x": 620, "y": 30}, "size": { "width": 180, "height": 40}},
       "font": { "font": "Serif", "style": 0, "size": 32},
       "text": "UI Animation"
+    },
+    {
+      "rect": { "offset": { "x": 820, "y": 30}, "size": { "width": 180, "height": 40}},
+      "font": { "font": "Serif", "style": 0, "size": 32},
+      "text": "Fill Bar"
+    },
+    {
+      "rect": { "offset": { "x": 820, "y": 200}, "size": { "width": 180, "height": 40}},
+      "font": { "font": "Serif", "style": 2, "size": 24},
+      "text": "Vertical Fill Bar"
+    },
+    {
+      "rect": { "offset": { "x": 1000, "y": 30}, "size": { "width": 600, "height": 40}},
+      "font": { "font": "Serif", "style": 0, "size": 32},
+      "text": "Label Group"
     }
   ],
   "icons": [
@@ -120,5 +135,109 @@
       "isRunning": true,
       "visible": true
     }
+  ],
+  "fillBars": [
+    {
+      "rect": { "offset": { "x": 810, "y": 80}, "size": { "width": 200, "height": 30}},
+      "fillBarType": "HORIZONTAL",
+      "staticImageAbove": false,
+      "staticRect": { "offset": { "x": 0, "y": 0}, "size": { "width": 200, "height": 30}},
+      "staticImage":"/assets/ui/slider_bg.png",
+      "dynamicRect": { "offset": { "x": 4, "y": 4}, "size": { "width": 192, "height": 22}},
+      "dynamicImage":"/assets/ui/slider_fg.png",
+      "fill": 0.25
+    },
+    {
+      "rect": { "offset": { "x": 810, "y": 120}, "size": { "width": 200, "height": 30}},
+      "fillBarType": "HORIZONTAL",
+      "staticImageAbove": true,
+      "staticRect": { "offset": { "x": 0, "y": 0}, "size": { "width": 200, "height": 30}},
+      "staticImage":"/assets/ui/slider_frame.png",
+      "dynamicRect": { "offset": { "x": 0, "y": 0}, "size": { "width": 200, "height": 30}},
+      "dynamicImage":"/assets/ui/slider_fg.png",
+      "fill": 0.25
+    },
+    {
+      "rect": { "offset": { "x": 810, "y": 160}, "size": { "width": 200, "height": 30}},
+      "fillBarType": "HORIZONTAL",
+      "reverseFill": true,
+      "staticImageAbove": false,
+      "staticRect": { "offset": { "x": 0, "y": 0}, "size": { "width": 200, "height": 30}},
+      "staticImage":"/assets/ui/slider_bg.png",
+      "dynamicRect": { "offset": { "x": 4, "y": 4}, "size": { "width": 192, "height": 22}},
+      "dynamicImage":"/assets/ui/slider_fg.png",
+      "fill": 0.75
+    },
+    {
+      "rect": { "offset": { "x": 860, "y": 240}, "size": { "width": 200, "height": 30}},
+      "fillBarType": "VERTICAL",
+      "staticImageAbove": false,
+      "staticRect": { "offset": { "x": 0, "y": 0}, "size": { "width": 30, "height": 200}},
+      "staticImage":"/assets/ui/slider_bg.png",
+      "dynamicRect": { "offset": { "x": 4, "y": 4}, "size": { "width": 22, "height": 192}},
+      "dynamicImage":"/assets/ui/slider_fg.png",
+      "fill": 0.25
+    },
+    {
+      "rect": { "offset": { "x": 920, "y": 240}, "size": { "width": 200, "height": 30}},
+      "fillBarType": "VERTICAL",
+      "reverseFill": true,
+      "staticImageAbove": false,
+      "staticRect": { "offset": { "x": 0, "y": 0}, "size": { "width": 30, "height": 200}},
+      "staticImage":"/assets/ui/slider_bg.png",
+      "dynamicRect": { "offset": { "x": 4, "y": 4}, "size": { "width": 22, "height": 192}},
+      "dynamicImage":"/assets/ui/slider_fg.png",
+      "fill": 0.75
+    }
+  ],
+  "labelGroups": [
+    {
+      "tag": "myHorizontalLabelGroup",
+      "size": { "width": 3, "height": 1 },
+      "pos": {"x": 1050, "y": 100},
+      "spacing":  { "width": 20, "height": 0 },
+      "labelData": {
+        "tag": "titleLabel",
+        "rect": { "offset": { "x": 0, "y": 0}, "size": { "width": 150, "height": 24}},
+        "font": { "font": "Serif", "style": 0, "size": 20},
+        "text": "Horizontal Label"
+      }
+    },
+    {
+      "tag": "myHorizontalLabelGroup",
+      "size": { "width": 3, "height": 1 },
+      "pos": {"x": 1050, "y": 150},
+      "spacing":  { "width": 20, "height": 0 },
+      "labelData": {
+        "tag": "titleLabel",
+        "rect": { "offset": { "x": 0, "y": 0}, "size": { "width": 150, "height": 24}},
+        "font": { "font": "Serif", "style": 0, "size": 20},
+        "text": "Horizontal Label"
+      }
+    },
+    {
+      "tag": "myVerticalLabelGroup",
+      "size": { "width": 1, "height": 3 },
+      "pos": {"x": 1100, "y": 220},
+      "spacing":  { "width": 0, "height": 50 },
+      "labelData": {
+        "tag": "titleLabel",
+        "rect": { "offset": { "x": 0, "y": 0}, "size": { "width": 150, "height": 24}},
+        "font": { "font": "Serif", "style": 0, "size": 20},
+        "text": "Vertical Label"
+      }
+    },
+    {
+      "tag": "myVerticalLabelGroup",
+      "size": { "width": 1, "height": 3 },
+      "pos": {"x": 1300, "y": 220},
+      "spacing":  { "width": 0, "height": 50 },
+      "labelData": {
+        "tag": "titleLabel",
+        "rect": { "offset": { "x": 0, "y": 0}, "size": { "width": 150, "height": 24}},
+        "font": { "font": "Serif", "style": 0, "size": 20},
+        "text": "Vertical Label"
+      }
+    }
   ]
-},
+}

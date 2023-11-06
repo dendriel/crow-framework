@@ -34,6 +34,7 @@ public final class UILabelTemplate extends UIBaseComponentTemplate implements UI
         this.rect = from.rect.clone();
         this.verticalAlignment = from.verticalAlignment;
         this.horizontalAlignment = from.horizontalAlignment;
+        this.text = from.text;
     }
 
     @Builder

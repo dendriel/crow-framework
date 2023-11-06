@@ -1,11 +1,11 @@
 package com.vrozsa.crowframework.screen.ui.components.templates;
 
-import com.vrozsa.crowframework.screen.ui.components.UISlider;
+import com.vrozsa.crowframework.screen.ui.components.UIFillBar;
 import com.vrozsa.crowframework.shared.api.screen.ui.UIComponentType;
 import com.vrozsa.crowframework.shared.attributes.Rect;
 
-public final class UISliderTemplate extends UIBaseComponentTemplate {
-    private UISlider.Type sliderType;
+public final class UIFillBarTemplate extends UIBaseComponentTemplate {
+    private UIFillBar.Type fillBarType;
     private boolean staticImageAbove;
     private Rect staticRect;
     private String staticImage;
@@ -14,17 +14,17 @@ public final class UISliderTemplate extends UIBaseComponentTemplate {
     private float fill;
     private boolean reverseFill;
 
-    public UISliderTemplate() {
-        super(UIComponentType.SLIDER);
+    public UIFillBarTemplate() {
+        super(UIComponentType.FILL_BAR);
         fill = 1;
     }
 
-    public UISlider.Type getSliderType() {
-        return sliderType;
+    public UIFillBar.Type getFillBarType() {
+        return fillBarType;
     }
 
-    public void setSliderType(UISlider.Type sliderType) {
-        this.sliderType = sliderType;
+    public void setFillBarType(UIFillBar.Type fillBarType) {
+        this.fillBarType = fillBarType;
     }
 
     public boolean isStaticImageAbove() {

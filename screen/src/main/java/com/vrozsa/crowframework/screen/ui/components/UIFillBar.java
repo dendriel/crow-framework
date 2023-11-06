@@ -1,31 +1,31 @@
 package com.vrozsa.crowframework.screen.ui.components;
 
 import com.vrozsa.crowframework.screen.ui.UIExpandMode;
-import com.vrozsa.crowframework.screen.ui.components.templates.UISliderTemplate;
+import com.vrozsa.crowframework.screen.ui.components.templates.UIFillBarTemplate;
 import com.vrozsa.crowframework.shared.image.ImageLoader;
 import com.vrozsa.crowframework.shared.api.screen.Image;
 import com.vrozsa.crowframework.shared.attributes.Rect;
 import com.vrozsa.crowframework.shared.attributes.Size;
-import com.vrozsa.crowframework.screen.ui.components.api.UIFillBar;
+import com.vrozsa.crowframework.screen.ui.components.api.UIFiller;
 
 import java.awt.Graphics;
 import java.awt.image.ImageObserver;
 
-public final class UISlider extends AbstractUIComponent<UISliderTemplate> implements UIFillBar {
-    private final UISliderTemplate data;
+public final class UIFillBar extends AbstractUIComponent<UIFillBarTemplate> implements UIFiller {
+    private final UIFillBarTemplate data;
     private final Image dynamicImage;
     private final Image staticImage;
-    private final Type sliderType;
+    private final Type fillBarType;
     private final boolean reverseFill;
 
     private Rect staticRect;
     private Rect dynamicRect;
     private float fill;
 
-    public UISlider(UISliderTemplate data) {
+    public UIFillBar(UIFillBarTemplate data) {
         super(data);
         this.data = data;
-        sliderType = data.getSliderType();
+        fillBarType = data.getFillBarType();
         reverseFill = data.isReverseFill();
         fill = data.getFill();
 
@@ -79,12 +79,12 @@ public final class UISlider extends AbstractUIComponent<UISliderTemplate> implem
     }
 
     @Override
-    public void updateComponentTemplate(UISliderTemplate data) {
+    public void updateComponentTemplate(UIFillBarTemplate data) {
         throw new UnsupportedOperationException();
     }
 
     private Rect getBackgroundRect(Rect rect) {
-        if (sliderType == Type.VERTICAL) {
+        if (fillBarType == Type.VERTICAL) {
             int height = (int) (rect.getHeight() * fill);
             int y = rect.getY() + ( reverseFill ? rect.getHeight() - height : 0);
             return new Rect(rect.getX(), y, rect.getWidth(), height);
@@ -118,15 +118,15 @@ public final class UISlider extends AbstractUIComponent<UISliderTemplate> implem
     }
 
     /**
-     * Type the slider.
+     * Type the fill-bar.
      */
     public enum Type {
         /**
-         * Horizontally oriented slider.
+         * Horizontally oriented  fill-bar.
          */
         HORIZONTAL,
         /**
-         * Vertically oriented slider.
+         * Vertically oriented  fill-bar.
          */
         VERTICAL
     }

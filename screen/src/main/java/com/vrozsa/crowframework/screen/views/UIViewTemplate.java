@@ -5,7 +5,7 @@ import com.vrozsa.crowframework.screen.ui.components.templates.UIBaseComponentTe
 import com.vrozsa.crowframework.screen.ui.components.templates.UIIconTemplate;
 import com.vrozsa.crowframework.screen.ui.components.templates.UILabelGroupTemplate;
 import com.vrozsa.crowframework.screen.ui.components.templates.UILabelTemplate;
-import com.vrozsa.crowframework.screen.ui.components.templates.UISliderTemplate;
+import com.vrozsa.crowframework.screen.ui.components.templates.UIFillBarTemplate;
 import com.vrozsa.crowframework.shared.attributes.Rect;
 import com.vrozsa.crowframework.screen.ui.components.templates.UIButtonTemplate;
 import com.vrozsa.crowframework.screen.ui.components.templates.UIButtonGroupTemplate;
@@ -27,7 +27,7 @@ public class UIViewTemplate {
     private List<UIInputFieldTemplate> inputFields;
     private List<UIAnimationTemplate> animations;
     private List<UILabelGroupTemplate> labelGroups;
-    private List<UISliderTemplate> sliders;
+    private List<UIFillBarTemplate> fillBars;
     private List<UIButtonGroupTemplate> buttonGroups;
 
     public UIViewTemplate() {
@@ -37,7 +37,7 @@ public class UIViewTemplate {
         inputFields = new ArrayList<>();
         animations = new ArrayList<>();
         labelGroups = new ArrayList<>();
-        sliders = new ArrayList<>();
+        fillBars = new ArrayList<>();
         buttonGroups = new ArrayList<>();
     }
 
@@ -60,7 +60,7 @@ public class UIViewTemplate {
             components.addAll(inputFields);
             components.addAll(animations);
             components.addAll(labelGroups);
-            components.addAll(sliders);
+            components.addAll(fillBars);
             components.addAll(buttonGroups);
         }
 
