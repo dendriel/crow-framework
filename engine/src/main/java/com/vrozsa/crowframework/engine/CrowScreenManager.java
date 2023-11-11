@@ -121,6 +121,7 @@ class CrowScreenManager implements ScreenManager, OffsetGetter {
     public void addView(View view) {
         var defaultScreen = (SimpleScreen)windowHandler.getScreen(DEFAULT_SCREEN);
         defaultScreen.addView(view);
+        defaultScreen.draw();
     }
 
     @Override

@@ -45,9 +45,11 @@ public abstract class AbstractUIComponent<T extends UIBaseComponentTemplate> imp
         observers.forEach(UIComponentObserver::componentChanged);
     }
 
+    // TODO: remove it so subclass are forced to implement.
     public void wrapUp(Container container) {
     }
 
+    // TODO: remove it so subclass are forced to implement.
     public void destroy(Container container) {
     }
 

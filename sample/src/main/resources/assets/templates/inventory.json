@@ -1,0 +1,62 @@
+{
+  "rect": { "offset": { "x": 0, "y": 0}, "size": { "width": 800, "height": 600}},
+  "buttonGroups": [
+    {
+      "tag": "buttonGroup",
+      "rect": { "offset": { "x": 220, "y": 100}, "size": { "width": 286, "height": 304}},
+      "size": { "width": 4, "height": 8 },
+      "spacing": { "width": 0, "height": 2 },
+      "border": { "top": 10, "left":0, "bottom": 10, "right":10 },
+      "customScrollBarUI": {
+        "track": "/assets/ui/scroll_track.png",
+        "thumb": "/assets/ui/scroll_thumb2.png",
+        "increaseButton": {
+            "tag": "scrollBarIncreaseButton",
+            "rect": { "offset": { "x": 0, "y": 0}, "size": { "width": 20, "height": 20} },
+            "defaultImage": "/assets/ui/scroll_increase_button.png",
+            "pressedImage": "/assets/ui/scroll_increase_button_highlight.png",
+            "rolloverImage": "/assets/ui/scroll_increase_button_pressed.png"
+          },
+        "decreaseButton": {
+          "tag": "scrollBarDecreaseButton",
+          "rect": { "offset": { "x": 0, "y": 0}, "size": { "width": 20, "height": 20} },
+          "defaultImage": "/assets/ui/scroll_decrease_button.png",
+          "pressedImage": "/assets/ui/scroll_decrease_button_highlight.png",
+          "rolloverImage": "/assets/ui/scroll_decrease_button_pressed.png"
+        }
+      },
+      "button":
+      {
+        "tag": "templateButton",
+        "rect": { "offset": { "x": 0, "y": 0}, "size": { "width": 64, "height": 64} },
+        "defaultImage": "/assets/ui/container_slot_bg.png",
+        "disabledImage": "/assets/ui/container_slot_bg.png",
+        "disabled": "true",
+        "toolTip":
+        {
+          "text": "button group tooltip<br/>lol",
+          "font": { "font": "Serif", "style": 0, "size": 20 },
+          "backgroundEnabled": true,
+          "backgroundColor": { "r": 128, "g": 100, "b": 200 },
+          "color": { "r": 53, "g": 67, "b": 87 },
+          "border": {
+            "style": "ETCHED",
+            "colorA": { "r": 53, "g": 67, "b": 87 },
+            "colorB": { "r": 67, "g": 67, "b": 0 },
+            "colorC":{ "r": 0, "g": 128, "b": 87 },
+            "colorD": { "r": 53, "g": 200, "b": 0 },
+            "thickness": 1,
+            "type": 1
+          }
+        }
+      },
+      "background": {
+        "rect": { "offset": { "x": 0, "y": 10}, "size": { "width": 276, "height": 284}},
+        "tag": "bgIcon",
+        "imageFile": "/assets/ui/container_bg_icon.png"
+      }
+    }
+  ],
+  "icons": []
+}
+

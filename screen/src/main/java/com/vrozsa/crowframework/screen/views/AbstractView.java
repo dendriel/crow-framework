@@ -55,6 +55,7 @@ public abstract class AbstractView extends JPanel implements View {
     }
 
     public void draw() {
+        revalidate();
         repaint();
     }
 }

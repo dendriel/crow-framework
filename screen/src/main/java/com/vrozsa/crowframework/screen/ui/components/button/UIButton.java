@@ -2,9 +2,11 @@ package com.vrozsa.crowframework.screen.ui.components.button;
 
 import com.vrozsa.crowframework.screen.ui.UIExpandMode;
 import com.vrozsa.crowframework.screen.ui.components.AbstractUIComponent;
+import com.vrozsa.crowframework.screen.ui.components.UIToolTip;
 import com.vrozsa.crowframework.screen.ui.components.templates.UIButtonTemplate;
 import com.vrozsa.crowframework.screen.ui.components.templates.UIFontTemplate;
 import com.vrozsa.crowframework.screen.ui.components.templates.UILabelTemplate;
+import com.vrozsa.crowframework.screen.ui.components.templates.UIToolTipTemplate;
 import com.vrozsa.crowframework.screen.ui.listener.UIEventListener;
 import com.vrozsa.crowframework.screen.ui.listener.UIEventListenerTuple;
 import com.vrozsa.crowframework.shared.attributes.Offset;
@@ -14,6 +16,7 @@ import com.vrozsa.crowframework.shared.image.ImageLoader;
 import javax.swing.ButtonModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JToolTip;
 import javax.swing.event.ChangeEvent;
 import java.awt.Color;
 import java.awt.Container;
@@ -272,5 +275,22 @@ public class UIButton extends AbstractUIComponent<UIButtonTemplate> {
 
         setupBounds();
         setupImages();
+    }
+
+    private static class CustomJButton extends JButton {
+        private final UIToolTipTemplate toolTipTemplate;
+
+        CustomJButton(UIToolTipTemplate toolTipTemplate) {
+            this.toolTipTemplate = toolTipTemplate;
+        }
+
+        CustomJButton() {
+            this.toolTipTemplate = new UIToolTipTemplate();
+        }
+
+        @Override
+        public JToolTip createToolTip() {
+            return (new UIToolTip(toolTipTemplate, this));
+        }
     }
 }

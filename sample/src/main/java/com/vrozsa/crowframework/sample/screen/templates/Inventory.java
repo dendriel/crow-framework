@@ -11,28 +11,29 @@ import java.io.IOException;
 
 import static com.vrozsa.crowframework.sample.games.skeletonhunter.ConfigurationManager.BG_SCREEN_COLOR;
 
-public class Login {
+public class Inventory {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InterruptedException {
 
-        var loginTemplate = JsonReader.read("/assets/templates/login.json", UIViewTemplate.class);
+        var loginTemplate = JsonReader.read("/assets/templates/inventory.json", UIViewTemplate.class);
         var rect = loginTemplate.getRect();
 
         var crowEngine = CrowEngine.create(CrowEngineConfig.builder()
                         .color(BG_SCREEN_COLOR)
-                        .title("Login View Sample")
+                        .title("Inventory Sample")
                         .windowResizable(true)
                         .windowMode(WindowMode.DEFAULT_SCREEN)
                         .windowSize(rect.getSize())
                         .build());
 
 
-        var loginView = new LoginView(loginTemplate);
-        crowEngine.getScreenManager().addView(loginView);
+        var inventoryView = new InvetoryView(loginTemplate);
+        crowEngine.getScreenManager().addView(inventoryView);
+        inventoryView.draw();
     }
 
-    private static class LoginView extends UIView {
-        public LoginView(UIViewTemplate template) {
+    private static class InvetoryView extends UIView {
+        public InvetoryView(UIViewTemplate template) {
             super(template);
         }
     }

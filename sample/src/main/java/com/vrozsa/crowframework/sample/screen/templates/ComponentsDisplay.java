@@ -29,8 +29,9 @@ public class ComponentsDisplay {
 
         // TODO: improve fill bar resizing.
 
-        var loginView = new ComponentsDisplayView(loginTemplate);
-        crowEngine.getScreenManager().addView(loginView);
+        var view = new ComponentsDisplayView(loginTemplate);
+        view.draw();
+        crowEngine.getScreenManager().addView(view);
     }
 
     private static class ComponentsDisplayView extends UIView {

@@ -1,25 +1,30 @@
 package com.vrozsa.crowframework.screen.ui.components.button;
 
-import com.vrozsa.crowframework.screen.ui.components.AbstractUIComponent;
 import com.vrozsa.crowframework.screen.ui.UIExpandMode;
+import com.vrozsa.crowframework.screen.ui.components.AbstractUIComponent;
 import com.vrozsa.crowframework.screen.ui.components.UIIcon;
-import com.vrozsa.crowframework.screen.ui.components.templates.CustomScrollBarUITemplate;
 import com.vrozsa.crowframework.screen.ui.components.templates.UIButtonGroupTemplate;
-import com.vrozsa.crowframework.screen.ui.components.templates.UIIconTemplate;
 import com.vrozsa.crowframework.screen.ui.components.templates.UIButtonTemplate;
-import com.vrozsa.crowframework.shared.attributes.Border;
-import com.vrozsa.crowframework.shared.attributes.Rect;
+import com.vrozsa.crowframework.screen.ui.components.templates.UIIconTemplate;
 import com.vrozsa.crowframework.shared.attributes.Size;
+import com.vrozsa.crowframework.shared.logger.LoggerService;
 
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.Graphics;
+import java.awt.GridLayout;
 import java.awt.image.ImageObserver;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UIButtonGroup extends AbstractUIComponent<UIButtonGroupTemplate> {
+    private static final LoggerService logger = LoggerService.of(UIButtonGroup.class);
+
     private final UIButtonGroupTemplate data;
     private final List<UIButton> buttons;
     private final JPanel panel;
@@ -38,37 +43,44 @@ public class UIButtonGroup extends AbstractUIComponent<UIButtonGroupTemplate> {
 
     private void setup() {
         rect = data.getRect();
+        setupBackground();
         setupPanel();
         setupButtons();
-        setupBackground();
         setupScrollPane();
     }
 
     private void setupPanel() {
-        Size size = data.getSize();
-        Size spacing = data.getSpacing();
         panel.setBounds(rect.getX(), rect.getY(), rect.getWidth(), rect.getHeight());
 
-        GridLayout gridLayout = new GridLayout(size.getHeight(), size.getWidth(), spacing.getWidth(), spacing.getHeight());
+        var size = data.getSize();
+        var spacing = data.getSpacing();
+        var gridLayout = new GridLayout(size.getHeight(), size.getWidth(), spacing.getWidth(), spacing.getHeight());
         panel.setLayout(gridLayout);
         panel.setBackground(new Color(0, 0, 0, 0));
     }
 
     private void setupScrollPane() {
         scrollPane = new JScrollPane(panel);
-        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        // TODO: allow to configure
+//        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setBackground(new Color(0, 0, 0, 0));
-        Border border = data.getBorder();
-        scrollPane.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(border.getTop(), border.getLeft(), border.getBottom(), border.getRight()), new EtchedBorder()));
 
-        CustomScrollBarUITemplate customScrollBarUITemplate = data.getCustomScrollBarUI();
+        var border = data.getBorder();
+        scrollPane.setBorder(
+                BorderFactory.createCompoundBorder(
+                        new EmptyBorder(border.getTop(), border.getLeft(), border.getBottom(), border.getRight()), new EtchedBorder()
+                )
+        );
+
+        var customScrollBarUITemplate = data.getCustomScrollBarUI();
         if (customScrollBarUITemplate != null) {
-            CustomScrollBarUI customScrollBarUI = new CustomScrollBarUI(customScrollBarUITemplate);
+            var customScrollBarUI = new CustomScrollBarUI(customScrollBarUITemplate);
             scrollPane.getVerticalScrollBar().setUI(customScrollBarUI);
         }
 
-//        scrollPane.getVerticalScrollBar().setUnitIncrement(100);
+        scrollPane.getVerticalScrollBar().setUnitIncrement(data.getScrollIncrement());
         setupBounds();
     }
 
@@ -79,11 +91,11 @@ public class UIButtonGroup extends AbstractUIComponent<UIButtonGroupTemplate> {
     }
 
     private void setupButtons() {
-        int size = data.getWidth() * data.getHeight();
+        int size = data.getSize().getWidth() * data.getSize().getHeight();
         UIButtonTemplate buttonTemplate = data.getButton();
         buttonTemplate.setReferenceSize(data.getReferenceSize());
-        for (int i = 0; i < size; i++) {
-            UIButton button = new UIButton(buttonTemplate);
+        for (var i = 0; i < size; i++) {
+            var button = new UIButton(buttonTemplate);
             buttons.add(button);
             panel.add(button.getJButton());
         }
@@ -96,7 +108,7 @@ public class UIButtonGroup extends AbstractUIComponent<UIButtonGroupTemplate> {
         }
 
         // setup parent offset
-        Rect targetRect = bgTemplate.getRect();
+        var targetRect = bgTemplate.getRect();
         targetRect.setOffset(rect.getOffset().sum(targetRect.getOffset()));
         bgTemplate.setRect(targetRect);
         bgTemplate.setReferenceSize(data.getReferenceSize());
@@ -107,23 +119,32 @@ public class UIButtonGroup extends AbstractUIComponent<UIButtonGroupTemplate> {
     @Override
     public void show() {
         isEnabled = true;
+        scrollPane.setVisible(true);
     }
 
     @Override
     public void hide() {
         isEnabled = false;
+        scrollPane.setVisible(false);
     }
 
     @Override
     public void wrapUp(Container container) {
+        logger.debug("WrapUp called. Container: {0}", container);
         container.add(scrollPane);
+    }
+
+    @Override
+    public void destroy(Container container) {
+        super.destroy(container);
+        container.remove(scrollPane);
     }
 
     @Override
     public void updateScreenSize(Size parentSize) {
         super.updateScreenSize(parentSize);
 
-        if (expandMode.equals(UIExpandMode.NONE)) {
+        if (expandMode == UIExpandMode.NONE) {
             return;
         }
 
@@ -134,7 +155,9 @@ public class UIButtonGroup extends AbstractUIComponent<UIButtonGroupTemplate> {
 
     @Override
     public void paint(Graphics g, ImageObserver observer) {
-        if (!isEnabled) return;
+        if (!isEnabled) {
+            return;
+        }
 
         if (background != null) {
             background.paint(g, observer);

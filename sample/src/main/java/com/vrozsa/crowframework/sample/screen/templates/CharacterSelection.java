@@ -24,15 +24,15 @@ public class CharacterSelection {
 
         var crowEngine = CrowEngine.create(CrowEngineConfig.builder()
                 .color(Color.from(60, 120, 194))
-                .title("Character Selection")
+                .title("Character Selection Sample")
                 .windowResizable(true)
                 .windowMode(WindowMode.DEFAULT_SCREEN)
                 .windowSize(rect.getSize())
                 .build());
 
 
-        var loginView = new CharacterSelectionView(loginTemplate);
-        crowEngine.getScreenManager().addView(loginView);
+        var characterSelectionView = new CharacterSelectionView(loginTemplate);
+        crowEngine.getScreenManager().addView(characterSelectionView);
     }
 
     private static class CharacterSelectionView extends UIView {
