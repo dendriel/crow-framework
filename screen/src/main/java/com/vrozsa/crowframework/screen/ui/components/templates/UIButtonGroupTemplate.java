@@ -2,6 +2,7 @@ package com.vrozsa.crowframework.screen.ui.components.templates;
 
 import com.vrozsa.crowframework.shared.api.screen.ui.UIComponentType;
 import com.vrozsa.crowframework.shared.attributes.Border;
+import com.vrozsa.crowframework.shared.attributes.Color;
 import com.vrozsa.crowframework.shared.attributes.Size;
 import lombok.Data;
 
@@ -17,11 +18,14 @@ public final class UIButtonGroupTemplate extends UIBaseComponentTemplate {
     private CustomScrollBarUITemplate customScrollBarUI;
     // increment added via scroll button.
     private int scrollIncrement;
+    // Which color to use in the background if no background image is set.
+    private Color backgroundColor;
 
     public UIButtonGroupTemplate() {
         super(UIComponentType.BUTTON_GROUP);
         spacing = Size.zeroed();
         border = new Border();
         scrollIncrement = 10;
+        backgroundColor = Color.gray();
     }
 }

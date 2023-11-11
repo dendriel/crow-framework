@@ -22,6 +22,8 @@ import java.awt.image.ImageObserver;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.util.Objects.isNull;
+
 public class UIButtonGroup extends AbstractUIComponent<UIButtonGroupTemplate> {
     private static final LoggerService logger = LoggerService.of(UIButtonGroup.class);
 
@@ -56,7 +58,13 @@ public class UIButtonGroup extends AbstractUIComponent<UIButtonGroupTemplate> {
         var spacing = data.getSpacing();
         var gridLayout = new GridLayout(size.getHeight(), size.getWidth(), spacing.getWidth(), spacing.getHeight());
         panel.setLayout(gridLayout);
-        panel.setBackground(new Color(0, 0, 0, 0));
+
+        if (isNull(data.getBackground())) {
+            panel.setBackground(data.getBackgroundColor().getJColor());
+        }
+        else {
+            panel.setBackground(new Color(0, 0, 0, 0));
+        }
     }
 
     private void setupScrollPane() {

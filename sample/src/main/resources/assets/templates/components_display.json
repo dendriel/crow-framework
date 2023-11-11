@@ -69,6 +69,11 @@
       "text": "Button"
     },
     {
+      "rect": { "offset": { "x": 250, "y": 170}, "size": { "width": 200, "height": 30}},
+      "font": { "font": "Serif", "style": 0, "size": 32},
+      "text": "Button Group"
+    },
+    {
       "rect": { "offset": { "x": 420, "y": 30}, "size": { "width": 150, "height": 40}},
       "font": { "font": "Serif", "style": 0, "size": 32},
       "text": "InputField"
@@ -110,7 +115,24 @@
       "defaultImage": "/assets/ui/button.png",
       "pressedImage": "/assets/ui/button_pressed.png",
       "rolloverImage": "/assets/ui/button_highlight.png",
-      "disabledImage": "/assets/ui/button_disabled.png"
+      "disabledImage": "/assets/ui/button_disabled.png",
+      "toolTip":
+      {
+        "text": "default<br/>tooltip",
+        "font": { "font": "Serif", "style": 0, "size": 20 },
+        "backgroundEnabled": true,
+        "backgroundColor": { "r": 128, "g": 100, "b": 200 },
+        "color": { "r": 53, "g": 67, "b": 87 },
+        "border": {
+          "style": "ETCHED",
+          "colorA": { "r": 53, "g": 67, "b": 87 },
+          "colorB": { "r": 67, "g": 67, "b": 0 },
+          "colorC":{ "r": 0, "g": 128, "b": 87 },
+          "colorD": { "r": 53, "g": 200, "b": 0 },
+          "thickness": 1,
+          "type": 1
+        }
+      }
     }
   ],
   "inputFields": [
@@ -237,6 +259,30 @@
         "rect": { "offset": { "x": 0, "y": 0}, "size": { "width": 150, "height": 24}},
         "font": { "font": "Serif", "style": 0, "size": 20},
         "text": "Vertical Label"
+      }
+    }
+  ],
+  "buttonGroups": [
+    {
+      "tag": "buttonGroup",
+      "rect": { "offset": { "x": 220, "y": 200}, "size": { "width": 300, "height": 300}},
+      "size": { "width": 3, "height": 3 },
+      "spacing": { "width": 0, "height": 2 },
+      "border": { "top": 10, "left":0, "bottom": 10, "right":10 },
+      "backgroundColor": {"r": 102, "g": 178, "b": 255},
+      "button":
+      {
+        "tag": "templateButton",
+        "rect": { "offset": { "x": 0, "y": 0}, "size": { "width": 80, "height": 80} },
+
+        "defaultImage": "/assets/ui/button.png",
+        "pressedImage": "/assets/ui/button_pressed.png",
+        "rolloverImage": "/assets/ui/button_highlight.png",
+        "disabled": "false",
+        "label": {
+          "text": "Click",
+          "font": { "font": "Serif", "style": 0, "size": 24 }
+        }
       }
     }
   ]

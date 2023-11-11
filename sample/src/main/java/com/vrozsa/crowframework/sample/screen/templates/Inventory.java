@@ -26,7 +26,6 @@ public class Inventory {
                         .windowSize(rect.getSize())
                         .build());
 
-
         var inventoryView = new InvetoryView(loginTemplate);
         crowEngine.getScreenManager().addView(inventoryView);
         inventoryView.draw();
