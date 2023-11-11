@@ -10,7 +10,6 @@ import com.vrozsa.crowframework.shared.api.screen.Offsetable;
  * an impression of an 'infinite' map, but we are just moving the 2 boards game objects to achieve this effect.
  */
 public class GameBoardController extends AbstractComponent {
-
     private final GameObject boardA;
     private final GameObject boardB;
     private final int boardWidth;
@@ -30,6 +29,11 @@ public class GameBoardController extends AbstractComponent {
         this.boardWidth = boardWidth;
         this.screenWidth = screenWidth;
         this.camera = camera;
+    }
+
+    @Override
+    public void update() {
+        // no op.
     }
 
     @Override

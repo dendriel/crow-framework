@@ -1,10 +1,16 @@
 package com.vrozsa.crowframework.engine;
 
-import com.vrozsa.crowframework.screen.internal.RendererView;
-import com.vrozsa.crowframework.screen.ui.UIIcon;
-import com.vrozsa.crowframework.screen.ui.UILabel;
+import com.vrozsa.crowframework.screen.ui.components.UIIcon;
+import com.vrozsa.crowframework.screen.ui.components.UILabel;
+import com.vrozsa.crowframework.screen.ui.components.button.UIButton;
+import com.vrozsa.crowframework.screen.ui.components.templates.UIButtonTemplate;
+import com.vrozsa.crowframework.screen.ui.components.templates.UIIconTemplate;
+import com.vrozsa.crowframework.screen.ui.components.templates.UILabelTemplate;
+import com.vrozsa.crowframework.screen.views.RendererView;
 import com.vrozsa.crowframework.shared.api.game.GameObject;
-import com.vrozsa.crowframework.shared.attributes.Rect;
+import com.vrozsa.crowframework.shared.api.screen.Screen;
+import com.vrozsa.crowframework.shared.api.screen.View;
+import com.vrozsa.crowframework.shared.attributes.Size;
 
 /**
  * Manages screen related features.
@@ -18,36 +24,51 @@ public interface ScreenManager {
     void renderGO(final GameObject go);
 
     /**
-     * Adds a new Icon component to the default screen and view.
-     * @param imageFile icon target image.
-     * @param rect icon position and size.
-     * @return the new icon component.
+     * Creates a new button into the default screen and UI view.
+     * @param template the button template.
+     * @return the created button.
      */
-    UIIcon addIcon(final String imageFile, final Rect rect);
+    UIButton createButton(UIButtonTemplate template);
 
     /**
-     * Adds a new Icon component to the default screen and view.
-     * @param imageFile imageFile icon target image.
-     * @param x horizontal icon offset.
-     * @param y vertical icon offset.
-     * @param width icon width.
-     * @param height icon height.
-     * @return the new icon component.
+     * Adds a new icon to the default screen and UI view.
+     * @param template the icon template.
+     * @return the created icon.
      */
-    UIIcon addIcon(final String imageFile, final int x, final int y, final int width, final int height);
-
+    UIIcon createIcon(UIIconTemplate template);
 
     /**
-     * Adds a new Label component to the default screen and view.
-     * @param text label initial text.
-     * @param size font size.
-     * @param rect label rect (defines offset and length).
-     * @return the new label component.
+     * Adds a new label to the default screen and UI view.
+     * @param template the label template.
+     * @return the created label.
      */
-    UILabel addLabel(final String text, final int size, final Rect rect);
+    UILabel createLabel(UILabelTemplate template);
+
     /**
      * Gets the renderer view from the screen (the view which render game objects).
      * @return the renderer view, if any.
      */
     RendererView getRendererView();
+
+    /**
+     * Adds a view into the default screen.
+     * <p>
+     *     <b>WARNING</b>: requires the window to be initialized in {@link WindowMode#DEFAULT} mode, so the default
+     *     screen is present.
+     * </p>
+     * @param view the view to be added.
+     */
+    void addView(View view);
+
+    /**
+     * Adds a screen into the window.
+     * @param screen the screen to be added.
+     */
+    void addScreen(final Screen screen);
+
+    /**
+     * Gets the window size.
+     * @return the window size.
+     */
+    Size getSize();
 }

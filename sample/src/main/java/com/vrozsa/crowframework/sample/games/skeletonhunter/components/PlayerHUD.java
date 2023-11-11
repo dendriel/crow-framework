@@ -1,7 +1,7 @@
 package com.vrozsa.crowframework.sample.games.skeletonhunter.components;
 
 import com.vrozsa.crowframework.game.component.AbstractComponent;
-import com.vrozsa.crowframework.screen.ui.UILabel;
+import com.vrozsa.crowframework.screen.ui.components.UILabel;
 
 /**
  * Keeps the player status in sync with the HUD elements.
@@ -26,8 +26,6 @@ public class PlayerHUD extends AbstractComponent {
 
     @Override
     public void update() {
-        super.update();
-
         lifesLabel.setText(String.format("Lifes: %d", status.getLife()));
 
         scoreLabel.setText(String.format("Score: %d", status.getScore()));

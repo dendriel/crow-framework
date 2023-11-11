@@ -1,6 +1,5 @@
 package com.vrozsa.crowframework.shared.attributes;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 
@@ -47,7 +46,6 @@ public class Vector implements Cloneable {
         y += offset.getY();
     }
 
-    @JsonIgnore
     public Offset getOffset() {
         return new Offset(x, y);
     }

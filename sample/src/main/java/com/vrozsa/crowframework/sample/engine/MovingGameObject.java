@@ -9,10 +9,7 @@ import com.vrozsa.crowframework.shared.api.screen.Renderer;
 import com.vrozsa.crowframework.shared.attributes.Color;
 import com.vrozsa.crowframework.shared.attributes.Vector;
 
-import static com.vrozsa.crowframework.sample.TestValues.BACKGROUND_IMAGE_FILE;
-import static com.vrozsa.crowframework.sample.TestValues.HERO_IMAGE_FILE;
-import static com.vrozsa.crowframework.sample.TestValues.SCREEN_HEIGHT;
-import static com.vrozsa.crowframework.sample.TestValues.SCREEN_WIDTH;
+import static com.vrozsa.crowframework.sample.TestValues.*;
 import static com.vrozsa.crowframework.shared.api.game.GameCommand.MOVE_LEFT;
 import static com.vrozsa.crowframework.shared.api.game.GameCommand.MOVE_RIGHT;
 
@@ -22,7 +19,7 @@ public class MovingGameObject {
         final int screenMiddleX = SCREEN_WIDTH / 2;
         final int screenMiddleY = SCREEN_HEIGHT / 2;
 
-        var crow = CrowEngine.create(SCREEN_WIDTH, SCREEN_HEIGHT, Color.gray());
+        var crow = CrowEngine.create(WINDOW_SIZE, Color.gray());
 
         var gameManager = crow.getGameManager();
 
@@ -44,7 +41,6 @@ public class MovingGameObject {
 
             @Override
             public void update() {
-                super.update();
                 var command = inputManager.getCommand();
                 var pos = heroGO.getPosition();
                 int newX = pos.getX();

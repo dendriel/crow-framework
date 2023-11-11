@@ -1,0 +1,289 @@
+{
+  "rect": { "offset": { "x": 0, "y": 0}, "size": { "width": 1600, "height": 900}},
+  "labels": [
+    {
+      "rect": { "offset": { "x": 30, "y": 30}, "size": { "width": 80, "height": 30}},
+      "font": { "font": "Serif", "style": 0, "size": 32},
+      "text": "Label"
+    },
+    {
+      "rect": { "offset": { "x": 0, "y": 70}, "size": { "width": 140, "height": 24}},
+      "font": { "font": "Serif", "style": 0, "size": 20},
+      "text": "Simple"
+    },
+    {
+      "rect": { "offset": { "x": 0, "y": 100}, "size": { "width": 140, "height": 24}},
+      "font": { "font": "Serif", "style": 1, "size": 20},
+      "text": "Bold"
+    },
+    {
+      "rect": { "offset": { "x": 0, "y": 130}, "size": { "width": 140, "height": 24}},
+      "font": { "font": "Serif", "style": 2, "size": 20},
+      "text": "Italic"
+    },
+    {
+      "rect": { "offset": { "x": 0, "y": 160}, "size": { "width": 140, "height": 24}},
+      "font": { "font": "Serif", "style": 3, "size": 20},
+      "text": "Bold_Italic"
+    },
+
+    {
+      "rect": { "offset": { "x": 30, "y": 250}, "size": { "width": 80, "height": 30}},
+      "font": { "font": "Serif", "style": 0, "size": 32},
+      "text": "Fonts"
+    },
+    {
+      "rect": { "offset": { "x": 0, "y": 290}, "size": { "width": 140, "height": 24}},
+      "font": { "font": "Serif", "style": 0, "size": 20},
+      "text": "Serif"
+    },
+    {
+      "rect": { "offset": { "x": 0, "y": 330}, "size": { "width": 140, "height": 24}},
+      "font": { "font": "SansSerif", "style": 0, "size": 20},
+      "text": "SansSerif"
+    },
+    {
+      "rect": { "offset": { "x": 0, "y": 370}, "size": { "width": 140, "height": 24}},
+      "font": { "font": "Dialog", "style": 0, "size": 20},
+      "text": "Dialog"
+    },
+    {
+      "rect": { "offset": { "x": 0, "y": 410}, "size": { "width": 140, "height": 24}},
+      "font": { "font": "DialogInput", "style": 0, "size": 20},
+      "text": "DialogInput"
+    },
+    {
+      "rect": { "offset": { "x": 0, "y": 450}, "size": { "width": 140, "height": 24}},
+      "font": { "font": "Monospaced", "style": 0, "size": 20},
+      "text": "Monospaced"
+    },
+
+    {
+      "rect": { "offset": { "x": 150, "y": 30}, "size": { "width": 80, "height": 30}},
+      "font": { "font": "Serif", "style": 0, "size": 32},
+      "text": "Icon"
+    },
+    {
+      "rect": { "offset": { "x": 250, "y": 30}, "size": { "width": 150, "height": 30}},
+      "font": { "font": "Serif", "style": 0, "size": 32},
+      "text": "Button"
+    },
+    {
+      "rect": { "offset": { "x": 250, "y": 170}, "size": { "width": 200, "height": 30}},
+      "font": { "font": "Serif", "style": 0, "size": 32},
+      "text": "Button Group"
+    },
+    {
+      "rect": { "offset": { "x": 420, "y": 30}, "size": { "width": 150, "height": 40}},
+      "font": { "font": "Serif", "style": 0, "size": 32},
+      "text": "InputField"
+    },
+    {
+      "rect": { "offset": { "x": 620, "y": 30}, "size": { "width": 180, "height": 40}},
+      "font": { "font": "Serif", "style": 0, "size": 32},
+      "text": "UI Animation"
+    },
+    {
+      "rect": { "offset": { "x": 820, "y": 30}, "size": { "width": 180, "height": 40}},
+      "font": { "font": "Serif", "style": 0, "size": 32},
+      "text": "Fill Bar"
+    },
+    {
+      "rect": { "offset": { "x": 820, "y": 200}, "size": { "width": 180, "height": 40}},
+      "font": { "font": "Serif", "style": 2, "size": 24},
+      "text": "Vertical Fill Bar"
+    },
+    {
+      "rect": { "offset": { "x": 1000, "y": 30}, "size": { "width": 600, "height": 40}},
+      "font": { "font": "Serif", "style": 0, "size": 32},
+      "text": "Label Group"
+    }
+  ],
+  "icons": [
+    {
+      "rect": { "offset": { "x": 150, "y": 60}, "size": { "width": 80, "height": 80} },
+      "imageFile": "/assets/images/archer01_80x80.png"
+    }
+  ],
+  "buttons": [
+    {
+      "rect": { "offset": { "x": 280, "y": 80}, "size": { "width": 100, "height": 50} },
+      "label": {
+        "text": "Click",
+        "font": { "font": "Serif", "style": 0, "size": 24 }
+      },
+      "defaultImage": "/assets/ui/button.png",
+      "pressedImage": "/assets/ui/button_pressed.png",
+      "rolloverImage": "/assets/ui/button_highlight.png",
+      "disabledImage": "/assets/ui/button_disabled.png",
+      "toolTip":
+      {
+        "text": "default<br/>tooltip",
+        "font": { "font": "Serif", "style": 0, "size": 20 },
+        "backgroundEnabled": true,
+        "backgroundColor": { "r": 128, "g": 100, "b": 200 },
+        "color": { "r": 53, "g": 67, "b": 87 },
+        "border": {
+          "style": "ETCHED",
+          "colorA": { "r": 53, "g": 67, "b": 87 },
+          "colorB": { "r": 67, "g": 67, "b": 0 },
+          "colorC":{ "r": 0, "g": 128, "b": 87 },
+          "colorD": { "r": 53, "g": 200, "b": 0 },
+          "thickness": 1,
+          "type": 1
+        }
+      }
+    }
+  ],
+  "inputFields": [
+    {
+      "rect": { "offset": { "x": 420, "y": 85}, "size": { "width": 160, "height": 40}},
+      "fontColor": { "r": 53, "g": 67, "b": 87 },
+      "columns": 20,
+      "font": { "font": "Serif", "style": 0, "size": 24 },
+      "border": {"style": "LINE", "colorA": { "r": 53, "g": 67, "b": 87 }, "thickness": 2 }
+    }
+  ],
+  "animations": [
+    {
+      "tag": "characterAnimation",
+      "name": "skeletonMage",
+      "rect": { "offset": { "x": 630, "y": 60}, "size": { "width": 960, "height": 160} },
+      "frameRect": { "offset": { "x": 0, "y": 0}, "size": { "width": 160, "height": 160} },
+      "imageFile": "/assets/images/skel_mage_idle_960x160.png",
+      "timeBetweenFrames": 80,
+      "repeat": true,
+      "firstFrame": 0,
+      "isRunning": true,
+      "visible": true
+    }
+  ],
+  "fillBars": [
+    {
+      "rect": { "offset": { "x": 810, "y": 80}, "size": { "width": 200, "height": 30}},
+      "fillBarType": "HORIZONTAL",
+      "staticImageAbove": false,
+      "staticRect": { "offset": { "x": 0, "y": 0}, "size": { "width": 200, "height": 30}},
+      "staticImage":"/assets/ui/slider_bg.png",
+      "dynamicRect": { "offset": { "x": 4, "y": 4}, "size": { "width": 192, "height": 22}},
+      "dynamicImage":"/assets/ui/slider_fg.png",
+      "fill": 0.25
+    },
+    {
+      "rect": { "offset": { "x": 810, "y": 120}, "size": { "width": 200, "height": 30}},
+      "fillBarType": "HORIZONTAL",
+      "staticImageAbove": true,
+      "staticRect": { "offset": { "x": 0, "y": 0}, "size": { "width": 200, "height": 30}},
+      "staticImage":"/assets/ui/slider_frame.png",
+      "dynamicRect": { "offset": { "x": 0, "y": 0}, "size": { "width": 200, "height": 30}},
+      "dynamicImage":"/assets/ui/slider_fg.png",
+      "fill": 0.25
+    },
+    {
+      "rect": { "offset": { "x": 810, "y": 160}, "size": { "width": 200, "height": 30}},
+      "fillBarType": "HORIZONTAL",
+      "reverseFill": true,
+      "staticImageAbove": false,
+      "staticRect": { "offset": { "x": 0, "y": 0}, "size": { "width": 200, "height": 30}},
+      "staticImage":"/assets/ui/slider_bg.png",
+      "dynamicRect": { "offset": { "x": 4, "y": 4}, "size": { "width": 192, "height": 22}},
+      "dynamicImage":"/assets/ui/slider_fg.png",
+      "fill": 0.75
+    },
+    {
+      "rect": { "offset": { "x": 860, "y": 240}, "size": { "width": 200, "height": 30}},
+      "fillBarType": "VERTICAL",
+      "staticImageAbove": false,
+      "staticRect": { "offset": { "x": 0, "y": 0}, "size": { "width": 30, "height": 200}},
+      "staticImage":"/assets/ui/slider_bg.png",
+      "dynamicRect": { "offset": { "x": 4, "y": 4}, "size": { "width": 22, "height": 192}},
+      "dynamicImage":"/assets/ui/slider_fg.png",
+      "fill": 0.25
+    },
+    {
+      "rect": { "offset": { "x": 920, "y": 240}, "size": { "width": 200, "height": 30}},
+      "fillBarType": "VERTICAL",
+      "reverseFill": true,
+      "staticImageAbove": false,
+      "staticRect": { "offset": { "x": 0, "y": 0}, "size": { "width": 30, "height": 200}},
+      "staticImage":"/assets/ui/slider_bg.png",
+      "dynamicRect": { "offset": { "x": 4, "y": 4}, "size": { "width": 22, "height": 192}},
+      "dynamicImage":"/assets/ui/slider_fg.png",
+      "fill": 0.75
+    }
+  ],
+  "labelGroups": [
+    {
+      "tag": "myHorizontalLabelGroup",
+      "size": { "width": 3, "height": 1 },
+      "pos": {"x": 1050, "y": 100},
+      "spacing":  { "width": 20, "height": 0 },
+      "labelData": {
+        "tag": "titleLabel",
+        "rect": { "offset": { "x": 0, "y": 0}, "size": { "width": 150, "height": 24}},
+        "font": { "font": "Serif", "style": 0, "size": 20},
+        "text": "Horizontal Label"
+      }
+    },
+    {
+      "tag": "myHorizontalLabelGroup",
+      "size": { "width": 3, "height": 1 },
+      "pos": {"x": 1050, "y": 150},
+      "spacing":  { "width": 20, "height": 0 },
+      "labelData": {
+        "tag": "titleLabel",
+        "rect": { "offset": { "x": 0, "y": 0}, "size": { "width": 150, "height": 24}},
+        "font": { "font": "Serif", "style": 0, "size": 20},
+        "text": "Horizontal Label"
+      }
+    },
+    {
+      "tag": "myVerticalLabelGroup",
+      "size": { "width": 1, "height": 3 },
+      "pos": {"x": 1100, "y": 220},
+      "spacing":  { "width": 0, "height": 50 },
+      "labelData": {
+        "tag": "titleLabel",
+        "rect": { "offset": { "x": 0, "y": 0}, "size": { "width": 150, "height": 24}},
+        "font": { "font": "Serif", "style": 0, "size": 20},
+        "text": "Vertical Label"
+      }
+    },
+    {
+      "tag": "myVerticalLabelGroup",
+      "size": { "width": 1, "height": 3 },
+      "pos": {"x": 1300, "y": 220},
+      "spacing":  { "width": 0, "height": 50 },
+      "labelData": {
+        "tag": "titleLabel",
+        "rect": { "offset": { "x": 0, "y": 0}, "size": { "width": 150, "height": 24}},
+        "font": { "font": "Serif", "style": 0, "size": 20},
+        "text": "Vertical Label"
+      }
+    }
+  ],
+  "buttonGroups": [
+    {
+      "tag": "buttonGroup",
+      "rect": { "offset": { "x": 220, "y": 200}, "size": { "width": 300, "height": 300}},
+      "size": { "width": 3, "height": 3 },
+      "spacing": { "width": 0, "height": 2 },
+      "border": { "top": 10, "left":0, "bottom": 10, "right":10 },
+      "backgroundColor": {"r": 102, "g": 178, "b": 255},
+      "button":
+      {
+        "tag": "templateButton",
+        "rect": { "offset": { "x": 0, "y": 0}, "size": { "width": 80, "height": 80} },
+
+        "defaultImage": "/assets/ui/button.png",
+        "pressedImage": "/assets/ui/button_pressed.png",
+        "rolloverImage": "/assets/ui/button_highlight.png",
+        "disabled": "false",
+        "label": {
+          "text": "Click",
+          "font": { "font": "Serif", "style": 0, "size": 24 }
+        }
+      }
+    }
+  ]
+}

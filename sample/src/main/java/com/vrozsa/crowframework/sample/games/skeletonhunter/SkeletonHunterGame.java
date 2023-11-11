@@ -20,10 +20,11 @@ public class SkeletonHunterGame {
                 .title("Skeleton Hunter")
                 .assetsPath("/assets/skeletonhunter")
                 .showGizmos(false)
+                .windowResizable(true)
                 .build();
 
         var crowEngine = CrowEngine.create(config);
-        crowEngine.getAudioManager().addAudio(getAudioData());
+        crowEngine.getAudioManager().addAudioClipMetadata(getAudioData());
 
         var factory = new GameObjectFactory(crowEngine);
 

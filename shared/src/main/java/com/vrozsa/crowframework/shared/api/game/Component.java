@@ -20,7 +20,7 @@ public interface Component extends Identifiable {
      * Get the current position of this component (most useful for components that are visible in the world).
      * @return the component position.
      */
-    PositionComponent getPosition();
+    Position getPosition();
 
     /**
      * Checks if this component is enabled.

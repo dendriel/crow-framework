@@ -17,13 +17,7 @@ import com.vrozsa.crowframework.shared.logger.LoggerService;
 
 import java.util.Set;
 
-import static com.vrozsa.crowframework.sample.TestValues.ARROW_IMAGE_FILE;
-import static com.vrozsa.crowframework.sample.TestValues.BACKGROUND_IMAGE_FILE;
-import static com.vrozsa.crowframework.sample.TestValues.BANDIT_IMAGE_FILE;
-import static com.vrozsa.crowframework.sample.TestValues.CHARS_SPRITE_SIZE;
-import static com.vrozsa.crowframework.sample.TestValues.HERO_IMAGE_FILE;
-import static com.vrozsa.crowframework.sample.TestValues.SCREEN_HEIGHT;
-import static com.vrozsa.crowframework.sample.TestValues.SCREEN_WIDTH;
+import static com.vrozsa.crowframework.sample.TestValues.*;
 import static com.vrozsa.crowframework.shared.api.game.GameCommand.ACTION;
 import static com.vrozsa.crowframework.shared.api.game.GameCommand.MOVE_DOWN;
 import static com.vrozsa.crowframework.shared.api.game.GameCommand.MOVE_LEFT;
@@ -39,8 +33,7 @@ public class CollisionBlocking {
 
         var crowConfig = CrowEngineConfig.builder()
                 .showGizmos(true)
-                .screenWidth(SCREEN_WIDTH)
-                .screenHeight(SCREEN_HEIGHT)
+                .windowSize(WINDOW_SIZE)
                 .color(Color.gray())
                 .build();
 
@@ -58,7 +51,7 @@ public class CollisionBlocking {
 //                .addSquareCollider()
                 .addSquareCollider(100, "hero_projectile", Set.of("enemies"), Rect.of(5, 30, 70, 20))
                 .addCollisionGizmos()
-                .addIdentifier("Arrow", 2)
+                .addIdentifier("Arrow")
                 .addCollisionHandler((source, target) -> {
                     var targetID = target.getComponent(Identifier.class);
                     if (targetID.getName().equals("Bandit")) {
@@ -85,7 +78,7 @@ public class CollisionBlocking {
                 .addStaticRenderer(HERO_IMAGE_FILE, CHARS_SPRITE_SIZE.getWidth(), CHARS_SPRITE_SIZE.getHeight())
                 .addSquareCollider(1000, "hero", 100, Set.of("enemies"), Rect.of(20, 5, 40, 70))
                 .addCollisionGizmos()
-                .addIdentifier("Hero", 1)
+                .addIdentifier("Hero")
                 .addCollisionHandler((source, target) -> {
                     var sourceID = source.getComponent(Identifier.class);
                     var targetID = target.getComponent(Identifier.class);
@@ -97,7 +90,6 @@ public class CollisionBlocking {
 
                     @Override
                     public void update() {
-                        super.update();
                         var commands = inputManager.getAllCommands();
                         var pos = getPosition();
 //                        int newX = pos.getX();
@@ -173,12 +165,10 @@ public class CollisionBlocking {
                     final int speed = 5;
                     @Override
                     public void update() {
-                        super.update();
-
                         getPosition().addOffset(Offset.of(speed, 0));
                     }
                 })
-                .addIdentifier("Bandit", 2)
+                .addIdentifier("Bandit")
                 .build();
 
         gameManager.addGameObject(banditGO);
@@ -196,8 +186,6 @@ public class CollisionBlocking {
 
         @Override
         public void update() {
-            super.update();
-
             if (getGameObject().isInactive()) {
                 return;
             }

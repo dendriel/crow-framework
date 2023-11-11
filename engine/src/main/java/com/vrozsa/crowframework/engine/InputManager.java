@@ -1,5 +1,6 @@
 package com.vrozsa.crowframework.engine;
 
+import com.vrozsa.crowframework.input.PointerHandler;
 import com.vrozsa.crowframework.shared.api.game.GameCommand;
 import com.vrozsa.crowframework.shared.api.input.InputKey;
 
@@ -15,7 +16,6 @@ public interface InputManager {
      */
     void readUntil(final InputKey...keys);
 
-
     /**
      * Get the current game command the user is inputting (keyboard keys are mapped to game commands).
      * @return the next game command if any.
@@ -27,4 +27,10 @@ public interface InputManager {
      * @return all commands available right now.
      */
     List<GameCommand> getAllCommands();
+
+    /**
+     * Gets the pointer handler
+     * @return the pointer handler.
+     */
+    PointerHandler getPointerHandler();
 }

@@ -3,7 +3,7 @@ package com.vrozsa.crowframework.game.component.collider;
 import com.vrozsa.crowframework.shared.api.game.ColliderComponent;
 import com.vrozsa.crowframework.shared.api.game.ColliderType;
 import com.vrozsa.crowframework.shared.api.game.GameObject;
-import com.vrozsa.crowframework.shared.api.game.PositionComponent;
+import com.vrozsa.crowframework.shared.api.game.Position;
 import com.vrozsa.crowframework.shared.attributes.Offset;
 import com.vrozsa.crowframework.shared.attributes.Rect;
 import com.vrozsa.crowframework.shared.logger.LoggerService;
@@ -17,7 +17,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * Handles collision between game objects.
  */
-public class CollisionDetector {
+public final class CollisionDetector {
     private static final LoggerService logger = LoggerService.of(CollisionDetector.class);
 
     /**
@@ -198,8 +198,8 @@ public class CollisionDetector {
     }
 
     private static void applyMovement(final Offset offset,
-                                      final PositionComponent posA, final double proportionA, CollisionStatus sourceStatus,
-                                      final PositionComponent posB, final double proportionB, CollisionStatus targetStatus
+                                      final Position posA, final double proportionA, CollisionStatus sourceStatus,
+                                      final Position posB, final double proportionB, CollisionStatus targetStatus
     ) {
         var offsetA = calcProportionalOffset(offset, proportionA, 1);
         posB.addOffset(offsetA);
@@ -212,7 +212,7 @@ public class CollisionDetector {
         sourceStatus.setMoving(!offsetB.atOrigin());
     }
 
-    private static void applyReverseMovement(final Offset offset, final PositionComponent pos, final double proportion, CollisionStatus status) {
+    private static void applyReverseMovement(final Offset offset, final Position pos, final double proportion, CollisionStatus status) {
         var propOffset = calcProportionalOffset(offset, proportion, -1);
         pos.addOffset(propOffset);
         status.addOffset(propOffset);
@@ -243,7 +243,7 @@ public class CollisionDetector {
      */
     private static class CollisionContext implements Comparable<CollisionContext> {
         private final ColliderComponent collider;
-        private final PositionComponent position;
+        private final Position position;
         private final Map<CollisionContext, CollisionStatus> collisionStatus;
 
         CollisionContext(ColliderComponent collider) {

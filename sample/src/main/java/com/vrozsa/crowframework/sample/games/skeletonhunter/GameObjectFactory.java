@@ -3,9 +3,11 @@ package com.vrozsa.crowframework.sample.games.skeletonhunter;
 import com.vrozsa.crowframework.engine.CrowEngine;
 import com.vrozsa.crowframework.engine.GameObjectBuilder;
 import com.vrozsa.crowframework.sample.games.skeletonhunter.components.*;
-import com.vrozsa.crowframework.screen.ui.UILabel;
+import com.vrozsa.crowframework.screen.ui.components.UILabel;
+import com.vrozsa.crowframework.screen.ui.components.templates.UIFontTemplate;
+import com.vrozsa.crowframework.screen.ui.components.templates.UILabelTemplate;
 import com.vrozsa.crowframework.shared.api.game.GameObject;
-import com.vrozsa.crowframework.shared.api.game.PositionComponent;
+import com.vrozsa.crowframework.shared.api.game.Position;
 import com.vrozsa.crowframework.shared.api.screen.Offsetable;
 import com.vrozsa.crowframework.shared.attributes.Color;
 import com.vrozsa.crowframework.shared.attributes.Offset;
@@ -95,11 +97,19 @@ public class GameObjectFactory {
     }
 
     private UILabel createLifeLabel() {
-        return crowEngine.getScreenManager().addLabel("Lifes:", 32, Rect.of(10, 540, 100, 50));
+        return crowEngine.getScreenManager().createLabel(UILabelTemplate.builder()
+                .text("Lifes:")
+                .font(new UIFontTemplate(32))
+                .rect(Rect.of(10, 540, 100, 50))
+                .build());
     }
 
     private UILabel createScoreLabel() {
-        return crowEngine.getScreenManager().addLabel("Score:", 32, Rect.of(180, 540, 300, 50));
+        return crowEngine.getScreenManager().createLabel(UILabelTemplate.builder()
+                .text("Score:")
+                .font(new UIFontTemplate(32))
+                .rect(Rect.of(180, 540, 300, 50))
+                .build());
     }
 
     public GameObject createGameBoard() {
@@ -204,7 +214,7 @@ public class GameObjectFactory {
         return enemyGO.getComponent(EnemyWarriorController.class);
     }
 
-    public GameObject createEnemySpawner(PositionComponent target) {
+    public GameObject createEnemySpawner(Position target) {
         return GameObjectBuilder.atOrigin()
                 .addComponent(new EnemySpawner(this, crowEngine.getGameManager(), target))
                 .build();

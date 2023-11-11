@@ -2,7 +2,7 @@ package com.vrozsa.crowframework.sample.games.skeletonhunter.components;
 
 import com.vrozsa.crowframework.game.component.AbstractComponent;
 import com.vrozsa.crowframework.game.component.animation.AnimatedRenderer;
-import com.vrozsa.crowframework.shared.api.game.PositionComponent;
+import com.vrozsa.crowframework.shared.api.game.Position;
 import com.vrozsa.crowframework.shared.api.screen.Renderer;
 import com.vrozsa.crowframework.shared.attributes.Offset;
 import com.vrozsa.crowframework.shared.time.Cooldown;
@@ -34,7 +34,7 @@ public class CharacterDriver extends AbstractComponent {
 
     private int leftLimitX = 0;
 
-    private PositionComponent position;
+    private Position position;
     private AnimatedRenderer animatedRenderer;
     private ProjectileHandler projectileHandler;
     private CharacterStatus characterStatus;
@@ -63,9 +63,8 @@ public class CharacterDriver extends AbstractComponent {
         assert animatedRenderer != null : "CharacterDriver requires a AnimatedRenderer!";
         baseRenderingLayer = animatedRenderer.getLayer();
 
-        var attackAnim = animatedRenderer.getAnimation(ANIM_ATTACK_KEY);
-        assert attackAnim != null : "AnimatedRenderer requires an 'attack' animation!";
-        attackAnim.addTriggerEndedObserver(this::onAttackAnimationEnded);
+        var addedTrigger = animatedRenderer.addTriggerEndedObserver(ANIM_ATTACK_KEY, this::onAttackAnimationEnded);
+        assert addedTrigger : "AnimatedRenderer requires an 'attack' animation!";
 
         projectileHandler = getComponent(ProjectileHandler.class);
         assert projectileHandler != null : "CharacterDriver requires a ProjectileHandler!";
@@ -221,6 +220,12 @@ public class CharacterDriver extends AbstractComponent {
      */
     public void resetStatus() {
         characterStatus.reset();
+    }
+
+
+    @Override
+    public void update() {
+        // no op.
     }
 
     @Override

@@ -1,9 +1,8 @@
 package com.vrozsa.crowframework.input;
 
-import com.vrozsa.crowframework.shared.api.input.InputHandler;
 import com.vrozsa.crowframework.shared.api.input.InputKey;
+import com.vrozsa.crowframework.shared.api.input.KeysListener;
 
-import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.HashSet;
@@ -13,24 +12,31 @@ import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * Keep tracks of pressed keys.
- * WARNING: Must be attached to a screen component.
+ * <p>
+ *     WARNING: Must be attached to a screen component.
+ * </p>
  */
-public class TrackingInputHandler implements InputHandler {
+final class TrackingInputHandler implements InputHandler, KeysListener {
     private final ReentrantLock keysLock;
     private final EnumMap<InputKey, Boolean> keys;
     private final Set<InputKey> pressedKeys;
 
-    public TrackingInputHandler() {
+    private TrackingInputHandler() {
         keysLock = new ReentrantLock();
         keys = new EnumMap<>(InputKey.class);
         pressedKeys = new HashSet<>();
+    }
+
+    public static TrackingInputHandler create() {
+        return new TrackingInputHandler();
     }
 
     public boolean isKeyPressed(InputKey key) {
         keysLock.lock();
         try {
             return keys.getOrDefault(key, false);
-        } finally {
+        }
+        finally {
             keysLock.unlock();
         }
     }
@@ -39,7 +45,8 @@ public class TrackingInputHandler implements InputHandler {
         keysLock.lock();
         try {
             return new ArrayList<>(pressedKeys);
-        } finally {
+        }
+        finally {
             keysLock.unlock();
         }
     }
@@ -50,12 +57,8 @@ public class TrackingInputHandler implements InputHandler {
     }
 
     @Override
-    public void keyPressed(KeyEvent e) {
-        int keyCode = e.getKeyCode();
-
-        InputKey input = InputKey.from(keyCode);
+    public void onKeyPressed(InputKey input) {
         if (input == InputKey.UNKNOWN) {
-            System.out.println("Unmapped Keycode pressed: " + keyCode);
             return;
         }
 
@@ -63,18 +66,15 @@ public class TrackingInputHandler implements InputHandler {
         try {
             keys.put(input, true);
             pressedKeys.add(input);
-        } finally {
+        }
+        finally {
             keysLock.unlock();
         }
     }
 
     @Override
-    public void keyReleased(KeyEvent e) {
-        int keyCode = e.getKeyCode();
-
-        InputKey input = InputKey.from(keyCode);
+    public void onKeyReleased(InputKey input) {
         if (input == InputKey.UNKNOWN) {
-            System.out.println("Unmapped Keycode released: " + keyCode);
             return;
         }
 
@@ -82,13 +82,15 @@ public class TrackingInputHandler implements InputHandler {
         try {
             keys.put(input, false);
             pressedKeys.remove(input);
-        } finally {
+        }
+        finally {
             keysLock.unlock();
         }
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {
+    public void onKeyTyped(InputKey input) {
+        // Skip.
     }
 
     @Override

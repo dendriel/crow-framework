@@ -65,4 +65,9 @@ public class CharacterStatus extends AbstractComponent {
     public int getScoreValue() {
         return scoreValue;
     }
+
+    @Override
+    public void update() {
+        // no op.
+    }
 }

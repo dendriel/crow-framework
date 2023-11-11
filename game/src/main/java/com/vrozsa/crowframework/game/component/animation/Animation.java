@@ -16,7 +16,13 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class Animation {
+/**
+ * Animation instance.
+ * <p>
+ *     Controls de displaying of an animation.
+ * </p>
+ */
+final class Animation {
     private final AnimationTemplate data;
     private long length;
 
@@ -44,7 +50,7 @@ public final class Animation {
         triggerEndedObservers = new ArrayList<>();
     }
 
-    public static Animation of(final AnimationTemplate template) {
+    static Animation of(final AnimationTemplate template) {
         return new Animation(template);
     }
 
@@ -202,7 +208,7 @@ public final class Animation {
         BufferedImage fullImage = image.getContent(rect.getWidth(), rect.getHeight());
         var frameSize = frameRect.getSize();
 
-        var frameWidth = ((float)data.frameRect().getSize().getWidth() / data.rect().getSize().getWidth()) * rect.getSize().getWidth();
+        var frameWidth = ((double)data.frameRect().getSize().getWidth() / data.rect().getSize().getWidth()) * rect.getSize().getWidth();
         var x = (int)(currentFrameIdx * frameWidth);
 
         return fullImage.getSubimage(x, 0, frameSize.getWidth(), frameSize.getHeight());

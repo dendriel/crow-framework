@@ -2,14 +2,20 @@ package com.vrozsa.crowframework.game.component;
 
 import com.vrozsa.crowframework.shared.api.game.Component;
 import com.vrozsa.crowframework.shared.api.game.GameObject;
-import com.vrozsa.crowframework.shared.api.game.PositionComponent;
+import com.vrozsa.crowframework.shared.api.game.Position;
 
+/**
+ * This is the base class for components and can be extended to create custom components.
+ * <p>
+ *     Most of the time, when this class is extended, the only method that will be implemented is the update() method
+ *     which contains the component's script.
+ * </p>
+ */
 public abstract class AbstractComponent implements Component {
     // this should be final....
     protected GameObject gameObject;
     private boolean isEnabled;
     protected String name;
-    protected long id;
 
     protected AbstractComponent() {
         this(true, "unnamed");
@@ -32,15 +38,11 @@ public abstract class AbstractComponent implements Component {
         return gameObject.getComponent(kind, name);
     }
 
-    protected <T> T getService(Class<T> kind) {
-        return gameObject.getService(kind);
-    }
+    @Override
+    public void wrapUp() {}
 
     @Override
     public void earlyUpdate() {}
-
-    @Override
-    public void update() {}
 
     @Override
     public void lateUpdate() {}
@@ -55,10 +57,9 @@ public abstract class AbstractComponent implements Component {
         this.gameObject = gameObject;
     }
 
-    // was a method from Component API, but it is not used outside game.
-//    @Override
-    public PositionComponent getPosition() {
-        return gameObject.getComponent(Position.class);
+    @Override
+    public Position getPosition() {
+        return gameObject.getComponent(PositionComponent.class);
     }
 
     @Override
@@ -77,17 +78,7 @@ public abstract class AbstractComponent implements Component {
     }
 
     @Override
-    public void wrapUp() {
-        // TODO Auto-generated method stub
-    }
-
-    @Override
     public String getName() {
         return name;
-    }
-
-    @Override
-    public long getId() {
-        return id;
     }
 }

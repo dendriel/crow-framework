@@ -1,5 +1,7 @@
 package com.vrozsa.crowframework.shared.api.input;
 
+import com.vrozsa.crowframework.shared.logger.LoggerService;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -47,6 +49,7 @@ public enum InputKey {
     KEYPAD_09(105),
     ;
 
+
     private static final Map<Integer, InputKey> keyCodeToPlayerInputMapper;
     static {
         keyCodeToPlayerInputMapper = new HashMap<>();
@@ -90,6 +93,8 @@ public enum InputKey {
         keyCodeToPlayerInputMapper.put(KEYPAD_09.getKeyCode(), KEYPAD_09);
 
     }
+    private static final LoggerService logger = LoggerService.of(InputKey.class);
+
     private final int keyCode;
 
     InputKey(int keyCode) {
@@ -102,8 +107,9 @@ public enum InputKey {
      * @return the mapped InputKey; UNKNOWN if the input value doesn't map to an input.
      */
     public static InputKey from(int keyCode) {
-        InputKey input = keyCodeToPlayerInputMapper.get(keyCode);
+        var input = keyCodeToPlayerInputMapper.get(keyCode);
         if (input == null) {
+            logger.warn("Unmapped Keycode: {0}", keyCode);
             return InputKey.UNKNOWN;
         }
 

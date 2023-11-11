@@ -33,6 +33,14 @@ public class Rect {
         return new Rect(x, y, width, height);
     }
 
+    /**
+     * Creates a new rect with all dimensions as 0.
+     * @return the new zeroed rect.
+     */
+    public static Rect zeroed() {
+        return new Rect(0, 0,0, 0);
+    }
+
     public int getX() {
         return offset.getX();
     }

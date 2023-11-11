@@ -2,7 +2,7 @@ package com.vrozsa.crowframework.sample.games.skeletonhunter.components;
 
 import com.vrozsa.crowframework.game.component.AbstractComponent;
 import com.vrozsa.crowframework.shared.api.game.GameCommand;
-import com.vrozsa.crowframework.shared.api.game.PositionComponent;
+import com.vrozsa.crowframework.shared.api.game.Position;
 import com.vrozsa.crowframework.shared.attributes.Offset;
 import com.vrozsa.crowframework.shared.time.Cooldown;
 
@@ -30,9 +30,9 @@ public class EnemyWarriorController extends AbstractComponent {
 
     private final Cooldown minBoostingTime;
 
-    private PositionComponent position;
+    private Position position;
     private CharacterDriver driver;
-    private PositionComponent target;
+    private Position target;
     private Offset targetOffset;
 
     /**
@@ -50,7 +50,7 @@ public class EnemyWarriorController extends AbstractComponent {
     public void wrapUp() {
         super.wrapUp();
 
-        position = getComponent(PositionComponent.class);
+        position = getComponent(Position.class);
 
         driver = getComponent(CharacterDriver.class);
         assert driver != null : "EnemyWarriorController requires a CharacterDriver";
@@ -68,7 +68,7 @@ public class EnemyWarriorController extends AbstractComponent {
      * @param y vorizontal offset of the enemy.
      * @param target the target position the enemy will try to attack.
      */
-    public void activate(int x, int y, PositionComponent target) {
+    public void activate(int x, int y, Position target) {
         getPosition().setPosition(x, y);
         this.target = target;
         calculateTargetOffset();
@@ -83,8 +83,6 @@ public class EnemyWarriorController extends AbstractComponent {
 
     @Override
     public void update() {
-        super.update();
-
         if (gameObject.isInactive() || driver.isAttacking() || isNull(target)) {
             return;
         }

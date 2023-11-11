@@ -8,7 +8,7 @@ import java.util.List;
 import static java.util.Objects.isNull;
 
 /**
- * The cached factory is typed component provider that generates new components or reuse inactive components when
+ * The cached factory is a typed component provider that generates new components or reuse inactive components when
  * available.
  * <p>
  *     As the components are always attached to GameObjects, the factory considers components available to reuse if their
@@ -19,7 +19,9 @@ import static java.util.Objects.isNull;
  * say, the instance will be returned active from the cache, will do what it have to do, and when inactivated by the
  * game, it will automatically be made available in the cache for reuse.</p>
  *
- * *Implements the Factory Method pattern.
+ * <p>
+ *     Implements the Factory Method pattern.
+ * </p>
  *
  * @param <T> the type of component to provide.
  */
@@ -31,7 +33,7 @@ public abstract class AbstractCachedProvider<T extends Component> {
     private final int maxSize;
 
     /**
-     * @param maxSize the maximum amount of instances in the cache.
+     * @param maxSize the maximum number of instances in the cache.
      */
     protected AbstractCachedProvider(int maxSize) {
         this.maxSize = maxSize;
@@ -40,7 +42,7 @@ public abstract class AbstractCachedProvider<T extends Component> {
 
     /**
      * Gets an available instance of T. The underlying game-object will be activated before being returned. When the
-     * GameObject become inactive again, it will be automatically 'return' to the available pool in the cache.
+     * GameObject becomes inactive again, it will be automatically 'return' to the available pool in the cache.
      * @return the instance of T.
      */
     public T get() {
@@ -65,8 +67,8 @@ public abstract class AbstractCachedProvider<T extends Component> {
     }
 
     /**
-     * Counts the amount of active elements in the cache.
-     * @return the amount of active elements in the cache.
+     * Counts the number of active elements in the cache.
+     * @return the number of active elements in the cache.
      */
     public long getActiveSize() {
         return elements.stream()

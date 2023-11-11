@@ -18,13 +18,7 @@ import com.vrozsa.crowframework.shared.logger.LoggerService;
 import java.util.List;
 import java.util.Set;
 
-import static com.vrozsa.crowframework.sample.TestValues.ARROW_IMAGE_FILE;
-import static com.vrozsa.crowframework.sample.TestValues.BACKGROUND_IMAGE_FILE;
-import static com.vrozsa.crowframework.sample.TestValues.BANDIT_IMAGE_FILE;
-import static com.vrozsa.crowframework.sample.TestValues.CHARS_SPRITE_SIZE;
-import static com.vrozsa.crowframework.sample.TestValues.SCREEN_HEIGHT;
-import static com.vrozsa.crowframework.sample.TestValues.SCREEN_WIDTH;
-import static com.vrozsa.crowframework.sample.TestValues.WARRIOR_WALK_SPRITESHEET;
+import static com.vrozsa.crowframework.sample.TestValues.*;
 import static com.vrozsa.crowframework.shared.api.game.GameCommand.ACTION;
 import static com.vrozsa.crowframework.shared.api.game.GameCommand.MOVE_DOWN;
 import static com.vrozsa.crowframework.shared.api.game.GameCommand.MOVE_LEFT;
@@ -38,7 +32,7 @@ public class AnimatedGameObject {
         final int screenMiddleX = SCREEN_WIDTH / 2;
         final int screenMiddleY = SCREEN_HEIGHT / 2;
 
-        var crow = CrowEngine.create(SCREEN_WIDTH, SCREEN_HEIGHT, Color.gray());
+        var crow = CrowEngine.create(WINDOW_SIZE, Color.gray());
 
         var gameManager = crow.getGameManager();
 
@@ -50,7 +44,7 @@ public class AnimatedGameObject {
                 .setActive(false)
                 .addStaticRenderer(ARROW_IMAGE_FILE, CHARS_SPRITE_SIZE.getWidth(), CHARS_SPRITE_SIZE.getHeight())
                 .addSquareCollider(100, "hero_projectile", Set.of("enemies"))
-                .addIdentifier("Arrow", 2)
+                .addIdentifier("Arrow")
                 .addCollisionHandler((source, target) -> {
                     var targetID = target.getComponent(Identifier.class);
                     if (targetID.getName().equals("Bandit")) {
@@ -88,7 +82,7 @@ public class AnimatedGameObject {
         var heroGO = GameObjectBuilder.of(Vector.of(screenMiddleX-40, screenMiddleY-40, 0))
                 .addAnimatedRenderer(100, heroWalkAnimTemplate)
                 .addSquareCollider(1000, "hero", Set.of())
-                .addIdentifier("Hero", 1)
+                .addIdentifier("Hero")
                 .addCollisionHandler((source, target) -> {
                     var sourceID = source.getComponent(Identifier.class);
                     var targetID = target.getComponent(Identifier.class);
@@ -100,7 +94,6 @@ public class AnimatedGameObject {
 
                     @Override
                     public void update() {
-                        super.update();
                         var commands = inputManager.getAllCommands();
                         var pos = getPosition();
                         int newX = pos.getX();
@@ -167,7 +160,7 @@ public class AnimatedGameObject {
         GameObject banditGO = GameObjectBuilder.of(Vector.of(screenMiddleX-240, screenMiddleY-40, 0))
                 .addStaticRenderer(BANDIT_IMAGE_FILE, CHARS_SPRITE_SIZE.getWidth(), CHARS_SPRITE_SIZE.getHeight())
                 .addSquareCollider(0, "enemies", Set.of())
-                .addIdentifier("Bandit", 2)
+                .addIdentifier("Bandit")
                 .build();
 
         gameManager.addGameObject(banditGO);
@@ -185,8 +178,6 @@ public class AnimatedGameObject {
 
         @Override
         public void update() {
-            super.update();
-
             if (getGameObject().isInactive()) {
                 return;
             }

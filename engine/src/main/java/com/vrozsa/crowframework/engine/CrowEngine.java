@@ -2,6 +2,7 @@ package com.vrozsa.crowframework.engine;
 
 import com.vrozsa.crowframework.shared.api.game.GameObject;
 import com.vrozsa.crowframework.shared.attributes.Color;
+import com.vrozsa.crowframework.shared.attributes.Size;
 
 /**
  * Crow Engine public API.
@@ -18,15 +19,13 @@ public interface CrowEngine {
 
     /**
      * Creates a new CrowEngine with custom configurations.
-     * @param screenWidth target screen width.
-     * @param screenHeight target screen height.
-     * @param color target screen background color (displayed when there is no components over in the screen).
+     * @param windowSize target game window size.
+     * @param color target screen background color (displayed when there are no components over in the screen).
      * @return the created CrowEngine.
      */
-    static CrowEngine create(final int screenWidth, final int screenHeight, final Color color) {
+    static CrowEngine create(final Size windowSize, final Color color) {
         var config = CrowEngineConfig.builder()
-                .screenWidth(screenWidth)
-                .screenHeight(screenHeight)
+                .windowSize(windowSize)
                 .color(color)
                 .build();
         return create(config);

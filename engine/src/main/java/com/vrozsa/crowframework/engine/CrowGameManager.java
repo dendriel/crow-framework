@@ -3,7 +3,7 @@ package com.vrozsa.crowframework.engine;
 import com.vrozsa.crowframework.game.component.collider.CollisionDetector;
 import com.vrozsa.crowframework.shared.api.game.ColliderComponent;
 import com.vrozsa.crowframework.shared.api.game.GameObject;
-import com.vrozsa.crowframework.shared.api.game.PositionComponent;
+import com.vrozsa.crowframework.shared.api.game.Position;
 
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -48,7 +48,7 @@ class CrowGameManager implements GameManager {
         addWithChildren(go.getPosition());
     }
 
-    private void addWithChildren(final PositionComponent position) {
+    private void addWithChildren(final Position position) {
         var go = position.getGameObject();
         gos.add(go);
         screenManager.renderGO(go);

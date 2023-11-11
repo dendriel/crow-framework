@@ -2,22 +2,21 @@ package com.vrozsa.crowframework.engine;
 
 import com.vrozsa.crowframework.game.ComposableGameObject;
 import com.vrozsa.crowframework.game.component.Identifier;
-import com.vrozsa.crowframework.game.component.Position;
+import com.vrozsa.crowframework.game.component.PositionComponent;
 import com.vrozsa.crowframework.game.component.StaticRenderer;
 import com.vrozsa.crowframework.game.component.animation.AnimatedRenderer;
-import com.vrozsa.crowframework.game.component.animation.Animation;
 import com.vrozsa.crowframework.game.component.animation.AnimationTemplate;
 import com.vrozsa.crowframework.game.component.audio.AudioPlayer;
 import com.vrozsa.crowframework.game.component.camera.CameraFollower;
 import com.vrozsa.crowframework.game.component.collider.AbstractCollisionHandler;
-import com.vrozsa.crowframework.game.component.collider.ColliderGizmos;
+import com.vrozsa.crowframework.game.component.collider.ColliderGizmosRenderer;
 import com.vrozsa.crowframework.game.component.collider.SquareCollider;
 import com.vrozsa.crowframework.shared.api.game.CollisionHandler;
 import com.vrozsa.crowframework.shared.api.game.Component;
 import com.vrozsa.crowframework.shared.api.game.GameObject;
 import com.vrozsa.crowframework.shared.api.screen.Offsetable;
 import com.vrozsa.crowframework.shared.api.screen.Sprite;
-import com.vrozsa.crowframework.shared.api.sound.SfxPlayer;
+import com.vrozsa.crowframework.shared.api.audio.AudioClipPlayer;
 import com.vrozsa.crowframework.shared.attributes.Color;
 import com.vrozsa.crowframework.shared.attributes.Offset;
 import com.vrozsa.crowframework.shared.attributes.Rect;
@@ -36,7 +35,7 @@ public final class GameObjectBuilder  {
     private static final String POS_COMP_NAME = "position";
     private final List<Component> components;
 
-    private Position position;
+    private PositionComponent position;
 
     private boolean isActive;
 
@@ -67,7 +66,7 @@ public final class GameObjectBuilder  {
     }
 
     private void addPosition(Vector pos, String positionCompName) {
-        position = new Position(pos, positionCompName);
+        position = new PositionComponent(pos, positionCompName);
         components.add(position);
     }
 
@@ -123,11 +122,10 @@ public final class GameObjectBuilder  {
      * @return the builder.
      */
     public GameObjectBuilder addAnimatedRenderer(int layer, AnimationTemplate...templates) {
-        var renderer = new AnimatedRenderer(this.position, layer, AnimatedRenderer.DEFAULT_ANIMATED_RENDERER, false, false);
+        var renderer = AnimatedRenderer.create(this.position, layer, AnimatedRenderer.DEFAULT_ANIMATED_RENDERER, false, false);
 
         for (var template : templates) {
-            var animation = Animation.of(template);
-            renderer.add(template.name(), animation, template.layer());
+            renderer.add(template.layer(), template);
         }
 
         components.add(renderer);
@@ -216,6 +214,11 @@ public final class GameObjectBuilder  {
     public GameObjectBuilder addCollisionHandler(final CollisionHandler handler) {
         var collisionHandler = new AbstractCollisionHandler() {
             @Override
+            public void update() {
+                // no op.
+            }
+
+            @Override
             protected void handle(GameObject source, GameObject target) {
                 handler.handleCollision(source, target);
             }
@@ -230,7 +233,7 @@ public final class GameObjectBuilder  {
      * @return the builder object.
      */
     public GameObjectBuilder addCollisionGizmos() {
-        var colliderGizmos = new ColliderGizmos(position);
+        var colliderGizmos = new ColliderGizmosRenderer(position);
         components.add(colliderGizmos);
         return this;
     }
@@ -241,7 +244,7 @@ public final class GameObjectBuilder  {
      * @return the builder object.
      */
     public GameObjectBuilder addCollisionGizmos(final Color color) {
-        var colliderGizmos = new ColliderGizmos(position, color);
+        var colliderGizmos = new ColliderGizmosRenderer(position, color);
         components.add(colliderGizmos);
         return this;
     }
@@ -255,7 +258,7 @@ public final class GameObjectBuilder  {
      * @return the builder object.
      */
     public GameObjectBuilder addCameraFollower(final Offsetable camera, final Offset offset, final Rect followBox) {
-        var cameraFollower = new CameraFollower(position, camera, offset, followBox);
+        var cameraFollower = CameraFollower.create(position, camera, offset, followBox);
         components.add(cameraFollower);
         return this;
     }
@@ -271,12 +274,12 @@ public final class GameObjectBuilder  {
     }
 
     /**
-     * Adds the capability of playing audio in the game.
-     * @param sfxPlayer the sound effects player provided by the enfine.
+     * Adds the capability of playing audio clips in the game.
+     * @param audioClipPlayer the audio clips player provided by the engine.
      * @return the builder object.
      */
-    public GameObjectBuilder addAudioPlayer(final SfxPlayer sfxPlayer) {
-        var audioPlayer = new AudioPlayer(sfxPlayer);
+    public GameObjectBuilder addAudioPlayer(final AudioClipPlayer audioClipPlayer) {
+        var audioPlayer = AudioPlayer.create(audioClipPlayer);
         components.add(audioPlayer);
         return this;
     }
@@ -286,13 +289,13 @@ public final class GameObjectBuilder  {
         return this;
     }
 
-    public GameObjectBuilder addIdentifier(final String name, final long id) {
-        var identifier = new Identifier(id, name);
+    public GameObjectBuilder addIdentifier(final String name) {
+        var identifier = Identifier.create(name);
         components.add(identifier);
         return this;
     }
 
-    public GameObjectBuilder addChild(Position child) {
+    public GameObjectBuilder addChild(PositionComponent child) {
         child.setParent(position);
         return this;
     }
@@ -304,12 +307,12 @@ public final class GameObjectBuilder  {
         return this;
     }
 
-    public GameObjectBuilder addChildren(Iterable<Position> children) {
+    public GameObjectBuilder addChildren(Iterable<PositionComponent> children) {
         children.forEach(c -> c.setParent(position));
         return this;
     }
 
     public GameObject build() {
-        return new ComposableGameObject(components, isActive);
+        return ComposableGameObject.create(components, isActive);
     }
 }

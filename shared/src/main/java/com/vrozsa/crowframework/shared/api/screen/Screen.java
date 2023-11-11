@@ -1,22 +1,17 @@
 package com.vrozsa.crowframework.shared.api.screen;
 
+import com.vrozsa.crowframework.shared.api.game.Identifiable;
 import com.vrozsa.crowframework.shared.attributes.Size;
 
 /**
  * Screens contains visual elements from the game. There can be multiple screens in the game controlled by
  * the ScreenHandler.
  */
-public interface Screen {
-
-    /**
-     * Gets the screen name (to be used as a key).
-     * @return the screen name.
-     */
-    String name();
-
+public interface Screen extends Identifiable {
     /**
      * Refresh the screen visual elements.
-     * Allows to reflect visual changes in the screen. Generally, this method is called automatically.
+     * Allows reflecting visual changes on the screen.
+     * Generally, this method is called automatically.
      */
     void draw();
 

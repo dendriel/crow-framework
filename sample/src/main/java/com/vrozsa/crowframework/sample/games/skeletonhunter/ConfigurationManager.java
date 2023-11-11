@@ -1,6 +1,6 @@
 package com.vrozsa.crowframework.sample.games.skeletonhunter;
 
-import com.vrozsa.crowframework.audio.SfxData;
+import com.vrozsa.crowframework.audio.AudioClipMetadata;
 import com.vrozsa.crowframework.game.component.animation.AnimationTemplate;
 import com.vrozsa.crowframework.shared.attributes.Color;
 import com.vrozsa.crowframework.shared.attributes.Offset;
@@ -186,19 +186,15 @@ public final class ConfigurationManager {
         return ASSETS_FOLDER + TREE_IMAGE_FILES.get(treeIdx);
     }
 
-    public static List<SfxData> getAudioData() {
+    public static List<AudioClipMetadata> getAudioData() {
         return List.of(
-                SfxData.builder()
-                        .id(0)
-                        .name(AUDIO_HIT)
-                        .soundFile("melee_hit.wav")
-                        .length(100)
+                AudioClipMetadata.builder()
+                        .key(AUDIO_HIT)
+                        .file("melee_hit.wav")
                         .build(),
-                SfxData.builder()
-                        .id(1)
-                        .name(AUDIO_KILL)
-                        .soundFile("kill.wav")
-                        .length(100)
+                AudioClipMetadata.builder()
+                        .key(AUDIO_KILL)
+                        .file("kill.wav")
                         .build()
         );
     }

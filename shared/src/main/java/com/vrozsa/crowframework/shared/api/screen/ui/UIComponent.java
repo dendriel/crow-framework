@@ -1,5 +1,6 @@
 package com.vrozsa.crowframework.shared.api.screen.ui;
 
+import com.vrozsa.crowframework.shared.api.game.Identifiable;
 import com.vrozsa.crowframework.shared.attributes.Size;
 
 import java.awt.Container;
@@ -12,7 +13,7 @@ import java.io.IOException;
  * UI Components are components that can be added and displayed over screens and views.
  * @param <T> type of template data for the component.
  */
-public interface UIComponent<T> {
+public interface UIComponent<T> extends Identifiable {
     void wrapUp(Container container);
 
     void destroy(Container container);

@@ -19,7 +19,7 @@ public class Color {
         this.b = b;
     }
 
-    public Color(java.awt.Color color) {
+    private Color(java.awt.Color color) {
         r = color.getRed();
         g = color.getGreen();
         b = color.getBlue();
@@ -86,6 +86,10 @@ public class Color {
 
     public static Color gray() {
         return new Color(java.awt.Color.gray);
+    }
+
+    public static Color white() {
+        return new Color(java.awt.Color.white);
     }
 
 //    public static Color from(java.awt.Color color) {

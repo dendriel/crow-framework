@@ -32,8 +32,13 @@ public class MovementAreaUpdater extends AbstractComponent {
     }
 
     @Override
+    public void update() {
+        // no op.
+    }
+
+    @Override
     public void lateUpdate() {
-        super.update();
+        super.lateUpdate();
 
         int newLimitX = camera.getOffset().getX();
 

@@ -31,8 +31,6 @@ public class PlayerController extends AbstractComponent {
 
     @Override
     public void update() {
-        super.update();
-
         var commands = inputManager.getAllCommands();
 
         var diagonalMovement = (commands.contains(MOVE_UP) || commands.contains(MOVE_DOWN)) &&

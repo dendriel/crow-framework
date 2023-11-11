@@ -1,30 +1,25 @@
 package com.vrozsa.crowframework.sample.input;
 
-import com.vrozsa.crowframework.input.BufferedInputHandler;
-import com.vrozsa.crowframework.screen.factory.ScreenHandlerFactory;
-import com.vrozsa.crowframework.screen.internal.ScreenHandler;
-import com.vrozsa.crowframework.shared.api.input.InputKey;
 import com.vrozsa.crowframework.shared.logger.LoggerService;
-
-import static com.vrozsa.crowframework.sample.TestValues.BACKGROUND_IMAGE_FILE;
 
 public class ReadKeys {
 
     private static final LoggerService logger = LoggerService.of("ReadKeys Sample");
 
-    public static void main(String[] args) {
-        BufferedInputHandler inputHandler = new BufferedInputHandler();
+    public static void main(String[] args) throws InterruptedException {
 
-        ScreenHandler screenHandler = ScreenHandlerFactory.createWithSimpleScreen(BACKGROUND_IMAGE_FILE, inputHandler);
-
-        logger.debug("Reading keys..");
-
-        InputKey next;
-        do {
-            next = inputHandler.getNext();
-            logger.debug("Key pressed is.. %s", next);
-        } while (next != InputKey.ESCAPE);
-
-        screenHandler.exit();
+        // TODO: remake example
+//        var crowEngine = CrowEngine.create();
+//        var inputManager = crowEngine.getInputManager();
+//        logger.debug("Reading keys..");
+//
+//        GameCommand command;
+//        do {
+////            command = inputManager.getAllCommands();
+//            logger.debug("Key pressed is.. {0}", command);
+//            Thread.sleep(1000);
+//        } while (command != GameCommand.CLOSE);
+//
+////        screenHandler.exit();
     }
 }

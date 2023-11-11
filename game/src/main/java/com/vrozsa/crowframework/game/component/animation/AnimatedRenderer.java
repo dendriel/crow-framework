@@ -1,35 +1,53 @@
 package com.vrozsa.crowframework.game.component.animation;
 
-import com.vrozsa.crowframework.game.component.Position;
+import com.vrozsa.crowframework.game.component.PositionComponent;
 import com.vrozsa.crowframework.game.component.StaticRenderer;
+import com.vrozsa.crowframework.shared.api.game.AnimationTriggerEndedObserver;
 import com.vrozsa.crowframework.shared.api.screen.Drawable;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static java.util.Objects.isNull;
 
 /**
- * Handles animations from a game object.
+ * Provides animations for a game objects.
  *
- * A AnimatedRenderer allows to configure animations by 'layers'. We may have animations like idle, walking, attacking,
- * but layers allows us to create a layer with 'default animations'; then have another layer in which there also have idle,
- * walking, attacking, but game object is in a 'overpowered' state and then the animations represents this state.
+ * <p>
+ *      An AnimatedRenderer allows to configure animations by 'layers'. We may have a layer named 'default' containing
+ *      animations like idle, walking and attacking; then have another layer in which there also have idle, walking and
+ *      attacking, but this layer represents a 'overpowered' state and have other animations to represents this state.
+ *      This way, the 'layer' allows us to switch animation bundles transparently, keeping the same animation keys.
+ *      If the layer feature is not used, all operations will be made in the default layer.
+ * </p>
  *
- * This way, the 'layer' allows us to switch animation bundles transparently, keeping the same animation keys.
  */
-public class AnimatedRenderer extends StaticRenderer {
+public final class AnimatedRenderer extends StaticRenderer {
     public static final String DEFAULT_ANIMATED_RENDERER = "_defaultAnimatorComponent";
     private static final Integer DEFAULT_ANIMATIONS_LAYER = 0;
-
     private final Map<Integer, Map<String, Animation>> animationsLayers;
     private Integer animationLayer;
 
-    public AnimatedRenderer(Position position, int layer, String name, boolean flipX, boolean flipY) {
+    private AnimatedRenderer(PositionComponent position, int layer, String name, boolean flipX, boolean flipY) {
         super(position, layer, name, flipX, flipY);
 
         animationsLayers = new HashMap<>();
         animationLayer = DEFAULT_ANIMATIONS_LAYER;
+    }
+
+    /**
+     * Create a new AnimatedRenderer that can be used to display animations.
+     * @param position position component that will be tracked to display the animations in the expected place.
+     * @param layer the layer defines which animations will be drawn first (high layer values makes the animation be
+     *              drawn latter).
+     * @param name the name of the component. Useful if using multiple animated renderers in the same game-object.
+     * @param flipX flip the animation horizontally.
+     * @param flipY flip the animation vertically.
+     * @return the new AnimatedRenderer.
+     */
+    public static AnimatedRenderer create(PositionComponent position, int layer, String name, boolean flipX, boolean flipY) {
+        return new AnimatedRenderer(position, layer, name, flipX, flipY);
     }
 
     @Override
@@ -43,7 +61,7 @@ public class AnimatedRenderer extends StaticRenderer {
         getCurrentAnimations().values().forEach(Animation::update);
     }
 
-    protected Map<String, Animation> getCurrentAnimations() {
+    private Map<String, Animation> getCurrentAnimations() {
         return getAnimations(animationLayer);
     }
 
@@ -52,7 +70,7 @@ public class AnimatedRenderer extends StaticRenderer {
      * @param layer the target animations layer.
      * @return the animations of the animation layer. Will create a new entry if the layer is absent.
      */
-    protected Map<String, Animation> getAnimations(int layer) {
+    private Map<String, Animation> getAnimations(int layer) {
         animationsLayers.computeIfAbsent(layer, entry -> new HashMap<>());
         return animationsLayers.get(layer);
     }
@@ -61,7 +79,22 @@ public class AnimatedRenderer extends StaticRenderer {
         return getAnimation(key, animationLayer);
     }
 
-    protected Animation getAnimation(String key, int layer) {
+    /**
+     * Adds a new trigger ended observer to the target animation.
+     * @param key key from target animation
+     * @param observer observer to be added
+     * @return true if the observer was added; false if the animation could not be found.
+     */
+    public boolean addTriggerEndedObserver(String key, final AnimationTriggerEndedObserver observer) {
+        var animation = getAnimation(key);
+        if (isNull(animation)) {
+            return false;
+        }
+        animation.addTriggerEndedObserver(observer);
+        return true;
+    }
+
+    private Animation getAnimation(String key, int layer) {
         var animations = getAnimations(layer);
         return animations.get(key);
     }
@@ -92,12 +125,15 @@ public class AnimatedRenderer extends StaticRenderer {
         return animationLayer;
     }
 
-    public void add(String key, Animation animation) {
-        add(key, animation, animationLayer);
-    }
-
-    public void add(String key, Animation animation, int layer) {
-        getAnimations(layer).put(key, animation);
+    /**
+     * Adds a new animation into the target animation layer from this renderer. The new animation will be created from
+     * the input template.
+     * @param layer the target animation layer.
+     * @param template the animation template.
+     */
+    public void add(int layer, AnimationTemplate template) {
+        var animation = Animation.of(template);
+        getAnimations(layer).put(template.name(), animation);
     }
 
     /**
