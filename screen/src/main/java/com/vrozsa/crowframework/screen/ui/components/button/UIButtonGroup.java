@@ -156,7 +156,9 @@ public class UIButtonGroup extends AbstractUIComponent<UIButtonGroupTemplate> {
             return;
         }
 
-        background.updateScreenSize(parentSize);
+        if (!isNull(background)) {
+            background.updateScreenSize(parentSize);
+        }
         setupBounds();
         setupPanel();
     }
