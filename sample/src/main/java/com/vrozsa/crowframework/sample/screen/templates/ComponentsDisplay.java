@@ -12,12 +12,13 @@ import java.io.IOException;
 import static com.vrozsa.crowframework.sample.TestValues.BG_COLOR;
 
 
+// Display all visual componenents in a single screen. Useful to check the resizing behavior.
 public class ComponentsDisplay {
 
     public static void main(String[] args) throws IOException {
 
-        var loginTemplate = JsonReader.read("/assets/templates/components_display.json", UIViewTemplate.class);
-        var rect = loginTemplate.getRect();
+        var template = JsonReader.read("/assets/templates/components_display.json", UIViewTemplate.class);
+        var rect = template.getRect();
 
         var crowEngine = CrowEngine.create(CrowEngineConfig.builder()
                 .color(BG_COLOR)
@@ -29,7 +30,7 @@ public class ComponentsDisplay {
 
         // TODO: improve fill bar resizing.
 
-        var view = new ComponentsDisplayView(loginTemplate);
+        var view = new ComponentsDisplayView(template);
         view.draw();
         crowEngine.getScreenManager().addView(view);
     }

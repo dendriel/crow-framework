@@ -72,6 +72,10 @@ public class CharacterDriver extends AbstractComponent {
         characterStatus = getComponent(CharacterStatus.class);
     }
 
+    public boolean isDead() {
+        return characterStatus.isDead();
+    }
+
     public void moveRight(boolean diagonalMovement) {
         move(1, 0, diagonalMovement);
         if (!facingRight) {

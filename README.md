@@ -1,7 +1,130 @@
-# Crow Framework / Crow Engine
+# Crow Framework
 
-Crow is a simple game engine to build 2D games in java.
+> Java based framework and game engine for 2D game development.
+- **Simple Engine** for fast 2D game development
+- Complete **Framework API** available for complex projects
+- **Java based** 2D game development
 
+## Getting Started
+
+Crow Framework is both a **framework** and **game engine** with lots of features to easy the development of 2D games in
+Java. The framework by itself has features for game-play development, video, audio and input handling.
+
+The **Crow Engine** was created based on the framework to hide some complexity from the framework and accelerate the
+development of simple games and provides 'managers' for handling each one of the framework capabilities.
+
+The framework has a strong Unity influence. It is very much based on the composition of game objects and its
+components. That is to say, most of your game logic will be handled inside the 'update()' method from your components
+and from the interaction between the components.
+
+# Installation
+
+To use Crow Framework you first have to include its dependency in your project.
+
+## Gradle
+
+Add the framework dependency to your `build.gradle`:
+```groovy
+implementation 'com.vrozsa:crow-framework:1.0.0'
+```
+
+## Maven
+
+Add the framework dependency to your `pom.xml`:
+```xml
+<dependency>
+    <groupId>com.vrozsa</groupId>
+    <artifactId>crow-framework</artifactId>
+    <version>1.0.0</version>
+</dependency>
+
+```
+
+# Framework
+
+The framework can be used directly by consuming its modules and features, or it can be used through the engine created
+to abstract the handling and interaction between these modules.
+
+If you are new to game development or want to focus on 'making a game' more than 'creating a game engine', you should try
+the **Crow Engine** first.
+
+> If you are planning to create your own engine over the framework modules, take a look at the Engine code, so you can
+> have an example approach on how to do it.
+
+## Modules
+
+The framework is composed of six modules:
+
+- **screen** - handles the rendering of game objects and UI elements
+- **input** - handles player input from mouse and keyboard
+- **audio** - handles playing sound effects and game music
+- **game** - handles game play logic and the game-loop
+- **shared** - contains resources shared between all modules as well as shared utilities for logging, time and image
+  handling, and reusable patterns
+- **engine** - contains a default way of creating games using the Crow Framework modules as well some facilities that
+  may be useful when developing over the framework directly
+
+## Sample Project
+
+As I have spent most of the time improving the framework code along the years, I spent little time creating
+functional documentation or unit tests. The doom of hobby projects is having time to carry on quality related
+tasks =''D).
+
+In any case, I've provided lots of sample code in the `sample` module demonstrating how to use the framework features.
+
+I've also provided a sample game called `Skeleton Hunter Game` in which is demonstrated how to use most of
+the framework features through the game engine to create a game.
+
+The entry point for the Skeleton Hunter Game is `games.skeletonhunter.SkeletonHunterGame.main`.
+
+![Skeleton Hunter](docs/imgs/skeleton_hunter_game.png "Skeleton Hunter")
+
+And some code:
+
+```java
+public class SkeletonHunterGame {
+
+    public static void main(String[] args) {
+        var game = new SkeletonHunterGame();
+        game.start();
+    }
+
+    public void start() {
+        var config = CrowEngineConfig.builder()
+                .color(BG_SCREEN_COLOR)
+                .title("Skeleton Hunter")
+                .assetsPath("/assets/skeletonhunter")
+                .showGizmos(false)
+                .windowResizable(true)
+                .build();
+
+        var crowEngine = CrowEngine.create(config);
+        crowEngine.getAudioManager().addAudioClipMetadata(getAudioData());
+
+        var factory = new GameObjectFactory(crowEngine);
+
+        var gameBoard = factory.createGameBoard();
+        crowEngine.addGameObject(gameBoard);
+
+        var heroGO = factory.createHero(HERO_STARTING_OFFSET);
+        crowEngine.addGameObject(heroGO);
+
+        var enemySpawner = factory.createEnemySpawner(heroGO.getPosition());
+        crowEngine.addGameObject(enemySpawner);
+    }
+}
+```
+
+Another interesting sample is the UI components testing code available at
+`com.vrozsa.crowframework.sample.screen.templates.ComponentsDisplay`.
+
+You will see that if we want, it is possible to provide a screen solely based on a configuration file.
+
+![Components Screen](docs/imgs/screen_components.png "Screen Components")
+
+
+> The config from this screen is available in the sample project at
+> `src/main/resources/assets/templates/components_display.json`.
 
 ## Development
 

@@ -54,6 +54,10 @@ public class CharacterStatus extends AbstractComponent {
         return currLife;
     }
 
+    public boolean isDead() {
+        return currLife <= 0;
+    }
+
     public int getScore() {
         return score;
     }

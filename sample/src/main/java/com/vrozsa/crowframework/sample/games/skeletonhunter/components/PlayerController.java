@@ -31,6 +31,10 @@ public class PlayerController extends AbstractComponent {
 
     @Override
     public void update() {
+        if (driver.isDead()) {
+            return;
+        }
+
         var commands = inputManager.getAllCommands();
 
         var diagonalMovement = (commands.contains(MOVE_UP) || commands.contains(MOVE_DOWN)) &&
