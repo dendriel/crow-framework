@@ -4,6 +4,8 @@ plugins {
 
 //description = 'Crow Game Engine'
 
+archivesBaseName = 'crow-framework'
+
 repositories {
     mavenCentral()
 }
@@ -37,7 +39,7 @@ tasks.named('jar') {
     dependsOn 'javadoc'
 
     manifest {
-        attributes('Implementation-Title': project.name,
+        attributes('Implementation-Title': 'Crow Framework',
                 'Implementation-Version': project.version)
     }
 }
